@@ -1,0 +1,556 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #0a0b14;
+  --foreground: #e8eaf0;
+  --card: rgba(15, 20, 35, 0.8);
+  --card-foreground: #e8eaf0;
+  --popover: rgba(15, 20, 35, 0.95);
+  --popover-foreground: #e8eaf0;
+  --primary: #0ea5e9;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(30, 41, 59, 0.8);
+  --secondary-foreground: #e8eaf0;
+  --muted: rgba(51, 65, 85, 0.5);
+  --muted-foreground: #94a3b8;
+  --accent: #f59e0b;
+  --accent-foreground: #0a0b14;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(148, 163, 184, 0.15);
+  --input: transparent;
+  --input-background: rgba(30, 41, 59, 0.6);
+  --switch-background: rgba(148, 163, 184, 0.3);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: rgba(14, 165, 233, 0.5);
+  --chart-1: #0ea5e9;
+  --chart-2: #06b6d4;
+  --chart-3: #8b5cf6;
+  --chart-4: #f59e0b;
+  --chart-5: #10b981;
+  --radius: 0.75rem;
+  --sidebar: rgba(15, 20, 35, 0.95);
+  --sidebar-foreground: #e8eaf0;
+  --sidebar-primary: #0ea5e9;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(30, 41, 59, 0.8);
+  --sidebar-accent-foreground: #e8eaf0;
+  --sidebar-border: rgba(148, 163, 184, 0.15);
+  --sidebar-ring: rgba(14, 165, 233, 0.5);
+  
+  /* Modern colors */
+  --blue-500: #0ea5e9;
+  --blue-600: #0284c7;
+  --blue-400: #38bdf8;
+  --gold-500: #f59e0b;
+  --gold-600: #d97706;
+  --gold-400: #fbbf24;
+  --dark-900: #0a0b14;
+  --dark-800: #0f1423;
+  --dark-700: #1e2938;
+}
+
+.dark {
+  --background: #0a0b14;
+  --foreground: #e8eaf0;
+  --card: rgba(15, 20, 35, 0.8);
+  --card-foreground: #e8eaf0;
+  --popover: rgba(15, 20, 35, 0.95);
+  --popover-foreground: #e8eaf0;
+  --primary: #0ea5e9;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(30, 41, 59, 0.8);
+  --secondary-foreground: #e8eaf0;
+  --muted: rgba(51, 65, 85, 0.5);
+  --muted-foreground: #94a3b8;
+  --accent: #f59e0b;
+  --accent-foreground: #0a0b14;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(148, 163, 184, 0.15);
+  --input: rgba(30, 41, 59, 0.6);
+  --ring: rgba(14, 165, 233, 0.5);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #0ea5e9;
+  --chart-2: #06b6d4;
+  --chart-3: #8b5cf6;
+  --chart-4: #f59e0b;
+  --chart-5: #10b981;
+  --sidebar: rgba(15, 20, 35, 0.95);
+  --sidebar-foreground: #e8eaf0;
+  --sidebar-primary: #0ea5e9;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(30, 41, 59, 0.8);
+  --sidebar-accent-foreground: #e8eaf0;
+  --sidebar-border: rgba(148, 163, 184, 0.15);
+  --sidebar-ring: rgba(14, 165, 233, 0.5);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply text-foreground;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+      radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.6), transparent),
+      radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.4), transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.5), transparent),
+      radial-gradient(2px 2px at 90px 10px, rgba(255, 255, 255, 0.7), transparent),
+      radial-gradient(1px 1px at 160px 120px, rgba(14, 165, 233, 0.8), transparent),
+      radial-gradient(1px 1px at 20px 100px, rgba(245, 158, 11, 0.6), transparent),
+      radial-gradient(2px 2px at 200px 60px, rgba(255, 255, 255, 0.6), transparent);
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    animation: twinkle 5s ease-in-out infinite;
+  }
+
+  /* Layer 2: Larger stars */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+      radial-gradient(3px 3px at 100px 150px, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(2px 2px at 250px 80px, rgba(14, 165, 233, 0.8), transparent),
+      radial-gradient(2px 2px at 50px 200px, rgba(245, 158, 11, 0.7), transparent),
+      radial-gradient(3px 3px at 180px 30px, rgba(255, 255, 255, 0.8), transparent),
+      radial-gradient(2px 2px at 30px 180px, rgba(139, 92, 246, 0.7), transparent);
+    background-size: 300px 300px;
+    background-repeat: repeat;
+    animation: twinkle 7s ease-in-out infinite reverse;
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Glassmorphism utility classes */
+.glass {
+  background: rgba(15, 20, 35, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(10, 11, 20, 0.8);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* Gold gradient utility */
+.gold-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Blue gradient utility */
+.blue-gradient {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+.blue-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium gradient utility */
+.premium-gradient {
+  background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 50%, #f59e0b 100%);
+}
+
+/* Custom animations */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg);
+    opacity: 1;
+    width: 2px;
+    height: 2px;
+  }
+  10% {
+    opacity: 1;
+    width: 60px;
+    height: 2px;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-400px) translateY(400px) rotate(-45deg);
+    opacity: 0;
+    width: 2px;
+    height: 2px;
+  }
+}
+
+@keyframes float-stars {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(14, 165, 233, 0.8);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.5);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.7);
+}
+
+/* Text glow effect */
+.text-glow {
+  text-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+}
+
+.text-gold-glow {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Space particle effects */
+.space-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: float-stars 20s ease-in-out infinite;
+}
+
+.space-particle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* Stars layers */
+.stars-small {
+  background-image: 
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 40%, white, transparent),
+    radial-gradient(1px 1px at 25% 25%, white, transparent),
+    radial-gradient(1px 1px at 65% 40%, white, transparent),
+    radial-gradient(1px 1px at 45% 5%, white, transparent),
+    radial-gradient(1px 1px at 80% 60%, white, transparent),
+    radial-gradient(1px 1px at 10% 75%, white, transparent),
+    radial-gradient(1px 1px at 95% 30%, white, transparent),
+    radial-gradient(1px 1px at 90% 10%, white, transparent),
+    radial-gradient(1px 1px at 20% 55%, white, transparent),
+    radial-gradient(1px 1px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 40% 90%, white, transparent),
+    radial-gradient(1px 1px at 75% 50%, white, transparent),
+    radial-gradient(1px 1px at 15% 40%, white, transparent),
+    radial-gradient(1px 1px at 85% 75%, white, transparent),
+    radial-gradient(1px 1px at 35% 15%, white, transparent),
+    radial-gradient(1px 1px at 55% 35%, white, transparent),
+    radial-gradient(1px 1px at 70% 85%, white, transparent),
+    radial-gradient(1px 1px at 5% 60%, white, transparent),
+    radial-gradient(1px 1px at 92% 45%, white, transparent);
+  background-size: 250px 250px;
+  background-repeat: repeat;
+  animation: twinkle 5s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.stars-medium {
+  background-image: 
+    radial-gradient(2px 2px at 40% 50%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 80% 35%, rgba(14, 165, 233, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 20% 80%, rgba(245, 158, 11, 0.7), transparent),
+    radial-gradient(2px 2px at 70% 15%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.5px 1.5px at 15% 65%, rgba(139, 92, 246, 0.75), transparent),
+    radial-gradient(2px 2px at 85% 70%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 55% 85%, rgba(14, 165, 233, 0.7), transparent),
+    radial-gradient(2px 2px at 30% 25%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 90% 55%, rgba(245, 158, 11, 0.65), transparent),
+    radial-gradient(2px 2px at 60% 40%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.5px 1.5px at 25% 10%, rgba(139, 92, 246, 0.7), transparent),
+    radial-gradient(2px 2px at 75% 90%, rgba(255, 255, 255, 0.8), transparent);
+  background-size: 350px 350px;
+  background-repeat: repeat;
+  animation: twinkle 7s ease-in-out infinite reverse;
+  opacity: 0.7;
+}
+
+.stars-large {
+  background-image: 
+    radial-gradient(3px 3px at 50% 70%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2.5px 2.5px at 75% 40%, rgba(14, 165, 233, 0.95), transparent),
+    radial-gradient(2.5px 2.5px at 25% 85%, rgba(245, 158, 11, 0.85), transparent),
+    radial-gradient(3px 3px at 90% 20%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2.5px 2.5px at 15% 55%, rgba(139, 92, 246, 0.9), transparent),
+    radial-gradient(3px 3px at 65% 10%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2.5px 2.5px at 35% 65%, rgba(14, 165, 233, 0.85), transparent);
+  background-size: 450px 450px;
+  background-repeat: repeat;
+  animation: twinkle 9s ease-in-out infinite, float-stars 12s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+.shooting-star {
+  animation: shooting-star 4s ease-out infinite;
+}
