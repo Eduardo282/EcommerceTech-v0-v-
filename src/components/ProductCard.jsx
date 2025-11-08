@@ -34,7 +34,7 @@ export function ProductCard({
 
   return (
     <>
-      <div
+      <article
         className="group relative rounded-2xl border-2 border-cyan-500/40 overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer backdrop-blur-xl"
         style={{
           background: "rgba(13, 27, 58, 0.6)",
@@ -53,7 +53,7 @@ export function ProductCard({
             "0 0 20px rgba(14, 165, 233, 0.2), inset 0 0 20px rgba(14, 165, 233, 0.05)";
         }}>
         {/* Image Container */}
-        <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-blue-950 to-cyan-950">
+        <figure className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-blue-950 to-cyan-950">
           <ImageWithFallback
             src={product.image}
             alt={product.name}
@@ -162,10 +162,10 @@ export function ProductCard({
               </Badge>
             )}
           </div>
-        </div>
+        </figure>
 
         {/* Content */}
-        <div className="p-5">
+        <section className="p-5">
           <div className="mb-2">
             <Badge
               variant="outline"
@@ -215,18 +215,19 @@ export function ProductCard({
 
           {/* Features */}
           {product.features && (
-            <div className="flex flex-wrap gap-1 mb-3">
+            <ul className="flex flex-wrap gap-1 mb-3">
               {product.features.slice(0, 3).map((feature, index) => (
-                <span
-                  key={index}
-                  className="text-xs text-cyan-200 px-2 py-1 rounded border border-cyan-500/30 backdrop-blur-sm"
-                  style={{
-                    background: "rgba(14, 165, 233, 0.1)",
-                  }}>
-                  {feature}
-                </span>
+                <li key={index} className="list-none">
+                  <span
+                    className="text-xs text-cyan-200 px-2 py-1 rounded border border-cyan-500/30 backdrop-blur-sm"
+                    style={{
+                      background: "rgba(14, 165, 233, 0.1)",
+                    }}>
+                    {feature}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
 
           {/* Stats */}
@@ -259,8 +260,8 @@ export function ProductCard({
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </article>
 
       {/* Preview Modal */}
       <ProductPreview

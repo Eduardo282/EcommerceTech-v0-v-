@@ -109,10 +109,11 @@ function CarouselContent({ className, ...props }) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div
+    <section
       ref={carouselRef}
       className="overflow-visible"
-      data-slot="carousel-content">
+      data-slot="carousel-content"
+      aria-label="carousel slides wrapper">
       <div
         className={cn(
           "flex",
@@ -121,7 +122,7 @@ function CarouselContent({ className, ...props }) {
         )}
         {...props}
       />
-    </div>
+    </section>
   );
 }
 
@@ -129,7 +130,7 @@ function CarouselItem({ className, ...props }) {
   const { orientation } = useCarousel();
 
   return (
-    <div
+    <article
       role="group"
       aria-roledescription="slide"
       data-slot="carousel-item"

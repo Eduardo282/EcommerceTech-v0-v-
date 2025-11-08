@@ -6,15 +6,16 @@ import { cn } from "./utils";
 
 function Table({ className, ...props }) {
   return (
-    <div
+    <section
       data-slot="table-container"
-      className="relative w-full overflow-x-auto">
+      className="relative w-full overflow-x-auto"
+      aria-label="data table">
       <table
         data-slot="table"
         className={cn("w-full caption-bottom text-sm", className)}
         {...props}
       />
-    </div>
+    </section>
   );
 }
 

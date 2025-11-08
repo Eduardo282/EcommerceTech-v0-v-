@@ -5,8 +5,14 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#0a0b14] via-[#1a1a2e] to-[#0f1423] py-20 min-h-[600px]">
       {/* Animated Background Orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob" />
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000" />
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000"
+      />
 
       {/* Horizontal Neon Lines Background */}
       <div
@@ -20,15 +26,19 @@ export function Hero() {
             rgba(139, 92, 246, 0.3) 21px
           )`,
         }}
+        aria-hidden="true"
       />
 
       {/* Vertical Grid */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgxMzksOTIsMjQ2LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-40" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgxMzksOTIsMjQ2LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-40"
+      />
 
       <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <section className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
+          <header className="space-y-8">
             {/* Neon Border Box with Lines */}
             <div className="relative">
               <div className="absolute -left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-purple-400 to-transparent" />
@@ -57,7 +67,7 @@ export function Hero() {
             </div>
 
             {/* Description */}
-            <div className="relative max-w-md">
+            <section className="relative max-w-md">
               <p className="text-gray-300 leading-relaxed text-sm">
                 A virtual marketplace to allow the users to trade and stake our
                 $CMETA token and their NFTs. Negotiate with the digital avatars
@@ -66,16 +76,20 @@ export function Hero() {
               </p>
 
               {/* Decorative Star */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-8 h-8 flex items-center justify-center">
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-8 h-8 flex items-center justify-center">
                 <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-white to-transparent" />
                 <div className="absolute h-full w-px bg-gradient-to-b from-transparent via-white to-transparent" />
                 <div className="absolute w-6 h-6 bg-white rounded-full opacity-80 blur-sm animate-pulse" />
               </div>
-            </div>
-          </div>
+            </section>
+          </header>
 
           {/* Right Content - 3D Isometric Elements */}
-          <div className="relative h-[500px] animate-float">
+          <aside
+            aria-hidden="true"
+            className="relative h-[500px] animate-float">
             {/* Main 3D Frame Structure */}
             <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px]">
               {/* Isometric Grid Frame */}
@@ -197,8 +211,8 @@ export function Hero() {
                 />
               </svg>
             </div>
-          </div>
-        </div>
+          </aside>
+        </section>
       </div>
     </section>
   );

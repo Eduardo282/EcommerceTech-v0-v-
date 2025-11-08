@@ -22,9 +22,9 @@ function InputOTP({ className, containerClassName, ...props }) {
 
 function InputOTPGroup({ className, ...props }) {
   return (
-    <div
+    <fieldset
       data-slot="input-otp-group"
-      className={cn("flex items-center gap-1", className)}
+      className={cn("flex items-center gap-1 p-0 m-0 border-0", className)}
       {...props}
     />
   );
@@ -35,7 +35,7 @@ function InputOTPSlot({ index, className, ...props }) {
   const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {};
 
   return (
-    <div
+    <span
       data-slot="input-otp-slot"
       data-active={isActive}
       className={cn(
@@ -45,19 +45,23 @@ function InputOTPSlot({ index, className, ...props }) {
       {...props}>
       {char}
       {hasFakeCaret && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="animate-caret-blink bg-foreground h-4 w-px duration-1000" />
-        </div>
+        <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <span className="animate-caret-blink bg-foreground h-4 w-px duration-1000" />
+        </span>
       )}
-    </div>
+    </span>
   );
 }
 
 function InputOTPSeparator(props) {
   return (
-    <div data-slot="input-otp-separator" role="separator" {...props}>
+    <span
+      data-slot="input-otp-separator"
+      role="separator"
+      aria-hidden="true"
+      {...props}>
       <MinusIcon />
-    </div>
+    </span>
   );
 }
 

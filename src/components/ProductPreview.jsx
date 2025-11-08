@@ -126,9 +126,14 @@ export function ProductPreview({
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div
+      className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      role="presentation">
       {/* Modal */}
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${product.name} details`}
         className="relative rounded-2xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-hidden border-2"
         style={{
           background:
@@ -158,7 +163,9 @@ export function ProductPreview({
           <X className="h-5 w-5 text-orange-200" />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[120px_1fr_400px] gap-0 max-h-[95vh] overflow-y-auto">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-[120px_1fr_400px] gap-0 max-h-[95vh] overflow-y-auto"
+          role="document">
           {/* Left Column - Thumbnails */}
           <div
             className="hidden lg:flex flex-col gap-3 p-4 border-r-2 overflow-y-auto max-h-[95vh]"

@@ -20,10 +20,11 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
       )}
 
       {/* Sidebar */}
-      <div
+      <aside
         className={`fixed top-0 right-0 h-full w-full max-w-md shadow-2xl z-50 transform transition-transform duration-300 border-l-2 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        aria-label="Shopping cart"
         style={{
           background:
             "linear-gradient(to bottom, rgba(5, 30, 20, 0.98) 0%, rgba(10, 40, 30, 0.98) 100%)",
@@ -44,7 +45,7 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
 
         <div className="flex flex-col h-full relative z-10">
           {/* Header */}
-          <div
+          <header
             className="flex items-center justify-between p-6 border-b-2"
             style={{
               background: "rgba(16, 185, 129, 0.1)",
@@ -96,10 +97,10 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
               }}>
               <X className="h-5 w-5 text-emerald-200" />
             </Button>
-          </div>
+          </header>
 
           {/* Items */}
-          <div className="flex-1 overflow-auto p-6">
+          <section className="flex-1 overflow-auto p-6">
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <div
@@ -209,11 +210,11 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
                 ))}
               </div>
             )}
-          </div>
+          </section>
 
           {/* Footer */}
           {items.length > 0 && (
-            <div
+            <footer
               className="border-t-2 p-6"
               style={{
                 background: "rgba(16, 185, 129, 0.1)",
@@ -283,10 +284,10 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
               <p className="text-xs text-center text-emerald-200/60 mt-4">
                 🔒 Secure checkout with SSL encryption
               </p>
-            </div>
+            </footer>
           )}
         </div>
-      </div>
+      </aside>
     </>
   );
 }

@@ -10,6 +10,7 @@ function RadioGroup({ className, ...props }) {
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"
+      role="radiogroup"
       className={cn("grid gap-3", className)}
       {...props}
     />

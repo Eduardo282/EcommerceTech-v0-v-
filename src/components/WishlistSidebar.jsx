@@ -20,10 +20,11 @@ export function WishlistSidebar({
       )}
 
       {/* Sidebar */}
-      <div
+      <aside
         className={`fixed top-0 right-0 h-full w-full sm:w-[450px] shadow-2xl z-[999] transform transition-transform duration-300 ease-in-out border-l-2 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        aria-label="Wishlist"
         style={{
           background:
             "linear-gradient(to bottom, rgba(20, 10, 35, 0.98) 0%, rgba(35, 15, 50, 0.98) 100%)",
@@ -44,7 +45,7 @@ export function WishlistSidebar({
 
         <div className="flex flex-col h-full relative z-10">
           {/* Header */}
-          <div
+          <header
             className="flex items-center justify-between p-6 border-b-2"
             style={{
               background: "rgba(236, 72, 153, 0.1)",
@@ -94,10 +95,10 @@ export function WishlistSidebar({
               }}>
               <X className="h-5 w-5 text-pink-200" />
             </button>
-          </div>
+          </header>
 
           {/* Items */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <section className="flex-1 overflow-y-auto p-6">
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <div
@@ -237,11 +238,11 @@ export function WishlistSidebar({
                 ))}
               </div>
             )}
-          </div>
+          </section>
 
           {/* Footer - Only show if there are items */}
           {items.length > 0 && (
-            <div
+            <footer
               className="border-t-2 p-6 space-y-4"
               style={{
                 background: "rgba(236, 72, 153, 0.1)",
@@ -290,10 +291,10 @@ export function WishlistSidebar({
                   Add All to Cart
                 </Button>
               </div>
-            </div>
+            </footer>
           )}
         </div>
-      </div>
+      </aside>
     </>
   );
 }

@@ -18,20 +18,23 @@ function Avatar({ className, ...props }) {
   );
 }
 
-function AvatarImage({ className, ...props }) {
+function AvatarImage({ className, alt = "", ...props }) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
+      alt={alt}
       className={cn("aspect-square size-full", className)}
       {...props}
     />
   );
 }
 
-function AvatarFallback({ className, ...props }) {
+function AvatarFallback({ className, label = "", ...props }) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
+      role={label ? "img" : undefined}
+      aria-label={label || undefined}
       className={cn(
         "bg-muted flex size-full items-center justify-center rounded-full",
         className

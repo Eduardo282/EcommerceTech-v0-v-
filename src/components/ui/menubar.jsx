@@ -14,6 +14,8 @@ function Menubar({ className, ...props }) {
   return (
     <MenubarPrimitive.Root
       data-slot="menubar"
+      role="menubar"
+      aria-label="application menu"
       className={cn(
         "bg-background flex h-9 items-center gap-1 rounded-md border p-1 shadow-xs",
         className
@@ -28,7 +30,9 @@ function MenubarMenu(props) {
 }
 
 function MenubarGroup(props) {
-  return <MenubarPrimitive.Group data-slot="menubar-group" {...props} />;
+  return (
+    <MenubarPrimitive.Group data-slot="menubar-group" role="group" {...props} />
+  );
 }
 
 function MenubarPortal(props) {

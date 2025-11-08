@@ -44,9 +44,9 @@ export function TrustBanner() {
         borderBottomColor: "rgba(14, 165, 233, 0.3)",
       }}>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 list-none">
           {features.map((feature, index) => (
-            <div key={index} className="text-center group">
+            <li key={index} className="text-center group">
               <div
                 className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 border-2 transition-all duration-300"
                 style={{
@@ -81,9 +81,9 @@ export function TrustBanner() {
                 {feature.title}
               </h3>
               <p className="text-xs text-cyan-200/60">{feature.description}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

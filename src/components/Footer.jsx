@@ -48,14 +48,20 @@ export function Footer() {
       />
 
       {/* Animated Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-50" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-50" />
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-50"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-50"
+      />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4 group cursor-pointer">
+          <section className="lg:col-span-2">
+            <header className="flex items-center gap-3 mb-4 group cursor-pointer">
               <div
                 className="p-2.5 rounded-xl shadow-lg transition-all duration-300 border-2 border-cyan-400/60"
                 style={{
@@ -102,7 +108,7 @@ export function Footer() {
                   Premium Digital Assets
                 </p>
               </div>
-            </div>
+            </header>
             <p className="text-cyan-200/70 mb-6 max-w-md">
               Your one-stop marketplace for premium dashboard templates,
               automation tools, and digital products.{" "}
@@ -112,7 +118,7 @@ export function Footer() {
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-2 mb-6">
+            <address className="space-y-2 mb-6 not-italic">
               <div className="flex items-center gap-2 text-cyan-300/70 hover:text-cyan-300 transition-colors">
                 <Mail className="h-4 w-4" />
                 <span className="text-sm">support@techmarket.com</span>
@@ -125,9 +131,9 @@ export function Footer() {
                 <MapPin className="h-4 w-4" />
                 <span className="text-sm">San Francisco, CA</span>
               </div>
-            </div>
+            </address>
 
-            <div className="flex gap-3">
+            <nav aria-label="social links" className="flex gap-3">
               <a
                 href="#"
                 className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-cyan-500/40 backdrop-blur-sm group"
@@ -223,11 +229,11 @@ export function Footer() {
                 }}>
                 <Linkedin className="h-5 w-5 text-cyan-300/70 group-hover:text-cyan-300" />
               </a>
-            </div>
-          </div>
+            </nav>
+          </section>
 
           {/* Categories */}
-          <div>
+          <nav aria-label="footer categories">
             <h4
               className="mb-4 text-cyan-100 flex items-center gap-2"
               style={{
@@ -285,10 +291,10 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Support */}
-          <div>
+          <nav aria-label="footer support">
             <h4
               className="mb-4 text-cyan-100"
               style={{
@@ -340,10 +346,10 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Company */}
-          <div>
+          <nav aria-label="footer company">
             <h4
               className="mb-4 text-cyan-100"
               style={{
@@ -395,11 +401,11 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
+          </nav>
+        </section>
 
         {/* Newsletter */}
-        <div
+        <section
           className="rounded-2xl p-8 mb-12 border-2 border-cyan-500/40 backdrop-blur-xl"
           style={{
             background: "rgba(13, 27, 58, 0.6)",
@@ -420,9 +426,17 @@ export function Footer() {
                 exclusive deals.
               </p>
             </div>
-            <div className="flex gap-3">
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex gap-3"
+              aria-label="footer newsletter">
+              <label htmlFor="footer-email" className="sr-only">
+                Email address
+              </label>
               <input
+                id="footer-email"
                 type="email"
+                required
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 rounded-xl border-2 border-cyan-500/40 text-cyan-100 placeholder-cyan-300/40 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-xl"
                 style={{
@@ -431,6 +445,7 @@ export function Footer() {
                 }}
               />
               <button
+                type="submit"
                 className="text-white px-6 py-3 rounded-xl transition-all hover:scale-105 border-2 border-cyan-400/60"
                 style={{
                   background:
@@ -448,12 +463,12 @@ export function Footer() {
                 }}>
                 Subscribe
               </button>
-            </div>
+            </form>
           </div>
-        </div>
+        </section>
 
         {/* Bottom Bar */}
-        <div
+        <section
           className="pt-8 border-t-2 border-cyan-500/30"
           style={{
             boxShadow: "0 -1px 15px rgba(14, 165, 233, 0.1)",
@@ -462,22 +477,32 @@ export function Footer() {
             <p className="text-cyan-200/70 text-sm">
               © 2025 TechMarket. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm text-cyan-200/70">
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Cookie Policy
-              </a>
-              <a href="#" className="hover:text-cyan-300 transition-colors">
-                Licenses
-              </a>
-            </div>
+            <nav aria-label="legal">
+              <ul className="flex gap-6 text-sm text-cyan-200/70">
+                <li>
+                  <a href="#" className="hover:text-cyan-300 transition-colors">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-cyan-300 transition-colors">
+                    Terms of Service
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-cyan-300 transition-colors">
+                    Cookie Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-cyan-300 transition-colors">
+                    Licenses
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
-        </div>
+        </section>
       </div>
     </footer>
   );

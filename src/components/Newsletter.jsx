@@ -71,10 +71,18 @@ export function Newsletter() {
             once-in-a-lifetime deals.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            aria-label="newsletter subscription"
+            className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+            <label htmlFor="newsletter-email" className="sr-only">
+              Email address
+            </label>
             <input
+              id="newsletter-email"
               type="email"
               placeholder="Enter your email address"
+              required
               className="flex-1 px-6 py-4 rounded-xl border-2 border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 backdrop-blur-xl text-cyan-100 placeholder:text-cyan-300/40"
               style={{
                 background: "rgba(13, 27, 58, 0.6)",
@@ -82,6 +90,7 @@ export function Newsletter() {
               }}
             />
             <Button
+              type="submit"
               className="text-white px-8 py-4 rounded-xl shadow-lg border-2 border-cyan-400/60"
               style={{
                 background:
@@ -99,7 +108,7 @@ export function Newsletter() {
               }}>
               Subscribe Now
             </Button>
-          </div>
+          </form>
 
           <p className="text-sm text-cyan-200/60 mt-4">
             No spam, unsubscribe at any time. We respect your privacy.
