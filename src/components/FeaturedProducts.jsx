@@ -16,19 +16,22 @@ export function FeaturedProducts({
           {subtitle && <p className="text-xl text-gray-300">{subtitle}</p>}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <ul
+          role="list"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 list-none">
           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAddToCart={onAddToCart}
-              onToggleWishlist={onToggleWishlist}
-              isInWishlist={wishlistItems.includes(product.id)}
-              allProducts={products}
-              wishlistItems={wishlistItems}
-            />
+            <li key={product.id} className="contents">
+              <ProductCard
+                product={product}
+                onAddToCart={onAddToCart}
+                onToggleWishlist={onToggleWishlist}
+                isInWishlist={wishlistItems.includes(product.id)}
+                allProducts={products}
+                wishlistItems={wishlistItems}
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

@@ -281,7 +281,7 @@ function SidebarInput({ className, ...props }) {
 
 function SidebarHeader({ className, ...props }) {
   return (
-    <div
+    <header
       data-slot="sidebar-header"
       data-sidebar="header"
       className={cn("flex flex-col gap-2 p-2", className)}
@@ -292,7 +292,7 @@ function SidebarHeader({ className, ...props }) {
 
 function SidebarFooter({ className, ...props }) {
   return (
-    <div
+    <footer
       data-slot="sidebar-footer"
       data-sidebar="footer"
       className={cn("flex flex-col gap-2 p-2", className)}
@@ -328,7 +328,7 @@ function SidebarContent({ className, ...props }) {
 
 function SidebarGroup({ className, ...props }) {
   return (
-    <div
+    <section
       data-slot="sidebar-group"
       data-sidebar="group"
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}

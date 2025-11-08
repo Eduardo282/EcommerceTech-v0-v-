@@ -58,7 +58,7 @@ function DialogContent({ className, children, ...props }) {
 
 function DialogHeader({ className, ...props }) {
   return (
-    <div
+    <header
       data-slot="dialog-header"
       className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
       {...props}
@@ -68,7 +68,7 @@ function DialogHeader({ className, ...props }) {
 
 function DialogFooter({ className, ...props }) {
   return (
-    <div
+    <footer
       data-slot="dialog-footer"
       className={cn(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",

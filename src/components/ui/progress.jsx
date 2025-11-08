@@ -9,6 +9,10 @@ function Progress({ className, value, ...props }) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={value || 0}
       className={cn(
         "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
         className

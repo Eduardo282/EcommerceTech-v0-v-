@@ -93,7 +93,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative">
-      <SpaceBackground />
+      <div aria-hidden="true" role="presentation">
+        <SpaceBackground />
+      </div>
 
       <div className="relative z-10">
         <Header
@@ -103,7 +105,7 @@ export default function App() {
           wishlistItemsCount={wishlistItems.length}
         />
 
-        <main className="relative">
+        <main className="relative" aria-label="Main content">
           <Hero />
           <Categories />
           <TrustBanner />

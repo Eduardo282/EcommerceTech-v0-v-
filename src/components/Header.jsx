@@ -25,13 +25,14 @@ export function Header({
         boxShadow: "0 4px 30px rgba(14, 165, 233, 0.2)",
       }}>
       {/* Top Bar */}
-      <div
+      <section
         className="relative overflow-hidden border-b-2"
         style={{
           background:
             "linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%)",
           borderBottomColor: "rgba(14, 165, 233, 0.2)",
-        }}>
+        }}
+        aria-label="site announcement">
         <div className="absolute inset-0 animate-shimmer"></div>
         <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm relative z-10">
           <div className="flex items-center gap-4">
@@ -60,7 +61,7 @@ export function Header({
             </button>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
@@ -139,9 +140,16 @@ export function Header({
 
           {/* Search Bar */}
           <div className="flex-1 max-w-2xl">
-            <div className="relative group">
+            <form
+              role="search"
+              className="relative group"
+              onSubmit={(e) => e.preventDefault()}>
+              <label htmlFor="header-search" className="sr-only">
+                Search products
+              </label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-cyan-400/70 group-focus-within:text-cyan-400 transition-colors" />
               <input
+                id="header-search"
                 type="text"
                 placeholder="Search dashboards, templates, licenses, automation tools..."
                 className="w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 text-cyan-100 placeholder-cyan-300/40 transition-all border-2"
@@ -167,7 +175,7 @@ export function Header({
                   background:
                     "linear-gradient(to right, rgba(14, 165, 233, 0) 0%, rgba(14, 165, 233, 0.05) 50%, rgba(14, 165, 233, 0) 100%)",
                 }}></div>
-            </div>
+            </form>
           </div>
 
           {/* Actions */}
@@ -270,94 +278,110 @@ export function Header({
           borderTopColor: "rgba(14, 165, 233, 0.2)",
         }}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-6 py-3">
-            <Button
-              variant="ghost"
-              className="gap-2 text-cyan-100 border-2 border-cyan-500/40 backdrop-blur-sm h-9 px-4"
-              style={{
-                background: "rgba(13, 27, 58, 0.6)",
-                boxShadow: "0 0 10px rgba(14, 165, 233, 0.2)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(14, 165, 233, 0.7)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 20px rgba(14, 165, 233, 0.4)";
-                e.currentTarget.style.background = "rgba(13, 27, 58, 0.8)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(14, 165, 233, 0.4)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 10px rgba(14, 165, 233, 0.2)";
-                e.currentTarget.style.background = "rgba(13, 27, 58, 0.6)";
-              }}>
-              <Menu className="h-4 w-4" />
-              All Categories
-            </Button>
-            <a
-              href="#"
-              className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
-              Dashboard Templates
-            </a>
-            <a
-              href="#"
-              className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
-              Admin Panels
-            </a>
-            <a
-              href="#"
-              className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
-              SaaS Kits
-            </a>
-            <a
-              href="#"
-              className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
-              Automation Tools
-            </a>
-            <a
-              href="#"
-              className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
-              CV Templates
-            </a>
-            <a
-              href="#"
-              className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
-              Licenses
-            </a>
-            <button
-              className="ml-auto text-sm flex items-center gap-2 px-4 py-1.5 rounded-lg border-2 transition-all"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(251, 146, 60, 0.2) 0%, rgba(245, 158, 11, 0.2) 20%, rgba(14, 165, 233, 0.2) 40%, rgba(168, 85, 247, 0.2) 60%, rgba(236, 72, 153, 0.2) 80%, rgba(251, 146, 60, 0.2) 100%)",
-                borderColor: "rgba(251, 146, 60, 0.5)",
-                boxShadow: "0 0 15px rgba(251, 146, 60, 0.3)",
-                backgroundSize: "200% 100%",
-                animation: "gradient-shift 3s ease infinite",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.8)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 25px rgba(251, 146, 60, 0.5)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.5)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 15px rgba(251, 146, 60, 0.3)";
-              }}>
-              <Sparkles
-                className="h-4 w-4 text-orange-300"
+          <ul className="flex items-center gap-6 py-3 list-none">
+            <li>
+              <Button
+                variant="ghost"
+                className="gap-2 text-cyan-100 border-2 border-cyan-500/40 backdrop-blur-sm h-9 px-4"
                 style={{
-                  filter: "drop-shadow(0 0 5px rgba(251, 146, 60, 0.6))",
+                  background: "rgba(13, 27, 58, 0.6)",
+                  boxShadow: "0 0 10px rgba(14, 165, 233, 0.2)",
                 }}
-              />
-              <span
-                className="text-orange-100"
-                style={{
-                  textShadow: "0 0 10px rgba(251, 146, 60, 0.4)",
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(14, 165, 233, 0.7)";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 20px rgba(14, 165, 233, 0.4)";
+                  e.currentTarget.style.background = "rgba(13, 27, 58, 0.8)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(14, 165, 233, 0.4)";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 10px rgba(14, 165, 233, 0.2)";
+                  e.currentTarget.style.background = "rgba(13, 27, 58, 0.6)";
                 }}>
-                New Arrivals
-              </span>
-            </button>
-          </div>
+                <Menu className="h-4 w-4" />
+                All Categories
+              </Button>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
+                Dashboard Templates
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
+                Admin Panels
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
+                SaaS Kits
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
+                Automation Tools
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
+                CV Templates
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="text-sm text-cyan-200/70 hover:text-cyan-300 transition-colors">
+                Licenses
+              </a>
+            </li>
+            <li className="ml-auto">
+              <button
+                className="text-sm flex items-center gap-2 px-4 py-1.5 rounded-lg border-2 transition-all"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(251, 146, 60, 0.2) 0%, rgba(245, 158, 11, 0.2) 20%, rgba(14, 165, 233, 0.2) 40%, rgba(168, 85, 247, 0.2) 60%, rgba(236, 72, 153, 0.2) 80%, rgba(251, 146, 60, 0.2) 100%)",
+                  borderColor: "rgba(251, 146, 60, 0.5)",
+                  boxShadow: "0 0 15px rgba(251, 146, 60, 0.3)",
+                  backgroundSize: "200% 100%",
+                  animation: "gradient-shift 3s ease infinite",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.8)";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 25px rgba(251, 146, 60, 0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.5)";
+                  e.currentTarget.style.boxShadow =
+                    "0 0 15px rgba(251, 146, 60, 0.3)";
+                }}>
+                <Sparkles
+                  className="h-4 w-4 text-orange-300"
+                  style={{
+                    filter: "drop-shadow(0 0 5px rgba(251, 146, 60, 0.6))",
+                  }}
+                />
+                <span
+                  className="text-orange-100"
+                  style={{
+                    textShadow: "0 0 10px rgba(251, 146, 60, 0.4)",
+                  }}>
+                  New Arrivals
+                </span>
+              </button>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>

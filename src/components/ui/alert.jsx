@@ -21,9 +21,10 @@ const alertVariants = cva(
 
 function Alert({ className, variant, ...props }) {
   return (
-    <div
+    <section
       data-slot="alert"
       role="alert"
+      aria-live="polite"
       className={cn(alertVariants({ variant }), className)}
       {...props}
     />
@@ -32,7 +33,7 @@ function Alert({ className, variant, ...props }) {
 
 function AlertTitle({ className, ...props }) {
   return (
-    <div
+    <h5
       data-slot="alert-title"
       className={cn(
         "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight",
@@ -45,7 +46,7 @@ function AlertTitle({ className, ...props }) {
 
 function AlertDescription({ className, ...props }) {
   return (
-    <div
+    <p
       data-slot="alert-description"
       className={cn(
         "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",

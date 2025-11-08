@@ -241,7 +241,7 @@ export function Categories() {
               <CarouselItem
                 key={index}
                 className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5">
-                <div className="group relative">
+                <article className="group relative">
                   <button
                     className="w-full text-center group"
                     onClick={() =>
@@ -333,33 +333,35 @@ export function Categories() {
 
                   {/* Dropdown Menu */}
                   {category.hasDropdown && openDropdown === category.name && (
-                    <div
+                    <nav
+                      aria-label={`${category.name} subcategories`}
                       className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-72 border-2 border-cyan-500/40 rounded-xl z-50 backdrop-blur-xl animate-in slide-in-from-top-2 shadow-2xl"
                       style={{
                         background: "rgba(13, 27, 58, 0.92)",
                         boxShadow:
                           "0 0 40px rgba(14, 165, 233, 0.35), inset 0 0 25px rgba(14, 165, 233, 0.08)",
                       }}>
-                      <div className="p-4 space-y-1 overflow-visible">
+                      <ul className="p-4 space-y-1 overflow-visible">
                         {category.subcategories?.map((sub, subIndex) => (
-                          <a
-                            key={subIndex}
-                            href="#"
-                            className="flex items-center justify-between px-4 py-3 rounded-lg transition-colors group/item border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-400/40">
-                            <span className="text-sm text-cyan-100 group-hover/item:text-cyan-300 transition-colors">
-                              {sub.name}
-                            </span>
-                            {sub.count && (
-                              <span className="text-xs bg-cyan-500/20 px-2 py-1 rounded-full text-cyan-300 border border-cyan-500/30">
-                                {sub.count}
+                          <li key={subIndex}>
+                            <a
+                              href="#"
+                              className="flex items-center justify-between px-4 py-3 rounded-lg transition-colors group/item border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-400/40">
+                              <span className="text-sm text-cyan-100 group-hover/item:text-cyan-300 transition-colors">
+                                {sub.name}
                               </span>
-                            )}
-                          </a>
+                              {sub.count && (
+                                <span className="text-xs bg-cyan-500/20 px-2 py-1 rounded-full text-cyan-300 border border-cyan-500/30">
+                                  {sub.count}
+                                </span>
+                              )}
+                            </a>
+                          </li>
                         ))}
-                      </div>
-                    </div>
+                      </ul>
+                    </nav>
                   )}
-                </div>
+                </article>
               </CarouselItem>
             ))}
           </CarouselContent>

@@ -49,7 +49,10 @@ function DrawerContent({ className, children, ...props }) {
           className
         )}
         {...props}>
-        <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
+        <div
+          aria-hidden="true"
+          className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block"
+        />
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>
@@ -58,7 +61,7 @@ function DrawerContent({ className, children, ...props }) {
 
 function DrawerHeader({ className, ...props }) {
   return (
-    <div
+    <header
       data-slot="drawer-header"
       className={cn("flex flex-col gap-1.5 p-4", className)}
       {...props}
@@ -68,7 +71,7 @@ function DrawerHeader({ className, ...props }) {
 
 function DrawerFooter({ className, ...props }) {
   return (
-    <div
+    <footer
       data-slot="drawer-footer"
       className={cn("mt-auto flex flex-col gap-2 p-4", className)}
       {...props}

@@ -66,7 +66,7 @@ function SheetContent({ className, children, side = "right", ...props }) {
 
 function SheetHeader({ className, ...props }) {
   return (
-    <div
+    <header
       data-slot="sheet-header"
       className={cn("flex flex-col gap-1.5 p-4", className)}
       {...props}
@@ -76,7 +76,7 @@ function SheetHeader({ className, ...props }) {
 
 function SheetFooter({ className, ...props }) {
   return (
-    <div
+    <footer
       data-slot="sheet-footer"
       className={cn("mt-auto flex flex-col gap-2 p-4", className)}
       {...props}
