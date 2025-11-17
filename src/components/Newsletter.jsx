@@ -6,16 +6,15 @@ export function Newsletter() {
     <section
       className="py-20 relative overflow-hidden"
       style={{
-        background:
-          "linear-gradient(to bottom right, rgba(13, 27, 58, 0.95) 0%, rgba(10, 20, 45, 0.98) 100%)",
+        backgroundColor: "black",
       }}>
       {/* Grid Pattern Background */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(14, 165, 233, 0.15) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(14, 165, 233, 0.15) 1px, transparent 1px)
+            linear-gradient(to right, rgba(234, 179, 8, 0.15) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(234, 179, 8, 0.15) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
@@ -30,45 +29,47 @@ export function Newsletter() {
               45deg,
               transparent,
               transparent 80px,
-              rgba(14, 165, 233, 0.4) 80px,
-              rgba(14, 165, 233, 0.4) 81px
+              rgba(234, 179, 8, 0.38) 80px,
+              rgba(234, 179, 8, 0.38) 81px
             )
           `,
         }}
       />
 
       {/* Animated Glows */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/15 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/15 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-amber-500/15 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-500/15 rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000" />
 
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center">
           <div
-            className="inline-flex items-center gap-2 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border-2 border-cyan-400/40"
+            className="inline-flex items-center gap-2 backdrop-blur-sm rounded-full px-4 py-2 mb-6"
             style={{
-              background: "rgba(14, 165, 233, 0.1)",
-              boxShadow: "0 0 20px rgba(14, 165, 233, 0.2)",
+              background: "rgba(234, 179, 8, 0.1)",
+              boxShadow: "0 0 20px rgba(234, 179, 8, 0.18)",
             }}>
             <Mail
-              className="h-4 w-4 text-cyan-300"
+              className="h-4 w-4 text-amber-300"
               style={{
-                filter: "drop-shadow(0 0 5px rgba(14, 165, 233, 0.6))",
+                filter: "drop-shadow(0 0 5px rgba(234, 179, 8, 0.5))",
               }}
             />
-            <span className="text-sm text-cyan-200">Join our newsletter</span>
+            <span className="text-sm text-amber-200 font-display">
+              Únete a nuestro boletín
+            </span>
           </div>
 
           <h2
-            className="text-5xl mb-6 bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent"
+            className="text-5xl mb-6 bg-linear-to-r from-amber-300 via-yellow-300 to-amber-300 bg-clip-text text-transparent font-display"
             style={{
-              textShadow: "0 0 40px rgba(14, 165, 233, 0.3)",
+              textShadow: "0 0 38px rgba(234, 179, 8, 0.28)",
             }}>
-            Get Exclusive Deals & Updates
+            Obtén ofertas exclusivas y actualizaciones
           </h2>
 
-          <p className="text-xl text-cyan-100/70 mb-8">
-            Subscribe to get special offers, free resources, and
-            once-in-a-lifetime deals.
+          <p className="text-xl text-amber-100/70 mb-8">
+            Suscríbete para recibir ofertas especiales, recursos gratuitos y
+            ofertas únicas en la vida.
           </p>
 
           <form
@@ -81,37 +82,38 @@ export function Newsletter() {
             <input
               id="newsletter-email"
               type="email"
-              placeholder="Enter your email address"
+              placeholder="Ingresa tu dirección de correo electrónico"
               required
-              className="flex-1 px-6 py-4 rounded-xl border-2 border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 backdrop-blur-xl text-cyan-100 placeholder:text-cyan-300/40"
+              className="flex-1 px-6 py-4 rounded-xl border-2 border-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 backdrop-blur-xl text-amber-100 placeholder:text-amber-300/40"
               style={{
-                background: "rgba(13, 27, 58, 0.6)",
-                boxShadow: "inset 0 0 15px rgba(14, 165, 233, 0.1)",
+                background: "rgba(18, 16, 10, 0.6)",
+                boxShadow: "inset 0 0 15px rgba(234, 179, 8, 0.1)",
               }}
             />
             <Button
               type="submit"
-              className="text-white px-8 py-4 rounded-xl shadow-lg border-2 border-cyan-400/60"
+              className="text-white px-8 py-8 rounded-xl shadow-lg border-2 border-amber-400/50"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(14, 165, 233, 0.7) 0%, rgba(59, 130, 246, 0.7) 100%)",
-                boxShadow: "0 0 25px rgba(14, 165, 233, 0.4)",
-                textShadow: "0 0 10px rgba(14, 165, 233, 0.5)",
+                  "linear-gradient(135deg, rgba(251, 191, 36, 0.68) 0%, rgba(245, 158, 11, 0.68) 100%)",
+                boxShadow: "0 0 24px rgba(234, 179, 8, 0.32)",
+                textShadow: "0 0 10px rgba(234, 179, 8, 0.5)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow =
-                  "0 0 35px rgba(14, 165, 233, 0.6)";
+                  "0 0 34px rgba(234, 179, 8, 0.46)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow =
-                  "0 0 25px rgba(14, 165, 233, 0.4)";
+                  "0 0 24px rgba(234, 179, 8, 0.32)";
               }}>
-              Subscribe Now
+              Suscríbete Ahora
             </Button>
           </form>
 
-          <p className="text-sm text-cyan-200/60 mt-4">
-            No spam, unsubscribe at any time. We respect your privacy.
+          <p className="text-sm text-amber-200/65 mt-4">
+            Sin spam, puedes darte de baja en cualquier momento. Respetamos tu
+            privacidad.
           </p>
         </div>
       </div>

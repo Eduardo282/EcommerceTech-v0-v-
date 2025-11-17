@@ -16,7 +16,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useState, useRef } from "react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ImageWithFallback } from "./fallImage/ImageWithFallback";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import {
@@ -127,7 +127,7 @@ export function ProductPreview({
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
       role="presentation">
       {/* Modal */}
       <div
@@ -136,31 +136,28 @@ export function ProductPreview({
         aria-label={`${product.name} details`}
         className="relative rounded-2xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-hidden border-2"
         style={{
-          background:
-            "linear-gradient(to bottom, rgba(25, 15, 5, 0.98) 0%, rgba(30, 20, 10, 0.98) 100%)",
-          borderColor: "rgba(251, 146, 60, 0.4)",
-          boxShadow: "0 0 40px rgba(251, 146, 60, 0.3)",
+          background: "linear-gradient(to bottom, #131317 0%, #131317 100%)",
+          borderColor: "#2c2c30",
+          boxShadow: "0 0 40px #2c2c30",
         }}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 backdrop-blur-sm p-2 rounded-full transition-all shadow-lg border-2"
+          className="absolute top-4 right-4 z-20 backdrop-blur-sm p-2 rounded-full transition-all shadow-lg border-2 border-[#2c2c30] cursor-pointer"
           style={{
-            background: "rgba(25, 15, 5, 0.9)",
-            borderColor: "rgba(251, 146, 60, 0.5)",
-            boxShadow: "0 0 15px rgba(251, 146, 60, 0.3)",
+            background: "#131317",
+            borderColor: "#2c2c30",
+            boxShadow: "0 0 15px #2c2c30",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.8)";
-            e.currentTarget.style.boxShadow =
-              "0 0 25px rgba(251, 146, 60, 0.5)";
+            e.currentTarget.style.borderColor = "#2c2c30";
+            e.currentTarget.style.boxShadow = "0 0 25px #2c2c30";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.5)";
-            e.currentTarget.style.boxShadow =
-              "0 0 15px rgba(251, 146, 60, 0.3)";
+            e.currentTarget.style.borderColor = "#2c2c30";
+            e.currentTarget.style.boxShadow = "0 0 15px #2c2c30";
           }}>
-          <X className="h-5 w-5 text-orange-200" />
+          <X className="h-5 w-5 text-[#f0e4b8]" />
         </button>
 
         <div
@@ -170,121 +167,85 @@ export function ProductPreview({
           <div
             className="hidden lg:flex flex-col gap-3 p-4 border-r-2 overflow-y-auto max-h-[95vh]"
             style={{
-              background: "rgba(20, 12, 5, 0.6)",
-              borderRightColor: "rgba(251, 146, 60, 0.3)",
+              background: "#131317",
+              borderRightColor: "#2c2c30",
             }}>
             {images.map((img, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
+                className={`relative aspect-square rounded-lg overflow-hidden transition-all cursor-pointer ${
                   currentImageIndex === index ? "shadow-lg" : ""
                 }`}
                 style={{
-                  borderColor:
-                    currentImageIndex === index
-                      ? "rgba(251, 146, 60, 0.8)"
-                      : "rgba(251, 146, 60, 0.3)",
                   boxShadow:
-                    currentImageIndex === index
-                      ? "0 0 20px rgba(251, 146, 60, 0.4)"
-                      : "none",
-                }}
-                onMouseEnter={(e) => {
-                  if (currentImageIndex !== index) {
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.6)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (currentImageIndex !== index) {
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.3)";
-                  }
+                    currentImageIndex === index ? "0 0 20px #fff" : "none",
                 }}>
                 <ImageWithFallback
                   src={img}
                   alt={`View ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
-                {/* Orange Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/15 via-amber-600/20 to-orange-700/15 mix-blend-multiply" />
               </button>
             ))}
           </div>
 
           {/* Center Column - Main Image + Product Info */}
           <div
-            className="flex flex-col overflow-y-auto max-h-[95vh]"
+            className="flex flex-col overflow-y-auto scrollbar-hide max-h-[95vh]"
             style={{
-              background: "rgba(20, 12, 5, 0.4)",
+              background: "#131317",
             }}>
             <div className="relative flex items-center justify-center p-8">
               {/* Viewers Badge */}
               <div className="absolute top-6 left-6 z-10">
                 <Badge
-                  className="text-white border-2 px-3 py-1.5 text-xs uppercase tracking-wide shadow-lg"
+                  className="text-white px-3 py-1.5 text-xs uppercase tracking-wide shadow-lg outline-none"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(239, 68, 68, 0.7) 0%, rgba(220, 38, 38, 0.7) 100%)",
-                    borderColor: "rgba(239, 68, 68, 0.6)",
-                    boxShadow: "0 0 20px rgba(239, 68, 68, 0.4)",
+                      "linear-gradient(135deg, #131317 0%, rgba(220, 38, 38, 0.7) 100%)",
                   }}>
-                  {viewersCount} VIEWED IN THE LAST 24 HOURS
+                  {viewersCount} VECES VISTO LAS ULTIMAS 24 HRS
                 </Badge>
               </div>
 
               {/* Fullscreen & Wishlist Buttons */}
               <div className="absolute top-6 right-6 z-10 flex gap-2">
                 <button
-                  className="p-2.5 rounded-lg transition-all shadow-md border-2"
+                  className="p-2.5 rounded-lg transition-all shadow-md cursor-pointer"
                   style={{
-                    background: "rgba(25, 15, 5, 0.9)",
-                    borderColor: "rgba(251, 146, 60, 0.4)",
-                    boxShadow: "0 0 10px rgba(251, 146, 60, 0.2)",
+                    background: "#131317",
+                    boxShadow: "0 0 10px #2c2c30",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.7)";
-                    e.currentTarget.style.boxShadow =
-                      "0 0 20px rgba(251, 146, 60, 0.4)";
+                    e.currentTarget.style.boxShadow = "0 0 20px #fff";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.4)";
-                    e.currentTarget.style.boxShadow =
-                      "0 0 10px rgba(251, 146, 60, 0.2)";
+                    e.currentTarget.style.boxShadow = "none";
                   }}>
-                  <Maximize2 className="h-5 w-5 text-orange-200" />
+                  <Maximize2 className="h-5 w-5 text-[#f0e4b8]" />
                 </button>
                 <button
-                  className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 border-2"
+                  className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 cursor-pointer"
                   onClick={() => onToggleWishlist(product.id)}
                   style={{
-                    background: "rgba(25, 15, 5, 0.9)",
-                    borderColor: "rgba(251, 146, 60, 0.4)",
-                    boxShadow: "0 0 10px rgba(251, 146, 60, 0.2)",
+                    background: "#131317",
+                    boxShadow: "0 0 10px #2c2c30",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.7)";
-                    e.currentTarget.style.boxShadow =
-                      "0 0 20px rgba(251, 146, 60, 0.4)";
+                    e.currentTarget.style.boxShadow = "0 0 20px #fff";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.4)";
-                    e.currentTarget.style.boxShadow =
-                      "0 0 10px rgba(251, 146, 60, 0.2)";
+                    e.currentTarget.style.boxShadow = "none";
                   }}>
-                  <span className="text-sm text-orange-200">
+                  <span className="text-sm text-[#f0e4b8]">
                     {isInWishlist ? "19" : "18"}
                   </span>
                   <Heart
                     className={`h-5 w-5 transition-all ${
                       isInWishlist
-                        ? "fill-red-500 text-red-500"
-                        : "text-orange-200"
+                        ? "fill-[#ae3a2e] text-transparent"
+                        : "text-red-400"
                     }`}
                   />
                 </button>
@@ -306,16 +267,15 @@ export function ProductPreview({
                 {/* Magnifier Glass */}
                 {showMagnifier && imageContainerRef.current && (
                   <div
-                    className="absolute border-4 rounded-full pointer-events-none shadow-2xl overflow-hidden z-50"
+                    className="absolute rounded-full pointer-events-none shadow-2xl overflow-hidden z-50"
                     style={{
                       width: `${magnifierSize}px`,
                       height: `${magnifierSize}px`,
                       left: `${magnifierPosition.x}px`,
                       top: `${magnifierPosition.y}px`,
                       transform: "translate(-50%, -50%)",
-                      borderColor: "rgba(251, 146, 60, 0.8)",
-                      background: "rgba(25, 15, 5, 0.95)",
-                      boxShadow: "0 0 30px rgba(251, 146, 60, 0.5)",
+                      background: "transparent",
+                      boxShadow: "0 0 30px #fff",
                     }}>
                     <div
                       style={{
@@ -349,43 +309,33 @@ export function ProductPreview({
               {/* Navigation Arrows */}
               <button
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg border-2"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg cursor-pointer"
                 style={{
-                  background: "rgba(25, 15, 5, 0.9)",
-                  borderColor: "rgba(251, 146, 60, 0.5)",
-                  boxShadow: "0 0 15px rgba(251, 146, 60, 0.3)",
+                  background: "transparent",
+                  boxShadow: "0 0 15px #fff",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.8)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 25px rgba(251, 146, 60, 0.5)";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.5)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 15px rgba(251, 146, 60, 0.3)";
+                  e.currentTarget.style.boxShadow = "0 0 15px white";
                 }}>
-                <ChevronLeft className="h-6 w-6 text-orange-200" />
+                <ChevronLeft className="h-6 w-6 text-[#f0e4b8]" />
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg border-2"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg cursor-pointer"
                 style={{
-                  background: "rgba(25, 15, 5, 0.9)",
-                  borderColor: "rgba(251, 146, 60, 0.5)",
-                  boxShadow: "0 0 15px rgba(251, 146, 60, 0.3)",
+                  background: "transparent",
+                  boxShadow: "0 0 15px white",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.8)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 25px rgba(251, 146, 60, 0.5)";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(251, 146, 60, 0.5)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 15px rgba(251, 146, 60, 0.3)";
+                  e.currentTarget.style.boxShadow = "0 0 15px white";
                 }}>
-                <ChevronRight className="h-6 w-6 text-orange-200" />
+                <ChevronRight className="h-6 w-6 text-[#f0e4b8]" />
               </button>
             </div>
 
@@ -393,15 +343,15 @@ export function ProductPreview({
             <div
               className="border-t-2 px-8 py-6"
               style={{
-                background: "rgba(25, 15, 5, 0.8)",
-                borderTopColor: "rgba(251, 146, 60, 0.3)",
+                background: "#131317",
+                borderTopColor: "#2c2c30",
               }}>
               <h3
                 className="text-lg mb-4 text-orange-100"
                 style={{
                   textShadow: "0 0 15px rgba(251, 146, 60, 0.4)",
                 }}>
-                Product Information
+                Informacion del Producto
               </h3>
 
               <Accordion
@@ -413,54 +363,44 @@ export function ProductPreview({
                   value="item-1"
                   className="border-b-2"
                   style={{
-                    borderBottomColor: "rgba(251, 146, 60, 0.2)",
+                    borderBottomColor: "#2c2c30",
                   }}>
                   <AccordionTrigger className="py-4 hover:no-underline text-orange-100">
-                    <span className="text-sm">Product Details</span>
+                    <span className="text-sm">Detalles del Producto</span>
                   </AccordionTrigger>
                   <AccordionContent className="pb-4">
                     <ul className="space-y-2 text-sm text-orange-200/70">
                       <li className="flex items-start gap-2">
                         <span className="text-orange-300">•</span>
+                        <span>Alta calidad diseñado por profesionales</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-orange-300">•</span>
                         <span>
-                          Premium quality {product.category.toLowerCase()}{" "}
-                          designed by professionals
+                          Construido con tecnologías modernas y mejores
+                          prácticas
                         </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-orange-300">•</span>
                         <span>
-                          Built with modern technologies and best practices
+                          Totalmente personalizable y fácil de implementar
                         </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-orange-300">•</span>
-                        <span>Fully customizable and easy to implement</span>
+                        <span>
+                          Diseño responsivo que funciona en todos los
+                          dispositivos
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-orange-300">•</span>
-                        <span>Responsive design that works on all devices</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-orange-300">•</span>
-                        <span>Regular updates and improvements included</span>
+                        <span>
+                          Actualizaciones regulares y mejoras incluidas
+                        </span>
                       </li>
                     </ul>
-                    <div
-                      className="mt-4 p-3 rounded-lg border-2"
-                      style={{
-                        background: "rgba(251, 146, 60, 0.1)",
-                        borderColor: "rgba(251, 146, 60, 0.3)",
-                      }}>
-                      <p className="text-sm text-orange-100/80">
-                        This {product.category.toLowerCase()} has been
-                        downloaded over {product.sales.toLocaleString()} times
-                        and rated {product.rating} stars by{" "}
-                        {product.reviews.toLocaleString()} satisfied customers.
-                        Join thousands of developers and designers who trust our
-                        products for their projects.
-                      </p>
-                    </div>
                   </AccordionContent>
                 </AccordionItem>
 
@@ -468,54 +408,60 @@ export function ProductPreview({
                   value="item-2"
                   className="border-b-2"
                   style={{
-                    borderBottomColor: "rgba(251, 146, 60, 0.2)",
+                    borderBottomColor: "#2c2c30",
                   }}>
                   <AccordionTrigger className="py-4 hover:no-underline text-orange-100">
-                    <span className="text-sm">Technical Specifications</span>
+                    <span className="text-sm">Especificaciones Técnicas</span>
                   </AccordionTrigger>
                   <AccordionContent className="pb-4">
                     <div className="space-y-3 text-sm">
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">Category:</span>
+                        <span className="text-orange-200">Categoría:</span>
                         <span className="text-orange-200/70">
                           {product.category}
                         </span>
                       </div>
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">Technologies:</span>
+                        <span className="text-orange-200">Tecnologías:</span>
                         <span className="text-orange-200/70">
                           {product.features?.join(", ") ||
                             "Multiple frameworks"}
                         </span>
                       </div>
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">File Format:</span>
+                        <span className="text-orange-200">
+                          Formato de archivo:
+                        </span>
                         <span className="text-orange-200/70">
-                          Source code, Documentation, Assets
+                          Código fuente, Documentación, Recursos
                         </span>
                       </div>
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">License Type:</span>
+                        <span className="text-orange-200">
+                          Tipo de licencia:
+                        </span>
                         <span className="text-orange-200/70">
-                          Commercial Use Allowed
+                          Uso comercial permitido
                         </span>
                       </div>
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">Compatibility:</span>
+                        <span className="text-orange-200">Compatibilidad:</span>
                         <span className="text-orange-200/70">
-                          All modern browsers and devices
+                          Todos los navegadores y dispositivos modernos
                         </span>
                       </div>
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">Support:</span>
+                        <span className="text-orange-200">Soporte:</span>
                         <span className="text-orange-200/70">
-                          6 months premium support included
+                          6 meses de soporte premium incluido
                         </span>
                       </div>
                       <div className="grid grid-cols-[140px_1fr] gap-2">
-                        <span className="text-orange-200">Updates:</span>
+                        <span className="text-orange-200">
+                          Actualizaciones:
+                        </span>
                         <span className="text-orange-200/70">
-                          Lifetime free updates
+                          Actualizaciones gratuitas de por vida
                         </span>
                       </div>
                     </div>
@@ -524,37 +470,47 @@ export function ProductPreview({
 
                 <AccordionItem value="item-3" className="border-b-0">
                   <AccordionTrigger className="py-4 hover:no-underline text-orange-100">
-                    <span className="text-sm">What's Included</span>
+                    <span className="text-sm">Qué incluye</span>
                   </AccordionTrigger>
                   <AccordionContent className="pb-4">
                     <ul className="space-y-2 text-sm text-orange-200/70">
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>Complete source code with detailed comments</span>
+                        <span>
+                          Código fuente completo con comentarios detallados
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>Comprehensive documentation and setup guide</span>
+                        <span>
+                          Documentación completa y guía de configuración
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>All design assets and resources</span>
+                        <span>Todos los recursos y activos de diseño</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>Example implementations and demos</span>
+                        <span>
+                          Implementaciones y demostraciones de ejemplo
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>Lifetime access to all future updates</span>
+                        <span>
+                          Acceso de por vida a todas las actualizaciones futuras
+                        </span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>6 months of premium technical support</span>
+                        <span>6 meses de soporte técnico premium</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-green-400 mt-0.5">✓</span>
-                        <span>Commercial license for unlimited projects</span>
+                        <span>
+                          Licencia comercial para proyectos ilimitados
+                        </span>
                       </li>
                     </ul>
                   </AccordionContent>
@@ -565,14 +521,14 @@ export function ProductPreview({
 
           {/* Right Column - Product Details */}
           <div
-            className="flex flex-col p-8 overflow-y-auto max-h-[95vh]"
+            className="flex flex-col p-8 overflow-y-auto scrollbar-hide max-h-[95vh]"
             style={{
-              background: "rgba(25, 15, 5, 0.8)",
+              background: "#131317",
             }}>
             <div className="flex-1">
               <Badge
                 variant="outline"
-                className="mb-3 text-orange-300 border-orange-500/40 bg-orange-500/10">
+                className="mb-3 text-orange-300 border-[#2c2c30] bg-[#131317]">
                 {product.category}
               </Badge>
 
@@ -593,7 +549,7 @@ export function ProductPreview({
                       className={`h-5 w-5 ${
                         i < Math.floor(product.rating)
                           ? "fill-yellow-400 text-yellow-400"
-                          : "text-orange-900"
+                          : "text-[#f0e4b8]"
                       }`}
                       style={
                         i < Math.floor(product.rating)
@@ -607,45 +563,31 @@ export function ProductPreview({
                   ))}
                 </div>
                 <span className="text-sm text-orange-200/70">
-                  {product.rating} ({product.reviews.toLocaleString()} reviews)
+                  {product.rating} ({product.reviews.toLocaleString()} reseñas)
                 </span>
               </div>
 
               {/* Downloads */}
               <div className="flex items-center gap-2 mb-6 text-sm text-orange-200/70">
                 <Download className="h-4 w-4" />
-                <span>{product.sales.toLocaleString()} downloads</span>
+                <span>{product.sales.toLocaleString()} descargas</span>
               </div>
 
               {/* Similar Products Carousel */}
               {similarProducts.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-sm mb-3 text-orange-100">
-                    Similar Products
+                    Productos Similares
                   </h3>
                   <div className="relative">
                     {/* Left Arrow */}
                     <button
                       onClick={scrollSimilarLeft}
-                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all border-2"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all cursor-pointer"
                       style={{
-                        background: "rgba(25, 15, 5, 0.9)",
-                        borderColor: "rgba(251, 146, 60, 0.5)",
-                        boxShadow: "0 0 10px rgba(251, 146, 60, 0.3)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor =
-                          "rgba(251, 146, 60, 0.8)";
-                        e.currentTarget.style.boxShadow =
-                          "0 0 20px rgba(251, 146, 60, 0.5)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor =
-                          "rgba(251, 146, 60, 0.5)";
-                        e.currentTarget.style.boxShadow =
-                          "0 0 10px rgba(251, 146, 60, 0.3)";
+                        background: "#131317",
                       }}>
-                      <ChevronLeft className="h-4 w-4 text-orange-200" />
+                      <ChevronLeft className="h-6 w-6 text-orange-200" />
                     </button>
 
                     {/* Products Scroll Container */}
@@ -664,21 +606,13 @@ export function ProductPreview({
                               onProductClick(similarProduct);
                             }
                           }}
-                          className="flex-shrink-0 w-24 group cursor-pointer">
+                          className="shrink-0 w-24 group cursor-pointer mt-3">
                           <div
-                            className="relative aspect-[3/4] rounded-lg overflow-hidden mb-1.5 border-2 transition-all"
-                            style={{
-                              borderColor: "rgba(251, 146, 60, 0.3)",
-                            }}
+                            className="relative aspect-3/4 rounded-lg overflow-hidden mb-1.5 transition-all"
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.borderColor =
-                                "rgba(251, 146, 60, 0.7)";
-                              e.currentTarget.style.boxShadow =
-                                "0 0 15px rgba(251, 146, 60, 0.4)";
+                              e.currentTarget.style.boxShadow = "0 0 15px #fff";
                             }}
                             onMouseLeave={(e) => {
-                              e.currentTarget.style.borderColor =
-                                "rgba(251, 146, 60, 0.3)";
                               e.currentTarget.style.boxShadow = "none";
                             }}>
                             <img
@@ -686,11 +620,9 @@ export function ProductPreview({
                               alt={similarProduct.name}
                               className="w-full h-full object-cover"
                             />
-                            {/* Orange Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/15 via-amber-600/20 to-orange-700/15 mix-blend-multiply" />
                             {similarProduct.badge && (
                               <Badge
-                                className="absolute top-1 left-1 text-white border-0 text-[10px] px-1.5 py-0"
+                                className="absolute top-1 left-1 text-white text-[10px] px-1.5 py-0"
                                 style={{
                                   background:
                                     "linear-gradient(135deg, rgba(251, 146, 60, 0.8) 0%, rgba(245, 158, 11, 0.8) 100%)",
@@ -716,25 +648,11 @@ export function ProductPreview({
                     {/* Right Arrow */}
                     <button
                       onClick={scrollSimilarRight}
-                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all border-2"
+                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all cursor-pointer"
                       style={{
-                        background: "rgba(25, 15, 5, 0.9)",
-                        borderColor: "rgba(251, 146, 60, 0.5)",
-                        boxShadow: "0 0 10px rgba(251, 146, 60, 0.3)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor =
-                          "rgba(251, 146, 60, 0.8)";
-                        e.currentTarget.style.boxShadow =
-                          "0 0 20px rgba(251, 146, 60, 0.5)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor =
-                          "rgba(251, 146, 60, 0.5)";
-                        e.currentTarget.style.boxShadow =
-                          "0 0 10px rgba(251, 146, 60, 0.3)";
+                        background: "#131317",
                       }}>
-                      <ChevronRight className="h-4 w-4 text-orange-200" />
+                      <ChevronRight className="h-6 w-6 text-orange-200" />
                     </button>
                   </div>
                 </div>
@@ -742,12 +660,11 @@ export function ProductPreview({
 
               {/* Price */}
               <div
-                className="mb-6 p-4 rounded-xl border-2"
+                className="mb-6 p-4 rounded-xl"
                 style={{
                   background:
-                    "linear-gradient(to bottom right, rgba(251, 146, 60, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%)",
-                  borderColor: "rgba(251, 146, 60, 0.4)",
-                  boxShadow: "0 0 20px rgba(251, 146, 60, 0.2)",
+                    "linear-gradient(to bottom right, #2c2c30 0%, #2c2c30 100%)",
+                  boxShadow: "0 0 20px #2c2c30",
                 }}>
                 <div className="flex items-center justify-between">
                   <div>
@@ -756,23 +673,15 @@ export function ProductPreview({
                         ${product.originalPrice}
                       </p>
                     )}
-                    <p
-                      className="text-4xl text-orange-300"
-                      style={{
-                        textShadow: "0 0 25px rgba(251, 146, 60, 0.6)",
-                      }}>
-                      ${product.price}
-                    </p>
+                    <p className="text-4xl text-[#f0e4b8]">${product.price}</p>
                   </div>
                   {discount > 0 && (
                     <div className="text-right">
                       <Badge
-                        className="text-white border-2 text-lg px-4 py-2"
+                        className="text-white text-lg px-4 py-2 outline-none"
                         style={{
                           background:
-                            "linear-gradient(135deg, rgba(239, 68, 68, 0.7) 0%, rgba(220, 38, 38, 0.7) 100%)",
-                          borderColor: "rgba(239, 68, 68, 0.6)",
-                          boxShadow: "0 0 20px rgba(239, 68, 68, 0.4)",
+                            "linear-gradient(135deg, #131317 0%, #131317 100%)",
                         }}>
                         -{discount}%
                       </Badge>
@@ -784,27 +693,15 @@ export function ProductPreview({
               {/* Quantity Selector */}
               <div className="mb-4">
                 <label className="text-sm text-orange-200 mb-2 block">
-                  Quantity
+                  Cantidad
                 </label>
                 <div className="flex items-center gap-3">
-                  <div
-                    className="flex items-center border-2 rounded-lg overflow-hidden"
-                    style={{
-                      borderColor: "rgba(251, 146, 60, 0.4)",
-                    }}>
+                  <div className="flex items-center rounded-lg overflow-hidden">
                     <button
                       onClick={decrementQuantity}
-                      className="p-3 transition-colors"
+                      className="p-3 transition-colors cursor-pointer"
                       style={{
-                        background: "rgba(251, 146, 60, 0.1)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background =
-                          "rgba(251, 146, 60, 0.2)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background =
-                          "rgba(251, 146, 60, 0.1)";
+                        background: "#2c2c30",
                       }}>
                       <Minus className="h-4 w-4 text-orange-200" />
                     </button>
@@ -814,26 +711,17 @@ export function ProductPreview({
                       onChange={(e) =>
                         setQuantity(Math.max(1, parseInt(e.target.value) || 1))
                       }
-                      className="w-16 text-center border-x-2 py-3 focus:outline-none text-orange-100"
+                      className="w-16 text-center py-3 outline-none text-orange-100 no-spinners"
                       style={{
-                        borderColor: "rgba(251, 146, 60, 0.4)",
-                        background: "rgba(25, 15, 5, 0.6)",
+                        background: "#131317",
                       }}
                       min="1"
                     />
                     <button
                       onClick={incrementQuantity}
-                      className="p-3 transition-colors"
+                      className="p-3 transition-colors cursor-pointer"
                       style={{
-                        background: "rgba(251, 146, 60, 0.1)",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background =
-                          "rgba(251, 146, 60, 0.2)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background =
-                          "rgba(251, 146, 60, 0.1)";
+                        background: "#2c2c30",
                       }}>
                       <Plus className="h-4 w-4 text-orange-200" />
                     </button>
@@ -854,100 +742,68 @@ export function ProductPreview({
               {/* Action Buttons */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <Button
-                  variant="outline"
-                  className="border-2 text-orange-300 py-6"
+                  variant="ghost"
+                  className="text-orange-300 py-6 cursor-pointer outline-none"
                   style={{
-                    borderColor: "rgba(251, 146, 60, 0.6)",
-                    background: "rgba(251, 146, 60, 0.1)",
+                    background: "#2c2c30",
                   }}
                   onClick={() => {
                     for (let i = 0; i < quantity; i++) {
                       onAddToCart(product);
                     }
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background =
-                      "rgba(251, 146, 60, 0.2)";
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.8)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background =
-                      "rgba(251, 146, 60, 0.1)";
-                    e.currentTarget.style.borderColor =
-                      "rgba(251, 146, 60, 0.6)";
                   }}>
                   <ShoppingCart className="h-5 w-5 mr-2" />
-                  Add to Cart
+                  Añadir al Carrito
                 </Button>
                 <Button
-                  className="text-white py-6 border-2"
+                  className="text-white py-6 cursor-pointer outline-none"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(251, 146, 60, 0.7) 0%, rgba(245, 158, 11, 0.7) 100%)",
-                    borderColor: "rgba(251, 146, 60, 0.6)",
-                    boxShadow: "0 0 25px rgba(251, 146, 60, 0.4)",
+                      "linear-gradient(135deg, #3F2F14 0%, #3F2F14 100%)",
                     textShadow: "0 0 15px rgba(251, 146, 60, 0.5)",
                   }}
                   onClick={handleBuyNow}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow =
-                      "0 0 35px rgba(251, 146, 60, 0.6)";
+                    e.currentTarget.style.boxShadow = "0 0 35px #ffffff50";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow =
-                      "0 0 25px rgba(251, 146, 60, 0.4)";
+                    e.currentTarget.style.boxShadow = "none";
                   }}>
                   <Lightning className="h-5 w-5 mr-2" />
-                  Buy Now
+                  Comprar Ahora
                 </Button>
               </div>
 
               {/* Key Features */}
               <div className="grid grid-cols-3 gap-3 mb-6">
-                <div
-                  className="flex flex-col items-center p-3 rounded-lg border-2"
-                  style={{
-                    background: "rgba(251, 146, 60, 0.1)",
-                    borderColor: "rgba(251, 146, 60, 0.3)",
-                  }}>
+                <div className="flex flex-col items-center p-3 rounded-lg">
                   <Shield className="h-5 w-5 text-orange-300 mb-1" />
                   <span className="text-xs text-orange-200/70 text-center">
-                    Licensed
+                    Licenciado
                   </span>
                 </div>
-                <div
-                  className="flex flex-col items-center p-3 rounded-lg border-2"
-                  style={{
-                    background: "rgba(245, 158, 11, 0.1)",
-                    borderColor: "rgba(245, 158, 11, 0.3)",
-                  }}>
+                <div className="flex flex-col items-center p-3 rounded-lg">
                   <Zap className="h-5 w-5 text-amber-300 mb-1" />
                   <span className="text-xs text-orange-200/70 text-center">
-                    Fast Setup
+                    Configuración Rápida
                   </span>
                 </div>
-                <div
-                  className="flex flex-col items-center p-3 rounded-lg border-2"
-                  style={{
-                    background: "rgba(34, 197, 94, 0.1)",
-                    borderColor: "rgba(34, 197, 94, 0.3)",
-                  }}>
+                <div className="flex flex-col items-center p-3 rounded-lg">
                   <Package className="h-5 w-5 text-green-400 mb-1" />
                   <span className="text-xs text-orange-200/70 text-center">
-                    Support
+                    Soporte
                   </span>
                 </div>
               </div>
 
               {/* Description */}
               <div className="mb-6">
-                <h3 className="text-sm mb-2 text-orange-100">Description</h3>
+                <h3 className="text-sm mb-2 text-orange-100">Descripción</h3>
                 <p className="text-sm text-orange-200/70 leading-relaxed">
-                  This premium {product.category.toLowerCase()} is
-                  professionally crafted to help you build amazing projects
-                  faster. Includes comprehensive documentation, regular updates,
-                  and dedicated support.
+                  Esta categoria {product.category.toLowerCase()} es
+                  profesionalmente diseñada para ayudarte a construir proyectos
+                  increíbles más rápido. Incluye documentación completa,
+                  actualizaciones regulares, y soporte dedicado.
                 </p>
               </div>
 
@@ -955,7 +811,7 @@ export function ProductPreview({
               {product.features && (
                 <div className="mb-6">
                   <h3 className="text-sm mb-3 text-orange-100">
-                    Technologies & Features
+                    Tecnologías y Características
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {product.features.map((feature, index) => (
@@ -975,25 +831,23 @@ export function ProductPreview({
 
               {/* What's Included */}
               <div className="mb-6">
-                <h3 className="text-sm mb-3 text-orange-100">
-                  What's Included
-                </h3>
+                <h3 className="text-sm mb-3 text-orange-100">Qué incluye</h3>
                 <ul className="space-y-2 text-sm text-orange-200/70">
                   <li className="flex items-start gap-2">
                     <span className="text-green-400 mt-0.5">✓</span>
-                    <span>Full source code with comments</span>
+                    <span>Código fuente completo con comentarios</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400 mt-0.5">✓</span>
-                    <span>Comprehensive documentation</span>
+                    <span>Documentación completa</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400 mt-0.5">✓</span>
-                    <span>Lifetime updates</span>
+                    <span>Actualizaciones de por vida</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400 mt-0.5">✓</span>
-                    <span>6 months premium support</span>
+                    <span>6 meses de soporte premium</span>
                   </li>
                 </ul>
               </div>

@@ -80,6 +80,9 @@ export const resolvers = {
         if (cat) q.category = cat._id;
         else return [];
       }
+      if (filter?.rubro) {
+        q.rubro = filter.rubro;
+      }
       if (filter?.minPrice != null || filter?.maxPrice != null) {
         q.price = {};
         if (filter.minPrice != null) q.price.$gte = filter.minPrice;
@@ -177,6 +180,7 @@ export const resolvers = {
         inventory: input.inventory ?? 0,
         attributes: input.attributes || {},
         active: input.active ?? true,
+        rubro: input.rubro || "TECHNOLOGY",
       };
       const p = await Product.create(doc);
       return p.populate("category");
@@ -188,6 +192,9 @@ export const resolvers = {
         update.category = input.categoryId;
         delete update.categoryId;
       }
+      if (input?.rubro) {
+        update.rubro = input.rubro;
+      }
       const p = await Product.findByIdAndUpdate(id, update, {
         new: true,
       }).populate("category");
@@ -196,6 +203,24 @@ export const resolvers = {
           extensions: { code: "NOT_FOUND" },
         });
       return p;
+    },
+
+    setSellerProfile: async (
+      _,
+      { rubro, storeName, storeDescription },
+      ctx
+    ) => {
+      const user = requireAuth(ctx);
+      const update = {
+        isSeller: true,
+        rubro,
+        storeName,
+        storeDescription: storeDescription || "",
+      };
+      const u = await User.findByIdAndUpdate(user.id, update, {
+        new: true,
+      });
+      return u;
     },
     deleteProduct: async (_, { id }, ctx) => {
       requireAdmin(ctx);

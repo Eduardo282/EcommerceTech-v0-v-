@@ -13,6 +13,12 @@ const ProductSchema = new mongoose.Schema(
     rating: { type: Number, default: 0, min: 0, max: 5 },
     attributes: { type: Map, of: String },
     active: { type: Boolean, default: true },
+    rubro: {
+      type: String,
+      enum: ["TECHNOLOGY", "GAMING"],
+      default: "TECHNOLOGY",
+      index: true,
+    },
   },
   { timestamps: true }
 );

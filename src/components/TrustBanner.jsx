@@ -4,83 +4,81 @@ export function TrustBanner() {
   const features = [
     {
       icon: Shield,
-      title: "Secure Payments",
-      description: "SSL encrypted checkout",
+      title: "Pagos Seguros",
+      description: "Protección total",
     },
     {
       icon: Download,
-      title: "Instant Access",
-      description: "Download immediately",
+      title: "Acceso Instantáneo",
+      description: "Descarga inmediata",
     },
     {
       icon: Users,
-      title: "50k+ Customers",
-      description: "Trusted worldwide",
+      title: "50k+ Clientes Satisfechos",
+      description: "Confianza comprobada",
     },
     {
       icon: Award,
-      title: "Premium Quality",
-      description: "Hand-picked products",
+      title: "Alta Calidad",
+      description: "Productos seleccionados a mano",
     },
     {
       icon: Zap,
-      title: "Fast Updates",
-      description: "Regular improvements",
+      title: "Actualizaciones Rápidas",
+      description: "Mejoras regulares",
     },
     {
       icon: RefreshCw,
-      title: "Money Back",
-      description: "30-day guarantee",
+      title: "Garantía de Devolución",
+      description: "Garantía de 30 días",
     },
   ];
 
   return (
     <section
-      className="py-12 relative z-0 border-y-2"
+      className="py-12 relative z-0 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(to bottom, rgba(10, 20, 40, 0.95) 0%, rgba(15, 25, 45, 0.95) 100%)",
-        borderTopColor: "rgba(14, 165, 233, 0.3)",
-        borderBottomColor: "rgba(14, 165, 233, 0.3)",
+        backgroundColor: "black",
       }}>
+      {/* Soft grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-15"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(234,179,8,0.18) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(234,179,8,0.18) 1px, transparent 1px)
+          `,
+          backgroundSize: "70px 70px",
+        }}
+      />
       <div className="container mx-auto px-4">
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 list-none">
           {features.map((feature, index) => (
-            <li key={index} className="text-center group">
+            <li key={index} className="text-center group hover:cursor-pointer">
               <div
-                className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 border-2 transition-all duration-300"
-                style={{
-                  background: "rgba(15, 30, 55, 0.8)",
-                  borderColor: "rgba(14, 165, 233, 0.5)",
-                  boxShadow: "0 0 20px rgba(14, 165, 233, 0.2)",
-                }}
+                className="inline-flex items-center justify-center w-16 h-16 mb-3 transition-all duration-300"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(14, 165, 233, 0.8)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 30px rgba(14, 165, 233, 0.4)";
-                  e.currentTarget.style.transform = "scale(1.1)";
+                  e.currentTarget.style.transform = "scale(1.4)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(14, 165, 233, 0.5)";
-                  e.currentTarget.style.boxShadow =
-                    "0 0 20px rgba(14, 165, 233, 0.2)";
                   e.currentTarget.style.transform = "scale(1)";
                 }}>
                 <feature.icon
-                  className="h-7 w-7 text-cyan-400"
+                  className="h-7 w-7 text-[#foe4b8]"
                   style={{
-                    filter: "drop-shadow(0 0 5px rgba(14, 165, 233, 0.6))",
+                    filter: "drop-shadow(0 0 5px #foe4b8)",
                   }}
                 />
               </div>
               <h3
-                className="text-sm mb-1 text-cyan-100"
+                className="text-sm mb-1 text-amber-100 font-display"
                 style={{
-                  textShadow: "0 0 10px rgba(14, 165, 233, 0.3)",
+                  textShadow: "0 0 10px rgba(234,179,8,0.35)",
                 }}>
                 {feature.title}
               </h3>
-              <p className="text-xs text-cyan-200/60">{feature.description}</p>
+              <p className="text-xs text-amber-200/60">{feature.description}</p>
             </li>
           ))}
         </ul>
