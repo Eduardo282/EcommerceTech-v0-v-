@@ -6,6 +6,10 @@ export const typeDefs = /* GraphQL */ `
     name: String!
     email: String!
     role: String!
+    isSeller: Boolean!
+    rubro: Rubro
+    storeName: String
+    storeDescription: String
     createdAt: Date!
     updatedAt: Date!
   }
@@ -31,6 +35,7 @@ export const typeDefs = /* GraphQL */ `
     rating: Float!
     attributes: JSON
     active: Boolean!
+    rubro: Rubro!
     createdAt: Date!
     updatedAt: Date!
   }
@@ -71,12 +76,18 @@ export const typeDefs = /* GraphQL */ `
     minPrice: Float
     maxPrice: Float
     active: Boolean
+    rubro: Rubro
   }
   enum ProductSort {
     NEWEST
     PRICE_ASC
     PRICE_DESC
     RATING_DESC
+  }
+
+  enum Rubro {
+    TECHNOLOGY
+    GAMING
   }
 
   input ProductInput {
@@ -88,6 +99,7 @@ export const typeDefs = /* GraphQL */ `
     inventory: Int
     attributes: JSON
     active: Boolean
+    rubro: Rubro
   }
   input ProductUpdateInput {
     title: String
@@ -98,6 +110,7 @@ export const typeDefs = /* GraphQL */ `
     inventory: Int
     attributes: JSON
     active: Boolean
+    rubro: Rubro
   }
 
   input OrderItemInput {
@@ -130,6 +143,12 @@ export const typeDefs = /* GraphQL */ `
   type Mutation {
     registerUser(name: String!, email: String!, password: String!): AuthPayload!
     loginUser(email: String!, password: String!): AuthPayload!
+
+    setSellerProfile(
+      rubro: Rubro!
+      storeName: String!
+      storeDescription: String
+    ): User!
 
     createCategory(name: String!, parentId: ID): Category!
 

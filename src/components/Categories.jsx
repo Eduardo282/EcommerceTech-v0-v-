@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, Sparkles } from "lucide-react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ImageWithFallback } from "./fallImage/ImageWithFallback";
 import {
   Carousel,
   CarouselContent,
@@ -20,7 +20,7 @@ const categories = [
       { name: "Analytics Dashboards", count: "620+" },
       { name: "E-commerce Dashboards", count: "480+" },
       { name: "CRM Dashboards", count: "340+" },
-      { name: "Project Management", count: "290+" },
+      { name: "Back & Front End - React", count: "290+" },
     ],
   },
   {
@@ -175,16 +175,21 @@ export function Categories() {
 
   return (
     <section className="py-20 relative overflow-visible">
-      {/* Deep Blue Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1b3a] via-[#1a2847] to-[#0d1b3a]" />
+      {/* Onyx Background */}
+      <div
+        style={{
+          backgroundColor: "black",
+        }}
+        className="absolute inset-0"
+      />
 
       {/* Grid Pattern - Horizontal and Vertical Lines */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(14, 165, 233, 0.15) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(14, 165, 233, 0.15) 1px, transparent 1px)
+            linear-gradient(to right, rgba(234, 179, 8, 0.15) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(234, 179, 8, 0.15) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
@@ -199,8 +204,8 @@ export function Categories() {
               0deg,
               transparent,
               transparent 120px,
-              rgba(14, 165, 233, 0.3) 120px,
-              rgba(14, 165, 233, 0.3) 121px
+              rgba(234, 179, 8, 0.28) 120px,
+              rgba(234, 179, 8, 0.28) 121px
             )
           `,
         }}
@@ -209,24 +214,23 @@ export function Categories() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-5 py-2 mb-6 relative">
-            <div className="absolute inset-0 bg-cyan-500/10 rounded-full border border-cyan-500/30 backdrop-blur-sm" />
-            <Sparkles className="h-4 w-4 text-cyan-400 animate-pulse relative z-10" />
-            <span className="text-sm text-cyan-300 relative z-10">
-              Explore Categories
+            <div className="absolute inset-0 bg-amber-500/10 rounded-full backdrop-blur-sm" />
+            <Sparkles className="h-4 w-4 text-amber-400 animate-pulse relative z-10" />
+            <span className="text-sm text-amber-300 relative z-10 font-display">
+              Explora Categorías
             </span>
           </div>
           <h2
-            className="text-5xl mb-4 text-white uppercase tracking-wide"
+            className="text-5xl mb-4 text-white uppercase tracking-wide font-display"
             style={{
-              textShadow: "0 0 30px rgba(14, 165, 233, 0.4)",
+              textShadow: "0 0 30px rgba(234, 179, 8, 0.35)",
             }}>
-            Browse by{" "}
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Category
+            <span className="bg-linear-to-r from-amber-400 via-yellow-400 to-amber-400 bg-clip-text text-transparent">
+              Categorias
             </span>
           </h2>
-          <p className="text-cyan-100/60 text-lg">
-            Explore our curated collection of premium digital products
+          <p className="text-amber-100/70 text-lg">
+            Explora nuestra colección de productos digitales
           </p>
         </div>
 
@@ -256,26 +260,26 @@ export function Categories() {
                         className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
                         style={{
                           background:
-                            "radial-gradient(circle, rgba(14, 165, 233, 0.4) 0%, transparent 70%)",
+                            "radial-gradient(circle, #111115 0%, transparent 70%)",
                           filter: "blur(20px)",
                         }}
                       />
 
                       {/* Multiple Neon Border Rings */}
                       <div
-                        className="absolute inset-0 rounded-full border-4 border-cyan-400/80 group-hover:border-cyan-300 transition-all duration-500"
+                        className="absolute inset-0 rounded-full border-4 border-transparent group-hover:border-transparent transition-all duration-500"
                         style={{
                           boxShadow: `
-                            0 0 20px rgba(14, 165, 233, 0.6),
-                            0 0 40px rgba(14, 165, 233, 0.4),
-                            0 0 60px rgba(14, 165, 233, 0.2),
-                            inset 0 0 20px rgba(14, 165, 233, 0.1)
+                            0 0 20px #2c2c30,
+                            0 0 40px #2c2c30,
+                            0 0 60px #2c2c30,
+                            inset 0 0 20px transparent
                           `,
                         }}
                       />
 
                       {/* Inner Border */}
-                      <div className="absolute inset-2 rounded-full border-2 border-cyan-500/40" />
+                      <div className="absolute inset-2 rounded-full" />
 
                       {/* Image Container with Blue Tint Overlay */}
                       <div className="absolute inset-3 rounded-full overflow-hidden">
@@ -285,17 +289,14 @@ export function Categories() {
                             alt={category.name}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
-                          {/* Blue Overlay Tint */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/40 via-blue-600/50 to-cyan-700/40 mix-blend-multiply" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent" />
                         </div>
                       </div>
 
                       {/* Center Glow Point */}
                       <div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full opacity-60 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-[#f0e4b8] rounded-full opacity-60 group-hover:opacity-100 transition-opacity"
                         style={{
-                          boxShadow: "0 0 20px 4px rgba(255, 255, 255, 0.8)",
+                          boxShadow: "0 0 20px 4px #f0e4b8",
                         }}
                       />
 
@@ -303,17 +304,17 @@ export function Categories() {
                         <div
                           className={`absolute -bottom-2 left-1/2 -translate-x-1/2 border-2 rounded-full p-1.5 shadow-lg transition-all duration-300 backdrop-blur-sm ${
                             openDropdown === category.name
-                              ? "bg-cyan-500/30 border-cyan-400/80"
-                              : "bg-blue-900/40 border-cyan-500/60"
+                              ? "bg-[#2c2c30] border-[#2c2c30]"
+                              : "bg-[#2c2c30] border-[#111115]"
                           }`}
                           style={{
                             boxShadow:
                               openDropdown === category.name
-                                ? "0 0 20px rgba(14, 165, 233, 0.6)"
-                                : "0 0 10px rgba(14, 165, 233, 0.3)",
+                                ? "0 0 20px #2c2c30"
+                                : "",
                           }}>
                           <ChevronDown
-                            className={`h-4 w-4 text-cyan-300 transition-transform duration-300 ${
+                            className={`h-4 w-4 text-[#f0e4b8] transition-transform duration-300 ${
                               openDropdown === category.name ? "rotate-180" : ""
                             }`}
                           />
@@ -323,9 +324,9 @@ export function Categories() {
 
                     {/* Category Name */}
                     <h3
-                      className="text-sm text-cyan-100 group-hover:text-cyan-300 transition-colors uppercase tracking-wider"
+                      className="text-sm text-amber-100 group-hover:text-amber-300 transition-colors uppercase tracking-wider"
                       style={{
-                        textShadow: "0 0 10px rgba(14, 165, 233, 0.3)",
+                        textShadow: "0 0 10px rgba(234, 179, 8, 0.3)",
                       }}>
                       {category.name}
                     </h3>
@@ -335,23 +336,21 @@ export function Categories() {
                   {category.hasDropdown && openDropdown === category.name && (
                     <nav
                       aria-label={`${category.name} subcategories`}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-72 border-2 border-cyan-500/40 rounded-xl z-50 backdrop-blur-xl animate-in slide-in-from-top-2 shadow-2xl"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-72 z-50 backdrop-blur-xl animate-in slide-in-from-top-2 shadow-2xl rounded-3xl"
                       style={{
-                        background: "rgba(13, 27, 58, 0.92)",
-                        boxShadow:
-                          "0 0 40px rgba(14, 165, 233, 0.35), inset 0 0 25px rgba(14, 165, 233, 0.08)",
+                        background: "#111115",
                       }}>
                       <ul className="p-4 space-y-1 overflow-visible">
                         {category.subcategories?.map((sub, subIndex) => (
                           <li key={subIndex}>
                             <a
                               href="#"
-                              className="flex items-center justify-between px-4 py-3 rounded-lg transition-colors group/item border border-cyan-500/20 hover:bg-cyan-500/10 hover:border-cyan-400/40">
-                              <span className="text-sm text-cyan-100 group-hover/item:text-cyan-300 transition-colors">
+                              className="flex items-center justify-between px-4 py-3 rounded-lg transition-colors group/item border border-[#2c2c30] hover:bg-[#2c2c30] hover:border-[#2c2c30]">
+                              <span className="text-sm text-amber-100 transition-colors">
                                 {sub.name}
                               </span>
                               {sub.count && (
-                                <span className="text-xs bg-cyan-500/20 px-2 py-1 rounded-full text-cyan-300 border border-cyan-500/30">
+                                <span className="text-xs px-2 py-1 rounded-full text-amber-300 ">
                                   {sub.count}
                                 </span>
                               )}
@@ -366,17 +365,17 @@ export function Categories() {
             ))}
           </CarouselContent>
           <CarouselPrevious
-            className="border-2 border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400/60 backdrop-blur-sm"
+            className="text-[#f0e4b8] backdrop-blur-sm hover:text-white"
             style={{
-              background: "rgba(13, 27, 58, 0.8)",
-              boxShadow: "0 0 20px rgba(14, 165, 233, 0.2)",
+              background: "#2c2c30",
+              boxShadow: "0 0 20px #2c2c30",
             }}
           />
           <CarouselNext
-            className="border-2 border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400/60 backdrop-blur-sm"
+            className="text-[#f0e4b8] backdrop-blur-sm hover:text-white"
             style={{
-              background: "rgba(13, 27, 58, 0.8)",
-              boxShadow: "0 0 20px rgba(14, 165, 233, 0.2)",
+              background: "#2c2c30",
+              boxShadow: "0 0 20px #2c2c30",
             }}
           />
         </Carousel>

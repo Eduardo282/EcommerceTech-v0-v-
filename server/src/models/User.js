@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema(
     },
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "admin"], default: "user" },
+    isSeller: { type: Boolean, default: false },
+    rubro: { type: String, enum: ["TECHNOLOGY", "GAMING"], default: null },
+    storeName: { type: String, default: null },
+    storeDescription: { type: String, default: null },
   },
   { timestamps: true }
 );
