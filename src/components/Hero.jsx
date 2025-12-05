@@ -2,6 +2,7 @@ import { Button } from "./ui/button";
 import { Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getHeroConfig } from "../services/strapi";
+import { VentasButton } from "./smallComponents/VentasButton";
 
 export function Hero() {
   const [heroConfig, setHeroConfig] = useState(null);
@@ -32,8 +33,8 @@ export function Hero() {
             0deg,
             transparent,
             transparent 26px,
-            rgba(234,179,8,0.28) 26px,
-            rgba(234,179,8,0.28) 27px
+            #F9B61D40 26px,
+            #F9B61D40 27px
           )`,
         }}
         aria-hidden="true"
@@ -56,31 +57,17 @@ export function Hero() {
           <header className="space-y-12">
             {/* Neon Border Box with Lines */}
             <div className="relative">
-              <div className="absolute -left-8 top-0 bottom-0 w-1 bg-linear-to-b from-[#2c2c30] via-[#2c2c30] to-transparent" style={{ backgroundColor: getColor("detalleSutilColor", "#2c2c30") }} />
-              <div className="absolute -left-8 top-0 w-8 h-px bg-linear-to-r from-[#2c2c30] to-transparent" style={{ backgroundColor: getColor("detalleSutilColor", "#2c2c30") }} />
+              <div className="absolute -left-8 top-0 bottom-0 w-1 bg-linear-to-b from-[#2c2c30] via-[#2c2c30] to-transparent" />
+              <div className="absolute -left-8 top-0 w-8 h-px bg-linear-to-r from-[#2c2c30] to-transparent" />
 
               <div className="space-y-10">
-                <h1 className="text-[58px] leading-[1.1] font-display tracking-wider uppercase">
-                  <span className="block drop-shadow-gold" style={{ color: getColor("titleHeroColor", "#fef3c7") }}>Evo</span>
-                  <span className="block mt-4 text-7xl" style={{ color: getColor("titleHeroColor2", "#fef3c7") }}>Hance</span>
+                <h1 className="text-[48px] leading-[1.1] font-display">
+                  <span className="block" style={{ color: getColor("titleHeroColor", "#fef3c7") }}>{heroConfig?.titleHero || "Cargando..."}</span>
+                  <span className="block mt-4 text-[48px]" style={{ color: getColor("titleHeroColor2", "#fef3c7") }}>{heroConfig?.titleHero2 || "Cargando..."}</span>
                 </h1>
 
-                <button
-                  className="bg-[#2c2c30] text-amber-100 cursor-pointer px-10 py-5 text-base rounded-xl backdrop-blur-xl group transition-all inline-flex items-center justify-center gap-2 font-medium tracking-wide"
-                  style={{
-                    boxShadow: "0 0 20px #2c2c30",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow =
-                      "0 0 30px #2c2c30";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow =
-                      "0 0 20px #2c2c30";
-                  }}>
-                  Vende tus productos (Próximamente)
-                  <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform text-amber-300" />
-                </button>
+                <VentasButton />
+
               </div>
             </div>
 
@@ -100,7 +87,7 @@ export function Hero() {
               
               {/* Main Image Container */}
               <div className="relative w-full h-full group perspective-1000">
-                <div className="absolute inset-0 bg-amber-500/20 blur-[100px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-[#2c2c30] blur-[100px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
               
                 {/* Tech Image */}
                 <img

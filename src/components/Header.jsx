@@ -103,7 +103,7 @@ export function Header({
       className="sticky top-0 z-50 w-full shadow-2xl font-sans"
       style={{
         backgroundColor: getColor("fondoHeaderColor", "black"),
-        boxShadow: "0 4px 32px #2F2F33",
+        boxShadow: "0 4px 32px #2C2C30",
       }}>
       {/* Top Bar AD */}
       {(() => {
@@ -136,7 +136,6 @@ export function Header({
                   />
                   <span
                     style={{
-                      textShadow: "0 0 10px rgba(234, 179, 8, 0.3)",
                       color: getColor("titleAnuncioColor", "#FFD700")
                     }}>
                     {headerConfig?.titleAnuncio || "Cargando..."}
@@ -144,10 +143,10 @@ export function Header({
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                <button className="hover:text-amber-300 transition-colors cursor-pointer" style={{ color: getColor("enlacesAnuncioColor", "rgba(253, 230, 138, 0.7)") }}>
+                <button className="transition-colors cursor-pointer" style={{ color: getColor("enlacesAnuncioColor", "rgba(253, 230, 138, 0.7)") }}>
                   Ayuda & Soporte
                 </button>
-                <button className="hover:text-amber-300 transition-colors cursor-pointer" style={{ color: getColor("enlacesAnuncioColor", "rgba(253, 230, 138, 0.7)") }}>
+                <button className="transition-colors cursor-pointer" style={{ color: getColor("enlacesAnuncioColor", "rgba(253, 230, 138, 0.7)") }}>
                   Rastrear Pedido
                 </button>
               </div>
@@ -164,10 +163,7 @@ export function Header({
             <Logo />
             <div>
               <h1
-                className="text-xl tracking-tight transition-all flex items-center gap-2 font-display"
-                style={{
-                  color: getColor("logoText1Color", "#ffffff"),
-                }}>
+                className="text-xl tracking-tight transition-all flex items-center gap-2 font-display">
                 <span 
                 style={{ color: getColor("logoText1Color", "#ffffff") }}>
                   {headerConfig?.logoText1 || "Cargando..."}
@@ -377,7 +373,6 @@ export function Header({
       <nav
         style={{
           backgroundColor: getColor("fondoNavColor", "#111115"),
-          borderTopColor: "rgba(234, 179, 8, 0.2)",
         }}>
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-6 py-3 list-none">
@@ -409,29 +404,27 @@ export function Header({
                   className="absolute top-full left-0 mt-2 w-[800px] rounded-xl p-6 z-50 animate-in fade-in slide-in-from-top-2"
                   style={{
                     backgroundColor: "#111115",
-                    border: "1px solid rgba(234, 179, 8, 0.2)",
-                    boxShadow: "0 10px 40px -10px rgba(0,0,0,0.5)",
                     backdropFilter: "blur(12px)",
                   }}>
                   <div className="grid grid-cols-3 gap-6">
                     {categories.slice(0, 9).map((category, idx) => (
                       <div key={idx} className="group cursor-pointer">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="w-10 h-10 rounded-lg overflow-hidden border border-amber-500/20 group-hover:border-amber-500/50 transition-colors">
+                          <div className="w-10 h-10 rounded-lg overflow-hidden transition-colors">
                             <img
                               src={category.image}
                               alt={category.name}
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          <h4 className="text-[#E4D9AF] font-medium group-hover:text-amber-400 transition-colors">
+                          <h4 className="text-[#E4D9AF] font-medium group-hover:text-[#F9B61D] transition-colors">
                             {category.name}
                           </h4>
                         </div>
                         {category.subcategories && (
                           <ul className="pl-[52px] space-y-1">
                             {category.subcategories.slice(0, 3).map((sub, sIdx) => (
-                              <li key={sIdx} className="text-xs text-gray-400 hover:text-amber-200 transition-colors">
+                              <li key={sIdx} className="text-xs text-[#FFFFFF] hover:text-[#F9B61D] transition-colors">
                                 {sub.name}
                               </li>
                             ))}
@@ -440,10 +433,10 @@ export function Header({
                       </div>
                     ))}
                   </div>
-                  <div className="mt-6 pt-4 border-t border-amber-500/10 text-center">
+                  <div className="mt-6 pt-4 border-t border-[#000000] text-center">
                     <Link
                       to="/#categories-section"
-                      className="text-sm text-amber-500 hover:text-amber-400 transition-colors inline-flex items-center gap-1"
+                      className="text-sm text-[#F9B61D] transition-colors inline-flex items-center gap-1"
                       onClick={() => {
                         setCategoriesOpen(false);
                         // Small timeout to allow dropdown to close before scrolling if needed, 
@@ -501,7 +494,7 @@ export function Header({
                   }}
                 />
                 <span>
-                  Nuevos Lanzamientos
+                  {headerConfig?.titleNoticias || "Cargando..."}
                 </span>
               </button>
             </div>

@@ -49,17 +49,6 @@ export function FeaturedProducts({
       style={{
         backgroundColor: getColor("fondoDestacadosColor", "black"),
       }}>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-15"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(234,179,8,0.18) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(234,179,8,0.18) 1px, transparent 1px)
-          `,
-          backgroundSize: "70px 70px",
-        }}
-      />
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <h2 className="text-4xl mb-5 font-display" style={{ color: getColor("titleDestacadosColor", "#FFD700") }}>

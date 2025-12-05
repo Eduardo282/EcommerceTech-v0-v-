@@ -661,6 +661,8 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
       Schema.Attribute.DefaultTo<'\u00A1Oferta especial! Obt\u00E9n un 20% de descuento en tu primera compra'>;
     titleAnuncioColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#E4D9AF'>;
+    titleNoticias: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Nuevos Lanzamientos'>;
     titleNoticiasColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#FFD700'>;
     titleRubroColor: Schema.Attribute.String &
@@ -688,14 +690,16 @@ export interface ApiHeroHero extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     descripcionHeroColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#fef3c7'>;
-    detalleSutilColor: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'#2c2c30'>;
     fondoHeroColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#000000'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::hero.hero'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    titleHero: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Cargando...'>;
+    titleHero2: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'estandar digital'>;
     titleHeroColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#fef3c7'>;
     titleHeroColor2: Schema.Attribute.String &
