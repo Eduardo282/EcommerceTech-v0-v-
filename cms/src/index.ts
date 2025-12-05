@@ -67,7 +67,8 @@ export default {
       if (!header) {
         await strapi.db.query("api::header.header").create({
           data: {
-            logoText: "EvoHance",
+            logoText1: "Evo",
+            logoText2: "Hance",
             menuItems: [
               { label: "Plantillas dashboard", url: "#" },
               { label: "Plantillas Auth", url: "#" },
@@ -89,28 +90,6 @@ export default {
           },
         });
         console.log("Force published header data");
-      }
-
-      // Seed default Fuente if not exists
-      const fuente = await strapi.db.query("api::fuente.fuente").findOne();
-      if (!fuente) {
-        await strapi.db.query("api::fuente.fuente").create({
-          data: {
-            sans: "Inter",
-            display: "Cinzel",
-            publishedAt: new Date(), // Publish immediately
-          },
-        });
-        console.log("Seeded default fuente data");
-      } else if (!fuente.publishedAt) {
-        // Force publish if exists but unpublished
-        await strapi.db.query("api::fuente.fuente").update({
-          where: { id: fuente.id },
-          data: {
-            publishedAt: new Date(),
-          },
-        });
-        console.log("Force published fuente data");
       }
 
     } catch (error) {

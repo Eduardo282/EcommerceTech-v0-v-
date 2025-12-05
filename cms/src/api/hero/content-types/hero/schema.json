@@ -24,13 +24,17 @@
       "type": "string",
       "default": "#fef3c7"
     },
-    "detalleSutilColor": {
-      "type": "string",
-      "default": "#2c2c30"
-    },
     "fondoHeroColor": {
       "type": "string",
       "default": "#000000"
+    },
+    "titleHero": {
+      "type": "string",
+      "default": "Cargando..."
+    },
+    "titleHero2": {
+      "type": "string",
+      "default": "estandar digital"
     }
   }
 }

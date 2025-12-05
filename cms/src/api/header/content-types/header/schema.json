@@ -110,6 +110,10 @@
     },
     "fechaFinAnuncio": {
       "type": "datetime"
+    },
+    "titleNoticias": {
+      "type": "string",
+      "default": "Nuevos Lanzamientos"
     }
   }
 }

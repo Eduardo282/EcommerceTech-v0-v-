@@ -37,11 +37,9 @@ export function ProductCard({
       <article
         className="group relative overflow-hidden transition-all duration-400 cursor-pointer"
         style={{
-          background:
-            "linear-gradient(145deg, rgba(24,24,28,0.92) 0%, rgba(18,18,22,0.92) 55%, rgba(14,14,18,0.94) 100%)",
+          backgroundColor: "#111115",
           borderRadius: "28px",
-          boxShadow:
-            "0 6px 22px -6px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.02)",
+          boxShadow: "none",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
           transformStyle: "preserve-3d",
@@ -54,8 +52,7 @@ export function ProductCard({
           e.currentTarget.style.transform = "translateY(-4px)";
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow =
-            "0 6px 22px -6px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.02)";
+          e.currentTarget.style.boxShadow = "none";
           e.currentTarget.style.transform = "translateY(0px)";
         }}>
         {/* Side notch inspired by reference */}
@@ -68,11 +65,9 @@ export function ProductCard({
             width: "33px",
             height: "86px",
             transform: "translateY(-50%)",
-            background:
-              "linear-gradient(180deg, rgba(180,180,188,0.22) 0%, rgba(130,130,138,0.18) 100%)",
+            background: "#2c2c30",
             borderTopRightRadius: "26px",
             borderBottomRightRadius: "26px",
-            border: "1px solid rgba(160,160,168,0.25)",
             boxShadow:
               "inset 0 0 0 1px rgba(255,255,255,0.05), 0 4px 14px -4px rgba(0,0,0,0.45)",
             backdropFilter: "blur(10px)",

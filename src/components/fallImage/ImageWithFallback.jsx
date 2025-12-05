@@ -44,7 +44,7 @@ export function ImageWithFallback({
 
   return (
     <figure
-      className={`inline-block bg-gray-100 text-center align-middle ${
+      className={`inline-block text-center align-middle ${
         className ?? ""
       }`}
       style={style}
@@ -60,7 +60,7 @@ export function ImageWithFallback({
       {alt && (
         <figcaption
           id={`${src}-caption`}
-          className="text-xs text-gray-600 mt-2 px-2">
+          className="text-xs text-[#2c2c30] mt-2 px-2">
           {alt} – failed to load
         </figcaption>
       )}
