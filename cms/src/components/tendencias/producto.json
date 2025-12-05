@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_tendencias_productos",
+  "info": {
+    "displayName": "Producto",
+    "icon": "lock"
+  },
+  "options": {},
+  "attributes": {
+    "inicio_pagina": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-tendencia.product-tendencia"
+    }
+  },
+  "config": {}
+}

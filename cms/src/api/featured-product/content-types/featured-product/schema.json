@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "featured_products",
+  "info": {
+    "singularName": "featured-product",
+    "pluralName": "featured-products",
+    "displayName": "FeaturedProducts",
+    "description": "Featured Products configuration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fondoDestacadosColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "titleDestacadosColor": {
+      "type": "string",
+      "default": "#FFD700"
+    },
+    "descripcionDestacadosColor": {
+      "type": "string",
+      "default": "#FFD700"
+    }
+  }
+}

@@ -1,34 +1,20 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRubro, RUBROS } from "../context/RubroContext";
 import { Cpu, Gamepad2 } from "lucide-react";
+import { useQuery } from "@apollo/client";
+import { GET_ME } from "../graphql/queries";
 
-export function RubroSelector({ compact = true }) {
+export function RubroSelector({ compact = true, titleColor }) {
   const { rubro, setRubro, isSeller } = useRubro();
   const [open, setOpen] = useState(false);
-  const [authed, setAuthed] = useState(
-    () => !!localStorage.getItem("auth.token")
-  );
-
-  // Listen for auth changes so selector reacts immediately
-  useEffect(() => {
-    function handler() {
-      setAuthed(!!localStorage.getItem("auth.token"));
-    }
-    window.addEventListener("auth:changed", handler);
-    return () => window.removeEventListener("auth:changed", handler);
-  }, []);
+  const { data } = useQuery(GET_ME);
+  const authed = !!data?.me;
 
   // According to requirements: selector must be disabled for everyone (guest, client, seller).
   const locked = true;
 
-  // Enforce TECHNOLOGY for guests and for authenticated non-sellers
-  useEffect(() => {
-    if (!authed && rubro !== RUBROS.TECHNOLOGY) {
-      setRubro(RUBROS.TECHNOLOGY);
-    } else if (authed && !isSeller && rubro !== RUBROS.TECHNOLOGY) {
-      setRubro(RUBROS.TECHNOLOGY);
-    }
-  }, [authed, isSeller, rubro, setRubro]);
+  // Enforcement is now handled globally in App.jsx to avoid conflicts
+  // We only use authed here for the tooltip text
 
   const toggle = useCallback(() => {
     if (locked) return;
@@ -51,11 +37,11 @@ export function RubroSelector({ compact = true }) {
             : "Rubro fijo para invitados"
         }>
         {rubro === RUBROS.GAMING ? (
-          <Gamepad2 className="h-4 w-4" style={{ color: "#67e8f9" }} />
+          <Gamepad2 className="h-4 w-4" style={{ color: "#ff0000" }} />
         ) : (
-          <Cpu className="h-4 w-4" style={{ color: "#67e8f9" }} />
+          <Cpu className="h-4 w-4" style={{ color: "#00ff0090" }} />
         )}
-        <span className="sm:block">
+        <span className="sm:block" style={{ color: titleColor || "white" }}>
           {rubro === RUBROS.GAMING ? "Gaming" : "Technology"}
         </span>
       </button>

@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "heroes",
+  "info": {
+    "singularName": "hero",
+    "pluralName": "heroes",
+    "displayName": "Hero",
+    "description": "Hero configuration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titleHeroColor": {
+      "type": "string",
+      "default": "#fef3c7"
+    },
+    "titleHeroColor2": {
+      "type": "string",
+      "default": "#fef3c7"
+    },
+    "descripcionHeroColor": {
+      "type": "string",
+      "default": "#fef3c7"
+    },
+    "detalleSutilColor": {
+      "type": "string",
+      "default": "#2c2c30"
+    },
+    "fondoHeroColor": {
+      "type": "string",
+      "default": "#000000"
+    }
+  }
+}

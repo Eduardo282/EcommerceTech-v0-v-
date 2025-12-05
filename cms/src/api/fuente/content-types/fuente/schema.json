@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "fuentes",
+  "info": {
+    "singularName": "fuente",
+    "pluralName": "fuentes",
+    "displayName": "Fuentes"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sans": {
+      "type": "string",
+      "default": "Inter",
+      "required": true
+    },
+    "display": {
+      "type": "string",
+      "default": "Cinzel",
+      "required": true
+    }
+  }
+}

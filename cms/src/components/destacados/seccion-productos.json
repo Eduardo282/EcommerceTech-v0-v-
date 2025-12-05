@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_destacados_seccion_productos",
+  "info": {
+    "displayName": "Producto",
+    "icon": "gift"
+  },
+  "options": {},
+  "attributes": {
+    "inicio_pagina": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  },
+  "config": {}
+}

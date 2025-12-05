@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "inicio_paginas",
+  "info": {
+    "singularName": "inicio-pagina",
+    "pluralName": "inicio-paginas",
+    "displayName": "inicioPagina"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "producto_destacado": {
+      "type": "component",
+      "component": "destacados.seccion-productos",
+      "repeatable": false
+    },
+    "producto_tendencia": {
+      "type": "component",
+      "component": "tendencias.producto",
+      "repeatable": false
+    }
+  }
+}

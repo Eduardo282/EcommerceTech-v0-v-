@@ -1,0 +1,60 @@
+{
+  "kind": "singleType",
+  "collectionName": "footers",
+  "info": {
+    "singularName": "footer",
+    "pluralName": "footers",
+    "displayName": "Footer",
+    "description": "Footer configuration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titleLogoColor": {
+      "type": "string",
+      "default": "#fef3c7"
+    },
+    "descripcionLogoColor": {
+      "type": "string",
+      "default": "#F9B61D"
+    },
+    "descripcionColor": {
+      "type": "string",
+      "default": "#A99958"
+    },
+    "adressColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#F9B61D"
+    },
+    "enlaceColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "titleFormColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "descripcionFormColor": {
+      "type": "string",
+      "default": "#A99958"
+    },
+    "fondoFormColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "derechosAutorColor": {
+      "type": "string",
+      "default": "#fde68a"
+    },
+    "enlacePoliticasColor": {
+      "type": "string",
+      "default": "#fde68a"
+    }
+  }
+}

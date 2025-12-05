@@ -40,7 +40,6 @@ export function ProductCard({
           background:
             "linear-gradient(145deg, rgba(24,24,28,0.92) 0%, rgba(18,18,22,0.92) 55%, rgba(14,14,18,0.94) 100%)",
           borderRadius: "28px",
-          border: "1.5px solid rgba(160,160,168,0.18)",
           boxShadow:
             "0 6px 22px -6px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.02)",
           backdropFilter: "blur(14px)",
@@ -52,13 +51,11 @@ export function ProductCard({
         onMouseEnter={(e) => {
           e.currentTarget.style.boxShadow =
             "0 10px 28px -6px rgba(0,0,0,0.55), 0 4px 10px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,200,205,0.25), inset 0 0 0 1px rgba(255,255,255,0.04)";
-          e.currentTarget.style.border = "1.5px solid rgba(200,200,210,0.28)";
           e.currentTarget.style.transform = "translateY(-4px)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.boxShadow =
             "0 6px 22px -6px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.02)";
-          e.currentTarget.style.border = "1.5px solid rgba(160,160,168,0.18)";
           e.currentTarget.style.transform = "translateY(0px)";
         }}>
         {/* Side notch inspired by reference */}
@@ -235,12 +232,14 @@ export function ProductCard({
               ))}
             </div>
             <span className="text-sm text-neutral-300/70">
-              {product.rating} ({product.reviews} reseñas)
+              {typeof product.reviews === "string"
+                ? product.reviews
+                : `${product.rating} (${product.reviews} reseñas)`}
             </span>
           </div>
 
           {/* Features */}
-          {product.features && (
+          {product.features && product.features.length > 0 && (
             <ul className="flex flex-wrap gap-1 mb-3">
               {product.features.slice(0, 3).map((feature, index) => (
                 <li key={index} className="list-none">
@@ -249,7 +248,7 @@ export function ProductCard({
                     style={{
                       background: "rgba(255,255,255,0.04)",
                     }}>
-                    {feature} 
+                    {feature}
                   </span>
                 </li>
               ))}
@@ -260,7 +259,11 @@ export function ProductCard({
           <div className="flex items-center gap-3 mb-4 text-sm text-neutral-300/70">
             <div className="flex items-center gap-1">
               <Download className="h-4 w-4" />
-              <span>{product.sales.toLocaleString()} descargas</span>
+              <span>
+                {typeof product.sales === "number"
+                  ? `${product.sales.toLocaleString()} descargas`
+                  : product.sales}
+              </span>
             </div>
           </div>
 
