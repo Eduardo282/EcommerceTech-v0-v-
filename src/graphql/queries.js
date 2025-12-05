@@ -19,3 +19,18 @@ export const PRODUCTS_QUERY = gql`
     }
   }
 `;
+
+export const GET_ME = gql`
+  query Me {
+    me {
+      id
+      name
+      email
+      role
+      isSeller
+      rubro
+      storeName
+      storeDescription
+    }
+  }
+`;

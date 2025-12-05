@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useState, useEffect } from "react";
+import { useMutation, useApolloClient } from "@apollo/client";
 import { LOGIN_USER, REGISTER_USER } from "../graphql/mutations";
 import { Store } from "lucide-react";
 
@@ -12,7 +12,19 @@ export function AuthModal({ open, onClose, onSuccess }) {
   const [login, { loading: loggingIn }] = useMutation(LOGIN_USER);
   const [register, { loading: registering }] = useMutation(REGISTER_USER);
 
+  useEffect(() => {
+    if (!open) {
+      setMode("login");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setWantsSeller(false);
+    }
+  }, [open]);
+
   if (!open) return null;
+
+  const client = useApolloClient();
 
   async function submit(e) {
     e.preventDefault();
@@ -20,8 +32,7 @@ export function AuthModal({ open, onClose, onSuccess }) {
       if (mode === "login") {
         const { data } = await login({ variables: { email, password } });
         const user = data?.loginUser?.user;
-        localStorage.setItem("auth.token", data.loginUser.token);
-        window.dispatchEvent(new Event("auth:changed"));
+        await client.resetStore();
         onSuccess?.({
           mode: "login",
           userName: user?.name || email,
@@ -32,8 +43,7 @@ export function AuthModal({ open, onClose, onSuccess }) {
           variables: { name, email, password },
         });
         const user = data?.registerUser?.user;
-        localStorage.setItem("auth.token", data.registerUser.token);
-        window.dispatchEvent(new Event("auth:changed"));
+        await client.resetStore();
         onSuccess?.({
           mode: "register",
           wantsSeller,

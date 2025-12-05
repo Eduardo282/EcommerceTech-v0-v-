@@ -1,0 +1,115 @@
+{
+  "kind": "singleType",
+  "collectionName": "headers",
+  "info": {
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header",
+    "description": "Header configuration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fondoHeaderColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "titleAnuncio": {
+      "type": "string",
+      "default": "¡Oferta especial! Obtén un 20% de descuento en tu primera compra"
+    },
+    "fondoAnuncioColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "enlacesAnuncioColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "logoText1": {
+      "type": "string",
+      "default": "Evo"
+    },
+    "logoText1Color": {
+      "type": "string",
+      "default": "#FFD700"
+    },
+    "logoText2": {
+      "type": "string",
+      "default": "Hance"
+    },
+    "logoText2Color": {
+      "type": "string",
+      "default": "F9B61D"
+    },
+    "descripcionLogoColor": {
+      "type": "string",
+      "default": "#FFD700"
+    },
+    "titleRubroColor": {
+      "type": "string",
+      "default": "#FFD700"
+    },
+    "menuItems": {
+      "type": "json",
+      "default": [
+        {
+          "label": "Plantillas dashboard",
+          "url": "#"
+        },
+        {
+          "label": "Plantillas Auth",
+          "url": "#"
+        },
+        {
+          "label": "Componentes de UI/UX",
+          "url": "#"
+        },
+        {
+          "label": "Libros de programacion",
+          "url": "#"
+        },
+        {
+          "label": "Guias de estudio",
+          "url": "#"
+        },
+        {
+          "label": "Controladores",
+          "url": "#"
+        }
+      ]
+    },
+    "enlacesNavColor": {
+      "type": "string",
+      "default": "#FFD700"
+    },
+    "fondoNavColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0.8)"
+    },
+    "titleNoticiasColor": {
+      "type": "string",
+      "default": "#FFD700"
+    },
+    "hoverEnlaceNav": {
+      "type": "string",
+      "default": "#F9B61D"
+    },
+    "titleAnuncioColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "mostrarAnuncio": {
+      "type": "boolean",
+      "default": true
+    },
+    "fechaInicioAnuncio": {
+      "type": "datetime"
+    },
+    "fechaFinAnuncio": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "trust_banners",
+  "info": {
+    "singularName": "trust-banner",
+    "pluralName": "trust-banners",
+    "displayName": "TrustBanner",
+    "description": "Trust Banner configuration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titleConfianzaColor": {
+      "type": "string",
+      "default": "#fef3c7"
+    },
+    "descripcionConfianzaColor": {
+      "type": "string",
+      "default": "#fde68a"
+    }
+  }
+}

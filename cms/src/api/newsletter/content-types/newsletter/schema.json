@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "newsletters",
+  "info": {
+    "singularName": "newsletter",
+    "pluralName": "newsletters",
+    "displayName": "Newsletter",
+    "description": "Newsletter configuration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titleColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "descripcionColor": {
+      "type": "string",
+      "default": "#A99958"
+    },
+    "subtituloColor": {
+      "type": "string",
+      "default": "#E4D9AF"
+    }
+  }
+}

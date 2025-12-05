@@ -1,6 +1,16 @@
 import { Shield, Download, Users, Award, Zap, RefreshCw } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getTrustBannerConfig } from "../services/strapi";
 
 export function TrustBanner() {
+  const [trustBannerConfig, setTrustBannerConfig] = useState(null);
+
+  useEffect(() => {
+    getTrustBannerConfig().then(setTrustBannerConfig);
+  }, []);
+
+  const getColor = (key, fallback) => trustBannerConfig?.[key] || fallback;
+
   const features = [
     {
       icon: Shield,
@@ -75,10 +85,11 @@ export function TrustBanner() {
                 className="text-sm mb-1 text-amber-100 font-display"
                 style={{
                   textShadow: "0 0 10px rgba(234,179,8,0.35)",
+                  color: getColor("titleConfianzaColor", "#fef3c7"),
                 }}>
                 {feature.title}
               </h3>
-              <p className="text-xs text-amber-200/60">{feature.description}</p>
+              <p className="text-xs text-amber-200/60" style={{ color: getColor("descripcionConfianzaColor", "#fde68a") }}>{feature.description}</p>
             </li>
           ))}
         </ul>

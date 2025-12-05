@@ -1,7 +1,17 @@
 import { Button } from "./ui/button";
 import { Mail } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getNewsletterConfig } from "../services/strapi";
 
 export function Newsletter() {
+  const [newsletterConfig, setNewsletterConfig] = useState(null);
+
+  useEffect(() => {
+    getNewsletterConfig().then(setNewsletterConfig);
+  }, []);
+
+  const getColor = (key, fallback) => newsletterConfig?.[key] || fallback;
+
   return (
     <section
       className="py-20 relative overflow-hidden"
@@ -60,14 +70,15 @@ export function Newsletter() {
           </div>
 
           <h2
-            className="text-5xl mb-6 bg-linear-to-r from-amber-300 via-yellow-300 to-amber-300 bg-clip-text text-transparent font-display"
+            className="text-5xl mb-6 font-display"
             style={{
               textShadow: "0 0 38px rgba(234, 179, 8, 0.28)",
+              color: getColor("titleColor", "#fef3c7"),
             }}>
             Obtén ofertas exclusivas y actualizaciones
           </h2>
 
-          <p className="text-xl text-amber-100/70 mb-8">
+          <p className="text-xl mb-8" style={{ color: getColor("descripcionColor", "#fef3c7") }}>
             Suscríbete para recibir ofertas especiales, recursos gratuitos y
             ofertas únicas en la vida.
           </p>
@@ -111,7 +122,7 @@ export function Newsletter() {
             </Button>
           </form>
 
-          <p className="text-sm text-amber-200/65 mt-4">
+          <p className="text-sm mt-4" style={{ color: getColor("subtituloColor", "#fef3c7") }}>
             Sin spam, puedes darte de baja en cualquier momento. Respetamos tu
             privacidad.
           </p>

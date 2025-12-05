@@ -9,8 +9,18 @@ import {
   MapPin,
   Sparkles,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getFooterConfig } from "../services/strapi";
 
 export function Footer() {
+  const [footerConfig, setFooterConfig] = useState(null);
+
+  useEffect(() => {
+    getFooterConfig().then(setFooterConfig);
+  }, []);
+
+  const getColor = (key, fallback) => footerConfig?.[key] || fallback;
+
   return (
     <footer
       className="relative overflow-hidden"
@@ -94,42 +104,43 @@ export function Footer() {
               </div>
               <div>
                 <h3
-                  className="text-xl text-amber-100 font-display"
+                  className="text-xl font-display"
                   style={{
                     textShadow: "0 0 15px rgba(234, 179, 8, 0.35)",
+                    color: getColor("titleLogoColor", "#fef3c7"),
                   }}>
                   EvoHance
                 </h3>
                 <p
-                  className="text-sm text-amber-300"
+                  className="text-sm"
                   style={{
-                    textShadow: "0 0 10px rgba(234, 179, 8, 0.3)",
+                    color: getColor("descripcionLogoColor", "#fef3c7"),
                   }}>
                   Calidad en productos digitales
                 </p>
               </div>
             </header>
-            <p className="text-amber-200/70 mb-6 max-w-md">
+            <p className="mb-6 max-w-md" style={{ color: getColor("descripcionColor", "#fef3c7") }}>
               Tu mercado único para plantillas de paneles de control, kits de
               UI, herramientas de automatización y productos digitales. <br />
-              <span className="text-amber-300">
+              <span style={{ color: "#fef3c7" }}>
                 Con la confianza de más de 100 desarrolladores en todo el mundo.
               </span>
             </p>
 
             {/* Contact Info */}
             <address className="space-y-2 mb-6 not-italic">
-              <div className="flex items-center gap-2 text-[#f0e4b8] hover:text-white transition-colors">
-                <Mail className="h-4 w-4" />
-                <span className="text-sm">support@evohance.com</span>
+              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                <Mail className="h-4 w-4" style={{ color: getColor("adressColor", "#fef3c7") }} />
+                <span className="text-sm" style={{ color: getColor("adressColor", "#fef3c7") }}>support@evohance.com</span>
               </div>
-              <div className="flex items-center gap-2 text-[#f0e4b8] hover:text-white transition-colors">
-                <Phone className="h-4 w-4" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                <Phone className="h-4 w-4" style={{ color: getColor("adressColor", "#fef3c7") }} />
+                <span className="text-sm" style={{ color: getColor("adressColor", "#fef3c7") }}>+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center gap-2 text-[#f0e4b8] hover:text-white transition-colors">
-                <MapPin className="h-4 w-4" />
-                <span className="text-sm">Cd. de México, MX</span>
+              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+                <MapPin className="h-4 w-4" style={{ color: getColor("adressColor", "#fef3c7") }} />
+                <span className="text-sm" style={{ color: getColor("adressColor", "#fef3c7") }}>Cd. de México, MX</span>
               </div>
             </address>
 
@@ -235,9 +246,9 @@ export function Footer() {
           {/* Categories */}
           <nav aria-label="footer categories">
             <h4
-              className="mb-4 text-[#cfaa27] flex items-center gap-2 font-display"
+              className="mb-4 flex items-center gap-2 font-display"
               style={{
-                textShadow: "0 0 15px rgba(234, 179, 8, 0.35)",
+                color: getColor("titleColor",  "#fef3c7"),
               }}>
               <Sparkles
                 className="h-4 w-4 text-amber-400"
@@ -247,39 +258,44 @@ export function Footer() {
               />
               Categorías
             </h4>
-            <ul className="space-y-2 text-[#f0e4b8]">
+            <ul className="space-y-2">
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Plantillas dashboard
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Paneles de administración
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Herramientas de automatización
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Plantillas de CV
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Kits de UI
                 </a>
               </li>
@@ -289,52 +305,58 @@ export function Footer() {
           {/* Support */}
           <nav aria-label="footer support">
             <h4
-              className="mb-4 text-[#cfaa27] font-display"
+              className="mb-4 font-display"
               style={{
-                textShadow: "0 0 15px rgba(234, 179, 8, 0.35)",
+                color: getColor("titleColor", "#fef3c7"),
               }}>
               Soporte
             </h4>
-            <ul className="space-y-2 text-[#f0e4b8]">
+            <ul className="space-y-2">
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Centro de ayuda
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor",   "#fef3c7") }}>
                   Documentación
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Referencia API
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Comunidad
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className=" transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor",   "#fef3c7") }}>
                   Contáctanos
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}> 
                   Preguntas Frecuentes
                 </a>
               </li>
@@ -344,38 +366,42 @@ export function Footer() {
           {/* Company */}
           <nav aria-label="footer company">
             <h4
-              className="mb-4 text-[#cfaa27] font-display"
+              className="mb-4 font-display"
               style={{
-                textShadow: "0 0 15px rgba(234, 179, 8, 0.35)",
+                color: getColor("titleColor", "#fef3c7"),
               }}>
               Compañía
             </h4>
-            <ul className="space-y-2 text-[#f0e4b8]">
+            <ul className="space-y-2">
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Sobre Nosotros
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className=" transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Blog
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Socios
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-white transition-colors hover:translate-x-1 inline-block">
+                  className="transition-colors hover:translate-x-1 inline-block"
+                  style={{ color: getColor("enlaceColor", "#fef3c7") }}>
                   Programa de Afiliados
                 </a>
               </li>
@@ -387,18 +413,18 @@ export function Footer() {
         <section
           className="rounded-2xl p-8 mb-12 backdrop-blur-xl"
           style={{
-            background: "#111115",
+            backgroundColor: getColor("fondoFormColor", "black"),
           }}>
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div>
               <h3
-                className="text-2xl mb-2 text-amber-100 font-display"
+                className="text-2xl mb-2 font-display"
                 style={{
-                  textShadow: "0 0 20px rgba(234, 179, 8, 0.35)",
+                  color: getColor("titleFormColor", "#fef3c7"),
                 }}>
                 Mantente actualizado
               </h3>
-              <p className="text-amber-200/70">
+              <p style={{ color: getColor("descripcionFormColor", "#fef3c7") }}>
                 Suscríbete a nuestro boletín para recibir los últimos productos
                 y ofertas exclusivas.
               </p>
@@ -417,7 +443,6 @@ export function Footer() {
                 placeholder="Introduce tu correo electrónico"
                 className="flex-1 px-4 py-3 rounded-xl text-amber-100 placeholder-amber-300/40 focus:outline-none"
                 style={{
-                  backgroundColor: "black",
                   boxShadow: "inset 0 0 10px #2c2c30",
                 }}
               />
@@ -438,9 +463,9 @@ export function Footer() {
         {/* Bottom Bar */}
         <section className="pt-8 border-t-2 border-[#2c2c30]">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-amber-200/70 text-sm">© 2025 EvoHance.</p>
+            <p className="text-sm" style={{ color: getColor("derechosAutorColor", "rgba(253, 230, 138, 0.7)") }}>© 2025 EvoHance.</p>
             <nav aria-label="legal">
-              <ul className="flex gap-6 text-sm text-amber-200/70">
+              <ul className="flex gap-6 text-sm" style={{ color: getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)") }}>
                 <li>
                   <a
                     href="#"

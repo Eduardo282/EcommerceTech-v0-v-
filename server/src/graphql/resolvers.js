@@ -131,7 +131,7 @@ export const resolvers = {
   },
 
   Mutation: {
-    registerUser: async (_, { name, email, password }) => {
+    registerUser: async (_, { name, email, password }, { res }) => {
       const existing = await User.findOne({ email });
       if (existing)
         throw new GraphQLError("Email already in use", {
@@ -143,9 +143,17 @@ export const resolvers = {
         process.env.JWT_SECRET,
         { expiresIn: "7d" }
       );
+      
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
       return { token, user };
     },
-    loginUser: async (_, { email, password }) => {
+    loginUser: async (_, { email, password }, { res }) => {
       const user = await User.findOne({ email });
       if (!user)
         throw new GraphQLError("Invalid credentials", {
@@ -161,7 +169,23 @@ export const resolvers = {
         process.env.JWT_SECRET,
         { expiresIn: "7d" }
       );
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
       return { token, user };
+    },
+    logoutUser: async (_, __, { res }) => {
+      res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      });
+      return true;
     },
 
     createCategory: async (_, { name, parentId }, ctx) => {

@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_tendencias",
+  "info": {
+    "singularName": "product-tendencia",
+    "pluralName": "product-tendencias",
+    "displayName": "Product_tendencia",
+    "description": "Product_tendencia collection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descuentoEtiquetaProducto": {
+      "type": "string"
+    },
+    "imageProducto": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "categoriaProducto": {
+      "type": "string"
+    },
+    "titleProducto": {
+      "type": "string"
+    },
+    "reseñasProducto": {
+      "type": "string"
+    },
+    "ratingEstrellasProducto": {
+      "type": "decimal"
+    },
+    "precioProducto": {
+      "type": "decimal"
+    },
+    "descuentoProducto": {
+      "type": "decimal"
+    },
+    "descargasProducto": {
+      "type": "string"
+    },
+    "ratingProducto": {
+      "type": "decimal"
+    }
+  }
+}

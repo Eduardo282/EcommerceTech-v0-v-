@@ -58,3 +58,9 @@ export const SET_SELLER_PROFILE = gql`
     }
   }
 `;
+
+export const LOGOUT_USER = gql`
+  mutation LogoutUser {
+    logoutUser
+  }
+`;
