@@ -163,7 +163,7 @@ export function Header({
             <Logo />
             <div>
               <h1
-                className="text-xl tracking-tight transition-all flex items-center gap-2 font-display">
+                className="text-xl transition-all flex items-center font-display">
                 <span 
                 style={{ color: getColor("logoText1Color", "#ffffff") }}>
                   {headerConfig?.logoText1 || "Cargando..."}
@@ -179,22 +179,6 @@ export function Header({
                   }}
                 />
               </h1>
-              <div className="flex items-center gap-1.5">
-                <div className="h-px w-6" style={{
-                  backgroundImage: 'linear-gradient(90deg, rgba(0,0,0,0) 0%,  #F9B61D 50%, rgba(0,0,0,0) 100%)',
-                }} />
-                <p
-                  className="text-[10px] uppercase tracking-[0.2em]"
-                  style={{
-                    textShadow: "0 0 10px " + "#FFD700",
-                    color: getColor("descripcionLogoColor", "#FFD700"),
-                  }}>
-                  Tienda Digital
-                </p>
-                <div className="h-px w-6" style={{
-                  backgroundImage: 'linear-gradient(90deg, rgba(0,0,0,0) 0%,  #F9B61D 50%, rgba(0,0,0,0) 100%)',
-                }} />
-              </div>
             </div>
           </Link>
 

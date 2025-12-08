@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getFooterConfig } from "../services/strapi";
+import {Logo } from "./smallComponents/Logo";
+import { Link } from "react-router-dom";
+import {FormFooter} from "./smallComponents/FormFooter";
 
 export function Footer() {
   const [footerConfig, setFooterConfig] = useState(null);
@@ -33,8 +36,8 @@ export function Footer() {
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(234, 179, 8, 0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(234, 179, 8, 0.12) 1px, transparent 1px)
+            linear-gradient(to right, #F9B61D30 1px, transparent 1px),
+            linear-gradient(to bottom, #F9B61D30 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
@@ -49,8 +52,8 @@ export function Footer() {
               0deg,
               transparent,
               transparent 100px,
-              rgba(234, 179, 8, 0.28) 100px,
-              rgba(234, 179, 8, 0.28) 101px
+              #F9B61D30 100px,
+              #F9B61D30 101px
             )
           `,
         }}
@@ -61,85 +64,56 @@ export function Footer() {
           {/* Brand */}
           <section className="lg:col-span-2">
             <header className="flex items-center gap-3 mb-4 group cursor-pointer">
-              <div className="relative">
-                {/* 3D Isometric Box Effect with Cyan */}
-                <div className="relative w-12 h-12 perspective-1000">
-                  {/* Main cube face */}
-                  <div
-                    className="absolute inset-0 rounded-lg shadow-lg transform group-hover:scale-110 transition-all duration-300"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(251, 191, 36, 0.55) 0%, rgba(245, 158, 11, 0.55) 100%)",
-                      boxShadow: "0 0 20px rgba(234, 179, 8, 0.35)",
-                    }}>
-                    {/* Grid overlay */}
-                    <div
-                      className="absolute inset-0 opacity-30"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-                        backgroundSize: "8px 8px",
-                      }}
-                    />
-                    {/* Glow center */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-amber-200 rounded-full opacity-80 blur-sm animate-pulse" />
-                  </div>
-                  {/* Top face */}
-                  <div
-                    className="absolute -top-2 left-1 right-1 h-2 transform skew-y-[-30deg] opacity-60 rounded-t"
-                    style={{
-                      background:
-                        "linear-gradient(to right, rgba(251, 191, 36, 0.5) 0%, rgba(245, 158, 11, 0.5) 100%)",
-                    }}
-                  />
-                  {/* Side face */}
-                  <div
-                    className="absolute top-1 -right-2 bottom-1 w-2 transform skew-x-[-30deg] opacity-40 rounded-r"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom, rgba(217, 119, 6, 0.55) 0%, rgba(245, 158, 11, 0.55) 100%)",
-                    }}
-                  />
-                </div>
-              </div>
+      {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group cursor-pointer">
+ <Logo />
+
               <div>
-                <h3
-                  className="text-xl font-display"
+             <span 
+             className="text-xl font-display"
+                style={{ color: getColor("logoText1Color", "#ffffff") }}>
+                  {footerConfig?.logoText1 || "Cargando..."}
+                </span> 
+                <span className="text-xl font-display" style={{ color: getColor("logoText2Color", "#ffffff") }}>
+                  {footerConfig?.logoText2 || "Cargando..."}
+                </span>
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full animate-pulse shadow-lg"
                   style={{
-                    textShadow: "0 0 15px rgba(234, 179, 8, 0.35)",
-                    color: getColor("titleLogoColor", "#fef3c7"),
-                  }}>
-                  EvoHance
-                </h3>
+                    boxShadow: "0 0 10px " + "#F9B61D",
+                    background: "#F9B61D",
+                  }}
+                />
                 <p
-                  className="text-sm"
+                  className="text-sm font-display"
                   style={{
                     color: getColor("descripcionLogoColor", "#fef3c7"),
                   }}>
                   Calidad en productos digitales
                 </p>
               </div>
-            </header>
+              </Link>
+                </header>
             <p className="mb-6 max-w-md" style={{ color: getColor("descripcionColor", "#fef3c7") }}>
               Tu mercado único para plantillas de paneles de control, kits de
               UI, herramientas de automatización y productos digitales. <br />
-              <span style={{ color: "#fef3c7" }}>
+              <span style={{ color: getColor("descripcionLogoColor", "#fef3c7") }}>
                 Con la confianza de más de 100 desarrolladores en todo el mundo.
               </span>
             </p>
 
             {/* Contact Info */}
             <address className="space-y-2 mb-6 not-italic">
-              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-                <Mail className="h-4 w-4" style={{ color: getColor("adressColor", "#fef3c7") }} />
+              <div className="flex items-center gap-2 transition-colors cursor-pointer">
+                <Mail className="h-4 w-4" style={{ color: "white" }} />
                 <span className="text-sm" style={{ color: getColor("adressColor", "#fef3c7") }}>support@evohance.com</span>
               </div>
-              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-                <Phone className="h-4 w-4" style={{ color: getColor("adressColor", "#fef3c7") }} />
+              <div className="flex items-center gap-2 transition-colors cursor-pointer">
+                <Phone className="h-4 w-4" style={{ color: "white" }} />
                 <span className="text-sm" style={{ color: getColor("adressColor", "#fef3c7") }}>+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-                <MapPin className="h-4 w-4" style={{ color: getColor("adressColor", "#fef3c7") }} />
+              <div className="flex items-center gap-2 transition-colors cursor-pointer">
+                <MapPin className="h-4 w-4" style={{ color: "white" }} />
                 <span className="text-sm" style={{ color: getColor("adressColor", "#fef3c7") }}>Cd. de México, MX</span>
               </div>
             </address>
@@ -149,7 +123,7 @@ export function Footer() {
                 href="#"
                 className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
                 style={{
-                  background: "rgba(18, 16, 10, 0.6)",
+                  background: "#111115",
                   boxShadow: "0 0 10px #2c2c30",
                 }}
                 onMouseEnter={(e) => {
@@ -162,13 +136,13 @@ export function Footer() {
                   e.currentTarget.style.boxShadow =
                     "0 0 10px #2c2c30";
                 }}>
-                <Facebook className="h-5 w-5 text-[#f0e4b8] group-hover:text-[#0866ff]" />
+                <Facebook className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#0866ff]" />
               </a>
               <a
                 href="#"
                 className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
                 style={{
-                  background: "rgba(18, 16, 10, 0.6)",
+                  background: "#111115",
                   boxShadow: "0 0 10px #2c2c30",
                 }}
                 onMouseEnter={(e) => {
@@ -181,13 +155,13 @@ export function Footer() {
                   e.currentTarget.style.boxShadow =
                     "0 0 10px #2c2c30";
                 }}>
-                <Twitter className="h-5 w-5 text-[#f0e4b8] group-hover:text-[#39cdff]" />
+                <Twitter className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#39cdff]" />
               </a>
               <a
                 href="#"
                 className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
                 style={{
-                  background: "rgba(18, 16, 10, 0.6)",
+                  background: "#111115",
                   boxShadow: "0 0 10px #2c2c30",
                 }}
                 onMouseEnter={(e) => {
@@ -200,13 +174,13 @@ export function Footer() {
                   e.currentTarget.style.boxShadow =
                     "0 0 10px #2c2c30";
                 }}>
-                <Instagram className="h-5 w-5 text-[#f0e4b8] group-hover:text-[#c508ca]" />
+                <Instagram className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#c508ca]" />
               </a>
               <a
                 href="#"
                 className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
                 style={{
-                  background: "rgba(18, 16, 10, 0.6)",
+                  background: "#111115",
                   boxShadow: "0 0 10px #2c2c30",
                 }}
                 onMouseEnter={(e) => {
@@ -219,13 +193,13 @@ export function Footer() {
                   e.currentTarget.style.boxShadow =
                     "0 0 10px #2c2c30";
                 }}>
-                <Github className="h-5 w-5 text-[#f0e4b8] group-hover:text-[#271d2c]" />
+                <Github className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#271d2c]" />
               </a>
               <a
                 href="#"
                 className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
                 style={{
-                  background: "rgba(18, 16, 10, 0.6)",
+                  background: "#111115",
                   boxShadow: "0 0 10px #2c2c30",
                 }}
                 onMouseEnter={(e) => {
@@ -238,7 +212,7 @@ export function Footer() {
                   e.currentTarget.style.boxShadow =
                     "0 0 10px #2c2c30";
                 }}>
-                <Linkedin className="h-5 w-5 text-[#f0e4b8] group-hover:text-[#0a66c2]" />
+                <Linkedin className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#0a66c2]" />
               </a>
             </nav>
           </section>
@@ -251,9 +225,9 @@ export function Footer() {
                 color: getColor("titleColor",  "#fef3c7"),
               }}>
               <Sparkles
-                className="h-4 w-4 text-amber-400"
+                className="h-4 w-4 text-[#E4D9AF]"
                 style={{
-                  filter: "drop-shadow(0 0 5px rgba(234, 179, 8, 0.6))",
+                  filter: "drop-shadow(0 0 5px #E4D9AF)",
                 }}
               />
               Categorías
@@ -429,34 +403,7 @@ export function Footer() {
                 y ofertas exclusivas.
               </p>
             </div>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex gap-3"
-              aria-label="footer newsletter">
-              <label htmlFor="footer-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="footer-email"
-                type="email"
-                required
-                placeholder="Introduce tu correo electrónico"
-                className="flex-1 px-4 py-3 rounded-xl text-amber-100 placeholder-amber-300/40 focus:outline-none"
-                style={{
-                  boxShadow: "inset 0 0 10px #2c2c30",
-                }}
-              />
-              <button
-                type="submit"
-                className="text-white px-6 py-3 rounded-xl transition-all hover:scale-105 cursor-pointer"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(251, 191, 36, 0.65) 0%, rgba(245, 158, 11, 0.65) 100%)",
-                  textShadow: "0 0 10px rgba(234, 179, 8, 0.5)",
-                }}>
-                Suscribirse
-              </button>
-            </form>
+            <FormFooter/>
           </div>
         </section>
 
@@ -469,21 +416,30 @@ export function Footer() {
                 <li>
                   <a
                     href="#"
-                    className="hover:text-amber-300 transition-colors">
+                    className="transition-colors"
+                    onMouseEnter={(e) => e.target.style.color = getColor("hoverEnlacePoliticasColor", "rgba(253, 230, 138, 0.7)")}
+                    onMouseLeave={(e) => e.target.style.color = getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)")}
+                    style={{ color: getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)") }}>
                     Política de Privacidad
                   </a>
                 </li>
                 <li>
                   <a
                     href="#"
-                    className="hover:text-amber-300 transition-colors">
+                    className="transition-colors"
+                    onMouseEnter={(e) => e.target.style.color = getColor("hoverEnlacePoliticasColor", "rgba(253, 230, 138, 0.7)")}
+                    onMouseLeave={(e) => e.target.style.color = getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)")}
+                    style={{ color: getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)") }}>
                     Términos de Servicio
                   </a>
                 </li>
                 <li>
                   <a
                     href="#"
-                    className="hover:text-amber-300 transition-colors">
+                    className="transition-colors"
+                    onMouseEnter={(e) => e.target.style.color = getColor("hoverEnlacePoliticasColor", "rgba(253, 230, 138, 0.7)")}
+                    onMouseLeave={(e) => e.target.style.color = getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)")}
+                    style={{ color: getColor("enlacePoliticasColor", "rgba(253, 230, 138, 0.7)") }}>
                     Política de Cookies
                   </a>
                 </li>

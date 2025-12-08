@@ -49,6 +49,7 @@ function mapProduct(p) {
     image: (p.images && p.images[0]) || FALLBACK_IMAGE,
     sales: 0,
     features: p.attributes ? Object.keys(p.attributes).slice(0, 3) : undefined,
+    rubro: p.rubro,
   };
 }
 function AppInner() {

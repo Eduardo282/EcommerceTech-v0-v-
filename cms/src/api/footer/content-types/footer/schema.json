@@ -55,6 +55,26 @@
     "enlacePoliticasColor": {
       "type": "string",
       "default": "#fde68a"
+    },
+    "logoText1": {
+      "type": "string",
+      "default": "Evo"
+    },
+    "logoText2": {
+      "type": "string",
+      "default": "Hance"
+    },
+    "logoText2Color": {
+      "type": "string",
+      "default": "#F9B61D"
+    },
+    "logoText1Color": {
+      "type": "string",
+      "default": "#E4D9AF"
+    },
+    "hoverEnlacePoliticasColor": {
+      "type": "string",
+      "default": "#F9B61D"
     }
   }
 }

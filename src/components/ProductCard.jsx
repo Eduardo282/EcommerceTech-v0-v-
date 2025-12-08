@@ -48,7 +48,7 @@ export function ProductCard({
         onClick={handleCardClick}
         onMouseEnter={(e) => {
           e.currentTarget.style.boxShadow =
-            "0 10px 28px -6px rgba(0,0,0,0.55), 0 4px 10px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,200,205,0.25), inset 0 0 0 1px rgba(255,255,255,0.04)";
+            "0 10px 28px -6px #2c2c30, 0 4px 10px #2c2c30";
           e.currentTarget.style.transform = "translateY(-4px)";
         }}
         onMouseLeave={(e) => {
@@ -69,7 +69,7 @@ export function ProductCard({
             borderTopRightRadius: "26px",
             borderBottomRightRadius: "26px",
             boxShadow:
-              "inset 0 0 0 1px rgba(255,255,255,0.05), 0 4px 14px -4px rgba(0,0,0,0.45)",
+              "inset 0 0 0 1px transparent, 0 4px 14px -4px transparent",
             backdropFilter: "blur(10px)",
             pointerEvents: "none",
           }}
@@ -80,47 +80,20 @@ export function ProductCard({
           style={{
             borderRadius: "22px",
             margin: "16px 16px 0 68px",
-            background:
-              "linear-gradient(135deg, rgba(40,40,46,0.9) 0%, rgba(28,28,32,0.9) 100%)",
             boxShadow:
-              "0 4px 14px -4px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.04)",
+              "0 4px 14px -4px #2c2c30",
           }}>
           <ImageWithFallback
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          {/* Subtle sheen and fine grid */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(120deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 45%, rgba(0,0,0,0.25) 100%)",
-              mixBlendMode: "overlay",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              opacity: 0.12,
-              backgroundImage:
-                "linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px)",
-              backgroundSize: "18px 18px",
-            }}
-          />
-
           {/* Hover Buttons - Appear from bottom */}
           <div
             className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[86%] flex gap-3 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-400 z-10"
             style={{
-              background:
-                "linear-gradient(145deg, transparent 0%, transparent 100%)",
               borderRadius: "22px",
-              backdropFilter: "blur(20px)",
+              backdropFilter: "blur(8px)",
               WebkitBackdropFilter: "blur(20px)",
             }}>
             <button
@@ -132,8 +105,8 @@ export function ProductCard({
               <Heart
                 className={`h-7 w-7 transition-all ${
                   isInWishlist
-                    ? "fill-[#ae3a2e] text-transparent"
-                    : "text-red-400"
+                    ? "fill-[#980707] text-transparent"
+                    : "text-[#FF6467]"
                 }`}
               />
             </button>
@@ -141,9 +114,7 @@ export function ProductCard({
             <Button
               className="outline-none flex-1 text-white hover:scale-[1.06] transition-all h-12 rounded-xl cursor-pointer"
               style={{
-                background:
-                  "linear-gradient(135deg, transparent 0%, transparent 100%)",
-                textShadow: "0 0 6px rgba(255,255,255,0.15)",
+                background: "transparent",
               }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -160,10 +131,8 @@ export function ProductCard({
               <Badge
                 className="text-white px-3 py-1 text-xs uppercase tracking-wide outline-none"
                 style={{
-                  background:
-                    "linear-gradient(135deg, rgba(245, 158, 11, 0.6) 0%, rgba(251, 191, 36, 0.6) 100%)",
-                  boxShadow: "0 0 15px rgba(245, 158, 11, 0.4)",
-                  textShadow: "0 0 10px rgba(245, 158, 11, 0.5)",
+                  background: "#410F3A",
+                  boxShadow: "0 0 15px #410F3A",
                 }}>
                 {product.badge}
               </Badge>
@@ -172,9 +141,8 @@ export function ProductCard({
               <Badge
                 className="text-white px-3 py-1 animate-pulse outline-none"
                 style={{
-                  background:
-                    "linear-gradient(135deg, rgba(239, 68, 68, 0.6) 0%, rgba(236, 72, 153, 0.6) 100%)",
-                  boxShadow: "0 0 15px rgba(239, 68, 68, 0.4)",
+                  background: "#980707",
+                  boxShadow: "0 0 15px #980707",
                 }}>
                 -{discount}%
               </Badge>
@@ -186,21 +154,16 @@ export function ProductCard({
         <section style={{ padding: "20px 24px 24px 84px" }}>
           <div className="mb-2">
             <Badge
-              variant="outline"
-              className="text-xs mb-2 border-neutral-500/30 text-neutral-300 backdrop-blur-sm"
+              className="text-xs mb-2 text-white"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                boxShadow: "0 0 8px rgba(0,0,0,0.4)",
+                background: "#2c2c30",
               }}>
               {product.category}
             </Badge>
           </div>
 
           <h3
-            className="text-lg mb-2 line-clamp-2 text-neutral-100 group-hover:text-neutral-200 transition-colors"
-            style={{
-              textShadow: "0 0 6px rgba(255,255,255,0.12)",
-            }}>
+            className="text-lg mb-2 line-clamp-2 text-white transition-colors">
             {product.name}
           </h3>
 
@@ -212,21 +175,21 @@ export function ProductCard({
                   key={i}
                   className={`h-4 w-4 ${
                     i < Math.floor(product.rating)
-                      ? "fill-yellow-400 text-yellow-400"
-                      : "text-neutral-700"
+                      ? "text-[#FACE2F]"
+                      : "text-transparent"
                   }`}
                   style={
                     i < Math.floor(product.rating)
                       ? {
                           filter:
-                            "drop-shadow(0 0 3px rgba(250, 204, 21, 0.5))",
+                            "drop-shadow(0 0 3px #FACE2F)",
                         }
                       : {}
                   }
                 />
               ))}
             </div>
-            <span className="text-sm text-neutral-300/70">
+            <span className="text-sm text-[#898989]">
               {typeof product.reviews === "string"
                 ? product.reviews
                 : `${product.rating} (${product.reviews} reseñas)`}
@@ -239,9 +202,9 @@ export function ProductCard({
               {product.features.slice(0, 3).map((feature, index) => (
                 <li key={index} className="list-none">
                   <span
-                    className="text-xs text-neutral-200 px-2 py-1 rounded border border-neutral-600/30 backdrop-blur-sm"
+                    className="text-xs text-white px-2 py-1 rounded"
                     style={{
-                      background: "rgba(255,255,255,0.04)",
+                      background: "black",
                     }}>
                     {feature}
                   </span>
@@ -251,7 +214,7 @@ export function ProductCard({
           )}
 
           {/* Stats */}
-          <div className="flex items-center gap-3 mb-4 text-sm text-neutral-300/70">
+          <div className="flex items-center gap-3 mb-4 text-sm text-[#898989]">
             <div className="flex items-center gap-1">
               <Download className="h-4 w-4" />
               <span>
@@ -266,21 +229,17 @@ export function ProductCard({
           <div
             className="flex items-center justify-between pt-4 border-t"
             style={{
-              borderTop: "1px solid rgba(150,150,158,0.22)",
-              boxShadow: "0 -1px 6px rgba(0,0,0,0.5)",
+              borderTop: "1px solid #898989",
             }}>
             <div>
-              {product.originalPrice && (
-                <p className="text-sm text-neutral-500 line-through">
-                  ${product.originalPrice}
+              {Number(product.originalPrice) > 0 && (
+                <p className="text-sm text-[#898989] line-through">
+                  ${Number(product.originalPrice).toFixed(2)}
                 </p>
               )}
               <p
-                className="text-2xl text-neutral-200"
-                style={{
-                  textShadow: "0 0 14px rgba(255,255,255,0.15)",
-                }}>
-                ${product.price}
+                className="text-2xl text-white">
+                ${Number(product.price).toFixed(2)}
               </p>
             </div>
           </div>

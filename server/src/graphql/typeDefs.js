@@ -29,6 +29,9 @@ export const typeDefs = /* GraphQL */ `
     slug: String!
     description: String
     price: Float!
+    originalPrice: Float
+    badge: String
+    features: [String!]
     images: [String!]!
     category: Category
     inventory: Int!
@@ -94,6 +97,9 @@ export const typeDefs = /* GraphQL */ `
     title: String!
     description: String
     price: Float!
+    originalPrice: Float
+    badge: String
+    features: [String!]
     images: [String!]
     categoryId: ID
     inventory: Int
@@ -105,6 +111,9 @@ export const typeDefs = /* GraphQL */ `
     title: String
     description: String
     price: Float
+    originalPrice: Float
+    badge: String
+    features: [String!]
     images: [String!]
     categoryId: ID
     inventory: Int
