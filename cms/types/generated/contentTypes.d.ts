@@ -532,12 +532,20 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
       Schema.Attribute.DefaultTo<'#fde68a'>;
     fondoFormColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#000000'>;
+    hoverEnlacePoliticasColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#F9B61D'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::footer.footer'
     > &
       Schema.Attribute.Private;
+    logoText1: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Evo'>;
+    logoText1Color: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#E4D9AF'>;
+    logoText2: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Hance'>;
+    logoText2Color: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#F9B61D'>;
     publishedAt: Schema.Attribute.DateTime;
     titleColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#F9B61D'>;
     titleFormColor: Schema.Attribute.String &

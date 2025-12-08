@@ -204,7 +204,8 @@ export const resolvers = {
         inventory: input.inventory ?? 0,
         attributes: input.attributes || {},
         active: input.active ?? true,
-        rubro: input.rubro || "TECHNOLOGY",
+        active: input.active ?? true,
+        rubro: input.rubro || ctx.user?.rubro || "TECHNOLOGY",
       };
       const p = await Product.create(doc);
       return p.populate("category");

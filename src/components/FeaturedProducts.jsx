@@ -1,6 +1,26 @@
 import { ProductCard } from "./ProductCard";
 import { useEffect, useState } from "react";
-import { getFeaturedProductsConfig, getProducts } from "../services/strapi";
+import { getFeaturedProductsConfig } from "../services/strapi";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_PRODUCTS = gql`
+  query GetProducts($rubro: Rubro) {
+    products(filter: { rubro: $rubro }, pagination: { pageSize: 100 }) {
+      id
+      title
+      price
+      originalPrice
+      rating
+      images
+      category {
+        name
+      }
+      features
+      badge
+      rubro
+    }
+  }
+`;
 
 export function FeaturedProducts({
   products: initialProducts,
@@ -9,39 +29,44 @@ export function FeaturedProducts({
   wishlistItems,
   title,
   subtitle,
+  rubro,
 }) {
+  console.log("FeaturedProducts rubro:", rubro);
   const [config, setConfig] = useState(null);
-  const [strapiProducts, setStrapiProducts] = useState([]);
+  const { data: graphqlData, loading, error } = useQuery(GET_PRODUCTS, {
+    variables: { rubro },
+    skip: !rubro,
+    onCompleted: (data) => console.log("Query completed for rubro:", rubro, "Products:", data?.products?.length)
+  });
+
+  if (error) console.error("GraphQL Error:", error);
 
   useEffect(() => {
     getFeaturedProductsConfig().then(setConfig);
-    getProducts().then((data) => {
-      if (data && data.length > 0) {
-        const mappedProducts = data.map((item) => {
-          const attr = item.attributes;//quitar attributes para que los productos los agarre de strapi
-          return {
-            id: item.id,
-            name: attr.titleProducto,
-            category: attr.categoriaProducto,
-            image: attr.imageProducto?.data?.attributes?.url || "", // Handle missing image
-            rating: parseFloat(attr.ratingEstrellasProducto) || 0,
-            reviews: attr.reseñasProducto, // Keep as string as requested
-            originalPrice: parseFloat(attr.precioProducto) || 0,
-            price: parseFloat(attr.descuentoProducto) || 0,
-            sales: attr.descargasProducto, // Keep as string/number
-            badge: attr.descuentoEtiquetaProducto,
-            features: [], // Default empty or map if added later
-          };
-        });
-        setStrapiProducts(mappedProducts);
-      }
-    });
   }, []);
 
   const getColor = (key, fallback) => config?.[key] || fallback;
   
-  // Use Strapi products if available, otherwise fall back to initialProducts (mock data)
-  const displayProducts = strapiProducts.length > 0 ? strapiProducts : initialProducts;
+  // Map GraphQL products to component format
+  const displayProducts = graphqlData?.products?.map((item) => ({
+    id: item.id,
+    name: item.title,
+    category: item.category?.name || "General",
+    image: item.images?.[0] || "",
+    rating: item.rating || 0,
+    reviews: "0 reseñas", // Placeholder as review count isn't in GraphQL yet
+    originalPrice: typeof item.originalPrice === 'number' ? item.originalPrice : parseFloat(item.originalPrice) || 0,
+    price: typeof item.price === 'number' ? item.price : parseFloat(item.price) || 0,
+    sales: 0, // Placeholder
+    badge: item.badge,
+    features: item.features || [],
+    rubro: item.rubro,
+  })) || initialProducts;
+
+  // Client-side safety filter: if rubro prop is provided, ensure we only show matching products
+  const filteredProducts = rubro 
+    ? displayProducts.filter(p => !p.rubro || p.rubro === rubro)
+    : displayProducts;
 
   return (
     <section
@@ -64,14 +89,14 @@ export function FeaturedProducts({
         <ul
           role="list"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 list-none">
-          {displayProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <li key={product.id} className="contents">
               <ProductCard
                 product={product}
                 onAddToCart={onAddToCart}
                 onToggleWishlist={onToggleWishlist}
                 isInWishlist={wishlistItems.includes(product.id)}
-                allProducts={displayProducts}
+                allProducts={filteredProducts}
                 wishlistItems={wishlistItems}
               />
             </li>
