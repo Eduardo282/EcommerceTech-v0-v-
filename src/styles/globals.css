@@ -158,19 +158,14 @@
 
   body {
     @apply text-foreground font-sans;
-    background: radial-gradient(
-      ellipse at top left,
-      #0b0c13 0%,
-      #090a0f 40%,
-      #07070b 100%
-    );
+    background: radial-gradient(ellipse at top left, #0b0c13 0%, #090a0f 40%, #07070b 100%);
     background-attachment: fixed;
     overflow-x: hidden;
     position: relative;
   }
 
   body::before {
-    content: "";
+    content: '';
     position: fixed;
     top: 0;
     left: 0;
@@ -178,46 +173,15 @@
     height: 100%;
     pointer-events: none;
     z-index: 0;
-    background-image: radial-gradient(
-        2px 2px at 20px 30px,
-        rgba(255, 255, 255, 0.75),
-        transparent
-      ),
-      radial-gradient(
-        2px 2px at 60px 70px,
-        rgba(255, 255, 255, 0.55),
-        transparent
-      ),
-      radial-gradient(
-        1px 1px at 50px 50px,
-        rgba(255, 255, 255, 0.35),
-        transparent
-      ),
-      radial-gradient(
-        1px 1px at 130px 80px,
-        rgba(255, 255, 255, 0.45),
-        transparent
-      ),
-      radial-gradient(
-        2px 2px at 90px 10px,
-        rgba(255, 255, 255, 0.6),
-        transparent
-      ),
-      radial-gradient(
-        1px 1px at 160px 120px,
-        rgba(234, 179, 8, 0.85),
-        transparent
-      ),
-      radial-gradient(
-        1px 1px at 20px 100px,
-        rgba(212, 163, 6, 0.6),
-        transparent
-      ),
-      radial-gradient(
-        2px 2px at 200px 60px,
-        rgba(255, 255, 255, 0.55),
-        transparent
-      );
+    background-image:
+      radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.75), transparent),
+      radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.55), transparent),
+      radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.35), transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.45), transparent),
+      radial-gradient(2px 2px at 90px 10px, rgba(255, 255, 255, 0.6), transparent),
+      radial-gradient(1px 1px at 160px 120px, rgba(234, 179, 8, 0.85), transparent),
+      radial-gradient(1px 1px at 20px 100px, rgba(212, 163, 6, 0.6), transparent),
+      radial-gradient(2px 2px at 200px 60px, rgba(255, 255, 255, 0.55), transparent);
     background-size: 200px 200px;
     background-repeat: repeat;
     animation: twinkle 5s ease-in-out infinite;
@@ -225,7 +189,7 @@
 
   /* Layer 2: Larger stars */
   body::after {
-    content: "";
+    content: '';
     position: fixed;
     top: 0;
     left: 0;
@@ -233,31 +197,12 @@
     height: 100%;
     pointer-events: none;
     z-index: 0;
-    background-image: radial-gradient(
-        3px 3px at 100px 150px,
-        rgba(255, 255, 255, 0.9),
-        transparent
-      ),
-      radial-gradient(
-        2px 2px at 250px 80px,
-        rgba(234, 179, 8, 0.8),
-        transparent
-      ),
-      radial-gradient(
-        2px 2px at 50px 200px,
-        rgba(217, 119, 6, 0.7),
-        transparent
-      ),
-      radial-gradient(
-        3px 3px at 180px 30px,
-        rgba(255, 255, 255, 0.85),
-        transparent
-      ),
-      radial-gradient(
-        2px 2px at 30px 180px,
-        rgba(212, 163, 6, 0.75),
-        transparent
-      );
+    background-image:
+      radial-gradient(3px 3px at 100px 150px, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(2px 2px at 250px 80px, rgba(234, 179, 8, 0.8), transparent),
+      radial-gradient(2px 2px at 50px 200px, rgba(217, 119, 6, 0.7), transparent),
+      radial-gradient(3px 3px at 180px 30px, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(2px 2px at 30px 180px, rgba(212, 163, 6, 0.75), transparent);
     background-size: 300px 300px;
     background-repeat: repeat;
     animation: twinkle 7s ease-in-out infinite reverse;
@@ -268,7 +213,7 @@
  * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
  */
 @layer base {
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
     h1 {
       font-size: var(--text-2xl);
       font-weight: var(--font-weight-medium);
@@ -359,11 +304,7 @@ html {
 
 /* Golden glass utility */
 .glass-gold {
-  background: linear-gradient(
-    to bottom right,
-    rgba(251, 191, 36, 0.06),
-    rgba(234, 179, 8, 0.06)
-  );
+  background: linear-gradient(to bottom right, rgba(251, 191, 36, 0.06), rgba(234, 179, 8, 0.06));
   border: 1px solid rgba(234, 179, 8, 0.22);
   backdrop-filter: blur(18px);
 }
@@ -384,13 +325,7 @@ html {
 
 /* Premium gradient utility */
 .premium-gradient {
-  background: linear-gradient(
-    135deg,
-    #f59e0b 0%,
-    #eab308 40%,
-    #fbbf24 70%,
-    #fde047 100%
-  );
+  background: linear-gradient(135deg, #f59e0b 0%, #eab308 40%, #fbbf24 70%, #fde047 100%);
 }
 
 /* Custom animations */
@@ -543,17 +478,17 @@ html {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(30, 41, 59, 0.3);
+  background: transparent;
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(14, 165, 233, 0.5);
+  background: transparent;
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(14, 165, 233, 0.7);
+  background: transparent;
 }
 
 /* Text glow effect */
@@ -570,7 +505,7 @@ h1,
 h2,
 h3,
 .font-display {
-  font-family: "Cinzel", ui-serif, Georgia, serif;
+  font-family: 'Cinzel', ui-serif, Georgia, serif;
 }
 
 /* Space particle effects */
@@ -582,24 +517,21 @@ h3,
 }
 
 .space-particle::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.3) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
   border-radius: 50%;
 }
 
 /* Stars layers */
 .stars-small {
-  background-image: radial-gradient(1px 1px at 10% 20%, white, transparent),
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
     radial-gradient(1px 1px at 30% 40%, white, transparent),
     radial-gradient(1px 1px at 25% 25%, white, transparent),
     radial-gradient(1px 1px at 65% 40%, white, transparent),
@@ -626,45 +558,18 @@ h3,
 }
 
 .stars-medium {
-  background-image: radial-gradient(
-      2px 2px at 40% 50%,
-      rgba(255, 255, 255, 0.9),
-      transparent
-    ),
-    radial-gradient(
-      1.5px 1.5px at 80% 35%,
-      rgba(14, 165, 233, 0.8),
-      transparent
-    ),
-    radial-gradient(
-      1.5px 1.5px at 20% 80%,
-      rgba(245, 158, 11, 0.7),
-      transparent
-    ),
+  background-image:
+    radial-gradient(2px 2px at 40% 50%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 80% 35%, rgba(14, 165, 233, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 20% 80%, rgba(245, 158, 11, 0.7), transparent),
     radial-gradient(2px 2px at 70% 15%, rgba(255, 255, 255, 0.85), transparent),
-    radial-gradient(
-      1.5px 1.5px at 15% 65%,
-      rgba(139, 92, 246, 0.75),
-      transparent
-    ),
+    radial-gradient(1.5px 1.5px at 15% 65%, rgba(139, 92, 246, 0.75), transparent),
     radial-gradient(2px 2px at 85% 70%, rgba(255, 255, 255, 0.8), transparent),
-    radial-gradient(
-      1.5px 1.5px at 55% 85%,
-      rgba(14, 165, 233, 0.7),
-      transparent
-    ),
+    radial-gradient(1.5px 1.5px at 55% 85%, rgba(14, 165, 233, 0.7), transparent),
     radial-gradient(2px 2px at 30% 25%, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(
-      1.5px 1.5px at 90% 55%,
-      rgba(245, 158, 11, 0.65),
-      transparent
-    ),
+    radial-gradient(1.5px 1.5px at 90% 55%, rgba(245, 158, 11, 0.65), transparent),
     radial-gradient(2px 2px at 60% 40%, rgba(255, 255, 255, 0.85), transparent),
-    radial-gradient(
-      1.5px 1.5px at 25% 10%,
-      rgba(139, 92, 246, 0.7),
-      transparent
-    ),
+    radial-gradient(1.5px 1.5px at 25% 10%, rgba(139, 92, 246, 0.7), transparent),
     radial-gradient(2px 2px at 75% 90%, rgba(255, 255, 255, 0.8), transparent);
   background-size: 350px 350px;
   background-repeat: repeat;
@@ -673,36 +578,18 @@ h3,
 }
 
 .stars-large {
-  background-image: radial-gradient(
-      3px 3px at 50% 70%,
-      rgba(255, 255, 255, 1),
-      transparent
-    ),
-    radial-gradient(
-      2.5px 2.5px at 75% 40%,
-      rgba(14, 165, 233, 0.95),
-      transparent
-    ),
-    radial-gradient(
-      2.5px 2.5px at 25% 85%,
-      rgba(245, 158, 11, 0.85),
-      transparent
-    ),
+  background-image:
+    radial-gradient(3px 3px at 50% 70%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2.5px 2.5px at 75% 40%, rgba(14, 165, 233, 0.95), transparent),
+    radial-gradient(2.5px 2.5px at 25% 85%, rgba(245, 158, 11, 0.85), transparent),
     radial-gradient(3px 3px at 90% 20%, rgba(255, 255, 255, 0.95), transparent),
-    radial-gradient(
-      2.5px 2.5px at 15% 55%,
-      rgba(139, 92, 246, 0.9),
-      transparent
-    ),
+    radial-gradient(2.5px 2.5px at 15% 55%, rgba(139, 92, 246, 0.9), transparent),
     radial-gradient(3px 3px at 65% 10%, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(
-      2.5px 2.5px at 35% 65%,
-      rgba(14, 165, 233, 0.85),
-      transparent
-    );
+    radial-gradient(2.5px 2.5px at 35% 65%, rgba(14, 165, 233, 0.85), transparent);
   background-size: 450px 450px;
   background-repeat: repeat;
-  animation: twinkle 9s ease-in-out infinite,
+  animation:
+    twinkle 9s ease-in-out infinite,
     float-stars 12s ease-in-out infinite;
   opacity: 0.9;
 }

@@ -28,6 +28,10 @@ export const typeDefs = /* GraphQL */ `
     title: String!
     slug: String!
     description: String
+    longDescription: String
+    details: [String!]
+    specs: [ProductSpec!]
+    includes: [String!]
     price: Float!
     originalPrice: Float
     badge: String
@@ -44,6 +48,11 @@ export const typeDefs = /* GraphQL */ `
   }
 
   scalar JSON
+
+  type ProductSpec {
+    key: String!
+    value: String!
+  }
 
   type OrderItem {
     product: Product!
@@ -96,6 +105,10 @@ export const typeDefs = /* GraphQL */ `
   input ProductInput {
     title: String!
     description: String
+    longDescription: String
+    details: [String!]
+    specs: [ProductSpecInput!]
+    includes: [String!]
     price: Float!
     originalPrice: Float
     badge: String
@@ -107,9 +120,14 @@ export const typeDefs = /* GraphQL */ `
     active: Boolean
     rubro: Rubro
   }
+
   input ProductUpdateInput {
     title: String
     description: String
+    longDescription: String
+    details: [String!]
+    specs: [ProductSpecInput!]
+    includes: [String!]
     price: Float
     originalPrice: Float
     badge: String
@@ -134,15 +152,24 @@ export const typeDefs = /* GraphQL */ `
     zip: String
     country: String
   }
+  input AddressInput {
+    line1: String
+    line2: String
+    city: String
+    state: String
+    zip: String
+    country: String
+  }
+
+  input ProductSpecInput {
+    key: String!
+    value: String!
+  }
 
   type Query {
     me: User
     product(id: ID, slug: String): Product
-    products(
-      filter: ProductFilter
-      sort: ProductSort
-      pagination: PaginationInput
-    ): [Product!]!
+    products(filter: ProductFilter, sort: ProductSort, pagination: PaginationInput): [Product!]!
     categories: [Category!]!
     category(slug: String!): Category
     orders: [Order!]!
@@ -154,11 +181,7 @@ export const typeDefs = /* GraphQL */ `
     loginUser(email: String!, password: String!): AuthPayload!
     logoutUser: Boolean!
 
-    setSellerProfile(
-      rubro: Rubro!
-      storeName: String!
-      storeDescription: String
-    ): User!
+    setSellerProfile(rubro: Rubro!, storeName: String!, storeDescription: String): User!
 
     createCategory(name: String!, parentId: ID): Category!
 
@@ -166,9 +189,6 @@ export const typeDefs = /* GraphQL */ `
     updateProduct(id: ID!, input: ProductUpdateInput!): Product!
     deleteProduct(id: ID!): Boolean!
 
-    createOrder(
-      items: [OrderItemInput!]!
-      shippingAddress: AddressInput
-    ): Order!
+    createOrder(items: [OrderItemInput!]!, shippingAddress: AddressInput): Order!
   }
 `;

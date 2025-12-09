@@ -1,55 +1,62 @@
-import { useState, useMemo, useEffect, lazy, Suspense, useCallback } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense, useCallback } from 'react';
 
-import { Header } from "./components/Header";
-import { AppRoutes } from "./routes";
-import { Footer } from "./components/Footer";
+import { Header } from './components/Header';
+import { AppRoutes } from './routes';
+import { Footer } from './components/Footer';
 
-import { Toaster } from "./components/ui/sonner";
-import { toast } from "sonner";
-import { useQuery } from "@apollo/client";
-import { PRODUCTS_QUERY, GET_ME } from "./graphql/queries";
-import { RubroProvider, useRubro, RUBROS } from "./context/RubroContext";
-import { ChatWidget } from "./components/ChatWidget";
+import { Toaster } from './components/ui/sonner';
+import { toast } from 'sonner';
+import { useQuery } from '@apollo/client';
+import { PRODUCTS_QUERY, GET_ME } from './graphql/queries';
+import { RubroProvider } from './context/RubroContext';
+import { useRubro } from './context/useRubro';
+import { RUBROS } from './context/rubroConstants';
+import { ChatWidget } from './components/ChatWidget';
 
 const CartSidebar = lazy(() =>
-  import("./components/CartSidebar").then((module) => ({
+  import('./components/CartSidebar').then((module) => ({
     default: module.CartSidebar,
   }))
 );
 const WishlistSidebar = lazy(() =>
-  import("./components/WishlistSidebar").then((module) => ({
+  import('./components/WishlistSidebar').then((module) => ({
     default: module.WishlistSidebar,
   }))
 );
-// Note: SellerOnboarding and AuthModal are also candidates for lazy loading, 
+// Note: SellerOnboarding and AuthModal are also candidates for lazy loading,
 // but let's keep them as is if they are critical for initial interaction or small enough.
 // Actually, the previous plan included them. Let's re-lazy load them as requested.
 const SellerOnboardingLazy = lazy(() =>
-  import("./components/SellerOnboarding").then((module) => ({
+  import('./components/SellerOnboarding').then((module) => ({
     default: module.SellerOnboarding,
   }))
 );
 const AuthModalLazy = lazy(() =>
-  import("./components/AuthModal").then((module) => ({
+  import('./components/AuthModal').then((module) => ({
     default: module.AuthModal,
   }))
 );
 
 const FALLBACK_IMAGE =
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1080&auto=format&fit=crop"; //es un zapato rojo
+  'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1080&auto=format&fit=crop'; //es un zapato rojo
 function mapProduct(p) {
   return {
     id: p.id,
     name: p.title,
-    category: p?.category?.name || "General",
+    category: p?.category?.name || 'General',
     price: p.price.toFixed(2),
     originalPrice: (p.price * 1.5).toFixed(2),
-    rating: typeof p.rating === "number" ? p.rating : 4.5,
+    rating: typeof p.rating === 'number' ? p.rating : 4.5,
     reviews: Math.max(0, Math.floor((p.rating || 4.5) * 500)),
     image: (p.images && p.images[0]) || FALLBACK_IMAGE,
     sales: 0,
     features: p.attributes ? Object.keys(p.attributes).slice(0, 3) : undefined,
     rubro: p.rubro,
+    details: p.details,
+    specs: p.specs,
+    includes: p.includes,
+    description: p.description,
+    longDescription: p.longDescription,
   };
 }
 function AppInner() {
@@ -62,9 +69,14 @@ function AppInner() {
   const { rubro, setRubro, setIsSeller, setStore } = useRubro();
   const { data: authData, loading: authLoading, error: authError } = useQuery(GET_ME);
   const isAuthed = !!authData?.me;
-  
+
   useEffect(() => {
-    console.log("Auth Debug:", { isAuthed, loading: authLoading, error: authError, user: authData?.me });
+    console.log('Auth Debug:', {
+      isAuthed,
+      loading: authLoading,
+      error: authError,
+      user: authData?.me,
+    });
   }, [isAuthed, authLoading, authError, authData]);
 
   // Enforce Technology for guests on app load and when logging out
@@ -83,11 +95,11 @@ function AppInner() {
     error: featuredError,
   } = useQuery(PRODUCTS_QUERY, {
     variables: {
-      sort: "RATING_DESC",
+      sort: 'RATING_DESC',
       pagination: { page: 1, pageSize: 8 },
       filter: { rubro },
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: 'cache-first',
   });
   // GraphQL: Trending (newest)
   const {
@@ -96,11 +108,11 @@ function AppInner() {
     error: trendingError,
   } = useQuery(PRODUCTS_QUERY, {
     variables: {
-      sort: "NEWEST",
+      sort: 'NEWEST',
       pagination: { page: 1, pageSize: 12 },
       filter: { rubro },
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: 'cache-first',
   });
   const featuredProducts = useMemo(
     () => (featuredData?.products || []).map(mapProduct),
@@ -114,8 +126,8 @@ function AppInner() {
     (product) => {
       if (!cartItems.find((item) => item.id === product.id)) {
         setCartItems((prev) => [...prev, product]);
-        toast.success("Added to cart", {
-          description: "Product added to your cart",
+        toast.success('Added to cart', {
+          description: 'Product added to your cart',
         });
       }
     },
@@ -130,13 +142,13 @@ function AppInner() {
     (productId) => {
       if (wishlistItems.includes(productId)) {
         setWishlistItems((prev) => prev.filter((id) => id !== productId));
-        toast.success("Removed from wishlist", {
-          description: "Product removed from your favorites",
+        toast.success('Removed from wishlist', {
+          description: 'Product removed from your favorites',
         });
       } else {
         setWishlistItems((prev) => [...prev, productId]);
-        toast.success("Added to wishlist", {
-          description: "Product added to your favorites",
+        toast.success('Added to wishlist', {
+          description: 'Product added to your favorites',
         });
       }
     },
@@ -160,20 +172,14 @@ function AppInner() {
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://evohance.com/" />
-      <meta
-        property="og:image"
-        content="https://evohance.com/og-image.jpg"
-      />
+      <meta property="og:image" content="https://evohance.com/og-image.jpg" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="EvoHance Marketplace" />
       <meta
         name="twitter:description"
         content="Diseño ecommerce profesional y recursos de alta calidad."
       />
-      <meta
-        name="twitter:image"
-        content="https://evohance.com/og-image.jpg"
-      />
+      <meta name="twitter:image" content="https://evohance.com/og-image.jpg" />
       <div className="relative z-10">
         <Header
           onCartClick={() => setIsCartOpen(true)}
@@ -217,6 +223,7 @@ function AppInner() {
       <Toaster position="bottom-right" />
       <Suspense fallback={null}>
         <AuthModalLazy
+          key={authOpen}
           open={authOpen}
           onClose={() => setAuthOpen(false)}
           onSuccess={({ mode, wantsSeller, userName, user } = {}) => {
@@ -229,7 +236,7 @@ function AppInner() {
                 name: user?.storeName || null,
                 description: user?.storeDescription || null,
               });
-            } else if ((mode === "login" || mode === "register") && user) {
+            } else if ((mode === 'login' || mode === 'register') && user) {
               // Non-seller auth (login or register): force default Technology rubro & non-seller state
               if (!wantsSeller) {
                 setRubro(RUBROS.TECHNOLOGY);
@@ -237,23 +244,18 @@ function AppInner() {
                 setStore({ name: null, description: null });
               }
             }
-            if (mode === "register" && wantsSeller && !user?.isSeller) {
+            if (mode === 'register' && wantsSeller && !user?.isSeller) {
               // open onboarding only if they opted in and are not yet a seller
               setOnboardingOpen(true);
             } else {
-              toast.success(`Welcome ${userName || ""}!`, {
+              toast.success(`Welcome ${userName || ''}!`, {
                 description:
-                  mode === "login"
-                    ? "You're now logged in"
-                    : "Your account has been created",
+                  mode === 'login' ? "You're now logged in" : 'Your account has been created',
               });
             }
           }}
         />
-        <SellerOnboardingLazy
-          open={onboardingOpen}
-          onClose={() => setOnboardingOpen(false)}
-        />
+        <SellerOnboardingLazy open={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
         <ChatWidget />
       </Suspense>
     </div>

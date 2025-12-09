@@ -7,10 +7,7 @@ export interface DestacadosSeccionProductos extends Struct.ComponentSchema {
     icon: 'gift';
   };
   attributes: {
-    inicio_pagina: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::product.product'
-    >;
+    inicio_pagina: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
   };
 }
 

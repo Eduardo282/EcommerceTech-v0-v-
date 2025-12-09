@@ -2,7 +2,7 @@ const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
 /**
  * Helper to get full image URL
- * @param {string} path 
+ * @param {string} path
  * @returns {string}
  */
 export const getStrapiMedia = (path) => {
@@ -15,17 +15,17 @@ export const getStrapiMedia = (path) => {
 
 /**
  * Fetch data from Strapi
- * @param {string} endpoint 
- * @param {object} params 
+ * @param {string} endpoint
+ * @param {object} params
  * @returns {Promise<any>}
  */
 export const fetchAPI = async (endpoint, params = {}) => {
   try {
     const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
-    
+
     // Add default populate parameter if not specified to get relations/media
     if (!params.populate) {
-        url.searchParams.append('populate', '*');
+      url.searchParams.append('populate', '*');
     }
 
     Object.entries(params).forEach(([key, value]) => {
@@ -33,7 +33,7 @@ export const fetchAPI = async (endpoint, params = {}) => {
     });
 
     const res = await fetch(url.toString());
-    
+
     if (!res.ok) {
       throw new Error(`Failed to fetch from Strapi: ${res.statusText}`);
     }
@@ -45,7 +45,6 @@ export const fetchAPI = async (endpoint, params = {}) => {
     return null;
   }
 };
-
 
 export const getHeaderConfig = async () => {
   const data = await fetchAPI('header');
@@ -91,4 +90,3 @@ export const getProducts = async () => {
   const data = await fetchAPI('products', { populate: '*' });
   return data?.data || [];
 };
-

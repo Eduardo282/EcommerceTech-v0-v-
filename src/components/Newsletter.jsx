@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getNewsletterConfig } from "../services/strapi";
-import {EtiquetaNewsletter} from "./smallComponents/EtiquetaNewsletter";
-import {FormNewsletter} from "./smallComponents/FormNewsletter";
+import { useEffect, useState } from 'react';
+import { getNewsletterConfig } from '../services/strapi';
+import { EtiquetaNewsletter } from './smallComponents/EtiquetaNewsletter';
+import { FormNewsletter } from './smallComponents/FormNewsletter';
 
 export function Newsletter() {
   const [newsletterConfig, setNewsletterConfig] = useState(null);
@@ -16,8 +16,9 @@ export function Newsletter() {
     <section
       className="py-20 relative overflow-hidden"
       style={{
-        backgroundColor: "black",
-      }}>
+        backgroundColor: 'black',
+      }}
+    >
       {/* Grid Pattern Background */}
       <div
         className="absolute inset-0 opacity-20"
@@ -26,7 +27,7 @@ export function Newsletter() {
             linear-gradient(to right, #F9B61D30 1px, transparent 1px),
             linear-gradient(to bottom, #F9B61D30 1px, transparent 1px)
           `,
-          backgroundSize: "60px 60px",
+          backgroundSize: '60px 60px',
         }}
       />
 
@@ -52,27 +53,26 @@ export function Newsletter() {
 
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center">
-
-          <EtiquetaNewsletter/>
+          <EtiquetaNewsletter />
 
           <h2
             className="text-5xl mb-6 font-display"
             style={{
-              color: getColor("titleColor", "#fef3c7"),
-            }}>
+              color: getColor('titleColor', '#fef3c7'),
+            }}
+          >
             Obtén ofertas exclusivas y actualizaciones
           </h2>
 
-          <p className="text-xl mb-8" style={{ color: getColor("descripcionColor", "#fef3c7") }}>
-            Suscríbete para recibir ofertas especiales, recursos gratuitos y
-            ofertas únicas en la vida.
+          <p className="text-xl mb-8" style={{ color: getColor('descripcionColor', '#fef3c7') }}>
+            Suscríbete para recibir ofertas especiales, recursos gratuitos y ofertas únicas en la
+            vida.
           </p>
 
-       <FormNewsletter/>
+          <FormNewsletter />
 
-          <p className="text-sm mt-4" style={{ color: getColor("subtituloColor", "#fef3c7") }}>
-            Sin spam, puedes darte de baja en cualquier momento. Respetamos tu
-            privacidad.
+          <p className="text-sm mt-4" style={{ color: getColor('subtituloColor', '#fef3c7') }}>
+            Sin spam, puedes darte de baja en cualquier momento. Respetamos tu privacidad.
           </p>
         </div>
       </div>

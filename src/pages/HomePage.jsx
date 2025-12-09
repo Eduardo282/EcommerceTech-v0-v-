@@ -1,16 +1,24 @@
-import { Hero } from "../components/Hero";
-import { Categories } from "../components/Categories";
-import { TrustBanner } from "../components/TrustBanner";
-import { FeaturedProducts } from "../components/FeaturedProducts";
-import { Newsletter } from "../components/Newsletter";
-import { useRubro, RUBROS } from "../context/RubroContext";
+import { Hero } from '../components/Hero';
+import PropTypes from 'prop-types';
+import { Categories } from '../components/Categories';
+import { TrustBanner } from '../components/TrustBanner';
+import { FeaturedProducts } from '../components/FeaturedProducts';
+import { Newsletter } from '../components/Newsletter';
+import { useRubro } from '../context/useRubro';
+import { RUBROS } from '../context/rubroConstants';
 
-export function HomePage({ featuredProducts, trendingProducts, onAddToCart, onToggleWishlist, wishlistItems }) {
+export function HomePage({
+  featuredProducts,
+  trendingProducts,
+  onAddToCart,
+  onToggleWishlist,
+  wishlistItems,
+}) {
   const { rubro, isSeller } = useRubro();
-  
+
   // Logic: Show GAMING only if user is a Seller AND has selected Gaming rubro.
   // Otherwise (Guest, Non-Seller, Technology Seller) -> Show TECHNOLOGY.
-  const displayRubro = (isSeller && rubro === RUBROS.GAMING) ? RUBROS.GAMING : RUBROS.TECHNOLOGY;
+  const displayRubro = isSeller && rubro === RUBROS.GAMING ? RUBROS.GAMING : RUBROS.TECHNOLOGY;
 
   return (
     <>
@@ -39,3 +47,11 @@ export function HomePage({ featuredProducts, trendingProducts, onAddToCart, onTo
     </>
   );
 }
+
+HomePage.propTypes = {
+  featuredProducts: PropTypes.array,
+  trendingProducts: PropTypes.array,
+  onAddToCart: PropTypes.func,
+  onToggleWishlist: PropTypes.func,
+  wishlistItems: PropTypes.array,
+};

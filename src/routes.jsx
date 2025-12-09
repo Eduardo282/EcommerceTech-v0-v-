@@ -1,12 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-import { HomePage } from "./pages/HomePage";
-import { CategoriasPage } from "./pages/CategoriasPage";
-import { PlantillasDashboardPage } from "./pages/PlantillasDashboardPage";
-import { PlantillasAuthPage } from "./pages/PlantillasAuthPage";
-import { ComponentesUiUxPage } from "./pages/ComponentesUiUxPage";
-import { LibrosProgramacionPage } from "./pages/LibrosProgramacionPage";
-import { GuiasEstudioPage } from "./pages/GuiasEstudioPage";
-import { ControladoresPage } from "./pages/ControladoresPage";
+import { Routes, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { HomePage } from './pages/HomePage';
+import { CategoriasPage } from './pages/CategoriasPage';
+import { PlantillasDashboardPage } from './pages/PlantillasDashboardPage';
+import { PlantillasAuthPage } from './pages/PlantillasAuthPage';
+import { ComponentesUiUxPage } from './pages/ComponentesUiUxPage';
+import { LibrosProgramacionPage } from './pages/LibrosProgramacionPage';
+import { GuiasEstudioPage } from './pages/GuiasEstudioPage';
+import { ControladoresPage } from './pages/ControladoresPage';
 
 export function AppRoutes({
   featuredProducts,
@@ -39,3 +40,11 @@ export function AppRoutes({
     </Routes>
   );
 }
+
+AppRoutes.propTypes = {
+  featuredProducts: PropTypes.array,
+  trendingProducts: PropTypes.array,
+  onAddToCart: PropTypes.func,
+  onToggleWishlist: PropTypes.func,
+  wishlistItems: PropTypes.array,
+};

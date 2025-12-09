@@ -18,41 +18,39 @@ export default {
    */
   async bootstrap({ strapi }) {
     try {
-      const publicRole = await strapi
-        .db.query("plugin::users-permissions.role")
-        .findOne({ where: { type: "public" } });
+      const publicRole = await strapi.db
+        .query('plugin::users-permissions.role')
+        .findOne({ where: { type: 'public' } });
 
       if (!publicRole) return;
 
       const permissions = [
-        "api::header.header.find",
-        "api::fuente.fuente.find",
-        "api::category.category.find",
-        "api::featured-product.featured-product.find",
-        "api::footer.footer.find",
-        "api::hero.hero.find",
-        "api::inicio-pagina.inicio-pagina.find",
-        "api::newsletter.newsletter.find",
-        "api::trust-banner.trust-banner.find",
-        "api::product.product.find",
-        "api::product.product.findOne",
-        "api::product-tendencia.product-tendencia.find",
-        "api::product-tendencia.product-tendencia.findOne",
+        'api::header.header.find',
+        'api::fuente.fuente.find',
+        'api::category.category.find',
+        'api::featured-product.featured-product.find',
+        'api::footer.footer.find',
+        'api::hero.hero.find',
+        'api::inicio-pagina.inicio-pagina.find',
+        'api::newsletter.newsletter.find',
+        'api::trust-banner.trust-banner.find',
+        'api::product.product.find',
+        'api::product.product.findOne',
+        'api::product-tendencia.product-tendencia.find',
+        'api::product-tendencia.product-tendencia.findOne',
       ];
 
       await Promise.all(
         permissions.map(async (action) => {
-          const permission = await strapi
-            .db.query("plugin::users-permissions.permission")
-            .findOne({
-              where: {
-                action,
-                role: publicRole.id,
-              },
-            });
+          const permission = await strapi.db.query('plugin::users-permissions.permission').findOne({
+            where: {
+              action,
+              role: publicRole.id,
+            },
+          });
 
           if (!permission) {
-            await strapi.db.query("plugin::users-permissions.permission").create({
+            await strapi.db.query('plugin::users-permissions.permission').create({
               data: {
                 action,
                 role: publicRole.id,
@@ -63,37 +61,36 @@ export default {
       );
 
       // Seed default Header if not exists
-      const header = await strapi.db.query("api::header.header").findOne();
+      const header = await strapi.db.query('api::header.header').findOne();
       if (!header) {
-        await strapi.db.query("api::header.header").create({
+        await strapi.db.query('api::header.header').create({
           data: {
-            logoText1: "Evo",
-            logoText2: "Hance",
+            logoText1: 'Evo',
+            logoText2: 'Hance',
             menuItems: [
-              { label: "Plantillas dashboard", url: "#" },
-              { label: "Plantillas Auth", url: "#" },
-              { label: "Componentes de UI/UX", url: "#" },
-              { label: "Libros de programacion", url: "#" },
-              { label: "Guias de estudio", url: "#" },
-              { label: "Controladores", url: "#" }
+              { label: 'Plantillas dashboard', url: '#' },
+              { label: 'Plantillas Auth', url: '#' },
+              { label: 'Componentes de UI/UX', url: '#' },
+              { label: 'Libros de programacion', url: '#' },
+              { label: 'Guias de estudio', url: '#' },
+              { label: 'Controladores', url: '#' },
             ],
             publishedAt: new Date(), // Publish immediately
           },
         });
-        console.log("Seeded default header data");
+        console.log('Seeded default header data');
       } else if (!header.publishedAt) {
         // Force publish if exists but unpublished
-        await strapi.db.query("api::header.header").update({
+        await strapi.db.query('api::header.header').update({
           where: { id: header.id },
           data: {
             publishedAt: new Date(),
           },
         });
-        console.log("Force published header data");
+        console.log('Force published header data');
       }
-
     } catch (error) {
-      console.error("Bootstrap error:", error);
+      console.error('Bootstrap error:', error);
     }
   },
 };

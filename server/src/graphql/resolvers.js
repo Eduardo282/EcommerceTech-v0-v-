@@ -1,13 +1,13 @@
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import { GraphQLError, GraphQLScalarType, Kind } from "graphql";
-import { User } from "../models/User.js";
-import { Product } from "../models/Product.js";
-import { Category } from "../models/Category.js";
-import { Order } from "../models/Order.js";
+import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+import { GraphQLError, GraphQLScalarType, Kind } from 'graphql';
+import { User } from '../models/User.js';
+import { Product } from '../models/Product.js';
+import { Category } from '../models/Category.js';
+import { Order } from '../models/Order.js';
 
-const authError = new GraphQLError("Not authorized", {
-  extensions: { code: "UNAUTHENTICATED" },
+const authError = new GraphQLError('Not authorized', {
+  extensions: { code: 'UNAUTHENTICATED' },
 });
 
 function requireAuth(ctx) {
@@ -16,18 +16,16 @@ function requireAuth(ctx) {
 }
 function requireAdmin(ctx) {
   const user = requireAuth(ctx);
-  if (user.role !== "admin")
-    throw new GraphQLError("Admin only", { extensions: { code: "FORBIDDEN" } });
+  if (user.role !== 'admin')
+    throw new GraphQLError('Admin only', { extensions: { code: 'FORBIDDEN' } });
   return user;
 }
 
 export const resolvers = {
   Date: new GraphQLScalarType({
-    name: "Date",
+    name: 'Date',
     serialize(value) {
-      return value instanceof Date
-        ? value.toISOString()
-        : new Date(value).toISOString();
+      return value instanceof Date ? value.toISOString() : new Date(value).toISOString();
     },
     parseValue(value) {
       return new Date(value);
@@ -37,7 +35,7 @@ export const resolvers = {
     },
   }),
   JSON: new GraphQLScalarType({
-    name: "JSON",
+    name: 'JSON',
     serialize: (v) => v,
     parseValue: (v) => v,
     parseLiteral(ast) {
@@ -68,7 +66,7 @@ export const resolvers = {
     product: async (_, { id, slug }) => {
       if (!id && !slug) return null;
       const query = id ? { _id: id } : { slug };
-      return Product.findOne(query).populate("category");
+      return Product.findOne(query).populate('category');
     },
 
     products: async (_, { filter, sort, pagination }) => {
@@ -91,18 +89,18 @@ export const resolvers = {
       const page = pagination?.page || 1;
       const pageSize = pagination?.pageSize || 12;
 
-      const cursor = Product.find(q).populate("category");
+      const cursor = Product.find(q).populate('category');
       switch (sort) {
-        case "PRICE_ASC":
+        case 'PRICE_ASC':
           cursor.sort({ price: 1 });
           break;
-        case "PRICE_DESC":
+        case 'PRICE_DESC':
           cursor.sort({ price: -1 });
           break;
-        case "RATING_DESC":
+        case 'RATING_DESC':
           cursor.sort({ rating: -1 });
           break;
-        case "NEWEST":
+        case 'NEWEST':
         default:
           cursor.sort({ createdAt: -1 });
       }
@@ -115,14 +113,14 @@ export const resolvers = {
     orders: async (_, __, ctx) => {
       const user = requireAuth(ctx);
       return Order.find({ user: user.id }).populate({
-        path: "items.product",
+        path: 'items.product',
         model: Product,
       });
     },
     order: async (_, { id }, ctx) => {
       const user = requireAuth(ctx);
       const order = await Order.findOne({ _id: id, user: user.id }).populate({
-        path: "items.product",
+        path: 'items.product',
         model: Product,
       });
       if (!order) return null;
@@ -134,20 +132,18 @@ export const resolvers = {
     registerUser: async (_, { name, email, password }, { res }) => {
       const existing = await User.findOne({ email });
       if (existing)
-        throw new GraphQLError("Email already in use", {
-          extensions: { code: "BAD_USER_INPUT" },
+        throw new GraphQLError('Email already in use', {
+          extensions: { code: 'BAD_USER_INPUT' },
         });
       const user = await User.create({ name, email, password });
-      const token = jwt.sign(
-        { sub: user.id, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-      );
-      
-      res.cookie("token", token, {
+      const token = jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET, {
+        expiresIn: '7d',
+      });
+
+      res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
@@ -156,34 +152,32 @@ export const resolvers = {
     loginUser: async (_, { email, password }, { res }) => {
       const user = await User.findOne({ email });
       if (!user)
-        throw new GraphQLError("Invalid credentials", {
-          extensions: { code: "UNAUTHENTICATED" },
+        throw new GraphQLError('Invalid credentials', {
+          extensions: { code: 'UNAUTHENTICATED' },
         });
       const ok = await user.comparePassword(password);
       if (!ok)
-        throw new GraphQLError("Invalid credentials", {
-          extensions: { code: "UNAUTHENTICATED" },
+        throw new GraphQLError('Invalid credentials', {
+          extensions: { code: 'UNAUTHENTICATED' },
         });
-      const token = jwt.sign(
-        { sub: user.id, role: user.role },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-      );
+      const token = jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET, {
+        expiresIn: '7d',
+      });
 
-      res.cookie("token", token, {
+      res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       return { token, user };
     },
     logoutUser: async (_, __, { res }) => {
-      res.clearCookie("token", {
+      res.clearCookie('token', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       });
       return true;
     },
@@ -197,18 +191,21 @@ export const resolvers = {
       requireAdmin(ctx);
       const doc = {
         title: input.title,
-        description: input.description || "",
+        description: input.description || '',
+        longDescription: input.longDescription || '',
+        details: input.details || [],
+        specs: input.specs || [],
+        includes: input.includes || [],
         price: input.price,
         images: input.images || [],
         category: input.categoryId || null,
         inventory: input.inventory ?? 0,
         attributes: input.attributes || {},
         active: input.active ?? true,
-        active: input.active ?? true,
-        rubro: input.rubro || ctx.user?.rubro || "TECHNOLOGY",
+        rubro: input.rubro || ctx.user?.rubro || 'TECHNOLOGY',
       };
       const p = await Product.create(doc);
-      return p.populate("category");
+      return p.populate('category');
     },
     updateProduct: async (_, { id, input }, ctx) => {
       requireAdmin(ctx);
@@ -222,25 +219,21 @@ export const resolvers = {
       }
       const p = await Product.findByIdAndUpdate(id, update, {
         new: true,
-      }).populate("category");
+      }).populate('category');
       if (!p)
-        throw new GraphQLError("Product not found", {
-          extensions: { code: "NOT_FOUND" },
+        throw new GraphQLError('Product not found', {
+          extensions: { code: 'NOT_FOUND' },
         });
       return p;
     },
 
-    setSellerProfile: async (
-      _,
-      { rubro, storeName, storeDescription },
-      ctx
-    ) => {
+    setSellerProfile: async (_, { rubro, storeName, storeDescription }, ctx) => {
       const user = requireAuth(ctx);
       const update = {
         isSeller: true,
         rubro,
         storeName,
-        storeDescription: storeDescription || "",
+        storeDescription: storeDescription || '',
       };
       const u = await User.findByIdAndUpdate(user.id, update, {
         new: true,
@@ -259,8 +252,8 @@ export const resolvers = {
       const productIds = items.map((i) => i.productId);
       for (const pid of productIds) {
         if (!mongoose.Types.ObjectId.isValid(pid)) {
-          throw new GraphQLError("Invalid productId: " + pid, {
-            extensions: { code: "BAD_USER_INPUT" },
+          throw new GraphQLError('Invalid productId: ' + pid, {
+            extensions: { code: 'BAD_USER_INPUT' },
           });
         }
       }
@@ -268,8 +261,8 @@ export const resolvers = {
       const itemsExpanded = items.map((i) => {
         const p = products.find((pp) => pp.id == i.productId);
         if (!p)
-          throw new GraphQLError("Product not found", {
-            extensions: { code: "BAD_USER_INPUT" },
+          throw new GraphQLError('Product not found', {
+            extensions: { code: 'BAD_USER_INPUT' },
           });
         return {
           product: p._id,
@@ -278,17 +271,14 @@ export const resolvers = {
           quantity: i.quantity,
         };
       });
-      const total = itemsExpanded.reduce(
-        (sum, it) => sum + it.price * it.quantity,
-        0
-      );
+      const total = itemsExpanded.reduce((sum, it) => sum + it.price * it.quantity, 0);
       const order = await Order.create({
         user: user.id,
         items: itemsExpanded,
         total,
         shippingAddress: shippingAddress || {},
       });
-      return order.populate({ path: "items.product", model: Product });
+      return order.populate({ path: 'items.product', model: Product });
     },
   },
 };

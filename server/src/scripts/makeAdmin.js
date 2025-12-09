@@ -1,6 +1,6 @@
-import "dotenv/config";
-import { connectDB } from "../config/db.js";
-import { User } from "../models/User.js";
+import 'dotenv/config';
+import { connectDB } from '../config/db.js';
+import { User } from '../models/User.js';
 
 async function run() {
   // Simple argv parser: supports --email=value or --email value or -e value
@@ -8,22 +8,22 @@ async function run() {
   let email = process.env.EMAIL || null;
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
-    if (arg.startsWith("--email=")) {
-      email = arg.split("=")[1];
+    if (arg.startsWith('--email=')) {
+      email = arg.split('=')[1];
       break;
-    } else if (arg === "--email" || arg === "-e") {
+    } else if (arg === '--email' || arg === '-e') {
       email = argv[i + 1];
       break;
     } else {
       // Fallbacks: accept a bare email or even "--someone@example.com"
-      const cleaned = arg.replace(/^--+/, "");
-      if (!email && cleaned.includes("@") && cleaned.includes(".")) {
+      const cleaned = arg.replace(/^--+/, '');
+      if (!email && cleaned.includes('@') && cleaned.includes('.')) {
         email = cleaned;
       }
     }
   }
   if (!email) {
-    console.error("Usage: npm run make-admin -- --email=user@example.com");
+    console.error('Usage: npm run make-admin -- --email=user@example.com');
     process.exit(1);
   }
 
@@ -33,11 +33,11 @@ async function run() {
     console.error(`User not found: ${email}`);
     process.exit(1);
   }
-  if (user.role === "admin") {
+  if (user.role === 'admin') {
     console.log(`User is already admin: ${email}`);
     process.exit(0);
   }
-  user.role = "admin";
+  user.role = 'admin';
   await user.save();
   console.log(`✅ Promoted to admin: ${email}`);
   process.exit(0);
