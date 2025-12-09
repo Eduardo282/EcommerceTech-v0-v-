@@ -1,11 +1,7 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const PRODUCTS_QUERY = gql`
-  query Products(
-    $filter: ProductFilter
-    $sort: ProductSort
-    $pagination: PaginationInput
-  ) {
+  query Products($filter: ProductFilter, $sort: ProductSort, $pagination: PaginationInput) {
     products(filter: $filter, sort: $sort, pagination: $pagination) {
       id
       title
@@ -13,6 +9,14 @@ export const PRODUCTS_QUERY = gql`
       images
       rating
       rubro
+      description
+      longDescription
+      details
+      specs {
+        key
+        value
+      }
+      includes
       category {
         name
       }

@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const REGISTER_USER = gql`
   mutation RegisterUser($name: String!, $email: String!, $password: String!) {
@@ -37,16 +37,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const SET_SELLER_PROFILE = gql`
-  mutation SetSellerProfile(
-    $rubro: Rubro!
-    $storeName: String!
-    $storeDescription: String
-  ) {
-    setSellerProfile(
-      rubro: $rubro
-      storeName: $storeName
-      storeDescription: $storeDescription
-    ) {
+  mutation SetSellerProfile($rubro: Rubro!, $storeName: String!, $storeDescription: String) {
+    setSellerProfile(rubro: $rubro, storeName: $storeName, storeDescription: $storeDescription) {
       id
       name
       email

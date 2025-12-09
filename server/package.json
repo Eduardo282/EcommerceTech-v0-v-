@@ -8,7 +8,9 @@
     "start": "node src/index.js",
     "seed": "node src/seed/seed.js",
     "make-admin": "node src/scripts/makeAdmin.js",
-    "seed:gaming": "node src/scripts/seedGaming.js"
+    "seed:gaming": "node src/scripts/seedGaming.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@apollo/server": "^5.1.0",
@@ -28,6 +30,13 @@
     "validator": "^13.12.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "@eslint/js": "^9.39.1",
+    "@tailwindcss/vite": "^4.0.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.7.4",
+    "tailwindcss": "^4.0.0"
   }
 }

@@ -1,9 +1,8 @@
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
-const uri = import.meta.env.VITE_GRAPHQL_URL || "http://localhost:4000/graphql";
+const uri = import.meta.env.VITE_GRAPHQL_URL || 'http://localhost:4000/graphql';
 
-const httpLink = new HttpLink({ uri, credentials: "include" });
+const httpLink = new HttpLink({ uri, credentials: 'include' });
 
 export const client = new ApolloClient({
   link: httpLink,

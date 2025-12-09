@@ -1,0 +1,18 @@
+# Directorios de Build y Temporales de Strapi
+.strapi/
+.tmp/
+dist/
+build/
+.cache/
+
+# Dependencias y Sistema
+node_modules/
+package-lock.json
+yarn.lock
+
+# Archivos Públicos (a veces contienen uploads grandes)
+public/
+
+# Archivos de Entorno
+.env
+.env.example

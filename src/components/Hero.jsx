@@ -1,8 +1,6 @@
-import { Button } from "./ui/button";
-import { Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
-import { getHeroConfig } from "../services/strapi";
-import { VentasButton } from "./smallComponents/VentasButton";
+import { useEffect, useState } from 'react';
+import { getHeroConfig } from '../services/strapi';
+import { VentasButton } from './smallComponents/VentasButton';
 
 export function Hero() {
   const [heroConfig, setHeroConfig] = useState(null);
@@ -17,8 +15,9 @@ export function Hero() {
     <section
       className="relative overflow-hidden py-24 min-h-[620px]"
       style={{
-        backgroundColor: getColor("fondoHeroColor", "black"),
-      }}>
+        backgroundColor: getColor('fondoHeroColor', 'black'),
+      }}
+    >
       {/* Animated Background Orbs */}
       <div
         aria-hidden="true"
@@ -47,7 +46,7 @@ export function Hero() {
         style={{
           backgroundImage:
             "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9InJnYmEoMjM0LDE3OSw4LDAuMTUpIiBzdHJva2Utb3BhY2l0eT0iLjE1Ij48cGF0aCBkPSJNMCAxMEg2MCIvPjxwYXRoIGQ9Ik0xMCAwVjYwIi8+PC9nPjwvc3ZnPg==')",
-          backgroundSize: "60px 60px",
+          backgroundSize: '60px 60px',
         }}
       />
 
@@ -62,21 +61,29 @@ export function Hero() {
 
               <div className="space-y-10">
                 <h1 className="text-[48px] leading-[1.1] font-display">
-                  <span className="block" style={{ color: getColor("titleHeroColor", "#fef3c7") }}>{heroConfig?.titleHero || "Cargando..."}</span>
-                  <span className="block mt-4 text-[48px]" style={{ color: getColor("titleHeroColor2", "#fef3c7") }}>{heroConfig?.titleHero2 || "Cargando..."}</span>
+                  <span className="block" style={{ color: getColor('titleHeroColor', '#fef3c7') }}>
+                    {heroConfig?.titleHero || 'Cargando...'}
+                  </span>
+                  <span
+                    className="block mt-4 text-[48px]"
+                    style={{ color: getColor('titleHeroColor2', '#fef3c7') }}
+                  >
+                    {heroConfig?.titleHero2 || 'Cargando...'}
+                  </span>
                 </h1>
 
                 <VentasButton />
-
               </div>
             </div>
 
             {/* Description */}
             <section className="relative max-w-md">
-              <p className="leading-relaxed max-w-md text-sm" style={{ color: getColor("descripcionHeroColor", "#fef3c7") }}>
-                Mercado de activos digitales, diseño y Herramientas de la mejor
-                calidad para creadores y profesionales que buscan destacar en el
-                mundo digital.
+              <p
+                className="leading-relaxed max-w-md text-sm"
+                style={{ color: getColor('descripcionHeroColor', '#fef3c7') }}
+              >
+                Mercado de activos digitales, diseño y Herramientas de la mejor calidad para
+                creadores y profesionales que buscan destacar en el mundo digital.
               </p>
             </section>
           </header>
@@ -84,11 +91,10 @@ export function Hero() {
           {/* Right Content - Professional Tech Image */}
           <aside className="relative h-[500px] flex items-center justify-center perspective-1000">
             <div className="relative w-[450px] h-[450px] animate-float">
-              
               {/* Main Image Container */}
               <div className="relative w-full h-full group perspective-1000">
                 <div className="absolute inset-0 bg-[#2c2c30] blur-[100px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
-              
+
                 {/* Tech Image */}
                 <img
                   src="/assets/hero-box.png"

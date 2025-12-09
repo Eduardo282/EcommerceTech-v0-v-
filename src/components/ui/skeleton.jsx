@@ -1,4 +1,4 @@
-import { cn } from "./utils";
+import { cn } from './utils';
 
 function Skeleton({ className, ...props }) {
   return (
@@ -6,7 +6,7 @@ function Skeleton({ className, ...props }) {
       data-slot="skeleton"
       role="presentation"
       aria-hidden="true"
-      className={cn("bg-accent animate-pulse rounded-md", className)}
+      className={cn('bg-accent animate-pulse rounded-md', className)}
       {...props}
     />
   );

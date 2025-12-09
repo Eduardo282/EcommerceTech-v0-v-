@@ -1,40 +1,30 @@
-import { useState, useEffect } from "react";
-import { useMutation, useApolloClient } from "@apollo/client";
-import { LOGIN_USER, REGISTER_USER } from "../graphql/mutations";
-import { Store } from "lucide-react";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useMutation, useApolloClient } from '@apollo/client';
+import { LOGIN_USER, REGISTER_USER } from '../graphql/mutations';
+import { Store } from 'lucide-react';
 
 export function AuthModal({ open, onClose, onSuccess }) {
-  const [mode, setMode] = useState("login");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState('login');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [wantsSeller, setWantsSeller] = useState(false);
   const [login, { loading: loggingIn }] = useMutation(LOGIN_USER);
   const [register, { loading: registering }] = useMutation(REGISTER_USER);
-
-  useEffect(() => {
-    if (!open) {
-      setMode("login");
-      setName("");
-      setEmail("");
-      setPassword("");
-      setWantsSeller(false);
-    }
-  }, [open]);
+  const client = useApolloClient();
 
   if (!open) return null;
-
-  const client = useApolloClient();
 
   async function submit(e) {
     e.preventDefault();
     try {
-      if (mode === "login") {
+      if (mode === 'login') {
         const { data } = await login({ variables: { email, password } });
         const user = data?.loginUser?.user;
         await client.resetStore();
         onSuccess?.({
-          mode: "login",
+          mode: 'login',
           userName: user?.name || email,
           user,
         });
@@ -45,7 +35,7 @@ export function AuthModal({ open, onClose, onSuccess }) {
         const user = data?.registerUser?.user;
         await client.resetStore();
         onSuccess?.({
-          mode: "register",
+          mode: 'register',
           wantsSeller,
           userName: user?.name || name || email,
           user,
@@ -63,38 +53,36 @@ export function AuthModal({ open, onClose, onSuccess }) {
       <div
         className="relative w-full max-w-md rounded-2xl p-6 z-10"
         style={{
-          background: "#111115",
+          background: '#111115',
         }}
         role="dialog"
         aria-modal="true"
-        aria-label={mode === "login" ? "Login" : "Create Account"}>
+        aria-label={mode === 'login' ? 'Login' : 'Create Account'}
+      >
         <button
           className="absolute top-3 right-3 cursor-pointer"
           onClick={onClose}
-          aria-label="Close">
+          aria-label="Close"
+        >
           ✕
         </button>
         <header className="mb-6 text-center">
           <h2 className="text-2xl font-display text-amber-100">
-            {mode === "login" ? "Welcome Back" : "Create Account"}
+            {mode === 'login' ? 'Welcome Back' : 'Create Account'}
           </h2>
           <p className="text-amber-200/70">
-            {mode === "login"
-              ? "Login to access your account"
-              : "Join our marketplace today"}
+            {mode === 'login' ? 'Login to access your account' : 'Join our marketplace today'}
           </p>
         </header>
 
         <form onSubmit={submit} className="space-y-4">
-          {mode === "register" && (
+          {mode === 'register' && (
             <div>
-              <label className="block text-sm text-amber-200/80 mb-1">
-                Full Name
-              </label>
+              <label className="block text-sm text-amber-200/80 mb-1">Full Name</label>
               <input
                 className="w-full px-3 py-2 rounded-lg text-amber-100 focus:outline-none"
                 style={{
-                  background: "#2c2c30",
+                  background: '#2c2c30',
                 }}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -103,14 +91,12 @@ export function AuthModal({ open, onClose, onSuccess }) {
             </div>
           )}
           <div>
-            <label className="block text-sm text-amber-200/80 mb-1">
-              Email
-            </label>
+            <label className="block text-sm text-amber-200/80 mb-1">Email</label>
             <input
               type="email"
               className="w-full px-3 py-2 rounded-lg text-amber-100 focus:outline-none"
               style={{
-                background: "#2c2c30",
+                background: '#2c2c30',
               }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -118,26 +104,25 @@ export function AuthModal({ open, onClose, onSuccess }) {
             />
           </div>
           <div>
-            <label className="block text-sm text-amber-200/80 mb-1">
-              Password
-            </label>
+            <label className="block text-sm text-amber-200/80 mb-1">Password</label>
             <input
               type="password"
               className="w-full px-3 py-2 rounded-lg text-amber-100 focus:outline-none"
               style={{
-                background: "#2c2c30",
+                background: '#2c2c30',
               }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          {mode === "register" && (
+          {mode === 'register' && (
             <div
               className="rounded-xl p-3 flex items-start gap-3"
               style={{
-                background: "black",
-              }}>
+                background: 'black',
+              }}
+            >
               <input
                 id="wants-seller"
                 type="checkbox"
@@ -161,24 +146,25 @@ export function AuthModal({ open, onClose, onSuccess }) {
             disabled={loggingIn || registering}
             className="w-full mt-1 py-3 rounded-xl text-white cursor-pointer"
             style={{
-              background: "#3E2F16",
-            }}>
-            {mode === "login" ? "Login" : "Create Account"}
+              background: '#3E2F16',
+            }}
+          >
+            {mode === 'login' ? 'Login' : 'Create Account'}
           </button>
         </form>
 
         <p className="mt-4 text-center text-sm text-amber-200/70">
-          {mode === "login" ? (
+          {mode === 'login' ? (
             <>
-              Don't have an account?{" "}
-              <button className="underline cursor-pointer" onClick={() => setMode("register")}>
+              Don&apos;t have an account?{' '}
+              <button className="underline cursor-pointer" onClick={() => setMode('register')}>
                 Sign up
               </button>
             </>
           ) : (
             <>
-              Already have an account?{" "}
-              <button className="underline cursor-pointer" onClick={() => setMode("login")}>
+              Already have an account?{' '}
+              <button className="underline cursor-pointer" onClick={() => setMode('login')}>
                 Login
               </button>
             </>
@@ -188,3 +174,9 @@ export function AuthModal({ open, onClose, onSuccess }) {
     </div>
   );
 }
+
+AuthModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func,
+};
