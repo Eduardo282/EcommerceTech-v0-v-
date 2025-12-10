@@ -70,7 +70,7 @@ export function Categories() {
             className="text-lg"
             style={{ color: getColor('descripcionCategoriasColor', '#FFD700') }}
           >
-            Explora nuestra colección de productos digitales
+           {categoriesConfig?.descripcionCategorias || 'Cargando...'}
           </p>
         </div>
 

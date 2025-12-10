@@ -75,6 +75,9 @@
     "hoverEnlacePoliticasColor": {
       "type": "string",
       "default": "#F9B61D"
+    },
+    "menuLinks": {
+      "type": "json"
     }
   }
 }

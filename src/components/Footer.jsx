@@ -241,51 +241,17 @@ export function Footer() {
               Categorías
             </h4>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Plantillas dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Paneles de administración
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Herramientas de automatización
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Plantillas de CV
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Kits de UI
-                </a>
-              </li>
+              {(footerConfig?.menuLinks?.categorias || []).map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="transition-colors hover:translate-x-1 inline-block"
+                    style={{ color: getColor('enlaceColor', '#fef3c7') }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -300,60 +266,17 @@ export function Footer() {
               Soporte
             </h4>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Centro de ayuda
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Documentación
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Referencia API
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Comunidad
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className=" transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Contáctanos
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Preguntas Frecuentes
-                </a>
-              </li>
+              {(footerConfig?.menuLinks?.soporte || []).map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="transition-colors hover:translate-x-1 inline-block"
+                    style={{ color: getColor('enlaceColor', '#fef3c7') }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -368,42 +291,17 @@ export function Footer() {
               Compañía
             </h4>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Sobre Nosotros
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className=" transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Socios
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="transition-colors hover:translate-x-1 inline-block"
-                  style={{ color: getColor('enlaceColor', '#fef3c7') }}
-                >
-                  Programa de Afiliados
-                </a>
-              </li>
+              {(footerConfig?.menuLinks?.compania || []).map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="transition-colors hover:translate-x-1 inline-block"
+                    style={{ color: getColor('enlaceColor', '#fef3c7') }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
         </section>
@@ -488,27 +386,6 @@ export function Footer() {
                     style={{ color: getColor('enlacePoliticasColor', 'rgba(253, 230, 138, 0.7)') }}
                   >
                     Términos de Servicio
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="transition-colors"
-                    onMouseEnter={(e) =>
-                      (e.target.style.color = getColor(
-                        'hoverEnlacePoliticasColor',
-                        'rgba(253, 230, 138, 0.7)'
-                      ))
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.color = getColor(
-                        'enlacePoliticasColor',
-                        'rgba(253, 230, 138, 0.7)'
-                      ))
-                    }
-                    style={{ color: getColor('enlacePoliticasColor', 'rgba(253, 230, 138, 0.7)') }}
-                  >
-                    Política de Cookies
                   </a>
                 </li>
               </ul>
