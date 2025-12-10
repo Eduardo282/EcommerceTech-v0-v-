@@ -1,4 +1,5 @@
 import { Hero } from '../components/Hero';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Categories } from '../components/Categories';
 import { TrustBanner } from '../components/TrustBanner';
@@ -6,6 +7,8 @@ import { FeaturedProducts } from '../components/FeaturedProducts';
 import { Newsletter } from '../components/Newsletter';
 import { useRubro } from '../context/useRubro';
 import { RUBROS } from '../context/rubroConstants';
+import { getFeaturedProductsConfig } from '../services/strapi';
+
 
 export function HomePage({
   featuredProducts,
@@ -14,6 +17,13 @@ export function HomePage({
   onToggleWishlist,
   wishlistItems,
 }) {
+
+  const [featuredProductsConfig, setFeaturedProductsConfig] = useState(null);
+
+  useEffect(() => {
+    getFeaturedProductsConfig().then(setFeaturedProductsConfig);
+  }, []);
+
   const { rubro, isSeller } = useRubro();
 
   // Logic: Show GAMING only if user is a Seller AND has selected Gaming rubro.
@@ -31,7 +41,7 @@ export function HomePage({
         onToggleWishlist={onToggleWishlist}
         wishlistItems={wishlistItems}
         title="Productos Destacados"
-        subtitle="Seleccionados de la mejor calidad para tu próximo proyecto"
+        subtitle={featuredProductsConfig?.descripcionDestacados || 'Cargando...'}
         rubro={displayRubro}
       />
       <FeaturedProducts
@@ -40,7 +50,7 @@ export function HomePage({
         onToggleWishlist={onToggleWishlist}
         wishlistItems={wishlistItems}
         title="Tendencias de la Semana"
-        subtitle="Los productos más populares entre nuestra comunidad"
+        subtitle={featuredProductsConfig?.descripcionTendencias || 'Cargando...'} 
         rubro={displayRubro}
       />
       <Newsletter />

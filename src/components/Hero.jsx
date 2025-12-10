@@ -82,8 +82,7 @@ export function Hero() {
                 className="leading-relaxed max-w-md text-sm"
                 style={{ color: getColor('descripcionHeroColor', '#fef3c7') }}
               >
-                Mercado de activos digitales, diseño y Herramientas de la mejor calidad para
-                creadores y profesionales que buscan destacar en el mundo digital.
+                {heroConfig?.descripcionHero || 'Cargando...'}
               </p>
             </section>
           </header>

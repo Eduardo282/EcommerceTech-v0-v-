@@ -13,6 +13,7 @@ import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 import { GET_ME } from '../graphql/queries';
 import { LOGOUT_USER } from '../graphql/mutations';
 import { categories } from '../data/categories';
+import { AnuncioHeader } from './smallComponents/AnuncioHeader';
 
 const PATH_MAPPING = {
   'Plantillas dashboard': '/plantillas-dashboard',
@@ -46,6 +47,7 @@ export function Header({
       if (user.storeName) setStore({ name: user.storeName, description: user.storeDescription });
     }
   }, [user, isSeller, rubro, setIsSeller, setRubro, setStore]);
+
   const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef(null);
 
@@ -75,7 +77,9 @@ export function Header({
     document.addEventListener('mousedown', onDown);
     return () => document.removeEventListener('mousedown', onDown);
   }, []);
+
   const rubroShort = rubro === 'TECHNOLOGY' ? 'TEC' : rubro === 'GAMING' ? 'GAM' : '';
+
   return (
     <header
       className="sticky top-0 z-50 w-full shadow-2xl font-sans"
@@ -84,68 +88,7 @@ export function Header({
         boxShadow: '0 4px 32px #2C2C30',
       }}
     >
-      {/* Top Bar AD */}
-      {(() => {
-        const isActive = headerConfig?.mostrarAnuncio ?? true;
-        if (!isActive) return null;
-
-        const now = new Date();
-        const start = headerConfig?.fechaInicioAnuncio
-          ? new Date(headerConfig.fechaInicioAnuncio)
-          : null;
-        const end = headerConfig?.fechaFinAnuncio ? new Date(headerConfig.fechaFinAnuncio) : null;
-
-        if (start && now < start) return null;
-        if (end && now > end) return null;
-
-        return (
-          <section
-            className="relative overflow-hidden"
-            style={{
-              background: getColor(
-                'fondoAnuncioColor',
-                'linear-gradient(135deg, rgba(234, 179, 8, 0.12) 0%, rgba(245, 158, 11, 0.12) 100%)'
-              ),
-            }}
-            aria-label="site announcement"
-          >
-            <div className="absolute inset-0 animate-shimmer"></div>
-            <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm relative z-10">
-              <div className="flex items-center gap-4">
-                <span className="flex items-center gap-2">
-                  <Sparkles
-                    className="h-4 w-4 animate-pulse text-[#F9B61D]"
-                    style={{
-                      filter: 'drop-shadow(0 0 5px #F9B61D)',
-                    }}
-                  />
-                  <span
-                    style={{
-                      color: getColor('titleAnuncioColor', '#FFD700'),
-                    }}
-                  >
-                    {headerConfig?.titleAnuncio || 'Cargando...'}
-                  </span>
-                </span>
-              </div>
-              <div className="flex items-center gap-4">
-                <button
-                  className="transition-colors cursor-pointer"
-                  style={{ color: getColor('enlacesAnuncioColor', 'rgba(253, 230, 138, 0.7)') }}
-                >
-                  Ayuda & Soporte
-                </button>
-                <button
-                  className="transition-colors cursor-pointer"
-                  style={{ color: getColor('enlacesAnuncioColor', 'rgba(253, 230, 138, 0.7)') }}
-                >
-                  Rastrear Pedido
-                </button>
-              </div>
-            </div>
-          </section>
-        );
-      })()}
+     <AnuncioHeader headerConfig={headerConfig} getColor={getColor} />
 
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">

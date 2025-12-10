@@ -401,6 +401,8 @@ export interface ApiCategoryCategory extends Struct.SingleTypeSchema {
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    descripcionCategorias: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<' Explora nuestra colecci\u00F3n de productos digitales'>;
     descripcionCategoriasColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#FFD700'>;
     fondoCategoriasColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -428,7 +430,11 @@ export interface ApiFeaturedProductFeaturedProduct extends Struct.SingleTypeSche
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    descripcionDestacados: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Seleccionados de la mejor calidad para tu pr\u00F3ximo proyecto'>;
     descripcionDestacadosColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#FFD700'>;
+    descripcionTendencias: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Los productos m\u00E1s populares entre nuestra comunidad'>;
     fondoDestacadosColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -473,6 +479,7 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
     logoText1Color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#E4D9AF'>;
     logoText2: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Hance'>;
     logoText2Color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#F9B61D'>;
+    menuLinks: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
     titleColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#F9B61D'>;
     titleFormColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#E4D9AF'>;
@@ -594,6 +601,8 @@ export interface ApiHeroHero extends Struct.SingleTypeSchema {
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    descripcionHero: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Mercado de activos digitales, dise\u00F1o y Herramientas de la mejor calidad para                 creadores y profesionales que buscan destacar en el mundo digital.'>;
     descripcionHeroColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#fef3c7'>;
     fondoHeroColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

@@ -23,6 +23,14 @@
     "descripcionDestacadosColor": {
       "type": "string",
       "default": "#FFD700"
+    },
+    "descripcionDestacados": {
+      "type": "text",
+      "default": "Seleccionados de la mejor calidad para tu próximo proyecto"
+    },
+    "descripcionTendencias": {
+      "type": "text",
+      "default": "Los productos más populares entre nuestra comunidad"
     }
   }
 }

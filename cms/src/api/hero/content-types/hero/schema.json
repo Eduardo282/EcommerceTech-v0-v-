@@ -35,6 +35,10 @@
     "titleHero2": {
       "type": "string",
       "default": "estandar digital"
+    },
+    "descripcionHero": {
+      "type": "text",
+      "default": "Mercado de activos digitales, diseño y Herramientas de la mejor calidad para                 creadores y profesionales que buscan destacar en el mundo digital."
     }
   }
 }

@@ -27,6 +27,10 @@
     "titleCategoriasColor2": {
       "type": "string",
       "default": "#fef3c7"
+    },
+    "descripcionCategorias": {
+      "type": "text",
+      "default": " Explora nuestra colección de productos digitales"
     }
   }
 }

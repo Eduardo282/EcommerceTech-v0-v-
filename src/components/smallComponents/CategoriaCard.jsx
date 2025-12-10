@@ -11,7 +11,7 @@ export function CategoriaCard({ category, openDropdown, getColor }) {
         <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl group-hover:shadow-[#F9B61D10] transition-all duration-500">
           <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
           <img
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1080&auto=format&fit=crop"
+            src={category.image}
             alt="Technology"
             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0"
           />
@@ -49,6 +49,7 @@ CategoriaCard.propTypes = {
   category: PropTypes.shape({
     name: PropTypes.string.isRequired,
     hasDropdown: PropTypes.bool,
+    image: PropTypes.string.isRequired,
   }).isRequired,
   openDropdown: PropTypes.string,
   setOpenDropdown: PropTypes.func,
