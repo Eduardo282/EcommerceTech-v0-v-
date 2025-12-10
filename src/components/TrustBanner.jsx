@@ -32,10 +32,27 @@ export function TrustBanner() {
           backgroundSize: '70px 70px',
         }}
       />
-      <div className="container mx-auto px-4">
-        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 list-none">
-          {featuresTrust.map((feature, index) => (
-            <li key={index} className="text-center group hover:cursor-pointer">
+      <style>{`
+        @keyframes scroll-left-to-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-scroll {
+          display: flex;
+          width: max-content;
+          animation: scroll-left-to-right 40s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+      <div className="container mx-auto px-4 overflow-hidden relative">
+        <div className="animate-scroll">
+          {[...featuresTrust, ...featuresTrust].map((feature, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-64 px-4 text-center group hover:cursor-pointer"
+            >
               <div
                 className="inline-flex items-center justify-center w-16 h-16 mb-3 transition-all duration-300"
                 onMouseEnter={(e) => {
@@ -61,9 +78,9 @@ export function TrustBanner() {
               >
                 {feature.description}
               </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
