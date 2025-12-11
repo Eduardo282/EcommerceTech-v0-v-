@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { getFooterConfig } from '../services/strapi';
 import { Logo } from './smallComponents/Logo';
 import { Link } from 'react-router-dom';
-import { FormFooter } from './smallComponents/FormFooter';
+import { FormFooter } from './smallComponents/forms/FormFooter';
 
 export function Footer() {
   const [footerConfig, setFooterConfig] = useState(null);

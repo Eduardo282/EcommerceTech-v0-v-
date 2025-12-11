@@ -20,6 +20,8 @@ export const PRODUCTS_QUERY = gql`
       category {
         name
       }
+      badge
+      features
     }
   }
 `;

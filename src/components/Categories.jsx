@@ -8,7 +8,7 @@ import {
 } from './ui/carousel';
 import { getCategoriesConfig } from '../services/strapi';
 import { categories } from '../data/categories';
-import { EtiquetaCategoria } from './smallComponents/EtiquetaCategoria';
+import { EtiquetaCategoria } from './smallComponents/etiquetas/EtiquetaCategoria';
 import { CategoriaCard } from './smallComponents/CategoriaCard';
 import { CategoriaSubCategorias } from './smallComponents/CategoriaSubCategorias';
 
