@@ -50,7 +50,8 @@ function mapProduct(p) {
     reviews: Math.max(0, Math.floor((p.rating || 4.5) * 500)),
     image: (p.images && p.images[0]) || FALLBACK_IMAGE,
     sales: 0,
-    features: p.attributes ? Object.keys(p.attributes).slice(0, 3) : undefined,
+    badge: p.badge,
+    features: p.features || (p.attributes ? Object.keys(p.attributes).slice(0, 3) : undefined),
     rubro: p.rubro,
     details: p.details,
     specs: p.specs,
@@ -89,11 +90,7 @@ function AppInner() {
     }
   }, [isAuthed, authLoading, authError]);
   // GraphQL: Featured (by rating)
-  const {
-    data: featuredData,
-    loading: featuredLoading,
-    error: featuredError,
-  } = useQuery(PRODUCTS_QUERY, {
+  const { data: featuredData } = useQuery(PRODUCTS_QUERY, {
     variables: {
       sort: 'RATING_DESC',
       pagination: { page: 1, pageSize: 8 },
@@ -102,11 +99,7 @@ function AppInner() {
     fetchPolicy: 'cache-first',
   });
   // GraphQL: Trending (newest)
-  const {
-    data: trendingData,
-    loading: trendingLoading,
-    error: trendingError,
-  } = useQuery(PRODUCTS_QUERY, {
+  const { data: trendingData } = useQuery(PRODUCTS_QUERY, {
     variables: {
       sort: 'NEWEST',
       pagination: { page: 1, pageSize: 12 },

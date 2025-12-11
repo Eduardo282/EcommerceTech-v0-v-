@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getNewsletterConfig } from '../services/strapi';
-import { EtiquetaNewsletter } from './smallComponents/EtiquetaNewsletter';
-import { FormNewsletter } from './smallComponents/FormNewsletter';
+import { EtiquetaNewsletter } from './smallComponents/etiquetas/EtiquetaNewsletter';
+import { FormNewsletter } from './smallComponents/forms/FormNewsletter';
 
 export function Newsletter() {
   const [newsletterConfig, setNewsletterConfig] = useState(null);

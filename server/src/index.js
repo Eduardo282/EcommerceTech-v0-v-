@@ -79,6 +79,14 @@ async function start() {
       io.emit('chat:message', msg);
     });
 
+    socket.on('chat:clear', () => {
+      io.emit('chat:clear');
+    });
+
+    socket.on('chat:delete', (id) => {
+      io.emit('chat:delete', id);
+    });
+
     socket.on('disconnect', () => {
       console.log('Client disconnected:', socket.id);
     });

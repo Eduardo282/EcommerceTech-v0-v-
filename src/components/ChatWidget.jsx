@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, Phone, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 
 const SOCKET_URL = import.meta.env.VITE_GRAPHQL_URL
   ? import.meta.env.VITE_GRAPHQL_URL.replace('/graphql', '')
   : 'http://localhost:4000';
+
+const WHATSAPP_NUMBER = '2226807251'; // Replace with your WhatsApp number
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +29,10 @@ export function ChatWidget() {
       setMessages((prev) => [...prev, msg]);
     });
 
+    newSocket.on('chat:delete', (id) => {
+      setMessages((prev) => prev.filter((msg) => msg.id !== id));
+    });
+
     return () => newSocket.close();
   }, []);
 
@@ -38,12 +44,29 @@ export function ChatWidget() {
     e.preventDefault();
     if (message.trim() && socketRef.current) {
       const msgData = {
+        id: crypto.randomUUID(),
         text: message,
         senderId: socketRef.current.id,
         timestamp: new Date().toISOString(),
       };
       socketRef.current.emit('chat:message', msgData);
       setMessage('');
+    }
+  };
+
+  const openWhatsApp = () => {
+    const textToSend = message.trim() || 'Hola! Necesito ayuda con mi pedido.';
+    const encodedMessage = encodeURIComponent(textToSend);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+  };
+
+  const clearChat = () => {
+    setMessages([]);
+  };
+
+  const deleteMessage = (id) => {
+    if (socketRef.current && id) {
+      socketRef.current.emit('chat:delete', id);
     }
   };
 
@@ -57,34 +80,76 @@ export function ChatWidget() {
               <MessageCircle className="h-4 w-4 text-[#F9B61D]" />
               Chat en vivo
             </h3>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-[#ffffff] transition-colors cursor-pointer"
-            >
-              <X className="h-4 w-4" />
-            </button>
+            <div className="flex items-center gap-2">
+              {messages.length > 0 && (
+                <button
+                  onClick={clearChat}
+                  className="text-[#ffffff] hover:text-[#980707] transition-colors cursor-pointer"
+                  title="Limpiar conversación"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              )}
+              <button
+                onClick={openWhatsApp}
+                className="text-[#ffffff] hover:text-[#09c208] transition-colors cursor-pointer"
+                title="Chat on WhatsApp"
+              >
+                <Phone className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-[#ffffff] transition-colors cursor-pointer"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
             {messages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-[#ffffff] text-sm text-center">
-                <p>Welcome to EvoHance Chat!</p>
-                <p className="text-xs mt-1">Ask us anything.</p>
+              <div className="h-full flex flex-col items-center justify-center text-[#ffffff] text-sm text-center gap-3">
+                <div className="space-y-1">
+                  <p>Bienvenido al chat en vivo</p>
+                  <p className="text-xs text-[#898989]">Puedes preguntarnos cualquier cosa.</p>
+                </div>
+                <button
+                  onClick={openWhatsApp}
+                  className="text-white flex items-center gap-2 text-xs h-8 cursor-pointer scale-100 hover:scale-125 transition-all"
+                >
+                  <Phone className="h-3 w-3" />
+                  Chat en WhatsApp
+                </button>
               </div>
             ) : (
               messages.map((msg, idx) => {
                 const isMe = msg.senderId === myId;
                 return (
-                  <div key={idx} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                    <div
-                      className={`max-w-[85%] px-3 py-2 rounded-xl text-sm ${
-                        isMe
-                          ? 'bg-[#F9B61D50] text-[#E4D9AF] rounded-tr-none'
-                          : 'bg-[#2c2c30] text-[#E4D9AF] rounded-tl-none'
-                      }`}
-                    >
-                      {msg.text}
+                  <div
+                    key={msg.id || idx}
+                    className={`flex flex-col ${isMe ? 'items-end' : 'items-start'} group hover:z-10`}
+                  >
+                    <div className="flex items-center gap-2 max-w-full">
+                      <div
+                        className={`p-2 rounded-xl text-sm ${
+                          isMe
+                            ? 'bg-[#F9B61D50] text-[#E4D9AF] rounded-tr-none'
+                            : 'bg-[#2c2c30] text-[#E4D9AF] rounded-tl-none'
+                        }`}
+                      >
+                        {msg.text}
+                      </div>
+
+                      {isMe && (
+                        <button
+                          onClick={() => deleteMessage(msg.id)}
+                          className="opacity-0 group-hover:opacity-100 text-[#898989] hover:text-[#980707] transition-all p-1 cursor-pointer"
+                          title="Eliminar mensaje"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </button>
+                      )}
                     </div>
                     <span className="text-[10px] text-[#898989] mt-1 px-1">
                       {new Date(msg.timestamp).toLocaleTimeString([], {

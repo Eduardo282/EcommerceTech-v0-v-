@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner } from 'sonner';
+import PropTypes from 'prop-types';
 
 const Toaster = (props) => {
   const { theme = 'system' } = useTheme();
@@ -17,6 +18,12 @@ const Toaster = (props) => {
       {...props}
     />
   );
+};
+
+Toaster.propTypes = {
+  theme: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export { Toaster };
