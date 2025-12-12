@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import tailwindcss from '@tailwindcss/vite' // <--- Importa esto
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 

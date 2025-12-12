@@ -1,27 +1,27 @@
-# Dependencies
+# Dependencias
 node_modules
 .pnpm-store
 
-# Build artifacts
+# Build 
 dist
 dist-ssr
 build
 coverage
 
-# Environment files
+# Ambiente de desarrollo
 .env
 .env.local
 .env.*
 .cache
 
-# Generated files
+# Archivos generados
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
 
-# Public assets (optional, usually unlikely to need formatting)
+# Publico
 public/
 
-# Específico de Strapi
+# Especifico de Strapi
 .strapi
 public/uploads

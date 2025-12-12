@@ -1,4 +1,4 @@
-// Tailwind CSS v4 requires the @tailwindcss/postcss plugin wrapper
+// Tailwind css v4 requiere el plugin wrapper @tailwindcss/postcss
 module.exports = {
   plugins: {
     '@tailwindcss/postcss': {},

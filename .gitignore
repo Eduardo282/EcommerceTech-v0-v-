@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies
+# Dependencias
 node_modules
 .pnpm-store
 
@@ -17,7 +17,7 @@ dist-ssr
 build
 coverage
 
-# Environment
+# Ambiente de desarrollo
 .env
 .env.local
 .env.*.local
@@ -26,7 +26,7 @@ coverage
 .env.production.local
 !.env.example
 
-# Editor directories and files
+# Editor de carpetas y archivos
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -38,18 +38,18 @@ coverage
 *.sw?
 Thumbs.db
 
-# Optional eslint cache
+# Cache de eslint
 .eslintcache
 
-# Agent artifacts
+# Agentes
 .gemini
 
-# Si la carpeta 'cms' genera archivos temporales o de cache
+# Si, la carpeta 'cms' genera archivos temporales o de cache
 cms/.cache
 cms/build
 cms/.tmp
 
-# Si la carpeta 'server' genera archivos compilados
+# Si, la carpeta 'server' genera archivos compilados
 server/dist
 server/build
 server/.cache
