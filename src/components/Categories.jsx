@@ -5,12 +5,12 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from './ui/carousel';
-import { getCategoriesConfig } from '../services/strapi';
-import { categories } from '../data/categories';
-import { EtiquetaCategoria } from './smallComponents/etiquetas/EtiquetaCategoria';
-import { CategoriaCard } from './smallComponents/CategoriaCard';
-import { CategoriaSubCategorias } from './smallComponents/CategoriaSubCategorias';
+} from '@/components/ui/carousel';
+import { getCategoriesConfig } from '@/services/strapi';
+import { categories } from '@/data/categories';
+import { EtiquetaCategoria } from '@/components/smallComponents/etiquetas/EtiquetaCategoria';
+import { CategoriaCard } from '@/components/smallComponents/CategoriaCard';
+import { CategoriaSubCategorias } from '@/components/smallComponents/CategoriaSubCategorias';
 
 export function Categories() {
   const [openDropdown, setOpenDropdown] = useState(null);
