@@ -6,10 +6,8 @@ const ProductSchema = new mongoose.Schema(
     title: { type: String, required: true, trim: true },
     slug: { type: String, required: true, unique: true, index: true },
     description: { type: String, default: '' },
-    price: { type: Number, required: true, min: 0 },
-    originalPrice: { type: Number, min: 0 },
-    badge: { type: String },
-    features: [{ type: String }],
+    originalPrice: { type: Number, required: true, min: 0 },
+    descuentoPrice: { type: Number, min: 0 }, // Added for seed compatibility
     images: [{ type: String }],
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
     inventory: { type: Number, default: 0 },
@@ -22,23 +20,27 @@ const ProductSchema = new mongoose.Schema(
       default: 'TECHNOLOGY',
       index: true,
     },
-    // New fields for extended product details
+    badge: { type: String },
+    features: [{ type: String }],
     details: [{ type: String }],
-    specs: [
-      {
-        key: { type: String, required: true },
-        value: { type: String, required: true },
-      },
-    ],
     includes: [{ type: String }],
     longDescription: { type: String, default: '' },
+    specs: [{
+      key: { type: String },
+      value: { type: String },
+    }],
   },
   { timestamps: true }
-);
+); // Se incluyen los campos a futuro extendidos (seedExtended.js)
 
 ProductSchema.pre('validate', function (next) {
   if (!this.slug && this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
+  }
+  // Compatibilidad con semillas antiguas
+  if (!this.originalPrice) {
+    if (this.descuentoPrice) this.originalPrice = this.descuentoPrice;
+    else if (this.price) this.originalPrice = this.price; // fallback si price existe en el documento
   }
   next();
 });

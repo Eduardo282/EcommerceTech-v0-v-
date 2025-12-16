@@ -1,19 +1,16 @@
 import { Hero } from '../components/Hero';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useOutletContext } from 'react-router-dom';
 import { Categories } from '../components/Categories';
 import { TrustBanner } from '../components/TrustBanner';
 import { FeaturedProducts } from '../components/FeaturedProducts';
 import { Newsletter } from '../components/Newsletter';
 import { getFeaturedProductsConfig } from '../services/strapi';
 
-export function HomePage({
-  featuredProducts,
-  trendingProducts,
-  onAddToCart,
-  onToggleWishlist,
-  wishlistItems,
-}) {
+export function HomePage() {
+  const { featuredProducts, trendingProducts, onAddToCart, onToggleWishlist, wishlistItems } =
+    useOutletContext();
+
   const [featuredProductsConfig, setFeaturedProductsConfig] = useState(null);
 
   useEffect(() => {
@@ -47,11 +44,3 @@ export function HomePage({
     </>
   );
 }
-
-HomePage.propTypes = {
-  featuredProducts: PropTypes.array,
-  trendingProducts: PropTypes.array,
-  onAddToCart: PropTypes.func,
-  onToggleWishlist: PropTypes.func,
-  wishlistItems: PropTypes.array,
-};

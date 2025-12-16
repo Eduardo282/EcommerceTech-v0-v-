@@ -27,22 +27,22 @@ export const typeDefs = /* GraphQL */ `
     id: ID!
     title: String!
     slug: String!
-    description: String
-    longDescription: String
-    details: [String!]
-    specs: [ProductSpec!]
-    includes: [String!]
-    price: Float!
-    originalPrice: Float
-    badge: String
-    features: [String!]
+    description: String!
+    originalPrice: Float!
+    descuentoPrice: Float
     images: [String!]!
-    category: Category
-    inventory: Int!
-    rating: Float!
+    category: Category!
+    inventory: Int
     attributes: JSON
+    rating: Float
     active: Boolean!
-    rubro: Rubro!
+    rubro: Rubro
+    badge: String
+    features: [String]
+    details: [String]
+    includes: [String]
+    longDescription: String
+    specs: [ProductSpec]
     createdAt: Date!
     updatedAt: Date!
   }
@@ -50,8 +50,8 @@ export const typeDefs = /* GraphQL */ `
   scalar JSON
 
   type ProductSpec {
-    key: String!
-    value: String!
+    key: String
+    value: String
   }
 
   type OrderItem {
@@ -78,6 +78,8 @@ export const typeDefs = /* GraphQL */ `
     user: User!
   }
 
+  # export const PRODUCTS_QUERY = gql
+
   input PaginationInput {
     page: Int = 1
     pageSize: Int = 12
@@ -97,6 +99,8 @@ export const typeDefs = /* GraphQL */ `
     RATING_DESC
   }
 
+  # export const PRODUCTS_QUERY = gql
+
   enum Rubro {
     TECHNOLOGY
     GAMING
@@ -109,10 +113,10 @@ export const typeDefs = /* GraphQL */ `
     details: [String!]
     specs: [ProductSpecInput!]
     includes: [String!]
-    price: Float!
-    originalPrice: Float
+    originalPrice: Float!
     badge: String
     features: [String!]
+    descuentoPrice: Float
     images: [String!]
     categoryId: ID
     inventory: Int
@@ -128,10 +132,10 @@ export const typeDefs = /* GraphQL */ `
     details: [String!]
     specs: [ProductSpecInput!]
     includes: [String!]
-    price: Float
     originalPrice: Float
     badge: String
     features: [String!]
+    descuentoPrice: Float
     images: [String!]
     categoryId: ID
     inventory: Int
@@ -152,14 +156,6 @@ export const typeDefs = /* GraphQL */ `
     zip: String
     country: String
   }
-  input AddressInput {
-    line1: String
-    line2: String
-    city: String
-    state: String
-    zip: String
-    country: String
-  }
 
   input ProductSpecInput {
     key: String!
@@ -169,7 +165,7 @@ export const typeDefs = /* GraphQL */ `
   type Query {
     me: User
     product(id: ID, slug: String): Product
-    products(filter: ProductFilter, sort: ProductSort, pagination: PaginationInput): [Product!]!
+    products(filter: ProductFilter, sort: ProductSort, pagination: PaginationInput): [Product]
     categories: [Category!]!
     category(slug: String!): Category
     orders: [Order!]!

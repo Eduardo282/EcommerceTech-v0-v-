@@ -22,6 +22,34 @@
   --color-gold-terciario: var(--gold-terciario);
   --color-rosa-primario: var(--rosa-primario);
   --color-verde-secundario: var(--verde-secundario);
+
+  /* Shadcn / Global Variables Mapping */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 @layer theme {
@@ -33,6 +61,41 @@
     --font-mono:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
       monospace;
+
+    /* Global / Shadcn Variables */
+    --font-size: 16px;
+    --background: #090a0f;
+    --foreground: #e7e5e4;
+    --primary: #eab308; /* amber-500 */
+    --primary-foreground: #0b0b10;
+    --secondary: rgba(24, 24, 32, 0.75);
+    --secondary-foreground: #e7e5e4;
+    --muted: rgba(148, 163, 184, 0.35);
+    --muted-foreground: #9ca3af;
+    --accent: #f59e0b;
+    --accent-foreground: #0b0b10;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: rgba(234, 179, 8, 0.18);
+    --input: transparent;
+    --input-background: rgba(20, 20, 28, 0.6);
+    --switch-background: rgba(234, 179, 8, 0.25);
+    --ring: rgba(234, 179, 8, 0.5);
+    --chart-1: #eab308;
+    --chart-2: #f59e0b;
+    --chart-3: #d97706;
+    --chart-4: #fbbf24;
+    --chart-5: #fef08a;
+    --radius: 0.75rem;
+
+    /* Palette helpers */
+    --gold-400: #fbbf24;
+    --gold-500: #f59e0b;
+    --gold-600: #d97706;
+    --gold-700: #b45309;
+    --dark-900: #090a0f;
+    --dark-800: #0b0c13;
+    --dark-700: #11131b;
 
     /* Theme Defaults (TemaPagina) */
     --gold-primario: #f9b61d;
@@ -156,6 +219,43 @@
     --default-mono-font-family: var(--font-mono);
     --default-mono-font-feature-settings: var(--font-mono--font-feature-settings);
     --default-mono-font-variation-settings: var(--font-mono--font-variation-settings);
+  }
+
+  .dark {
+    --background: #090a0f;
+    --foreground: #e7e5e4;
+    --primary: #eab308;
+
+    --primary-foreground: #0b0b10;
+    --secondary: rgba(24, 24, 32, 0.75);
+    --secondary-foreground: #e7e5e4;
+    --muted: rgba(148, 163, 184, 0.35);
+    --muted-foreground: #9ca3af;
+    --accent: #f59e0b;
+    --accent-foreground: #0b0b10;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: rgba(234, 179, 8, 0.18);
+    --input: rgba(20, 20, 28, 0.6);
+    --ring: rgba(234, 179, 8, 0.5);
+    --font-weight-medium: 500;
+    --font-weight-normal: 400;
+    --chart-1: #eab308;
+    --chart-2: #f59e0b;
+    --chart-3: #d97706;
+    --chart-4: #fbbf24;
+    --chart-5: #fef08a;
+  }
+
+  /* Rubro-based theming overrides */
+  .rubro-gaming {
+    --primary: #22d3ee; /* cyan */
+    --border: rgba(34, 211, 238, 0.28);
+    --ring: rgba(34, 211, 238, 0.5);
+    --accent: #38bdf8;
+  }
+  .rubro-technology {
+    /* default gold theme – keeps base vars */
   }
 }
 

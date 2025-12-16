@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-// Static Data for Components
+// Datos estáticos para los componentes
 const COMPONENTS_DATA = [
   {
     id: 1,

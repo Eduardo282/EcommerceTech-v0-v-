@@ -1,17 +1,20 @@
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import { AppRouter } from './routes.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './lib/apolloClient';
+import { RubroProvider } from './context/RubroContext';
 
 const rootEl = document.getElementById('root');
 if (rootEl) {
   createRoot(rootEl).render(
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <RubroProvider>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </RubroProvider>
     </ApolloProvider>
   );
 }

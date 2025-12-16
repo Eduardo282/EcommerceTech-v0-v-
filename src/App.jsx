@@ -1,14 +1,13 @@
 import { useState, useMemo, useEffect, lazy, Suspense, useCallback } from 'react';
 
 import { Header } from './components/Header';
-import { AppRoutes } from './routes';
+import { Outlet } from 'react-router-dom';
 import { Footer } from './components/Footer';
 
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import { useQuery } from '@apollo/client';
 import { PRODUCTS_QUERY, GET_ME } from './graphql/queries';
-import { RubroProvider } from './context/RubroContext';
 import { useRubro } from './context/useRubro';
 import { RUBROS } from './context/rubroConstants';
 import { ChatWidget } from './components/ChatWidget';
@@ -23,9 +22,6 @@ const WishlistSidebar = lazy(() =>
     default: module.WishlistSidebar,
   }))
 );
-// Note: SellerOnboarding and AuthModal are also candidates for lazy loading,
-// but let's keep them as is if they are critical for initial interaction or small enough.
-// Actually, the previous plan included them. Let's re-lazy load them as requested.
 const SellerOnboardingLazy = lazy(() =>
   import('./components/SellerOnboarding').then((module) => ({
     default: module.SellerOnboarding,
@@ -39,19 +35,21 @@ const AuthModalLazy = lazy(() =>
 
 const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1080&auto=format&fit=crop'; //es un zapato rojo
+
 function mapProduct(p) {
   return {
     id: p.id,
     name: p.title,
     category: p?.category?.name || 'General',
-    price: p.price.toFixed(2),
-    originalPrice: (p.price * 1.5).toFixed(2),
-    rating: typeof p.rating === 'number' ? p.rating : 4.5,
-    reviews: Math.max(0, Math.floor((p.rating || 4.5) * 500)),
+    price: (p.descuentoPrice ? p.descuentoPrice : p.originalPrice || 0).toFixed(2),
+    originalPrice: p.descuentoPrice ? (p.originalPrice || 0).toFixed(2) : null,
+    rating: typeof p.rating === 'number' ? p.rating : 0,
+    reviews: p.rating ? Math.floor(p.rating * 500) : 0,
     image: (p.images && p.images[0]) || FALLBACK_IMAGE,
     sales: 0,
-    badge: p.badge,
+    badge: p.descuentoPrice ? 'Oferta' : p.badge, // Auto badge if discount? Or Use p.badge.
     features: p.features || (p.attributes ? Object.keys(p.attributes).slice(0, 3) : undefined),
+    descuentoPrice: p.descuentoPrice,
     rubro: p.rubro,
     details: p.details,
     specs: p.specs,
@@ -60,16 +58,23 @@ function mapProduct(p) {
     longDescription: p.longDescription,
   };
 }
-function AppInner() {
+
+export default function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [wishlistItems, setWishlistItems] = useState([]);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [onboardingOpen, setOnboardingOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  /*
+   * MOVIDO A MAIN/CONTEXT: La lógica de autenticación/rubro idealmente debería permanecer aquí o moverse a un Contexto/Hook, si depende de la interfaz de usuario. 
+  
+  Pero como se eliminó RubroProvider de App.jsx, podemos consumirlo aquí porque App ahora es hijo de RubroProvider en main.jsx.
+   */
   const { rubro, setRubro, setIsSeller, setStore } = useRubro();
+
   const { data: authData, loading: authLoading, error: authError } = useQuery(GET_ME);
-  const isAuthed = !!authData?.me;
+  const isAuthed = !!authData?.me; // false o true
 
   useEffect(() => {
     console.log('Auth Debug:', {
@@ -80,16 +85,17 @@ function AppInner() {
     });
   }, [isAuthed, authLoading, authError, authData]);
 
-  // Enforce Technology for guests on app load and when logging out
+  // Aplicar tecnology a los invitados al cargar la aplicación y al cerrar sesión
   useEffect(() => {
-    // Only enforce if NOT authed, NOT loading, and NO error (if error, we don't know status yet)
+    // Solo se aplica si NO está autorizado, NO se está cargando y NO hay error (si hay error, aún no conocemos el estado)
     if (!isAuthed && !authLoading && !authError) {
       if (rubro !== RUBROS.TECHNOLOGY) setRubro(RUBROS.TECHNOLOGY);
       setIsSeller(false);
       setStore({ name: null, description: null });
     }
-  }, [isAuthed, authLoading, authError]);
-  // GraphQL: Featured (by rating)
+  }, [isAuthed, authLoading, authError, rubro, setIsSeller, setRubro, setStore]);
+
+  // GraphQL: productos destacados (por rating)
   const { data: featuredData } = useQuery(PRODUCTS_QUERY, {
     variables: {
       sort: 'RATING_DESC',
@@ -98,7 +104,8 @@ function AppInner() {
     },
     fetchPolicy: 'cache-first',
   });
-  // GraphQL: Trending (newest)
+
+  // GraphQL: productos populares (nuevos)
   const { data: trendingData } = useQuery(PRODUCTS_QUERY, {
     variables: {
       sort: 'NEWEST',
@@ -107,20 +114,24 @@ function AppInner() {
     },
     fetchPolicy: 'cache-first',
   });
+
   const featuredProducts = useMemo(
     () => (featuredData?.products || []).map(mapProduct),
     [featuredData]
   );
+
   const trendingProducts = useMemo(
     () => (trendingData?.products || []).map(mapProduct),
     [trendingData]
   );
+
   const handleAddToCart = useCallback(
     (product) => {
       if (!cartItems.find((item) => item.id === product.id)) {
+        // undefined === 691565e50c8844870fc7cb74
         setCartItems((prev) => [...prev, product]);
-        toast.success('Added to cart', {
-          description: 'Product added to your cart',
+        toast.success('Agregado al carrito', {
+          description: 'Producto agregado a su carrito',
         });
       }
     },
@@ -135,63 +146,69 @@ function AppInner() {
     (productId) => {
       if (wishlistItems.includes(productId)) {
         setWishlistItems((prev) => prev.filter((id) => id !== productId));
-        toast.success('Removed from wishlist', {
-          description: 'Product removed from your favorites',
+        toast.success('Removido de favoritos', {
+          description: 'Producto removido de sus favoritos',
         });
       } else {
         setWishlistItems((prev) => [...prev, productId]);
-        toast.success('Added to wishlist', {
-          description: 'Product added to your favorites',
+        toast.success('Añadido a favoritos', {
+          description: 'Producto añadido a sus favoritos',
         });
       }
     },
     [wishlistItems]
   );
+
   return (
     <div className="min-h-screen relative">
-      <title>EvoHance Marketplace - Diseño Ecommerce Profesional</title>
-      <meta
-        name="description"
-        content="Descubre los mejores recursos de diseño ecommerce, plantillas y herramientas para potenciar tu tienda online. Calidad garantizada por EvoHance."
+      <Header
+        onCartClick={() => setIsCartOpen(true)}
+        cartItemsCount={cartItems.length}
+        onWishlistClick={() => setIsWishlistOpen(true)}
+        wishlistItemsCount={wishlistItems.length}
+        onUserClick={() => setAuthOpen(true)}
       />
-      <meta
-        name="keywords"
-        content="ecommerce, diseño web, plantillas, ui kits, react, tailwind, marketplace"
-      />
-      <meta property="og:title" content="EvoHance Marketplace" />
-      <meta
-        property="og:description"
-        content="Tu destino para diseño ecommerce profesional y recursos de alta calidad."
-      />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://evohance.com/" />
-      <meta property="og:image" content="https://evohance.com/og-image.jpg" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="EvoHance Marketplace" />
-      <meta
-        name="twitter:description"
-        content="Diseño ecommerce profesional y recursos de alta calidad."
-      />
-      <meta name="twitter:image" content="https://evohance.com/og-image.jpg" />
-      <div className="relative z-10">
-        <Header
-          onCartClick={() => setIsCartOpen(true)}
-          cartItemsCount={cartItems.length}
-          onWishlistClick={() => setIsWishlistOpen(true)}
-          wishlistItemsCount={wishlistItems.length}
-          onUserClick={() => setAuthOpen(true)}
+
+      <main className="relative" aria-label="Main content">
+        <Outlet
+          context={{
+            featuredProducts,
+            trendingProducts,
+            onAddToCart: handleAddToCart,
+            onToggleWishlist: handleToggleWishlist,
+            wishlistItems,
+            //se agregan mas conforme a paginas agregadas (para traer contexto de productos, etc...)
+          }}
         />
-        <main className="relative" aria-label="Main content">
-          <AppRoutes
-            featuredProducts={featuredProducts}
-            trendingProducts={trendingProducts}
-            onAddToCart={handleAddToCart}
-            onToggleWishlist={handleToggleWishlist}
-            wishlistItems={wishlistItems}
-          />
-        </main>
-        <Footer />
-      </div>
+
+        {/* <>
+              <Hero />
+              <Categories />
+              <TrustBanner />
+              <FeaturedProducts
+                products={featuredProducts}
+                onAddToCart={onAddToCart}
+                onToggleWishlist={onToggleWishlist}
+                wishlistItems={wishlistItems}
+                title="Productos Destacados"
+                subtitle={featuredProductsConfig?.descripcionDestacados || 'Cargando...'}
+                config={featuredProductsConfig}
+              />
+              <FeaturedProducts
+                products={trendingProducts}
+                onAddToCart={onAddToCart}
+                onToggleWishlist={onToggleWishlist}
+                wishlistItems={wishlistItems}
+                title="Tendencias de la Semana"
+                subtitle={featuredProductsConfig?.descripcionTendencias || 'Cargando...'}
+                config={featuredProductsConfig}
+              />
+              <Newsletter />
+            </> */}
+      </main>
+
+      <Footer />
+
       <Suspense fallback={null}>
         <CartSidebar
           isOpen={isCartOpen}
@@ -214,6 +231,7 @@ function AppInner() {
         />
       </Suspense>
       <Toaster position="bottom-right" />
+
       <Suspense fallback={null}>
         <AuthModalLazy
           key={authOpen}
@@ -252,12 +270,5 @@ function AppInner() {
         <ChatWidget />
       </Suspense>
     </div>
-  );
-}
-export default function App() {
-  return (
-    <RubroProvider>
-      <AppInner />
-    </RubroProvider>
   );
 }

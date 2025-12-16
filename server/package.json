@@ -7,8 +7,10 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "seed": "node src/seed/seed.js",
+    "seed:extended": "node src/scripts/seedExtended.js",
+    "seed:createProduct": "node src/scripts/seedCreateProduct.js",
     "make-admin": "node src/scripts/makeAdmin.js",
-    "seed:gaming": "node src/scripts/seedGaming.js",
+    "seed:gaming": "node src/seed/seedGaming.js",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

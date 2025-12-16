@@ -3,6 +3,6 @@ import { RubroContext } from './RubroContextBase';
 
 export function useRubro() {
   const ctx = useContext(RubroContext);
-  if (!ctx) throw new Error('useRubro must be used within RubroProvider');
+  if (!ctx) throw new Error('useRubro debe usarse dentro de RubroProvider');
   return ctx;
 }
