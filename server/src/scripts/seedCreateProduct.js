@@ -41,61 +41,62 @@ const longDesc = `
 async function seedExtended() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('Connected to MongoDB');
+    console.log('Conectado a MongoDB');
 
-    // Clear existing products? No, let's just update one or create a new one.
-    // Let's creating a specific "Premium" product.
+    // Podemos crear un producto premium o actualizar uno existente.
+    // Vamos a crear un producto específico "Premium".
 
-    // Ensure category exists
+    // Asegúrate de que la categoría exista
     let cat = await Category.findOne({ slug: 'technology' });
+
     if (!cat) {
       cat = await Category.create({ name: 'Technology', slug: 'technology' });
     }
 
     const productData = {
-      title: 'E-Commerce Pro Template',
-      description: 'La plantilla definitiva para tu próximo gran proyecto de comercio electrónico.',
-      longDescription: longDesc,
-      price: 120.0,
-      originalPrice: 199.0,
-      badge: 'Best Seller',
-      features: ['React 18', 'GraphQL', 'Tailwind'],
+      title: 'Premium',
+      description: 'descripcion del producto premium',
+      originalPrice: 120,
+      descuentoPrice: 80,
       images: [
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1080&auto=format&fit=crop',
       ],
       category: cat._id,
-      inventory: 100,
-      rubro: 'TECHNOLOGY',
-      // New Fields
-      details: sampleDetails,
-      specs: sampleSpecs,
-      includes: sampleIncludes,
-      rating: 4.9,
+      inventory: 500,
+      attributes: { color: 'dorado' },
+      rating: 5,
       active: true,
+      rubro: 'TECHNOLOGY',
+      badge: 'Mas vendido',
+      features: ['React 19', 'GraphQL', 'Tailwind'],
+      details: sampleDetails,
+      includes: sampleIncludes,
+      longDescription: longDesc,
+      specs: sampleSpecs,
     };
 
-    // Update or Create
+    // Actualizar o crear
     const existing = await Product.findOne({ title: productData.title });
+
     if (existing) {
       Object.assign(existing, productData);
       await existing.save();
-      console.log('Updated product:', existing.title);
+      console.log('Producto actualizado:', existing.title);
     } else {
       const p = await Product.create(productData);
-      console.log('Created product:', p.title);
+      console.log('Producto creado:', p.title);
     }
 
-    // Let's also update ALL products to have at least empty arrays if missing to avoid nulls
+    // Actualizar todos los productos para tener al menos arreglos vacíos si faltan para evitar nulls
     await Product.updateMany(
       { details: { $exists: false } },
-      { $set: { details: [], specs: [], includes: [], longDescription: '' } }
+      { $set: { features: [], details: [], specs: [], includes: [], longDescription: '' } }
     );
-    console.log('Ensured all products have new fields initialized.');
+    console.log('Se aseguró de que todos los productos tengan nuevos campos inicializados.');
 
     process.exit(0);
   } catch (error) {
-    console.error('Seed error:', error);
+    console.error('Error al sembrar:', error);
     process.exit(1);
   }
 }

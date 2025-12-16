@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
 
 export async function buildContext({ req, res }) {
-  // Try to get token from cookie first, then header
+  // Intenta obtener el token de la cookie primero, luego del encabezado
   const token = req.cookies.token || (req.headers.authorization || '').replace('Bearer ', '');
 
   if (!token) return { user: null, res };

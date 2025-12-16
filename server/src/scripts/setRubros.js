@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { Product } from '../src/models/Product.js';
-import { connectDB } from '../src/config/db.js';
+import { Product } from '../models/Product.js';
+import { connectDB } from '../config/db.js';
 
 async function setRubros() {
   try {
@@ -9,11 +9,11 @@ async function setRubros() {
     const allProducts = await Product.find();
 
     if (allProducts.length === 0) {
-      console.log('No products found.');
+      console.log('No hay productos.');
       return;
     }
 
-    // Assign TECHNOLOGY to the first half, GAMING to the second half
+    // Asigna TECHNOLOGY a la primera mitad y GAMING a la segunda mitad
     const half = Math.ceil(allProducts.length / 2);
 
     for (let i = 0; i < allProducts.length; i++) {
@@ -22,13 +22,13 @@ async function setRubros() {
 
       product.rubro = rubro;
       await product.save();
-      console.log(`Updated ${product.title} -> ${rubro}`);
+      console.log(`✅ Actualizado ${product.title} -> ${rubro}`);
     }
 
-    console.log('Successfully updated product rubros.');
+    console.log('✅ Hecho. Se han actualizado los rubros de los productos.');
     process.exit(0);
   } catch (error) {
-    console.error('Error updating rubros:', error);
+    console.error('Error al actualizar los rubros:', error);
     process.exit(1);
   }
 }

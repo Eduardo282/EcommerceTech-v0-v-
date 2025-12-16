@@ -1,7 +1,7 @@
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
 /**
- * Helper to get full image URL
+ * Ayuda a obtener la URL completa de una imagen
  * @param {string} path
  * @returns {string}
  */
@@ -23,7 +23,7 @@ export const fetchAPI = async (endpoint, params = {}) => {
   try {
     const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
 
-    // Add default populate parameter if not specified to get relations/media
+    // Agrega el parámetro populate por defecto si no se especifica
     if (!params.populate) {
       url.searchParams.append('populate', '*');
     }
@@ -35,13 +35,13 @@ export const fetchAPI = async (endpoint, params = {}) => {
     const res = await fetch(url.toString());
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch from Strapi: ${res.statusText}`);
+      throw new Error(`Fallo al obtener datos de Strapi: ${res.statusText}`);
     }
 
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Strapi fetch error:', error);
+    console.error('Error al obtener datos de Strapi:', error);
     return null;
   }
 };

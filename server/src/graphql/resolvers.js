@@ -82,20 +82,21 @@ export const resolvers = {
         q.rubro = filter.rubro;
       }
       if (filter?.minPrice != null || filter?.maxPrice != null) {
-        q.price = {};
-        if (filter.minPrice != null) q.price.$gte = filter.minPrice;
-        if (filter.maxPrice != null) q.price.$lte = filter.maxPrice;
+        q.originalPrice = {}; // Changed from q.price
+        if (filter.minPrice != null) q.originalPrice.$gte = filter.minPrice;
+        if (filter.maxPrice != null) q.originalPrice.$lte = filter.maxPrice;
       }
       const page = pagination?.page || 1;
       const pageSize = pagination?.pageSize || 12;
 
       const cursor = Product.find(q).populate('category');
+      
       switch (sort) {
         case 'PRICE_ASC':
-          cursor.sort({ price: 1 });
+          cursor.sort({ originalPrice: 1 }); // Changed from price
           break;
         case 'PRICE_DESC':
-          cursor.sort({ price: -1 });
+          cursor.sort({ originalPrice: -1 }); // Changed from price
           break;
         case 'RATING_DESC':
           cursor.sort({ rating: -1 });
@@ -132,7 +133,7 @@ export const resolvers = {
     registerUser: async (_, { name, email, password }, { res }) => {
       const existing = await User.findOne({ email });
       if (existing)
-        throw new GraphQLError('Email already in use', {
+        throw new GraphQLError('Email en uso', {
           extensions: { code: 'BAD_USER_INPUT' },
         });
       const user = await User.create({ name, email, password });
@@ -196,7 +197,7 @@ export const resolvers = {
         details: input.details || [],
         specs: input.specs || [],
         includes: input.includes || [],
-        price: input.price,
+        originalPrice: input.originalPrice, // Changed from price
         images: input.images || [],
         category: input.categoryId || null,
         inventory: input.inventory ?? 0,
@@ -267,7 +268,7 @@ export const resolvers = {
         return {
           product: p._id,
           title: p.title,
-          price: p.price,
+          price: p.originalPrice, // Changed from p.price. Note: preserving 'price' field name in OrderItem schema
           quantity: i.quantity,
         };
       });

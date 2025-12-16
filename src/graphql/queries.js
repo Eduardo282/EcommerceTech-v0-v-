@@ -5,23 +5,27 @@ export const PRODUCTS_QUERY = gql`
     products(filter: $filter, sort: $sort, pagination: $pagination) {
       id
       title
-      price
-      images
-      rating
-      rubro
       description
-      longDescription
+      originalPrice
+      descuentoPrice
+      images
+      category {
+        name
+      }
+      inventory
+      attributes
+      rating
+      active
+      rubro
+      badge
+      features
       details
+      includes
+      longDescription
       specs {
         key
         value
       }
-      includes
-      category {
-        name
-      }
-      badge
-      features
     }
   }
 `;

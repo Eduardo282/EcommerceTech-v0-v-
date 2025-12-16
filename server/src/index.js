@@ -21,14 +21,15 @@ async function start() {
     typeDefs,
     resolvers,
   });
+
   await server.start();
 
   const app = express();
 
   // --- 👇 MODIFICACIÓN AQUÍ ---
-  // Tu configuración original bloqueaba el Sandbox de Apollo.
-  // Esta configuración permite AMBOS: tu frontend Y el Sandbox.
-  // Allow all origins for debugging, or strictly defined ones
+  // la configuración original bloqueaba el Sandbox de Apollo.
+  // Esta configuración permite AMBOS: el frontend Y el Sandbox.
+  // Permite todos los orígenes para depuración, o definidos estrictamente
   app.use(
     cors({
       origin: [
@@ -43,10 +44,10 @@ async function start() {
 
   app.use(cookieParser());
 
-  // Health check
+  // Salud
   app.get('/health', (_req, res) => res.json({ ok: true }));
 
-  // Root route to prevent 404 HTML on root hit
+  // Ruta raíz para prevenir 404 HTML DE GOLPE
   app.get('/', (_req, res) => res.send('GraphQL Server Ready'));
 
   app.use(
@@ -57,10 +58,10 @@ async function start() {
     })
   );
 
-  // Create HTTP server for Socket.IO + Express
+  // Crear HTTP server para Socket.IO + Express
   const httpServer = createServer(app);
 
-  // Initialize Socket.IO
+  // Inicializar Socket.IO
   const io = new Server(httpServer, {
     cors: {
       origin: [
