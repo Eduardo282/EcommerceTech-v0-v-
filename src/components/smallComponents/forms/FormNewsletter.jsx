@@ -8,7 +8,7 @@ export function FormNewsletter() {
       className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto"
     >
       <label htmlFor="newsletter-email" className="sr-only">
-        Email address
+        Dirección de correo electrónico
       </label>
       <input
         id="newsletter-email"

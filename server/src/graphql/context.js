@@ -12,7 +12,7 @@ export async function buildContext({ req, res }) {
     const user = await User.findById(payload.sub);
     return { user, res };
   } catch (error) {
-    console.error('Error verifying token:', error);
+    console.error('Error verificando token:', error);
     return { user: null, res };
   }
 }

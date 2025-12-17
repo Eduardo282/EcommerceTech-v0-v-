@@ -14,7 +14,7 @@ export function ItemsCarrito({ items, onRemoveItem }) {
             background: '#2c2c30',
           }}
         >
-          {/* Image */}
+          {/* Imagen del producto */}
           <div
             className="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden"
             style={{
@@ -28,7 +28,7 @@ export function ItemsCarrito({ items, onRemoveItem }) {
             />
           </div>
 
-          {/* Details */}
+          {/* Detalles del producto */}
           <div className="flex-1 min-w-0">
             <h3 className="text-sm mb-1 line-clamp-2 text-white">{item.name}</h3>
 

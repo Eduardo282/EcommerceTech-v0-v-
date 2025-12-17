@@ -6,7 +6,7 @@ import { Product } from '../models/Product.js';
 import { Category } from '../models/Category.js';
 import { Order } from '../models/Order.js';
 
-const authError = new GraphQLError('Not authorized', {
+const authError = new GraphQLError('No autorizado', {
   extensions: { code: 'UNAUTHENTICATED' },
 });
 
@@ -17,7 +17,7 @@ function requireAuth(ctx) {
 function requireAdmin(ctx) {
   const user = requireAuth(ctx);
   if (user.role !== 'admin')
-    throw new GraphQLError('Admin only', { extensions: { code: 'FORBIDDEN' } });
+    throw new GraphQLError('Solo Administrador', { extensions: { code: 'FORBIDDEN' } });
   return user;
 }
 
@@ -82,7 +82,7 @@ export const resolvers = {
         q.rubro = filter.rubro;
       }
       if (filter?.minPrice != null || filter?.maxPrice != null) {
-        q.originalPrice = {}; // Changed from q.price
+        q.originalPrice = {}; 
         if (filter.minPrice != null) q.originalPrice.$gte = filter.minPrice;
         if (filter.maxPrice != null) q.originalPrice.$lte = filter.maxPrice;
       }
@@ -93,10 +93,10 @@ export const resolvers = {
       
       switch (sort) {
         case 'PRICE_ASC':
-          cursor.sort({ originalPrice: 1 }); // Changed from price
+          cursor.sort({ originalPrice: 1 }); 
           break;
         case 'PRICE_DESC':
-          cursor.sort({ originalPrice: -1 }); // Changed from price
+          cursor.sort({ originalPrice: -1 }); 
           break;
         case 'RATING_DESC':
           cursor.sort({ rating: -1 });
@@ -145,7 +145,7 @@ export const resolvers = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 dias
       });
 
       return { token, user };
@@ -153,12 +153,12 @@ export const resolvers = {
     loginUser: async (_, { email, password }, { res }) => {
       const user = await User.findOne({ email });
       if (!user)
-        throw new GraphQLError('Invalid credentials', {
+        throw new GraphQLError('Credenciales inválidas', {
           extensions: { code: 'UNAUTHENTICATED' },
         });
       const ok = await user.comparePassword(password);
       if (!ok)
-        throw new GraphQLError('Invalid credentials', {
+        throw new GraphQLError('Credenciales inválidas', {
           extensions: { code: 'UNAUTHENTICATED' },
         });
       const token = jwt.sign({ sub: user.id, role: user.role }, process.env.JWT_SECRET, {
@@ -169,7 +169,7 @@ export const resolvers = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 dias
       });
 
       return { token, user };
@@ -197,7 +197,7 @@ export const resolvers = {
         details: input.details || [],
         specs: input.specs || [],
         includes: input.includes || [],
-        originalPrice: input.originalPrice, // Changed from price
+        originalPrice: input.originalPrice, 
         images: input.images || [],
         category: input.categoryId || null,
         inventory: input.inventory ?? 0,
@@ -222,7 +222,7 @@ export const resolvers = {
         new: true,
       }).populate('category');
       if (!p)
-        throw new GraphQLError('Product not found', {
+        throw new GraphQLError('Producto no encontrado', {
           extensions: { code: 'NOT_FOUND' },
         });
       return p;
@@ -249,11 +249,11 @@ export const resolvers = {
 
     createOrder: async (_, { items, shippingAddress }, ctx) => {
       const user = requireAuth(ctx);
-      // Validate product IDs early to return a friendly error instead of a CastError
+      // Valida ID de productos y retorna un error amigable en lugar de un CastError
       const productIds = items.map((i) => i.productId);
       for (const pid of productIds) {
         if (!mongoose.Types.ObjectId.isValid(pid)) {
-          throw new GraphQLError('Invalid productId: ' + pid, {
+          throw new GraphQLError('ID de producto inválido: ' + pid, {
             extensions: { code: 'BAD_USER_INPUT' },
           });
         }
@@ -262,13 +262,13 @@ export const resolvers = {
       const itemsExpanded = items.map((i) => {
         const p = products.find((pp) => pp.id == i.productId);
         if (!p)
-          throw new GraphQLError('Product not found', {
+          throw new GraphQLError('Producto no encontrado', {
             extensions: { code: 'BAD_USER_INPUT' },
           });
         return {
           product: p._id,
           title: p.title,
-          price: p.originalPrice, // Changed from p.price. Note: preserving 'price' field name in OrderItem schema
+          price: p.originalPrice, //Nota: preservando el nombre del campo 'price' en el esquema OrderItem
           quantity: i.quantity,
         };
       });

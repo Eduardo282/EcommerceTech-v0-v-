@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-// Static Data for Study Guides
+// datos de las guias de estudio
 const GUIDES_DATA = [
   {
     id: 1,
@@ -129,7 +129,7 @@ export function GuiasEstudioPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
-      {/* Background Effects */}
+      {/* Efectos de fondo */}
       <div className="absolute inset-0 bg-[#0a0a0a]" />
       <div
         className="absolute inset-0 opacity-20"
@@ -142,7 +142,7 @@ export function GuiasEstudioPage() {
         }}
       />
 
-      {/* Hero Section */}
+      {/* Sección Hero */}
       <section className="relative pt-32 pb-16 px-4">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-8 backdrop-blur-sm">
@@ -158,11 +158,10 @@ export function GuiasEstudioPage() {
           </h1>
 
           <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Rutas de aprendizaje estructuradas para potenciar tu carrera. Desde fundamentos hasta
-            conceptos avanzados en desarrollo y diseño.
+            Rutas de aprendizaje estructuradas para potenciar tu carrera. Desde fundamentos hasta conceptos avanzados en desarrollo y diseño.
           </p>
 
-          {/* Search Bar */}
+          {/* Barra de búsqueda */}
           <div className="relative max-w-xl mx-auto mb-16 group">
             <div className="absolute inset-0 bg-amber-500/20 rounded-2xl blur-xl group-hover:bg-amber-500/30 transition-all duration-500" />
             <div className="relative bg-[#111115] border border-white/10 rounded-2xl p-2 flex items-center shadow-2xl">
@@ -182,7 +181,7 @@ export function GuiasEstudioPage() {
         </div>
       </section>
 
-      {/* Filter Tabs */}
+      {/* Filtrar pestañas */}
       <section className="container mx-auto px-4 mb-12">
         <div className="flex flex-wrap justify-center gap-4">
           {CATEGORIES.map((cat) => (
@@ -205,7 +204,7 @@ export function GuiasEstudioPage() {
         </div>
       </section>
 
-      {/* Guides Grid */}
+      {/* Grid de guias */}
       <section className="container mx-auto px-4 pb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredGuides.map((guide) => (
@@ -213,10 +212,10 @@ export function GuiasEstudioPage() {
               key={guide.id}
               className="group relative bg-[#111115] rounded-3xl border border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2 flex flex-col"
             >
-              {/* Card Glow Effect */}
+              {/* Efecto de brillo en la tarjeta */}
               <div className="absolute inset-0 bg-linear-to-b from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Image Area */}
+              {/* Area de la imagen */}
               <div className="h-56 relative overflow-hidden">
                 <div className="absolute inset-0 bg-linear-to-t from-[#111115] to-transparent z-10" />
                 <img
@@ -246,7 +245,7 @@ export function GuiasEstudioPage() {
                 </div>
               </div>
 
-              {/* Content */}
+              {/* Contenido */}
               <div className="p-8 relative flex-1 flex flex-col">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {guide.tags.map((tag, i) => (

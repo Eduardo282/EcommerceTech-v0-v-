@@ -39,7 +39,7 @@ export function Header({
   const isAuthed = !!data?.me;
   const user = data?.me;
 
-  // Sync context with user data if needed
+  // Sincronizar el contexto con los datos del usuario si es necesario
   useEffect(() => {
     if (user) {
       if (user.isSeller !== isSeller) setIsSeller(user.isSeller);
@@ -117,9 +117,9 @@ export function Header({
 
           <SearchInput />
 
-          {/* Actions */}
+          {/* Acciones */}
           <div className="flex items-center gap-2">
-            {/* Rubro first, then wishlist, login, cart (order per reference) */}
+            {/* Rubro primero, luego wishlist, login, carrito (orden por referencia) */}
             <RubroSelector titleColor={getColor('titleRubroColor', '#FFD700')} />
             <Button
               size="icon"
@@ -224,7 +224,7 @@ export function Header({
                     onClick={async () => {
                       await logout();
                       await client.resetStore();
-                      // Reset rubro to TECHNOLOGY and disable behavior will follow automatically
+                      // Resetea el rubro a TECHNOLOGY y el comportamiento se desactiva automáticamente
                       setRubro(RUBROS.TECHNOLOGY);
                       setIsSeller(false);
                       setStore({ name: null, description: null });
@@ -355,9 +355,9 @@ export function Header({
                       className="text-sm text-[#F9B61D] transition-colors inline-flex items-center gap-1"
                       onClick={() => {
                         setCategoriesOpen(false);
-                        // Small timeout to allow dropdown to close before scrolling if needed,
-                        // though native hash behavior might need help in some React setups.
-                        // For now, simple hash link.
+                        // timeout pequeño para permitir que el dropdown se cierre antes de desplazarse si es necesario,
+                        // aunque el comportamiento nativo del hash puede necesitar ayuda en algunas configuraciones de React.
+                        // Por ahora, enlace simple de hash.
                         setTimeout(() => {
                           const el = document.getElementById('categories-section');
                           if (el) el.scrollIntoView({ behavior: 'smooth' });

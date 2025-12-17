@@ -2,7 +2,7 @@ import { Search } from 'lucide-react';
 
 export function SearchInput() {
   {
-    /* Search Bar */
+    /* Barra de búsqueda */
   }
   return (
     <>

@@ -54,7 +54,7 @@ export function ProductCard({
           e.currentTarget.style.transform = 'translateY(0px)';
         }}
       >
-        {/* Side notch inspired by reference */}
+        {/* Nota lateral inspirada en la referencia */}
         <div
           aria-hidden="true"
           style={{
@@ -72,7 +72,7 @@ export function ProductCard({
             pointerEvents: 'none',
           }}
         />
-        {/* Image Container */}
+        {/* Contenedor de imagen */}
         <figure
           className="relative aspect-4/3 overflow-hidden"
           style={{
@@ -86,7 +86,7 @@ export function ProductCard({
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          {/* Hover Buttons - Appear from bottom */}
+          {/* Botones de hover - Aparecen desde abajo */}
           <div
             className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[86%] flex gap-3 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-400 z-10"
             style={{
@@ -124,7 +124,7 @@ export function ProductCard({
             </Button>
           </div>
 
-          {/* Badges - Top Left */}
+          {/* Etiquetas - Superior izquierda */}
           <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
             {product.badge && (
               <Badge
@@ -151,7 +151,7 @@ export function ProductCard({
           </div>
         </figure>
 
-        {/* Content */}
+        {/* Contenido */}
         <section style={{ padding: '20px 24px 24px 84px' }}>
           <div className="mb-2">
             <Badge
@@ -166,7 +166,7 @@ export function ProductCard({
 
           <h3 className="text-lg mb-2 line-clamp-2 text-white transition-colors">{product.name}</h3>
 
-          {/* Rating */}
+          {/* Calificación */}
           <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
@@ -192,7 +192,7 @@ export function ProductCard({
             </span>
           </div>
 
-          {/* Features */}
+          {/* Características */}
           {product.features && product.features.length > 0 && (
             <ul className="flex flex-wrap gap-1 mb-3">
               {product.features.slice(0, 3).map((feature, index) => (
@@ -210,7 +210,7 @@ export function ProductCard({
             </ul>
           )}
 
-          {/* Stats */}
+          {/* Estadísticas */}
           <div className="flex items-center gap-3 mb-4 text-sm text-[#898989]">
             <div className="flex items-center gap-1">
               <Download className="h-4 w-4" />
@@ -222,7 +222,7 @@ export function ProductCard({
             </div>
           </div>
 
-          {/* Price */}
+          {/* Precio */}
           <div
             className="flex items-center justify-between pt-4 border-t"
             style={{
@@ -241,7 +241,7 @@ export function ProductCard({
         </section>
       </article>
 
-      {/* Preview Modal */}
+      {/* Previsualización Modal */}
       <ProductPreview
         product={previewProduct}
         isOpen={isPreviewOpen}

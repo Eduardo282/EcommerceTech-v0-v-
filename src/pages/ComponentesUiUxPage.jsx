@@ -104,7 +104,7 @@ export function ComponentesUiUxPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
-      {/* Background Effects (Reused from Categories.jsx style) */}
+      {/* Efectos de fondo (Reutilizado del estilo de Categories.jsx) */}
       <div className="absolute inset-0 bg-[#0a0a0a]" />
       <div
         className="absolute inset-0 opacity-20"
@@ -157,7 +157,7 @@ export function ComponentesUiUxPage() {
         </div>
       </section>
 
-      {/* Filter Tabs */}
+      {/* Filtrar pestañas */}
       <section className="container mx-auto px-4 mb-12">
         <div className="flex flex-wrap justify-center gap-4">
           {CATEGORIES.map((cat) => (
@@ -180,7 +180,7 @@ export function ComponentesUiUxPage() {
         </div>
       </section>
 
-      {/* Components Grid */}
+      {/* Grid de componentes */}
       <section className="container mx-auto px-4 pb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredComponents.map((comp) => (
@@ -188,10 +188,10 @@ export function ComponentesUiUxPage() {
               key={comp.id}
               className="group relative bg-[#111115] rounded-3xl border border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2"
             >
-              {/* Card Glow Effect */}
+              {/* Efecto de brillo en la tarjeta */}
               <div className="absolute inset-0 bg-linear-to-b from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Preview Area */}
+              {/* Área de vista previa */}
               <div className="h-48 bg-[#0a0a0a] relative flex items-center justify-center border-b border-white/5 group-hover:bg-[#0f0f0f] transition-colors">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent opacity-50" />
                 <div className="relative p-6 rounded-2xl bg-[#1a1a1e] border border-white/10 shadow-xl group-hover:scale-110 transition-transform duration-500">
@@ -199,7 +199,7 @@ export function ComponentesUiUxPage() {
                 </div>
               </div>
 
-              {/* Content */}
+              {/* Contenido */}
               <div className="p-8 relative">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {comp.tags.map((tag, i) => (

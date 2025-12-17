@@ -7,7 +7,7 @@ const SOCKET_URL = import.meta.env.VITE_GRAPHQL_URL
   ? import.meta.env.VITE_GRAPHQL_URL.replace('/graphql', '')
   : 'http://localhost:4000';
 
-const WHATSAPP_NUMBER = '2226807251'; // Replace with your WhatsApp number
+const WHATSAPP_NUMBER = '2222222222'; // Reemplaza con número de WhatsApp
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,7 +106,7 @@ export function ChatWidget() {
             </div>
           </div>
 
-          {/* Messages */}
+          {/* Mensajes */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-[#ffffff] text-sm text-center gap-3">
@@ -185,7 +185,7 @@ export function ChatWidget() {
         </div>
       )}
 
-      {/* Toggle Button */}
+      {/* Botón de alternar */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
         className="h-14 w-14 rounded-full bg-[#F9B61D50] hover:bg-[#F9B61D] text-[#111115] shadow-lg hover:shadow-[#F9B61D50] transition-all duration-300 hover:scale-105 cursor-pointer"

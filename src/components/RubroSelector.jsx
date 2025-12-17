@@ -12,11 +12,11 @@ export function RubroSelector({ titleColor }) {
   const { data } = useQuery(GET_ME);
   const authed = !!data?.me;
 
-  // According to requirements: selector must be disabled for everyone (guest, client, seller).
+  // Acorde a los requisitos: el selector debe estar deshabilitado para todos (invitado, cliente, vendedor).
   const locked = true;
 
-  // Enforcement is now handled globally in App.jsx to avoid conflicts
-  // We only use authed here for the tooltip text
+  // La implementación de la restricción ahora se maneja globalmente en App.jsx para evitar conflictos
+  // Solo usamos authed aquí para el texto del tooltip
 
   const toggle = useCallback(() => {
     if (locked) return;

@@ -36,7 +36,7 @@ const DASHBOARD_TEMPLATES = [
     id: 3,
     title: 'Users Flow',
     category: 'Traffic',
-    image: null, // Component widget mock
+    image: null, // Plantilla widget
     icon: <Users className="h-10 w-10" />,
     size: 'small',
     downloads: '850',
@@ -92,38 +92,37 @@ const DASHBOARD_TEMPLATES = [
 export function PlantillasDashboardPage() {
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-indigo-500/30">
-      {/* Subtle Grid Background */}
+      {/* Gradiente de fondo */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size-24px_24px]" />
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 py-16 relative z-10">
-        {/* Header - Technical & Minimal */}
+        {/* Header - Tecnico & Minimal */}
         <header className="mb-16 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="h-px w-8 bg-indigo-500"></span>
               <span className="text-indigo-400 uppercase tracking-widest text-xs font-bold">
-                Analytics & Admin
+                Analitica & Admin
               </span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white mb-4">
               DASHBOARD <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-cyan-400">
-                ECOSYSTEM
+                ECO-SISTEMA
               </span>
             </h1>
             <p className="text-gray-400 max-w-lg text-lg">
-              Interfaces de datos de alto rendimiento y paneles administrativos listos para
-              producción.
+              Interfaces de datos de alto rendimiento y paneles administrativos listos para producción.
             </p>
           </div>
 
           <div className="flex gap-4">
             <div className="text-right hidden md:block">
               <div className="text-2xl font-bold font-mono">24</div>
-              <div className="text-xs text-gray-500 uppercase tracking-wider">New Items</div>
+              <div className="text-xs text-gray-500 uppercase tracking-wider">Nuevos Items</div>
             </div>
             <div className="h-12 w-px bg-white/10 hidden md:block"></div>
             <div className="text-right hidden md:block">
@@ -133,7 +132,7 @@ export function PlantillasDashboardPage() {
           </div>
         </header>
 
-        {/* Bento Grid Layout */}
+        {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-6">
           {DASHBOARD_TEMPLATES.map((item) => (
             <div
@@ -146,7 +145,7 @@ export function PlantillasDashboardPage() {
                 ${item.size === 'small' ? 'md:col-span-1 md:row-span-1 bg-[#0E0E12]' : ''}
               `}
             >
-              {/* Content Render Logic based on Size/Image */}
+              {/* Renderizado de contenido basado en el tamaño/imagen */}
               {item.image ? (
                 <>
                   <div className="absolute inset-0 z-0">
@@ -178,7 +177,7 @@ export function PlantillasDashboardPage() {
                   </div>
                 </>
               ) : (
-                // Widget Style Card (No Image)
+                // Widget Card de estilo (No imagen)
                 <div className="h-full w-full p-6 flex flex-col justify-between relative overflow-hidden">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-colors" />
 
@@ -206,7 +205,7 @@ export function PlantillasDashboardPage() {
             </div>
           ))}
 
-          {/* Call to Action Block in Grid */}
+          {/* LLamada a la accion */}
           <div className="md:col-span-1 md:row-span-1 rounded-3xl border border-dashed border-white/20 flex flex-col items-center justify-center p-6 text-center hover:bg-white/5 transition-colors cursor-pointer group">
             <div className="h-16 w-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-transform">
               <Box className="text-white h-8 w-8" />

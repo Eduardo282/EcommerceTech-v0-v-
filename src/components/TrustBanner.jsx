@@ -20,7 +20,7 @@ export function TrustBanner() {
         backgroundColor: 'black',
       }}
     >
-      {/* Soft grid */}
+      {/* Grid suave */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-15"

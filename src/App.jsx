@@ -47,7 +47,7 @@ function mapProduct(p) {
     reviews: p.rating ? Math.floor(p.rating * 500) : 0,
     image: (p.images && p.images[0]) || FALLBACK_IMAGE,
     sales: 0,
-    badge: p.descuentoPrice ? 'Oferta' : p.badge, // Auto badge if discount? Or Use p.badge.
+    badge: p.descuentoPrice ? 'Oferta' : p.badge, // Auto etiqueta si hay descuento? O usar p.badge.
     features: p.features || (p.attributes ? Object.keys(p.attributes).slice(0, 3) : undefined),
     descuentoPrice: p.descuentoPrice,
     rubro: p.rubro,
@@ -128,7 +128,6 @@ export default function App() {
   const handleAddToCart = useCallback(
     (product) => {
       if (!cartItems.find((item) => item.id === product.id)) {
-        // undefined === 691565e50c8844870fc7cb74
         setCartItems((prev) => [...prev, product]);
         toast.success('Agregado al carrito', {
           description: 'Producto agregado a su carrito',
@@ -239,7 +238,7 @@ export default function App() {
           onClose={() => setAuthOpen(false)}
           onSuccess={({ mode, wantsSeller, userName, user } = {}) => {
             setAuthOpen(false);
-            // If backend already knows user is a seller, hydrate immediately
+            // Si el usuario es vendedor, lo redirigimos a la tienda
             if (user?.isSeller) {
               if (user?.rubro) setRubro(user.rubro);
               setIsSeller(true);
@@ -248,7 +247,7 @@ export default function App() {
                 description: user?.storeDescription || null,
               });
             } else if ((mode === 'login' || mode === 'register') && user) {
-              // Non-seller auth (login or register): force default Technology rubro & non-seller state
+              // Si el usuario no es vendedor, lo redirigimos a la tienda
               if (!wantsSeller) {
                 setRubro(RUBROS.TECHNOLOGY);
                 setIsSeller(false);
@@ -256,12 +255,12 @@ export default function App() {
               }
             }
             if (mode === 'register' && wantsSeller && !user?.isSeller) {
-              // open onboarding only if they opted in and are not yet a seller
+              // Si el usuario quiere ser vendedor, lo redirigimos a la tienda
               setOnboardingOpen(true);
             } else {
-              toast.success(`Welcome ${userName || ''}!`, {
+              toast.success(`Bienvenido ${userName || ''}!`, {
                 description:
-                  mode === 'login' ? "You're now logged in" : 'Your account has been created',
+                  mode === 'login' ? "Has iniciado sesión" : 'Tu cuenta ha sido creada',
               });
             }
           }}

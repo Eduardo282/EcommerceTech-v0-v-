@@ -1,4 +1,4 @@
-/* Minimal Tailwind entry for v4 */
+/* Minimal Tailwind entrada para v4 */
 @import 'tailwindcss';
 @import './styles/globals.css';
 
@@ -23,7 +23,7 @@
   --color-rosa-primario: var(--rosa-primario);
   --color-verde-secundario: var(--verde-secundario);
 
-  /* Shadcn / Global Variables Mapping */
+  /* Shadcn / Variables globales */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -88,7 +88,7 @@
     --chart-5: #fef08a;
     --radius: 0.75rem;
 
-    /* Palette helpers */
+    /* Helpers de paleta */
     --gold-400: #fbbf24;
     --gold-500: #f59e0b;
     --gold-600: #d97706;
@@ -97,7 +97,7 @@
     --dark-800: #0b0c13;
     --dark-700: #11131b;
 
-    /* Theme Defaults (TemaPagina) */
+    /* Tema Defaults (TemaPagina) */
     --gold-primario: #f9b61d;
     --negro-primario: #000000;
     --beige-primario: #e4d9af;
@@ -247,7 +247,7 @@
     --chart-5: #fef08a;
   }
 
-  /* Rubro-based theming overrides */
+  /* Rubro basado en tema */
   .rubro-gaming {
     --primary: #22d3ee; /* cyan */
     --border: rgba(34, 211, 238, 0.28);
@@ -255,7 +255,7 @@
     --accent: #38bdf8;
   }
   .rubro-technology {
-    /* default gold theme – keeps base vars */
+    /* Tema oro default – mantiene las variables base */
   }
 }
 

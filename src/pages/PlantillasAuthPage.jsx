@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-// Mock Templates Data
+// plantillas de autenticacion
 const AUTH_TEMPLATES = [
   {
     id: 'login-minimal',
@@ -54,7 +54,7 @@ export function PlantillasAuthPage() {
 
   return (
     <div className="h-screen bg-[#050505] text-white overflow-hidden flex flex-col md:flex-row font-sans">
-      {/* LEFT SIDEBAR - Template Navigation */}
+      {/* Lado izquierdo - plantillas de autenticacion */}
       <div className="w-full md:w-1/3 lg:w-1/4 bg-[#0A0A0A] border-r border-white/5 flex flex-col h-full z-20">
         {/* Header */}
         <div className="p-6 border-b border-white/5">
@@ -62,10 +62,10 @@ export function PlantillasAuthPage() {
             <Lock className="text-amber-400 h-5 w-5" />
             <span className="font-bold text-lg tracking-tight">AuthLib</span>
           </div>
-          <p className="text-xs text-gray-500">Secure Authentication Patterns</p>
+          <p className="text-xs text-gray-500">Plantillas de autenticacion</p>
         </div>
 
-        {/* Scrollable List */}
+        {/* lista desplegable */}
         <div className="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
           {AUTH_TEMPLATES.map((template) => (
             <button
@@ -96,10 +96,10 @@ export function PlantillasAuthPage() {
           ))}
         </div>
 
-        {/* Footer Info */}
+        {/* informacion del footer*/}
         <div className="p-4 border-t border-white/5 bg-[#080808]">
           <Button className="w-full bg-amber-500 text-black font-bold hover:bg-amber-400">
-            Download Source
+            Descargar fuente
           </Button>
           <div className="mt-4 flex justify-between text-[10px] text-gray-600 uppercase font-mono">
             <span>React 18</span>
@@ -109,17 +109,18 @@ export function PlantillasAuthPage() {
         </div>
       </div>
 
-      {/* RIGHT PREVIEW AREA */}
+      {/* Area de visualizacion */}
       <div className="flex-1 relative bg-[#050505] flex items-center justify-center p-8">
-        {/* Background Ambient Gradient based on selection */}
+        {/* Gradiente de fondo basado en la plantilla seleccionada */}
         <div
           className={`absolute inset-0 bg-linear-to-br ${selectedTemplate.gradient} opacity-20 blur-[120px] transition-all duration-1000`}
         />
+        {/* Patrones de fondo */}
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none" />
 
-        {/* Preview Container - "Device" Look */}
+        {/* Contenedor de previsualizacion - "Dispositivo" Look */}
         <div className="relative z-10 w-full max-w-md animate-in fade-in zoom-in duration-500">
-          {/* Mockup Top Bar */}
+          {/* Barra superior del mockup */}
           <div className="bg-[#111] rounded-t-2xl p-3 flex items-center gap-2 border border-white/10 border-b-0">
             <div className="flex gap-1.5 ml-2">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
@@ -131,7 +132,7 @@ export function PlantillasAuthPage() {
             </div>
           </div>
 
-          {/* Interactive Form Preview */}
+          {/* Previsualizacion del formulario interactivo */}
           <div className="bg-[#0A0A0A] rounded-b-2xl border border-white/10 p-8 shadow-2xl relative overflow-hidden text-left">
             <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-amber-500 to-orange-600" />
 
@@ -139,14 +140,14 @@ export function PlantillasAuthPage() {
               <div className="h-12 w-12 bg-white/5 rounded-xl mx-auto flex items-center justify-center mb-4">
                 <ShieldCheck className="text-amber-500" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-1">Welcome Back</h2>
-              <p className="text-gray-400 text-sm">Please enter your details to sign in.</p>
+              <h2 className="text-2xl font-bold text-white mb-1">Bienvenido</h2>
+              <p className="text-gray-400 text-sm">Por favor, ingresa tus datos para iniciar sesión.</p>
             </div>
 
             <div className="space-y-4">
               {/* Inputs */}
               <div className="space-y-1">
-                <label className="text-xs font-medium text-gray-400 ml-1">Email Address</label>
+                <label className="text-xs font-medium text-gray-400 ml-1">Correo Electronico</label>
                 <div className="relative group">
                   <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-500 group-focus-within:text-amber-500 transition-colors" />
                   <input
@@ -158,7 +159,7 @@ export function PlantillasAuthPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-gray-400 ml-1">Password</label>
+                <label className="text-xs font-medium text-gray-400 ml-1">Contraseña</label>
                 <div className="relative group">
                   <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-500 group-focus-within:text-amber-500 transition-colors" />
                   <input
@@ -181,15 +182,15 @@ export function PlantillasAuthPage() {
                     type="checkbox"
                     className="rounded bg-[#111] border-white/10 text-amber-500 focus:ring-0"
                   />
-                  Remember me
+                  Recordarme
                 </label>
                 <button className="text-amber-500 hover:text-amber-400 font-medium">
-                  Forgot password?
+                  Olvidaste tu contraseña?
                 </button>
               </div>
 
               <Button className="w-full bg-white text-black hover:bg-gray-200 font-bold py-5 rounded-xl shadow-[0_4px_20px_-5px_rgba(255,255,255,0.3)] transition-transform active:scale-[0.98]">
-                Sign In <ArrowRight className="ml-2 h-4 w-4" />
+                Iniciar sesión <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
 
               <div className="relative py-4">
@@ -197,7 +198,7 @@ export function PlantillasAuthPage() {
                   <div className="w-full border-t border-white/10"></div>
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-[#0A0A0A] px-2 text-gray-500">Or continue with</span>
+                  <span className="bg-[#0A0A0A] px-2 text-gray-500">O continuar con</span>
                 </div>
               </div>
 
@@ -213,12 +214,12 @@ export function PlantillasAuthPage() {
 
             <div className="mt-8 text-center text-xs text-gray-500">
               <Fingerprint className="inline-block h-4 w-4 mr-1 text-gray-600" />
-              Secured by AuthLib 256-bit
+              Seguro por AuthLib 256-bit
             </div>
           </div>
         </div>
 
-        {/* Feature Tags Hovering */}
+        {/* Etiquetas de caracteristicas flotando */}
         <div className="absolute bottom-8 right-8 flex gap-2">
           {selectedTemplate.features.map((f) => (
             <span

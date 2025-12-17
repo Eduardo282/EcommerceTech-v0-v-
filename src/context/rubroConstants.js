@@ -3,16 +3,16 @@ export const RUBROS = {
   GAMING: 'GAMING',
 };
 
-// Utility to adapt UI presets by rubro
+// Utilidad para adaptar los presets de la UI por rubro
 export function getRubroTheme(rubro) {
   if (rubro === RUBROS.GAMING) {
     return {
-      accent: '#7c3aed', // purple glow
+      accent: '#7c3aed', // brillo de color morado
       icon: '#8b5cf6',
       panel: 'rgba(14,10,18,0.7)',
     };
   }
-  // TECHNOLOGY default (gold theme already in project)
+  // TECHNOLOGY default (tema de oro ya en el proyecto)
   return {
     accent: '#eab308',
     icon: '#fbbf24',
