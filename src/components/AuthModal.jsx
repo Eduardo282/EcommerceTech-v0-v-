@@ -68,17 +68,17 @@ export function AuthModal({ open, onClose, onSuccess }) {
         </button>
         <header className="mb-6 text-center">
           <h2 className="text-2xl font-display text-amber-100">
-            {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+            {mode === 'login' ? 'Bienvenido de vuelta' : 'Crear cuenta'}
           </h2>
           <p className="text-amber-200/70">
-            {mode === 'login' ? 'Login to access your account' : 'Join our marketplace today'}
+            {mode === 'login' ? 'Inicia sesión para acceder a tu cuenta' : 'Únete hoy'}
           </p>
         </header>
 
         <form onSubmit={submit} className="space-y-4">
           {mode === 'register' && (
             <div>
-              <label className="block text-sm text-amber-200/80 mb-1">Full Name</label>
+              <label className="block text-sm text-amber-200/80 mb-1">Nombre completo</label>
               <input
                 className="w-full px-3 py-2 rounded-lg text-amber-100 focus:outline-none"
                 style={{
@@ -91,7 +91,7 @@ export function AuthModal({ open, onClose, onSuccess }) {
             </div>
           )}
           <div>
-            <label className="block text-sm text-amber-200/80 mb-1">Email</label>
+            <label className="block text-sm text-amber-200/80 mb-1">Correo electrónico</label>
             <input
               type="email"
               className="w-full px-3 py-2 rounded-lg text-amber-100 focus:outline-none"
@@ -104,7 +104,7 @@ export function AuthModal({ open, onClose, onSuccess }) {
             />
           </div>
           <div>
-            <label className="block text-sm text-amber-200/80 mb-1">Password</label>
+            <label className="block text-sm text-amber-200/80 mb-1">Contraseña</label>
             <input
               type="password"
               className="w-full px-3 py-2 rounded-lg text-amber-100 focus:outline-none"
@@ -133,10 +133,10 @@ export function AuthModal({ open, onClose, onSuccess }) {
               <label htmlFor="wants-seller" className="flex-1 cursor-pointer">
                 <div className="flex items-center gap-2 text-amber-100">
                   <Store className="h-5 w-5 text-white" />
-                  <span className="font-medium">I want to sell products</span>
+                  <span className="font-medium">Quiero vender productos</span>
                 </div>
-                <p className="text-amber-200/70 text-sm ml-7">
-                  Setup your seller account after registration
+                <p className="text-amber-200/30 text-sm ml-7">
+                  Configuralo después de la registro
                 </p>
               </label>
             </div>
@@ -149,23 +149,23 @@ export function AuthModal({ open, onClose, onSuccess }) {
               background: '#3E2F16',
             }}
           >
-            {mode === 'login' ? 'Login' : 'Create Account'}
+            {mode === 'login' ? 'Inicia sesión' : 'Crear cuenta'}
           </button>
         </form>
 
         <p className="mt-4 text-center text-sm text-amber-200/70">
           {mode === 'login' ? (
             <>
-              Don&apos;t have an account?{' '}
+              No tienes una cuenta?{' '}
               <button className="underline cursor-pointer" onClick={() => setMode('register')}>
-                Sign up
+                Registrate
               </button>
             </>
           ) : (
             <>
-              Already have an account?{' '}
+              Ya tienes una cuenta?{' '}
               <button className="underline cursor-pointer" onClick={() => setMode('login')}>
-                Login
+                Inicia sesión
               </button>
             </>
           )}

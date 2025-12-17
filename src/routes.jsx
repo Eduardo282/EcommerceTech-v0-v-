@@ -9,6 +9,9 @@ import { LibrosProgramacionPage } from './pages/LibrosProgramacionPage';
 import { GuiasEstudioPage } from './pages/GuiasEstudioPage';
 import { ControladoresPage } from './pages/ControladoresPage';
 
+import { SuccessPage } from './pages/SuccessPage';
+import { CancelPage } from './pages/CancelPage';
+
 export function AppRouter() {
   return (
     <Routes>
@@ -22,6 +25,10 @@ export function AppRouter() {
         <Route path="guias-estudio" element={<GuiasEstudioPage />} />
         <Route path="controladores" element={<ControladoresPage />} />
       </Route>
+
+      {/* Páginas independientes (no Header/Footer) */}
+      <Route path="/success" element={<SuccessPage />} />
+      <Route path="/cancel" element={<CancelPage />} />
     </Routes>
   );
 }

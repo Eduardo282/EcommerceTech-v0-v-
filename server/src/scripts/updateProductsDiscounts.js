@@ -16,7 +16,7 @@ async function updateProducts() {
     for (const product of featuredProducts) {
       product.features = features;
       product.badge = null;
-      product.originalPrice = 0; // No discount
+      product.originalPrice = 0;
       await product.save();
       console.log(`Productos actualizados (sin descuento): ${product.title}`);
     }
@@ -28,7 +28,7 @@ async function updateProducts() {
     for (const product of otherProducts) {
       // Establece el precio original para que sea 20% mayor que el precio
       product.originalPrice = product.price * 1.2;
-      product.badge = 'OFERTA'; // Añade un texto de badge
+      product.badge = 'OFERTA';
       product.features = []; // Limpia las características si las hay
       await product.save();
       console.log(`Productos actualizados (con descuento): ${product.title}`);

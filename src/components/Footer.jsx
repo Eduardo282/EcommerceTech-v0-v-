@@ -32,7 +32,7 @@ export function Footer() {
         boxShadow: '0 0 26px #2c2c30, inset -10px 0 18px #2c2c30',
       }}
     >
-      {/* Grid Pattern Background */}
+      {/* Patrón de cuadrícula */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -44,7 +44,7 @@ export function Footer() {
         }}
       />
 
-      {/* Accent Horizontal Lines */}
+      {/* Líneas horizontales */}
       <div
         className="absolute inset-0 opacity-15"
         style={{
@@ -62,7 +62,7 @@ export function Footer() {
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
+          {/* Marca */}
           <section className="lg:col-span-2">
             <header className="flex items-center gap-3 mb-4 group cursor-pointer">
               {/* Logo */}
@@ -108,7 +108,7 @@ export function Footer() {
               </span>
             </p>
 
-            {/* Contact Info */}
+            {/* Información de contacto */}
             <address className="space-y-2 mb-6 not-italic">
               <div className="flex items-center gap-2 transition-colors cursor-pointer">
                 <Mail className="h-4 w-4" style={{ color: 'white' }} />
@@ -224,7 +224,7 @@ export function Footer() {
             </nav>
           </section>
 
-          {/* Categories */}
+          {/* Categorías */}
           <nav aria-label="footer categories">
             <h4
               className="mb-4 flex items-center gap-2 font-display"
@@ -255,7 +255,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Support */}
+          {/* Soporte */}
           <nav aria-label="footer support">
             <h4
               className="mb-4 font-display"
@@ -280,7 +280,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Company */}
+          {/* Compañía */}
           <nav aria-label="footer company">
             <h4
               className="mb-4 font-display"
@@ -306,7 +306,7 @@ export function Footer() {
           </nav>
         </section>
 
-        {/* Newsletter */}
+        {/* Noticias */}
         <section
           className="rounded-2xl p-8 mb-12 backdrop-blur-xl"
           style={{
@@ -332,7 +332,7 @@ export function Footer() {
           </div>
         </section>
 
-        {/* Bottom Bar */}
+        {/* Barra inferior */}
         <section className="pt-8 border-t-2 border-[#2c2c30]">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p

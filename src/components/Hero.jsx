@@ -18,13 +18,13 @@ export function Hero() {
         backgroundColor: getColor('fondoHeroColor', 'black'),
       }}
     >
-      {/* Animated Background Orbs */}
+      {/* Orbes de fondo animados */}
       <div
         aria-hidden="true"
         className="absolute top-0 left-1/4 w-96 h-96 bg-[#2c2c3050] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob"
       />
 
-      {/* Horizontal Neon Lines Background */}
+      {/* Líneas horizontales de neón */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -39,7 +39,7 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Vertical Grid */}
+      {/* Grid vertical */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-30"
@@ -52,9 +52,9 @@ export function Hero() {
 
       <div className="container mx-auto px-4 py-12 relative z-10">
         <section className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+          {/* Contenido izquierdo */}
           <header className="space-y-12">
-            {/* Neon Border Box with Lines */}
+            {/* Caja de líneas de neón */}
             <div className="relative">
               <div className="absolute -left-8 top-0 bottom-0 w-1 bg-linear-to-b from-[#2c2c30] via-[#2c2c30] to-transparent" />
               <div className="absolute -left-8 top-0 w-8 h-px bg-linear-to-r from-[#2c2c30] to-transparent" />
@@ -76,7 +76,7 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Description */}
+            {/* Descripción */}
             <section className="relative max-w-md">
               <p
                 className="leading-relaxed max-w-md text-sm"
@@ -87,14 +87,14 @@ export function Hero() {
             </section>
           </header>
 
-          {/* Right Content - Professional Tech Image */}
+          {/* Contenido derecho - Imagen de tecnología profesional */}
           <aside className="relative h-[500px] flex items-center justify-center perspective-1000">
             <div className="relative w-[450px] h-[450px] animate-float">
-              {/* Main Image Container */}
+              {/* Contenedor de imagen principal */}
               <div className="relative w-full h-full group perspective-1000">
                 <div className="absolute inset-0 bg-[#2c2c30] blur-[100px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
 
-                {/* Tech Image */}
+                {/* Imagen de tecnología */}
                 <img
                   src="/assets/hero-box.png"
                   alt="EvoHance Digital Assets"

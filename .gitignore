@@ -16,6 +16,7 @@ dist
 dist-ssr
 build
 coverage
+testsprite_tests
 
 # Ambiente de desarrollo
 .env

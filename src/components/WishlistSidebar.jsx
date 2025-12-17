@@ -7,7 +7,7 @@ import { ItemsWishlist } from './smallComponents/ItemsWishlist';
 export function WishlistSidebar({ isOpen, onClose, items, onRemoveItem, onAddToCart }) {
   return (
     <>
-      {/* Overlay */}
+      {/* Cubierta */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/70 backdrop-blur-sm z-998 transition-opacity"
@@ -15,7 +15,7 @@ export function WishlistSidebar({ isOpen, onClose, items, onRemoveItem, onAddToC
         />
       )}
 
-      {/* Sidebar */}
+      {/* Barra lateral */}
       <aside
         className={`fixed top-0 right-0 h-full w-full sm:w-[450px] shadow-2xl z-999 transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
@@ -26,7 +26,7 @@ export function WishlistSidebar({ isOpen, onClose, items, onRemoveItem, onAddToC
           boxShadow: '-5px 0 38px #2c2c30',
         }}
       >
-        {/* Grid Pattern Background */}
+        {/* Patrón de cuadrícula */}
         <div
           className="absolute inset-0 opacity-10"
           style={{
@@ -51,7 +51,7 @@ export function WishlistSidebar({ isOpen, onClose, items, onRemoveItem, onAddToC
             )}
           </section>
 
-          {/* Footer - Only show if there are items */}
+          {/* Footer - Solo se muestra si hay artículos */}
           {items.length > 0 && (
             <footer
               className="p-6 space-y-4"

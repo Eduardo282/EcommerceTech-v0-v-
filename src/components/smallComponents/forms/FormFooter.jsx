@@ -8,7 +8,7 @@ export function FormFooter() {
       className="flex flex-col sm:flex-row max-w-xl"
     >
       <label htmlFor="footer-email" className="sr-only">
-        Email address
+        Dirección de correo electrónico
       </label>
       <input
         id="footer-email"

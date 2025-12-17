@@ -70,7 +70,7 @@ async function run() {
     'https://loremflickr.com/1000/1000/gaming,tech?lock=6',
   ];
 
-  console.log('🕹  Sembrando productos GAMING (no destructivo)…');
+  console.log('🕹 Sembrando productos GAMING (no destructivo)…');
   let created = 0;
 
   for (let i = 1; i <= 12; i++) {

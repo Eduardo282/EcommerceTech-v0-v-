@@ -3,15 +3,48 @@ import PropTypes from 'prop-types';
 import { HeaderCarrito } from './smallComponents/HeaderCarrito';
 import { HomeCarrito } from './smallComponents/HomeCarrito';
 import { ItemsCarrito } from './smallComponents/ItemsCarrito';
+import { toast } from 'sonner';
 
 export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
-  // Ensure all numeric operations use numbers (handle string prices from API)
+  // Asegurar que todas las operaciones numéricas usen números (manejar precios como cadenas de la API)
   const total = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
   const savings = items.reduce(
     (sum, item) =>
       sum + (item.originalPrice ? Number(item.originalPrice || 0) - Number(item.price || 0) : 0),
     0
   );
+
+  const handleCheckout = async () => {
+    try {
+      // Llama a la API para crear una sesión de pago
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/create-checkout-session`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ items }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error al crear la sesión de pago');
+      }
+
+      const session = await response.json();
+
+      if (session.url) {
+        window.location.href = session.url;
+      } else {
+        toast.error('No se recibió la URL de pago.');
+      }
+    } catch (error) {
+      console.error('Error al iniciar el pago:', error);
+      toast.error(error.message || 'Hubo un problema al iniciar el pago.');
+    }
+  };
 
   return (
     <>
@@ -84,7 +117,10 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
                 </div>
               </div>
 
-              <button className="flex items-center justify-center w-full text-white py-6 text-lg rounded-xl shadow-lg cursor-pointer">
+              <button
+                onClick={handleCheckout}
+                className="flex items-center justify-center w-full text-white py-6 text-lg rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition-colors"
+              >
                 Proceder al pago
                 <ArrowRight className="ml-2 h-5 w-5" />
               </button>

@@ -11,7 +11,7 @@ export function SellerOnboarding({ open, onClose }) {
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
 
-  // rubro temporal solo para este modal
+  // Rubro temporal solo para este modal
   const [localRubro, setLocalRubro] = useState(RUBROS.TECHNOLOGY);
 
   const [commit, { loading }] = useMutation(SET_SELLER_PROFILE);
@@ -44,13 +44,13 @@ export function SellerOnboarding({ open, onClose }) {
 
         <header className="mb-6">
           <p className="text-sm text-amber-200/70">{step} / 2</p>
-          <h2 className="text-2xl font-display text-amber-100">Become a Seller</h2>
-          <p className="text-amber-200/70">Setup your seller account</p>
+          <h2 className="text-2xl font-display text-amber-100">¡Hola!</h2>
+          <p className="text-amber-200/70">Configura tu cuenta de vendedor</p>
         </header>
 
         {step === 1 && (
           <section>
-            <p className="text-sm text-amber-200/70 mb-4">What type of products will you sell?</p>
+            <p className="text-sm text-amber-200/70 mb-4">¿Qué tipo de productos vas a vender?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button
                 className={`p-4 rounded-xl text-left cursor-pointer ${
@@ -58,8 +58,8 @@ export function SellerOnboarding({ open, onClose }) {
                 }`}
                 onClick={() => setLocalRubro(RUBROS.TECHNOLOGY)}
               >
-                <h3 className="text-amber-100 font-medium">Technology</h3>
-                <p className="text-amber-200/70 text-sm">Dashboards, templates, plugins, courses</p>
+                <h3 className="text-amber-100 font-medium">Tecnología</h3>
+                <p className="text-amber-200/70 text-sm">Dashboards, plantillas, plugins, cursos</p>
               </button>
               <button
                 className={`p-4 rounded-xl text-left cursor-pointer ${
@@ -67,8 +67,8 @@ export function SellerOnboarding({ open, onClose }) {
                 }`}
                 onClick={() => setLocalRubro(RUBROS.GAMING)}
               >
-                <h3 className="text-amber-100 font-medium">Gaming</h3>
-                <p className="text-amber-200/70 text-sm">Game keys, assets, soundtracks, tools</p>
+                <h3 className="text-amber-100 font-medium">Juegos</h3>
+                <p className="text-amber-200/70 text-sm">Juegos, assets, soundtracks, herramientas</p>
               </button>
             </div>
             <div className="mt-6 flex justify-end">
@@ -77,7 +77,7 @@ export function SellerOnboarding({ open, onClose }) {
                 style={{ borderColor: 'rgba(234, 179, 8, 0.4)' }}
                 onClick={() => setStep(2)}
               >
-                Continue
+                Continuar
               </button>
             </div>
           </section>
@@ -87,7 +87,7 @@ export function SellerOnboarding({ open, onClose }) {
           <section>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-amber-200/80 mb-1">Store Name</label>
+                <label className="block text-sm text-amber-200/80 mb-1">Nombre de la tienda</label>
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -98,7 +98,7 @@ export function SellerOnboarding({ open, onClose }) {
                 />
               </div>
               <div>
-                <label className="block text-sm text-amber-200/80 mb-1">Store Description</label>
+                <label className="block text-sm text-amber-200/80 mb-1">Descripción de la tienda</label>
                 <textarea
                   value={desc}
                   onChange={(e) => setDesc(e.target.value)}
@@ -115,7 +115,7 @@ export function SellerOnboarding({ open, onClose }) {
                 className="px-5 py-2 rounded-lg text-amber-100 cursor-pointer"
                 onClick={() => setStep(1)}
               >
-                Back
+                Atrás
               </button>
               <button
                 disabled={!name || loading}
@@ -138,7 +138,7 @@ export function SellerOnboarding({ open, onClose }) {
                   }
                 }}
               >
-                Create Store
+                Crear Tienda
               </button>
             </div>
           </section>

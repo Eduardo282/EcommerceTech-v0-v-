@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-// Static Data for Books
+// datos de los libros
 const BOOKS_DATA = [
   {
     id: 1,
@@ -120,7 +120,7 @@ export function LibrosProgramacionPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-amber-500/30">
-      {/* Background Effects (Consistent with other pages) */}
+      {/* Efectos de fondo (Consistente con otras páginas) */}
       <div className="absolute inset-0 bg-[#0a0a0a]" />
       <div
         className="absolute inset-0 opacity-20"
@@ -133,9 +133,9 @@ export function LibrosProgramacionPage() {
         }}
       />
 
-      {/* HERO SECTION - Unique Layout: Split with large typography and 3D element hint */}
+      {/* Sección Hero - Diseño único: Dividido con tipografía grande y sugerencia de elemento 3D */}
       <section className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
-        {/* Abstract Background Shapes - Amber Theme */}
+        {/* Formas de fondo abstractas - Tema naranja */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] animate-pulse" />
           <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-yellow-600/10 rounded-full blur-[120px]" />
@@ -146,21 +146,20 @@ export function LibrosProgramacionPage() {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-900/30 border border-amber-500/30 text-amber-400 text-sm font-semibold tracking-wide uppercase">
               <Terminal size={14} />
-              <span>Librería Developer</span>
+              <span>Librería de Programación</span>
             </div>
 
             <h1 className="text-6xl md:text-8xl font-black leading-tight tracking-tighter">
-              READ. <br />
+              LEER. <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-300 via-amber-500 to-orange-600">
-                CODE.
+                CODIFICAR.
               </span>{' '}
               <br />
-              REPEAT.
+              REPETIR.
             </h1>
 
             <p className="text-xl text-gray-400 max-w-lg leading-relaxed border-l-4 border-amber-500 pl-6">
-              La colección definitiva de libros para desarrolladores que buscan la excelencia. Desde
-              algoritmos hasta arquitectura de software.
+              La colección definitiva de libros para desarrolladores que buscan la excelencia. Desde algoritmos hasta arquitectura de software.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
@@ -176,7 +175,7 @@ export function LibrosProgramacionPage() {
             </div>
           </div>
 
-          {/* Right Side - Featured Book Visual */}
+          {/* Lado derecho - Libro destacado */}
           <div className="relative hidden lg:block">
             <div className="relative w-[400px] h-[550px] mx-auto transform -rotate-6 hover:rotate-0 transition-all duration-700 ease-out group cursor-pointer">
               <div className="absolute inset-0 bg-linear-to-br from-amber-400 to-orange-600 rounded-xl shadow-[0_20px_50px_rgba(245,158,11,0.3)] group-hover:shadow-[0_30px_80px_rgba(245,158,11,0.5)] transition-all duration-500" />
@@ -190,7 +189,7 @@ export function LibrosProgramacionPage() {
                   LIBRO DESTACADO
                 </span>
                 <h3 className="text-3xl font-bold text-white mb-1">
-                  Designing Data-Intensive Applications
+                  Diseñando Aplicaciones de Datos Intensivos
                 </h3>
                 <p className="text-gray-300 text-sm">Martin Kleppmann</p>
               </div>
@@ -199,10 +198,10 @@ export function LibrosProgramacionPage() {
         </div>
       </section>
 
-      {/* SEARCH & FILTER SECTION - Floating Bar */}
+      {/* Busqueda y Filtros - Barra flotante */}
       <section className="sticky top-4 z-40 container mx-auto px-4 mb-16">
         <div className="bg-[#121212]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-col md:flex-row gap-4 items-center justify-between">
-          {/* Categories */}
+          {/* Categorias */}
           <div className="flex overflow-x-auto pb-2 md:pb-0 gap-2 w-full md:w-auto no-scrollbar">
             {CATEGORIES.map((cat) => (
               <button
@@ -222,7 +221,7 @@ export function LibrosProgramacionPage() {
             ))}
           </div>
 
-          {/* Search */}
+          {/* Busqueda */}
           <div className="relative w-full md:w-80">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 h-4 w-4" />
             <input
@@ -236,7 +235,7 @@ export function LibrosProgramacionPage() {
         </div>
       </section>
 
-      {/* BOOKS GRID - Masonry-style feel */}
+      {/* Grid de libros - Sentido de masonry */}
       <section className="container mx-auto px-4 pb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredBooks.map((book) => (
@@ -244,7 +243,7 @@ export function LibrosProgramacionPage() {
               key={book.id}
               className="group relative bg-[#111115] rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2"
             >
-              {/* Image Container */}
+              {/* Contenedor de la imagen */}
               <div className="aspect-2/3 relative overflow-hidden bg-gray-900">
                 <img
                   src={book.image}
@@ -252,7 +251,7 @@ export function LibrosProgramacionPage() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
 
-                {/* Overlay Actions */}
+                {/* Acciones Overlay */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-3 p-4">
                   <Button className="w-full bg-amber-500 text-black hover:bg-amber-400 hover:text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
                     <ShoppingCart className="mr-2 h-4 w-4" />
@@ -267,20 +266,20 @@ export function LibrosProgramacionPage() {
                   </Button>
                 </div>
 
-                {/* Badge */}
+                {/* Etiqueta */}
                 {book.badge && (
                   <div className="absolute top-3 left-3 bg-amber-500 text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg">
                     {book.badge}
                   </div>
                 )}
 
-                {/* Wishlist Button */}
+                {/* Boton de lista de deseos */}
                 <button className="absolute top-3 right-3 p-2 rounded-full bg-black/40 backdrop-blur-md text-white hover:text-red-500 hover:bg-white transition-all transform translate-x-10 group-hover:translate-x-0">
                   <Heart size={16} />
                 </button>
               </div>
 
-              {/* Info */}
+              {/* Informacion */}
               <div className="p-5">
                 <div className="flex justify-between items-start mb-2">
                   <p className="text-xs font-medium text-amber-400 uppercase tracking-wider">
@@ -301,7 +300,7 @@ export function LibrosProgramacionPage() {
                   <span className="text-xl font-bold text-white">
                     ${Number(book.price).toFixed(2)}
                   </span>
-                  <span className="text-xs text-gray-600">({book.reviews} reviews)</span>
+                  <span className="text-xs text-gray-600">({book.reviews} reseñas)</span>
                 </div>
               </div>
             </div>
@@ -321,7 +320,7 @@ export function LibrosProgramacionPage() {
         )}
       </section>
 
-      {/* FEATURED / NEWSLETTER SECTION - Dark & Sleek */}
+      {/* SECCION DE DESTACADOS / NOTICIAS - Oscuro y Moderno */}
       <section className="container mx-auto px-4 mb-20">
         <div className="relative rounded-3xl overflow-hidden bg-linear-to-r from-amber-900/40 to-orange-900/40 border border-amber-500/20">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
@@ -344,8 +343,7 @@ export function LibrosProgramacionPage() {
               </h2>
 
               <p className="text-amber-100/80 text-lg mb-8 max-w-md">
-                Recibe resúmenes semanales, descuentos exclusivos en nuevos lanzamientos y acceso a
-                webinars con autores.
+                Recibe resúmenes semanales, descuentos exclusivos en nuevos lanzamientos y acceso a webinars con autores.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">

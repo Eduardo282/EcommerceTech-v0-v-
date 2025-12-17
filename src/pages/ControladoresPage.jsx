@@ -78,14 +78,14 @@ export function ControladoresPage() {
 
   return (
     <div className="min-h-screen bg-[#0D0D10] text-[#E0E0E0] font-mono">
-      {/* Top Banner - Warning/Info Style */}
+      {/* Banner superior - Estilo advertencia/Información */}
       <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 text-xs text-amber-500 flex items-center justify-center gap-2">
         <AlertCircle size={14} />
-        <span>ENSURE SYSTEM COMPATIBILITY BEFORE FLASHING FIRMWARE.</span>
+        <span>ASEGURATE DE LA COMPATIBILIDAD DEL SISTEMA ANTES DE FLASHAR EL FIRMWARE.</span>
       </div>
 
       <div className="container mx-auto px-4 py-12 max-w-6xl">
-        {/* Header Section */}
+        {/* Sección de encabezado */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -94,32 +94,32 @@ export function ControladoresPage() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold tracking-tight text-white">DRIVERS & FIRMWARE</h1>
-                <p className="text-xs text-gray-500">OFFICIAL REPOSITORY // INDEX V.3.0</p>
+                <p className="text-xs text-gray-500">REPOSITORIO OFICIAL // ÍNDICE V.3.0</p>
               </div>
             </div>
           </div>
 
-          {/* Quick Stats */}
+          {/* Estadísticas rápidas */}
           <div className="flex gap-6 text-xs text-gray-500 border border-white/5 rounded-lg p-3 bg-black/20">
             <div className="text-center">
               <div className="text-emerald-500 font-bold mb-0.5">ONLINE</div>
-              <div>System Status</div>
+              <div>Estado del sistema</div>
             </div>
             <div className="w-px bg-white/10"></div>
             <div className="text-center">
               <div className="text-white font-bold mb-0.5">5.2TB</div>
-              <div>Total Bandwidth</div>
+              <div>Total de ancho de banda</div>
             </div>
           </div>
         </div>
 
-        {/* Search & Filter Bar */}
+        {/* Barra de búsqueda y filtro */}
         <div className="bg-[#15151A] border border-white/5 rounded-t-xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="relative w-full md:w-96">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 h-4 w-4" />
             <input
               type="text"
-              placeholder="Search by hardware ID or name..."
+              placeholder="Buscar por ID o nombre del hardware..."
               className="w-full bg-black/50 border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-emerald-500/50 focus:text-white transition-colors placeholder:text-gray-700"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -147,19 +147,19 @@ export function ControladoresPage() {
           </div>
         </div>
 
-        {/* Data Table */}
+        {/* Tabla de datos */}
         <div className="bg-[#15151A] border border-white/5 border-t-0 rounded-b-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-[#0A0A0D] text-gray-500 uppercase text-xs tracking-wider">
                 <tr>
-                  <th className="px-6 py-4 font-medium">Device Name</th>
+                  <th className="px-6 py-4 font-medium">Nombre del dispositivo</th>
                   <th className="px-6 py-4 font-medium">Version</th>
                   <th className="px-6 py-4 font-medium">OS</th>
-                  <th className="px-6 py-4 font-medium">Size</th>
-                  <th className="px-6 py-4 font-medium">Status</th>
-                  <th className="px-6 py-4 font-medium">Updated</th>
-                  <th className="px-6 py-4 font-medium text-right">Action</th>
+                  <th className="px-6 py-4 font-medium">Tamaño</th>
+                  <th className="px-6 py-4 font-medium">Estado</th>
+                  <th className="px-6 py-4 font-medium">Actualizado</th>
+                  <th className="px-6 py-4 font-medium text-right">Acción</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -205,7 +205,7 @@ export function ControladoresPage() {
                         className="bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/30 h-8"
                       >
                         <Download size={14} className="mr-2" />
-                        Download
+                        Descargar
                       </Button>
                     </td>
                   </tr>
@@ -214,9 +214,9 @@ export function ControladoresPage() {
             </table>
           </div>
 
-          {/* Pagination Footer */}
+          {/* Pie de paginación */}
           <div className="bg-[#0A0A0D] p-4 text-center border-t border-white/5 text-xs text-gray-600">
-            Showing 5 of 128 available drivers
+            Mostrando 5 de 128 controladores disponibles
           </div>
         </div>
       </div>

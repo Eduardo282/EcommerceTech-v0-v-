@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export function CategoriaCard({ category, openDropdown, getColor }) {
   return (
     <>
-      {/* Professional Tech Image Container */}
+      {/* CONTENEDOR DE IMAGEN */}
       <div className="relative mx-auto w-40 h-40 mb-6 group-hover:-translate-y-2 transition-transform duration-500">
         <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-[#F9B61D10] to-[#F9B61D10] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl group-hover:shadow-[#F9B61D10] transition-all duration-500">
@@ -32,7 +32,7 @@ export function CategoriaCard({ category, openDropdown, getColor }) {
         )}
       </div>
 
-      {/* Category Name */}
+      {/* NOMBRE DE LA CATEGORIA */}
       <h3
         className="text-sm transition-colors uppercase tracking-wider"
         style={{

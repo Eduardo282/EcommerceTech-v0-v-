@@ -43,7 +43,7 @@ export function ProductPreview({
 
   if (!isOpen) return null;
 
-  // Simulate multiple images (in real app, product would have an images array)
+  // Simula multiples imágenes (en la app real, el producto tendría un array de imágenes)
   const images = [product.image, product.image, product.image, product.image, product.image];
 
   const discount = product.originalPrice
@@ -94,15 +94,15 @@ export function ProductPreview({
   };
 
   const handleBuyNow = () => {
-    // Add multiple items to cart based on quantity
+    // Agrega multiple items al carrito basado en la cantidad
     for (let i = 0; i < quantity; i++) {
       onAddToCart(product);
     }
     onClose();
-    // In a real app, this would redirect to checkout
+    // En una app real, esto redirigiría a checkout
   };
 
-  // Get similar products (same category, excluding current product)
+  // Obtiene productos similares (misma categoría, excluyendo el producto actual)
   const similarProducts = allProducts
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 10);
@@ -134,7 +134,7 @@ export function ProductPreview({
           boxShadow: '0 0 20px #2c2c30',
         }}
       >
-        {/* Close Button */}
+        {/* Botón de cierre */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-20 backdrop-blur-sm p-2 rounded-full transition-all shadow-lg cursor-pointer"
@@ -156,7 +156,7 @@ export function ProductPreview({
           className="grid grid-cols-1 lg:grid-cols-[120px_1fr_400px] gap-0 max-h-[95vh] overflow-y-auto"
           role="document"
         >
-          {/* Left Column - Thumbnails */}
+          {/* Columna izquierda - miniaturas */}
           <div
             className="hidden lg:flex flex-col gap-3 p-4 border-r-2 overflow-y-auto max-h-[95vh]"
             style={{
@@ -184,7 +184,7 @@ export function ProductPreview({
             ))}
           </div>
 
-          {/* Center Column - Main Image + Product Info */}
+          {/* Columna central - imagen principal + información del producto */}
           <div
             className="flex flex-col overflow-y-auto scrollbar-hide max-h-[95vh]"
             style={{
@@ -192,7 +192,7 @@ export function ProductPreview({
             }}
           >
             <div className="relative flex items-center justify-center p-8">
-              {/* Viewers Badge */}
+              {/* Etiqueta de espectadores */}
               <div className="absolute top-6 left-6 z-10">
                 <Badge
                   className="text-white px-3 py-1.5 text-xs uppercase tracking-wide shadow-lg outline-none"
@@ -204,7 +204,7 @@ export function ProductPreview({
                 </Badge>
               </div>
 
-              {/* Fullscreen & Wishlist Buttons */}
+              {/* Botones de pantalla completa y lista de deseos */}
               <div className="absolute top-6 right-6 z-10 flex gap-2">
                 <button
                   className="p-2.5 rounded-lg transition-all shadow-md cursor-pointer"
@@ -244,7 +244,7 @@ export function ProductPreview({
                 </button>
               </div>
 
-              {/* Main Image with Magnifier */}
+              {/* Imagen con Magnificador */}
               <div
                 ref={imageContainerRef}
                 className="relative max-w-2xl w-full aspect-square cursor-crosshair"
@@ -258,7 +258,7 @@ export function ProductPreview({
                   className="w-full h-full object-contain"
                 />
 
-                {/* Magnifier Glass */}
+                {/* Magnificador */}
                 {showMagnifier && (
                   <div
                     className="absolute rounded-full pointer-events-none shadow-2xl overflow-hidden z-50"
@@ -293,7 +293,7 @@ export function ProductPreview({
                 )}
               </div>
 
-              {/* Navigation Arrows */}
+              {/* Botones de navegación */}
               <button
                 onClick={prevImage}
                 className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg cursor-pointer"
@@ -328,7 +328,7 @@ export function ProductPreview({
               </button>
             </div>
 
-            {/* Product Information Section */}
+            {/* Sección de Información del Producto */}
             <div
               className="px-8 py-6"
               style={{
@@ -386,7 +386,7 @@ export function ProductPreview({
                       </div>
                     ) : (
                       <div className="space-y-3 text-sm">
-                        {/* Fallback for legacy products without specific specs */}
+                        {/* Fallback para productos legacy sin especificaciones técnicas */}
                         <div className="grid grid-cols-[140px_1fr] gap-2">
                           <span className="text-[#F9B61D]">Categoría:</span>
                           <span className="text-[#E4D9AF]">{product.category}</span>
@@ -419,7 +419,7 @@ export function ProductPreview({
             </div>
           </div>
 
-          {/* Right Column - Product Details */}
+          {/* Columna derecha - Detalles del Producto */}
           <div
             className="flex flex-col p-8 overflow-y-auto scrollbar-hide max-h-[95vh] border-l-2 border-[#2c2c30]"
             style={{
@@ -438,7 +438,7 @@ export function ProductPreview({
 
               <h2 className="text-2xl mb-3 text-white">{product.name}</h2>
 
-              {/* Rating */}
+              {/* Calificación */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
@@ -462,18 +462,18 @@ export function ProductPreview({
                 </span>
               </div>
 
-              {/* Downloads */}
+              {/* Descargas */}
               <div className="flex items-center gap-2 mb-6 text-sm text-[#898989]">
                 <Download className="h-4 w-4" />
                 <span>{product.sales.toLocaleString()} descargas</span>
               </div>
 
-              {/* Similar Products Carousel */}
+              {/* Productos Similares */}
               {similarProducts.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-sm mb-3 text-[#F9B61D]">Productos Similares</h3>
                   <div className="relative">
-                    {/* Left Arrow */}
+                    {/* Botón de flecha izquierda */}
                     <button
                       onClick={scrollSimilarLeft}
                       className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all cursor-pointer"
@@ -484,7 +484,7 @@ export function ProductPreview({
                       <ChevronLeft className="h-6 w-6 text-[#E4D9AF]" />
                     </button>
 
-                    {/* Products Scroll Container */}
+                    {/* Contenedor de desplazamiento de productos */}
                     <div
                       ref={similarScrollRef}
                       className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-8"
@@ -539,7 +539,7 @@ export function ProductPreview({
                       ))}
                     </div>
 
-                    {/* Right Arrow */}
+                    {/* Botón de flecha derecha */}
                     <button
                       onClick={scrollSimilarRight}
                       className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all cursor-pointer"
@@ -553,7 +553,7 @@ export function ProductPreview({
                 </div>
               )}
 
-              {/* Price */}
+              {/* Precio */}
               <div
                 className="mb-6 p-4 rounded-xl"
                 style={{
@@ -586,7 +586,7 @@ export function ProductPreview({
                 </div>
               </div>
 
-              {/* Quantity Selector */}
+              {/* Selector de Cantidad */}
               <div className="mb-4">
                 <label className="text-sm text-[#E4D9AF] mb-2 block">Cantidad</label>
                 <div className="flex items-center gap-3">
@@ -634,7 +634,7 @@ export function ProductPreview({
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Botones de Acción */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <Button
                   className="text-white hover:scale-[1.06] transition-all py-6 cursor-pointer outline-none"
@@ -668,7 +668,7 @@ export function ProductPreview({
                 </Button>
               </div>
 
-              {/* Key Features */}
+              {/* Características Clave */}
               <div className="grid grid-cols-3 gap-3 mb-6">
                 <div className="flex flex-col items-center p-3 rounded-lg">
                   <Shield className="h-5 w-5 text-white mb-1" />
@@ -684,7 +684,7 @@ export function ProductPreview({
                 </div>
               </div>
 
-              {/* Description */}
+              {/* Descripción */}
               <div className="mb-6">
                 <h3 className="text-sm mb-2 text-[#E4D9AF]">Descripción</h3>
                 {product.longDescription ? (
@@ -699,7 +699,7 @@ export function ProductPreview({
                 )}
               </div>
 
-              {/* Features */}
+              {/* Características */}
               {product.features && (
                 <div className="mb-6">
                   <h3 className="text-sm mb-3 text-[#E4D9AF]">Tecnologías y Características</h3>

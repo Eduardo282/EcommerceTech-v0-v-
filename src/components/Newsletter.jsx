@@ -19,7 +19,7 @@ export function Newsletter() {
         backgroundColor: 'black',
       }}
     >
-      {/* Grid Pattern Background */}
+      {/* Patrón de cuadrícula de fondo */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -31,7 +31,7 @@ export function Newsletter() {
         }}
       />
 
-      {/* Diagonal Accent Lines */}
+      {/* Líneas de neón diagonal */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -47,7 +47,7 @@ export function Newsletter() {
         }}
       />
 
-      {/* Animated Glows */}
+      {/* Brillo animado */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-[#F9B61D20] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F9B61D20] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000" />
 

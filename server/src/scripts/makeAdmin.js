@@ -26,7 +26,7 @@ async function run() {
   }
 
   if (!email) {
-    console.error('Uso: npm run make-admin -- --email=user@example.com');
+    console.error('Usa: npm run make-admin -- --email=user@example.com');
     process.exit(1);
   }
 

@@ -24,7 +24,7 @@ export function Categories() {
 
   return (
     <section id="categories-section" className="py-20 relative overflow-visible">
-      {/* Onyx Background */}
+      {/* Fondo Onyx */}
       <div
         style={{
           backgroundColor: getColor('fondoCategoriasColor', 'black'),
@@ -32,7 +32,7 @@ export function Categories() {
         className="absolute inset-0"
       />
 
-      {/* Grid Pattern - Horizontal and Vertical Lines */}
+      {/* Patrón de cuadrícula */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
@@ -44,7 +44,7 @@ export function Categories() {
         }}
       />
 
-      {/* Additional Horizontal Accent Lines */}
+      {/* Horizontales adicionales */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -99,7 +99,7 @@ export function Categories() {
                     />
                   </button>
 
-                  {/* Dropdown Menu */}
+                  {/* Menu Desplegable */}
                   {category.hasDropdown && openDropdown === category.name && (
                     <CategoriaSubCategorias category={category} />
                   )}

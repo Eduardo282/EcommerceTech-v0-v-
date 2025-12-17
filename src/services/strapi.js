@@ -14,7 +14,7 @@ export const getStrapiMedia = (path) => {
 };
 
 /**
- * Fetch data from Strapi
+ * Ayuda a obtener datos de Strapi
  * @param {string} endpoint
  * @param {object} params
  * @returns {Promise<any>}

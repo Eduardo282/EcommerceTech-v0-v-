@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema(
     slug: { type: String, required: true, unique: true, index: true },
     description: { type: String, default: '' },
     originalPrice: { type: Number, required: true, min: 0 },
-    descuentoPrice: { type: Number, min: 0 }, // Added for seed compatibility
+    descuentoPrice: { type: Number, min: 0 },
     images: [{ type: String }],
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
     inventory: { type: Number, default: 0 },
@@ -31,7 +31,7 @@ const ProductSchema = new mongoose.Schema(
     }],
   },
   { timestamps: true }
-); // Se incluyen los campos a futuro extendidos (seedExtended.js)
+);
 
 ProductSchema.pre('validate', function (next) {
   if (!this.slug && this.title) {
@@ -41,7 +41,7 @@ ProductSchema.pre('validate', function (next) {
   if (!this.originalPrice) {
     if (this.descuentoPrice) this.originalPrice = this.descuentoPrice;
     else if (this.price) this.originalPrice = this.price; // fallback si price existe en el documento
-  }
+  } 
   next();
 });
 ProductSchema.index({ title: 'text', description: 'text' });

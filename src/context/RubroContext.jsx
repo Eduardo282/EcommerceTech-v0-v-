@@ -14,7 +14,7 @@ export function RubroProvider({ children }) {
         return parsed.rubro ?? RUBROS.TECHNOLOGY;
       }
     } catch {
-      // ignore
+      // ignorar
     }
     return RUBROS.TECHNOLOGY;
   });
@@ -27,7 +27,7 @@ export function RubroProvider({ children }) {
         return parsed.store ?? { name: null, description: null };
       }
     } catch {
-      // ignore
+      // ignorar
     }
     return { name: null, description: null };
   });
@@ -40,7 +40,7 @@ export function RubroProvider({ children }) {
         return parsed.isSeller != null ? !!parsed.isSeller : false;
       }
     } catch {
-      // ignore
+      // ignorar
     }
     return false;
   });
@@ -51,9 +51,9 @@ export function RubroProvider({ children }) {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify(payload));
     } catch {
-      // ignore
+      // ignorar
     }
-    // Toggle document class for global theming
+    // Ajustar la clase del documento para el tema global
     const root = document.documentElement;
     root.classList.remove('rubro-technology', 'rubro-gaming');
     root.classList.add(rubro === RUBROS.GAMING ? 'rubro-gaming' : 'rubro-technology');
