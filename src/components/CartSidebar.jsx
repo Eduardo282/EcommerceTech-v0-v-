@@ -17,16 +17,13 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
   const handleCheckout = async () => {
     try {
       // Llama a la API para crear una sesión de pago
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/create-checkout-session`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ items }),
-        }
-      );
+      const response = await fetch(`/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

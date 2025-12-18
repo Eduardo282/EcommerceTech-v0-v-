@@ -36,7 +36,7 @@ export function CategoriaCard({ category, openDropdown, getColor }) {
       <h3
         className="text-sm transition-colors uppercase tracking-wider"
         style={{
-          color: getColor('titleCategoriasColor2', '#fef3c7'),
+          color: getColor('titleCategoriasColor2', '#fff'),
         }}
       >
         {category.name}

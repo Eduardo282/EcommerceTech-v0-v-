@@ -84,11 +84,11 @@ export function Header({
     <header
       className="sticky top-0 z-50 w-full shadow-2xl font-sans"
       style={{
-        backgroundColor: getColor('fondoHeaderColor', 'black'),
+        backgroundColor: getColor('fondoHeaderColor', '#fff'),
         boxShadow: '0 4px 32px #2C2C30',
       }}
     >
-     <AnuncioHeader headerConfig={headerConfig} getColor={getColor} />
+      <AnuncioHeader headerConfig={headerConfig} getColor={getColor} />
 
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
@@ -98,10 +98,10 @@ export function Header({
             <Logo />
             <div>
               <h1 className="text-xl transition-all flex items-center font-display">
-                <span style={{ color: getColor('logoText1Color', '#ffffff') }}>
+                <span style={{ color: getColor('logoText1Color', '#fff') }}>
                   {headerConfig?.logoText1 || 'Cargando...'}
                 </span>
-                <span style={{ color: getColor('logoText2Color', '#ffffff') }}>
+                <span style={{ color: getColor('logoText2Color', '#fff') }}>
                   {headerConfig?.logoText2 || 'Cargando...'}
                 </span>
                 <span
@@ -120,7 +120,7 @@ export function Header({
           {/* Acciones */}
           <div className="flex items-center gap-2">
             {/* Rubro primero, luego wishlist, login, carrito (orden por referencia) */}
-            <RubroSelector titleColor={getColor('titleRubroColor', '#FFD700')} />
+            <RubroSelector titleColor={getColor('titleRubroColor', '#fff')} />
             <Button
               size="icon"
               className="relative text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
@@ -283,7 +283,7 @@ export function Header({
       {/* Navigation - Estilo de la imagen */}
       <nav
         style={{
-          backgroundColor: getColor('fondoNavColor', '#111115'),
+          backgroundColor: getColor('fondoNavColor', '#fff'),
         }}
       >
         <div className="container mx-auto px-4">
@@ -376,12 +376,12 @@ export function Header({
                     <Link
                       to={PATH_MAPPING[item.label] || item.url || '#'}
                       className="text-sm transition-colors"
-                      style={{ color: getColor('enlacesNavColor', '#FFD700') }}
+                      style={{ color: getColor('enlacesNavColor', '#fff') }}
                       onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = getColor('hoverEnlaceNav', '#FFD700'))
+                        (e.currentTarget.style.color = getColor('hoverEnlaceNav', '#fff'))
                       }
                       onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = getColor('enlacesNavColor', '#FFD700'))
+                        (e.currentTarget.style.color = getColor('enlacesNavColor', '#fff'))
                       }
                     >
                       {item.label}
@@ -393,7 +393,7 @@ export function Header({
               <button
                 className="text-sm flex items-center gap-2 px-4 py-1.5 rounded-lg transition-all cursor-pointer"
                 style={{
-                  color: getColor('titleNoticiasColor', '#FFD700'),
+                  color: getColor('titleNoticiasColor', '#fff'),
                   scale: 1,
                 }}
                 onMouseEnter={(e) => {

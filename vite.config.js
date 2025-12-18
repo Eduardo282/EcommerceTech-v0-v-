@@ -56,5 +56,23 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    allowedHosts: true,
+    proxy: {
+      '/graphql': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/socket.io': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        ws: true,
+      },
+      '/create-checkout-session': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });
