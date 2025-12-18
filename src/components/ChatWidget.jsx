@@ -3,9 +3,7 @@ import { io } from 'socket.io-client';
 import { MessageCircle, X, Send, Phone, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 
-const SOCKET_URL = import.meta.env.VITE_GRAPHQL_URL
-  ? import.meta.env.VITE_GRAPHQL_URL.replace('/graphql', '')
-  : 'http://localhost:4000';
+const SOCKET_URL = '/';
 
 const WHATSAPP_NUMBER = '2222222222'; // Reemplaza con número de WhatsApp
 

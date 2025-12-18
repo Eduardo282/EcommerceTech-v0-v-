@@ -67,14 +67,14 @@ export function TrustBanner() {
               <h3
                 className="text-sm mb-1 font-display"
                 style={{
-                  color: getColor('titleConfianzaColor', '#fef3c7'),
+                  color: getColor('titleConfianzaColor', '#fff'),
                 }}
               >
                 {feature.title}
               </h3>
               <p
                 className="text-xs"
-                style={{ color: getColor('descripcionConfianzaColor', '#fde68a') }}
+                style={{ color: getColor('descripcionConfianzaColor', '#fff') }}
               >
                 {feature.description}
               </p>

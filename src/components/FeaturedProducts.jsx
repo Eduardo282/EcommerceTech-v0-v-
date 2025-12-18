@@ -16,21 +16,21 @@ export function FeaturedProducts({
     <section
       className="py-20"
       style={{
-        backgroundColor: getColor('fondoDestacadosColor', 'black'),
+        backgroundColor: getColor('fondoDestacadosColor', '#fff'),
       }}
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <h2
             className="text-4xl mb-5 font-display"
-            style={{ color: getColor('titleDestacadosColor', '#FFD700') }}
+            style={{ color: getColor('titleDestacadosColor', '#fff') }}
           >
             {title}
           </h2>
           {subtitle && (
             <p
               className="text-lg max-w-2xl mx-auto"
-              style={{ color: getColor('descripcionDestacadosColor', '#FFD700') }}
+              style={{ color: getColor('descripcionDestacadosColor', '#fff') }}
             >
               {subtitle}
             </p>

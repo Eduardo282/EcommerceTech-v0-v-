@@ -15,7 +15,7 @@ export function Hero() {
     <section
       className="relative overflow-hidden py-24 min-h-[620px]"
       style={{
-        backgroundColor: getColor('fondoHeroColor', 'black'),
+        backgroundColor: getColor('fondoHeroColor', '#fff'),
       }}
     >
       {/* Orbes de fondo animados */}
@@ -61,12 +61,12 @@ export function Hero() {
 
               <div className="space-y-10">
                 <h1 className="text-[48px] leading-[1.1] font-display">
-                  <span className="block" style={{ color: getColor('titleHeroColor', '#fef3c7') }}>
+                  <span className="block" style={{ color: getColor('titleHeroColor', '#fff') }}>
                     {heroConfig?.titleHero || 'Cargando...'}
                   </span>
                   <span
                     className="block mt-4 text-[48px]"
-                    style={{ color: getColor('titleHeroColor2', '#fef3c7') }}
+                    style={{ color: getColor('titleHeroColor2', '#fff') }}
                   >
                     {heroConfig?.titleHero2 || 'Cargando...'}
                   </span>
@@ -80,7 +80,7 @@ export function Hero() {
             <section className="relative max-w-md">
               <p
                 className="leading-relaxed max-w-md text-sm"
-                style={{ color: getColor('descripcionHeroColor', '#fef3c7') }}
+                style={{ color: getColor('descripcionHeroColor', '#fff') }}
               >
                 {heroConfig?.descripcionHero || 'Cargando...'}
               </p>

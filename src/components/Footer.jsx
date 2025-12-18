@@ -72,13 +72,13 @@ export function Footer() {
                 <div>
                   <span
                     className="text-xl font-display"
-                    style={{ color: getColor('logoText1Color', '#ffffff') }}
+                    style={{ color: getColor('logoText1Color', '#fff') }}
                   >
                     {footerConfig?.logoText1 || 'Cargando...'}
                   </span>
                   <span
                     className="text-xl font-display"
-                    style={{ color: getColor('logoText2Color', '#ffffff') }}
+                    style={{ color: getColor('logoText2Color', '#fff') }}
                   >
                     {footerConfig?.logoText2 || 'Cargando...'}
                   </span>
@@ -92,7 +92,7 @@ export function Footer() {
                   <p
                     className="text-sm font-display"
                     style={{
-                      color: getColor('descripcionLogoColor', '#fef3c7'),
+                      color: getColor('descripcionLogoColor', '#fff'),
                     }}
                   >
                     Calidad en productos digitales
@@ -100,10 +100,10 @@ export function Footer() {
                 </div>
               </Link>
             </header>
-            <p className="mb-6 max-w-md" style={{ color: getColor('descripcionColor', '#fef3c7') }}>
+            <p className="mb-6 max-w-md" style={{ color: getColor('descripcionColor', '#fff') }}>
               Tu mercado único para plantillas de paneles de control, kits de UI, herramientas de
               automatización y productos digitales. <br />
-              <span style={{ color: getColor('descripcionLogoColor', '#fef3c7') }}>
+              <span style={{ color: getColor('descripcionLogoColor', '#fff') }}>
                 Con la confianza de más de 100 desarrolladores en todo el mundo.
               </span>
             </p>
@@ -112,19 +112,19 @@ export function Footer() {
             <address className="space-y-2 mb-6 not-italic">
               <div className="flex items-center gap-2 transition-colors cursor-pointer">
                 <Mail className="h-4 w-4" style={{ color: 'white' }} />
-                <span className="text-sm" style={{ color: getColor('adressColor', '#fef3c7') }}>
+                <span className="text-sm" style={{ color: getColor('adressColor', '#fff') }}>
                   support@evohance.com
                 </span>
               </div>
               <div className="flex items-center gap-2 transition-colors cursor-pointer">
                 <Phone className="h-4 w-4" style={{ color: 'white' }} />
-                <span className="text-sm" style={{ color: getColor('adressColor', '#fef3c7') }}>
+                <span className="text-sm" style={{ color: getColor('adressColor', '#fff') }}>
                   +1 (555) 123-4567
                 </span>
               </div>
               <div className="flex items-center gap-2 transition-colors cursor-pointer">
                 <MapPin className="h-4 w-4" style={{ color: 'white' }} />
-                <span className="text-sm" style={{ color: getColor('adressColor', '#fef3c7') }}>
+                <span className="text-sm" style={{ color: getColor('adressColor', '#fff') }}>
                   Cd. de México, MX
                 </span>
               </div>
@@ -229,7 +229,7 @@ export function Footer() {
             <h4
               className="mb-4 flex items-center gap-2 font-display"
               style={{
-                color: getColor('titleColor', '#fef3c7'),
+                color: getColor('titleColor', '#fff'),
               }}
             >
               <Sparkles
@@ -246,7 +246,7 @@ export function Footer() {
                   <a
                     href={link.href}
                     className="transition-colors hover:translate-x-1 inline-block"
-                    style={{ color: getColor('enlaceColor', '#fef3c7') }}
+                    style={{ color: getColor('enlaceColor', '#fff') }}
                   >
                     {link.label}
                   </a>
@@ -260,7 +260,7 @@ export function Footer() {
             <h4
               className="mb-4 font-display"
               style={{
-                color: getColor('titleColor', '#fef3c7'),
+                color: getColor('titleColor', '#fff'),
               }}
             >
               Soporte
@@ -271,7 +271,7 @@ export function Footer() {
                   <a
                     href={link.href}
                     className="transition-colors hover:translate-x-1 inline-block"
-                    style={{ color: getColor('enlaceColor', '#fef3c7') }}
+                    style={{ color: getColor('enlaceColor', '#fff') }}
                   >
                     {link.label}
                   </a>
@@ -285,7 +285,7 @@ export function Footer() {
             <h4
               className="mb-4 font-display"
               style={{
-                color: getColor('titleColor', '#fef3c7'),
+                color: getColor('titleColor', '#fff'),
               }}
             >
               Compañía
@@ -296,7 +296,7 @@ export function Footer() {
                   <a
                     href={link.href}
                     className="transition-colors hover:translate-x-1 inline-block"
-                    style={{ color: getColor('enlaceColor', '#fef3c7') }}
+                    style={{ color: getColor('enlaceColor', '#fff') }}
                   >
                     {link.label}
                   </a>
@@ -310,7 +310,7 @@ export function Footer() {
         <section
           className="rounded-2xl p-8 mb-12 backdrop-blur-xl"
           style={{
-            backgroundColor: getColor('fondoFormColor', 'black'),
+            backgroundColor: getColor('fondoFormColor', '#fff'),
           }}
         >
           <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -318,12 +318,12 @@ export function Footer() {
               <h3
                 className="text-2xl mb-2 font-display"
                 style={{
-                  color: getColor('titleFormColor', '#fef3c7'),
+                  color: getColor('titleFormColor', '#fff'),
                 }}
               >
                 Mantente actualizado
               </h3>
-              <p style={{ color: getColor('descripcionFormColor', '#fef3c7') }}>
+              <p style={{ color: getColor('descripcionFormColor', '#fff') }}>
                 Suscríbete a nuestro boletín para recibir los últimos productos y ofertas
                 exclusivas.
               </p>
@@ -335,34 +335,25 @@ export function Footer() {
         {/* Barra inferior */}
         <section className="pt-8 border-t-2 border-[#2c2c30]">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p
-              className="text-sm"
-              style={{ color: getColor('derechosAutorColor', 'rgba(253, 230, 138, 0.7)') }}
-            >
+            <p className="text-sm" style={{ color: getColor('derechosAutorColor', '#fff') }}>
               © 2025 EvoHance.
             </p>
             <nav aria-label="legal">
               <ul
                 className="flex gap-6 text-sm"
-                style={{ color: getColor('enlacePoliticasColor', 'rgba(253, 230, 138, 0.7)') }}
+                style={{ color: getColor('enlacePoliticasColor', '#fff') }}
               >
                 <li>
                   <a
                     href="#"
                     className="transition-colors"
                     onMouseEnter={(e) =>
-                      (e.target.style.color = getColor(
-                        'hoverEnlacePoliticasColor',
-                        'rgba(253, 230, 138, 0.7)'
-                      ))
+                      (e.target.style.color = getColor('hoverEnlacePoliticasColor', '#fff'))
                     }
                     onMouseLeave={(e) =>
-                      (e.target.style.color = getColor(
-                        'enlacePoliticasColor',
-                        'rgba(253, 230, 138, 0.7)'
-                      ))
+                      (e.target.style.color = getColor('enlacePoliticasColor', '#fff'))
                     }
-                    style={{ color: getColor('enlacePoliticasColor', 'rgba(253, 230, 138, 0.7)') }}
+                    style={{ color: getColor('enlacePoliticasColor', '#fff') }}
                   >
                     Política de Privacidad
                   </a>
@@ -372,18 +363,12 @@ export function Footer() {
                     href="#"
                     className="transition-colors"
                     onMouseEnter={(e) =>
-                      (e.target.style.color = getColor(
-                        'hoverEnlacePoliticasColor',
-                        'rgba(253, 230, 138, 0.7)'
-                      ))
+                      (e.target.style.color = getColor('hoverEnlacePoliticasColor', '#fff'))
                     }
                     onMouseLeave={(e) =>
-                      (e.target.style.color = getColor(
-                        'enlacePoliticasColor',
-                        'rgba(253, 230, 138, 0.7)'
-                      ))
+                      (e.target.style.color = getColor('enlacePoliticasColor', '#fff'))
                     }
-                    style={{ color: getColor('enlacePoliticasColor', 'rgba(253, 230, 138, 0.7)') }}
+                    style={{ color: getColor('enlacePoliticasColor', '#fff') }}
                   >
                     Términos de Servicio
                   </a>

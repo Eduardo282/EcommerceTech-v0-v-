@@ -27,7 +27,7 @@ export function Categories() {
       {/* Fondo Onyx */}
       <div
         style={{
-          backgroundColor: getColor('fondoCategoriasColor', 'black'),
+          backgroundColor: getColor('fondoCategoriasColor', '#fff'),
         }}
         className="absolute inset-0"
       />
@@ -64,13 +64,10 @@ export function Categories() {
         <div className="text-center mb-16">
           <EtiquetaCategoria />
           <h2 className="text-5xl mb-4 uppercase tracking-wide font-display">
-            <span style={{ color: getColor('titleCategoriasColor', '#FFD700') }}>Categorias</span>
+            <span style={{ color: getColor('titleCategoriasColor', '#fff') }}>Categorias</span>
           </h2>
-          <p
-            className="text-lg"
-            style={{ color: getColor('descripcionCategoriasColor', '#FFD700') }}
-          >
-           {categoriesConfig?.descripcionCategorias || 'Cargando...'}
+          <p className="text-lg" style={{ color: getColor('descripcionCategoriasColor', '#fff') }}>
+            {categoriesConfig?.descripcionCategorias || 'Cargando...'}
           </p>
         </div>
 

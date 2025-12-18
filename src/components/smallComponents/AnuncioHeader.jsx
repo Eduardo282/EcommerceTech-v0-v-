@@ -16,10 +16,7 @@ export function AnuncioHeader({ headerConfig, getColor }) {
     <section
       className="relative overflow-hidden"
       style={{
-        background: getColor(
-          'fondoAnuncioColor',
-          'linear-gradient(135deg, rgba(234, 179, 8, 0.12) 0%, rgba(245, 158, 11, 0.12) 100%)'
-        ),
+        background: getColor('fondoAnuncioColor', '#fff'),
       }}
       aria-label="site announcement"
     >
@@ -35,7 +32,7 @@ export function AnuncioHeader({ headerConfig, getColor }) {
             />
             <span
               style={{
-                color: getColor('titleAnuncioColor', '#FFD700'),
+                color: getColor('titleAnuncioColor', '#fff'),
               }}
             >
               {headerConfig?.titleAnuncio || 'Cargando...'}
@@ -45,13 +42,13 @@ export function AnuncioHeader({ headerConfig, getColor }) {
         <div className="flex items-center gap-4">
           <button
             className="transition-colors cursor-pointer"
-            style={{ color: getColor('enlacesAnuncioColor', 'rgba(253, 230, 138, 0.7)') }}
+            style={{ color: getColor('enlacesAnuncioColor', '#fff') }}
           >
             Ayuda & Soporte
           </button>
           <button
             className="transition-colors cursor-pointer"
-            style={{ color: getColor('enlacesAnuncioColor', 'rgba(253, 230, 138, 0.7)') }}
+            style={{ color: getColor('enlacesAnuncioColor', '#fff') }}
           >
             Rastrear Pedido
           </button>

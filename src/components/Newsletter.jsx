@@ -58,20 +58,20 @@ export function Newsletter() {
           <h2
             className="text-5xl mb-6 font-display"
             style={{
-              color: getColor('titleColor', '#fef3c7'),
+              color: getColor('titleColor', '#fff'),
             }}
           >
             Obtén ofertas exclusivas y actualizaciones
           </h2>
 
-          <p className="text-xl mb-8" style={{ color: getColor('descripcionColor', '#fef3c7') }}>
+          <p className="text-xl mb-8" style={{ color: getColor('descripcionColor', '#fff') }}>
             Suscríbete para recibir ofertas especiales, recursos gratuitos y ofertas únicas en la
             vida.
           </p>
 
           <FormNewsletter />
 
-          <p className="text-sm mt-4" style={{ color: getColor('subtituloColor', '#fef3c7') }}>
+          <p className="text-sm mt-4" style={{ color: getColor('subtituloColor', '#fff') }}>
             Sin spam, puedes darte de baja en cualquier momento. Respetamos tu privacidad.
           </p>
         </div>
