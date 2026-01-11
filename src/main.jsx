@@ -5,16 +5,19 @@ import './index.css';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './lib/apolloClient';
 import { RubroProvider } from './context/RubroContext';
+import { ThemeProvider } from './components/ThemeProvider';
 
 const rootEl = document.getElementById('root');
 if (rootEl) {
   createRoot(rootEl).render(
     <ApolloProvider client={client}>
-      <RubroProvider>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </RubroProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <RubroProvider>
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
+        </RubroProvider>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }

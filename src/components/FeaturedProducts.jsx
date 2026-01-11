@@ -14,23 +14,23 @@ export function FeaturedProducts({
 
   return (
     <section
-      className="py-20"
+      className="py-20 bg-background dark:bg-[var(--feat-bg,#fff)]"
       style={{
-        backgroundColor: getColor('fondoDestacadosColor', '#fff'),
+        '--feat-bg': getColor('fondoDestacadosColor', '#fff'),
       }}
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <h2
-            className="text-4xl mb-5 font-display"
-            style={{ color: getColor('titleDestacadosColor', '#fff') }}
+            className="text-4xl mb-5 font-display text-foreground dark:text-[var(--feat-title,#fff)]"
+            style={{ '--feat-title': getColor('titleDestacadosColor', '#fff') }}
           >
             {title}
           </h2>
           {subtitle && (
             <p
-              className="text-lg max-w-2xl mx-auto"
-              style={{ color: getColor('descripcionDestacadosColor', '#fff') }}
+              className="text-lg max-w-2xl mx-auto text-muted-foreground dark:text-[var(--feat-desc,#fff)]"
+              style={{ '--feat-desc': getColor('descripcionDestacadosColor', '#fff') }}
             >
               {subtitle}
             </p>

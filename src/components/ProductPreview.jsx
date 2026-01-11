@@ -1,25 +1,6 @@
-import {
-  X,
-  Star,
-  Download,
-  ShoppingCart,
-  Heart,
-  Package,
-  Shield,
-  Zap,
-  ChevronLeft,
-  ChevronRight,
-  Maximize2,
-  Minus,
-  Plus,
-  Zap as Lightning,
-} from 'lucide-react';
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { ImageWithFallback } from './fallImage/ImageWithFallback';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
 
 export function ProductPreview({
   product,
@@ -149,7 +130,21 @@ export function ProductPreview({
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          <X className="h-5 w-5 text-[#E4D9AF]" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5 text-[#E4D9AF]"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
         </button>
 
         <div
@@ -194,14 +189,14 @@ export function ProductPreview({
             <div className="relative flex items-center justify-center p-8">
               {/* Etiqueta de espectadores */}
               <div className="absolute top-6 left-6 z-10">
-                <Badge
-                  className="text-white px-3 py-1.5 text-xs uppercase tracking-wide shadow-lg outline-none"
+                <span
+                  className="inline-flex items-center rounded-full border border-transparent font-semibold shadow text-white px-3 py-1.5 text-xs uppercase tracking-wide outline-none"
                   style={{
                     background: 'linear-gradient(135deg, #111115 0%, #980707 100%)',
                   }}
                 >
                   {viewersCount} VECES VISTO LAS ULTIMAS 24 HRS
-                </Badge>
+                </span>
               </div>
 
               {/* Botones de pantalla completa y lista de deseos */}
@@ -219,7 +214,23 @@ export function ProductPreview({
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <Maximize2 className="h-5 w-5 text-[#E4D9AF]" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 text-[#E4D9AF]"
+                  >
+                    <path d="M15 3h6v6" />
+                    <path d="M9 21H3v-6" />
+                    <path d="M21 3l-7 7" />
+                    <path d="M3 21l7-7" />
+                  </svg>
                 </button>
                 <button
                   className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 cursor-pointer"
@@ -236,11 +247,22 @@ export function ProductPreview({
                   }}
                 >
                   <span className="text-sm text-[#E4D9AF]">{isInWishlist ? '19' : '18'}</span>
-                  <Heart
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className={`h-5 w-5 transition-all ${
                       isInWishlist ? 'fill-[#980707] text-transparent' : 'text-[#FF6467]'
                     }`}
-                  />
+                  >
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                  </svg>
                 </button>
               </div>
 
@@ -308,7 +330,20 @@ export function ProductPreview({
                   e.currentTarget.style.boxShadow = '0 0 15px #898989';
                 }}
               >
-                <ChevronLeft className="h-6 w-6 text-[#E4D9AF]" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-6 w-6 text-[#E4D9AF]"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
               </button>
               <button
                 onClick={nextImage}
@@ -324,7 +359,20 @@ export function ProductPreview({
                   e.currentTarget.style.boxShadow = '0 0 15px #898989';
                 }}
               >
-                <ChevronRight className="h-6 w-6 text-[#E4D9AF]" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-6 w-6 text-[#E4D9AF]"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
               </button>
             </div>
 
@@ -337,18 +385,34 @@ export function ProductPreview({
             >
               <h3 className="text-lg mb-4 text-[#F9B61D]">Informacion del Producto</h3>
 
-              <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
-                <AccordionItem
-                  value="item-1"
-                  className="border-b-2"
+              <div className="w-full">
+                <details
+                  className="group border-b-2"
                   style={{
                     borderBottomColor: '#2c2c30',
                   }}
+                  open
                 >
-                  <AccordionTrigger className="py-4 hover:no-underline text-[#E4D9AF]">
+                  <summary className="flex items-center justify-between py-4 font-medium cursor-pointer list-none text-[#E4D9AF]">
                     <span className="text-sm">Detalles del Producto</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-4">
+                    <span className="transition-transform group-open:rotate-180">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-4 w-4"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
                     {product.details && product.details.length > 0 ? (
                       <ul className="space-y-2 text-sm text-white">
                         {product.details.map((detail, index) => (
@@ -361,20 +425,35 @@ export function ProductPreview({
                     ) : (
                       <p className="text-sm text-[#898989] italic">No hay detalles disponibles.</p>
                     )}
-                  </AccordionContent>
-                </AccordionItem>
+                  </div>
+                </details>
 
-                <AccordionItem
-                  value="item-2"
-                  className="border-b-2"
+                <details
+                  className="group border-b-2"
                   style={{
                     borderBottomColor: '#2c2c30',
                   }}
                 >
-                  <AccordionTrigger className="py-4 hover:no-underline text-[#E4D9AF]">
+                  <summary className="flex items-center justify-between py-4 font-medium cursor-pointer list-none text-[#E4D9AF]">
                     <span className="text-sm">Especificaciones Técnicas</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-4">
+                    <span className="transition-transform group-open:rotate-180">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-4 w-4"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
                     {product.specs && product.specs.length > 0 ? (
                       <div className="space-y-3 text-sm">
                         {product.specs.map((spec, index) => (
@@ -393,14 +472,30 @@ export function ProductPreview({
                         </div>
                       </div>
                     )}
-                  </AccordionContent>
-                </AccordionItem>
+                  </div>
+                </details>
 
-                <AccordionItem value="item-3" className="border-b-0">
-                  <AccordionTrigger className="py-4 hover:no-underline text-[#E4D9AF]">
+                <details className="group border-b-0">
+                  <summary className="flex items-center justify-between py-4 font-medium cursor-pointer list-none text-[#E4D9AF]">
                     <span className="text-sm">Qué incluye</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-4">
+                    <span className="transition-transform group-open:rotate-180">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-4 w-4"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
                     {product.includes && product.includes.length > 0 ? (
                       <ul className="space-y-2 text-sm text-white">
                         {product.includes.map((item, index) => (
@@ -413,9 +508,9 @@ export function ProductPreview({
                     ) : (
                       <p className="text-sm text-[#898989] italic">No se especifica contenido.</p>
                     )}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                  </div>
+                </details>
+              </div>
             </div>
           </div>
 
@@ -427,14 +522,14 @@ export function ProductPreview({
             }}
           >
             <div className="flex-1">
-              <Badge
-                className="mb-3 text-white"
+              <span
+                className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent mb-3 text-white"
                 style={{
                   background: '#2c2c30',
                 }}
               >
                 {product.category}
-              </Badge>
+              </span>
 
               <h2 className="text-2xl mb-3 text-white">{product.name}</h2>
 
@@ -442,8 +537,17 @@ export function ProductPreview({
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <Star
+                    <svg
                       key={i}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill={i < Math.floor(product.rating) ? '#FACE2F' : 'none'}
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className={`h-5 w-5 ${
                         i < Math.floor(product.rating) ? 'text-[#FACE2F]' : 'text-transparent'
                       }`}
@@ -454,7 +558,9 @@ export function ProductPreview({
                             }
                           : {}
                       }
-                    />
+                    >
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
                   ))}
                 </div>
                 <span className="text-sm text-[#898989]">
@@ -464,7 +570,22 @@ export function ProductPreview({
 
               {/* Descargas */}
               <div className="flex items-center gap-2 mb-6 text-sm text-[#898989]">
-                <Download className="h-4 w-4" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" x2="12" y1="15" y2="3" />
+                </svg>
                 <span>{product.sales.toLocaleString()} descargas</span>
               </div>
 
@@ -481,7 +602,20 @@ export function ProductPreview({
                         background: '#111115',
                       }}
                     >
-                      <ChevronLeft className="h-6 w-6 text-[#E4D9AF]" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-6 w-6 text-[#E4D9AF]"
+                      >
+                        <path d="m15 18-6-6 6-6" />
+                      </svg>
                     </button>
 
                     {/* Contenedor de desplazamiento de productos */}
@@ -518,15 +652,15 @@ export function ProductPreview({
                               className="w-full h-full object-cover"
                             />
                             {similarProduct.badge && (
-                              <Badge
-                                className="absolute top-1 left-1 text-white text-[10px] px-1.5 py-0"
+                              <span
+                                className="absolute top-1 left-1 text-white text-[10px] px-1.5 py-0 inline-flex items-center rounded-full font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent"
                                 style={{
                                   background: '#410F3A',
                                   boxShadow: '0 0 15px #410F3A',
                                 }}
                               >
                                 {similarProduct.badge}
-                              </Badge>
+                              </span>
                             )}
                           </div>
                           <p className="text-[10px] text-white line-clamp-2 mb-0.5 text-left leading-tight">
@@ -547,7 +681,20 @@ export function ProductPreview({
                         background: '#111115',
                       }}
                     >
-                      <ChevronRight className="h-6 w-6 text-[#E4D9AF]" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-6 w-6 text-[#E4D9AF]"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -572,15 +719,15 @@ export function ProductPreview({
                   </div>
                   {discount > 0 && (
                     <div className="text-right">
-                      <Badge
-                        className="text-white text-lg px-4 py-2 animate-pulse  outline-none"
+                      <span
+                        className="text-white text-lg px-4 py-2 animate-pulse outline-none inline-flex items-center rounded-full font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent"
                         style={{
                           background: '#980707',
                           boxShadow: '0 0 15px #980707',
                         }}
                       >
                         -{discount}%
-                      </Badge>
+                      </span>
                     </div>
                   )}
                 </div>
@@ -598,7 +745,20 @@ export function ProductPreview({
                         background: '#2c2c30',
                       }}
                     >
-                      <Minus className="h-4 w-4 text-[#E4D9AF]" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-4 w-4 text-[#E4D9AF]"
+                      >
+                        <path d="M5 12h14" />
+                      </svg>
                     </button>
                     <input
                       type="number"
@@ -617,7 +777,21 @@ export function ProductPreview({
                         background: '#2c2c30',
                       }}
                     >
-                      <Plus className="h-4 w-4 text-[#E4D9AF]" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-4 w-4 text-[#E4D9AF]"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
                     </button>
                   </div>
                   <div className="flex-1 text-right">
@@ -636,8 +810,8 @@ export function ProductPreview({
 
               {/* Botones de Acción */}
               <div className="grid grid-cols-2 gap-3 mb-6">
-                <Button
-                  className="text-white hover:scale-[1.06] transition-all py-6 cursor-pointer outline-none"
+                <button
+                  className="inline-flex items-center justify-center rounded-xl text-sm font-medium text-white hover:scale-[1.06] transition-all py-6 cursor-pointer outline-none"
                   style={{
                     background: 'transparent',
                   }}
@@ -647,11 +821,26 @@ export function ProductPreview({
                     }
                   }}
                 >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 mr-2"
+                  >
+                    <circle cx="8" cy="21" r="1" />
+                    <circle cx="19" cy="21" r="1" />
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                  </svg>
                   Añadir al Carrito
-                </Button>
-                <Button
-                  className="text-[#F9B61D] py-6 cursor-pointer outline-none"
+                </button>
+                <button
+                  className="inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors text-[#F9B61D] py-6 cursor-pointer outline-none"
                   style={{
                     background: '#F9B61D10',
                   }}
@@ -663,23 +852,79 @@ export function ProductPreview({
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <Lightning className="h-5 w-5 mr-2 text-white" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 mr-2 text-white"
+                  >
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                  </svg>
                   Comprar Ahora
-                </Button>
+                </button>
               </div>
 
               {/* Características Clave */}
               <div className="grid grid-cols-3 gap-3 mb-6">
                 <div className="flex flex-col items-center p-3 rounded-lg">
-                  <Shield className="h-5 w-5 text-white mb-1" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 text-white mb-1"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                  </svg>
                   <span className="text-xs text-[#E4D9AF] text-center">Licenciado</span>
                 </div>
                 <div className="flex flex-col items-center p-3 rounded-lg">
-                  <Zap className="h-5 w-5 text-white mb-1" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 text-white mb-1"
+                  >
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                  </svg>
                   <span className="text-xs text-[#E4D9AF] text-center">Configuración Rápida</span>
                 </div>
                 <div className="flex flex-col items-center p-3 rounded-lg">
-                  <Package className="h-5 w-5 text-[#07BC61] mb-1" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 text-[#07BC61] mb-1"
+                  >
+                    <path d="m16.5 9.4-9-5.19" />
+                    <path d="m21 16-9 5.19-9-5.19" />
+                    <path d="M3 5.61 12 10.8l9-5.19" />
+                    <rect x="3" y="14" width="18" height="7" rx="2" />
+                    <rect x="3" y="3" width="18" height="7" rx="2" />
+                  </svg>
                   <span className="text-xs text-[#E4D9AF] text-center">Soporte</span>
                 </div>
               </div>

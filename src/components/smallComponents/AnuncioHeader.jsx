@@ -1,4 +1,3 @@
-import { Sparkles } from 'lucide-react';
 import PropTypes from 'prop-types';
 
 export function AnuncioHeader({ headerConfig, getColor }) {
@@ -24,12 +23,23 @@ export function AnuncioHeader({ headerConfig, getColor }) {
       <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm relative z-10">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-2">
-            <Sparkles
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="h-4 w-4 animate-pulse text-[#F9B61D]"
               style={{
                 filter: 'drop-shadow(0 0 5px #F9B61D)',
               }}
-            />
+            >
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+            </svg>
             <span
               style={{
                 color: getColor('titleAnuncioColor', '#fff'),

@@ -1,5 +1,3 @@
-import { Button } from '../../ui/button';
-
 export function FormNewsletter() {
   return (
     <form
@@ -21,7 +19,7 @@ export function FormNewsletter() {
           boxShadow: 'inset 0 0 transparent',
         }}
       />
-      <Button
+      <button
         type="submit"
         className="text-white px-8 py-8 rounded-xl cursor-pointer"
         style={{
@@ -36,7 +34,7 @@ export function FormNewsletter() {
         }}
       >
         Suscríbete Ahora
-      </Button>
+      </button>
     </form>
   );
 }

@@ -1,10 +1,7 @@
-import { ShoppingCart, User, Menu, Heart, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from './ui/button';
 import { RubroSelector } from './RubroSelector';
-import { Badge } from './ui/badge';
 import { useRubro } from '../context/useRubro';
 import { RUBROS } from '../context/rubroConstants';
 import { Logo } from './smallComponents/Logo';
@@ -14,6 +11,7 @@ import { GET_ME } from '../graphql/queries';
 import { LOGOUT_USER } from '../graphql/mutations';
 import { categories } from '../data/categories';
 import { AnuncioHeader } from './smallComponents/AnuncioHeader';
+import { ThemeToggle } from './ThemeToggle';
 
 const PATH_MAPPING = {
   'Plantillas dashboard': '/plantillas-dashboard',
@@ -119,11 +117,11 @@ export function Header({
 
           {/* Acciones */}
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             {/* Rubro primero, luego wishlist, login, carrito (orden por referencia) */}
             <RubroSelector titleColor={getColor('titleRubroColor', '#fff')} />
-            <Button
-              size="icon"
-              className="relative text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
+            <button
+              className="relative flex items-center justify-center w-10 h-10 text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
               onClick={onWishlistClick}
               style={{
                 background: 'transparent',
@@ -141,10 +139,23 @@ export function Header({
                 e.currentTarget.style.color = '#E4D9AF';
               }}
             >
-              <Heart className="h-4 w-4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              </svg>
               {wishlistItemsCount > 0 && (
-                <Badge
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse"
+                <span
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse text-xs font-bold rounded-full"
                   style={{
                     background: '#FF6467',
                     boxShadow: '0 0 15px #FF6467',
@@ -152,16 +163,15 @@ export function Header({
                   }}
                 >
                   {wishlistItemsCount}
-                </Badge>
+                </span>
               )}
-            </Button>
+            </button>
             <div className="relative" ref={accountRef}>
-              <Button
-                size="icon"
+              <button
                 aria-label={
                   isSeller ? `Perfil vendedor rubro ${rubro}` : isAuthed ? 'Cuenta' : 'Login'
                 }
-                className="relative text-white border-2 rounded-xl cursor-pointer"
+                className="relative h-10 flex items-center justify-center text-white border-2 rounded-xl cursor-pointer"
                 style={{
                   background: 'transparent',
                   borderColor: '#2c2c30',
@@ -182,7 +192,21 @@ export function Header({
                 }}
               >
                 <div className="flex items-center gap-1 px-1">
-                  <User className="h-4 w-4" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4"
+                  >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
                   <span className="text-[#E4D9AF] text-xs md:inline-block">
                     {isAuthed ? 'Cuenta' : 'Login'}
                   </span>
@@ -197,7 +221,7 @@ export function Header({
                     {rubroShort}
                   </span>
                 )}
-              </Button>
+              </button>
               {isAuthed && accountOpen && (
                 <div
                   role="menu"
@@ -242,9 +266,8 @@ export function Header({
                 </div>
               )}
             </div>
-            <Button
-              size="icon"
-              className="relative text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
+            <button
+              className="relative flex items-center justify-center w-10 h-10 text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
               onClick={onCartClick}
               style={{
                 background: 'transparent',
@@ -262,10 +285,25 @@ export function Header({
                 e.currentTarget.style.color = '#E4D9AF';
               }}
             >
-              <ShoppingCart className="h-4 w-4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>
               {cartItemsCount > 0 && (
-                <Badge
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse"
+                <span
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse text-xs font-bold rounded-full"
                   style={{
                     background: '#F38E00',
                     boxShadow: '0 0 15px #F38E00',
@@ -273,9 +311,9 @@ export function Header({
                   }}
                 >
                   {cartItemsCount}
-                </Badge>
+                </span>
               )}
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -289,8 +327,8 @@ export function Header({
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-6 py-3 list-none">
             <li ref={categoriesRef} className="relative">
-              <Button
-                className="cursor-pointer gap-2 backdrop-blur-sm h-9 px-4"
+              <button
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors cursor-pointer gap-2 backdrop-blur-sm h-9 px-4"
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 style={{
                   background: 'none',
@@ -308,9 +346,24 @@ export function Header({
                   e.currentTarget.style.background = 'none';
                 }}
               >
-                <Menu className="h-4 w-4" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                >
+                  <line x1="4" x2="20" y1="12" y2="12" />
+                  <line x1="4" x2="20" y1="6" y2="6" />
+                  <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
                 Categorias
-              </Button>
+              </button>
               {categoriesOpen && (
                 <div
                   className="absolute top-full left-0 mt-2 w-[800px] rounded-xl p-6 z-50 animate-in fade-in slide-in-from-top-2"
@@ -364,7 +417,21 @@ export function Header({
                         }, 100);
                       }}
                     >
-                      Ver todas las categorías <Sparkles className="h-3 w-3" />
+                      Ver todas las categorías
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-3 w-3"
+                      >
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                      </svg>
                     </Link>
                   </div>
                 </div>
@@ -403,7 +470,16 @@ export function Header({
                   e.currentTarget.style.scale = 1;
                 }}
               >
-                <Sparkles
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   className="h-4 w-4"
                   style={{
                     color: '#E4D9AF',
@@ -411,7 +487,9 @@ export function Header({
                     rotate: '0deg',
                     animation: 'rotate 3s ease infinite',
                   }}
-                />
+                >
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                </svg>
                 <span>{headerConfig?.titleNoticias || 'Cargando...'}</span>
               </button>
             </div>

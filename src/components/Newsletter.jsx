@@ -14,14 +14,14 @@ export function Newsletter() {
 
   return (
     <section
-      className="py-20 relative overflow-hidden"
+      className="py-20 relative overflow-hidden bg-background dark:bg-black"
       style={{
-        backgroundColor: 'black',
+        // backgroundColor: 'black', // Removed to support light mode
       }}
     >
       {/* Patrón de cuadrícula de fondo */}
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-20 dark:opacity-5"
         style={{
           backgroundImage: `
             linear-gradient(to right, #F9B61D30 1px, transparent 1px),
@@ -48,30 +48,30 @@ export function Newsletter() {
       />
 
       {/* Brillo animado */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-[#F9B61D20] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F9B61D20] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#F9B61D20] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob dark:opacity-20" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F9B61D20] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob animation-delay-2000 dark:opacity-20" />
 
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center">
           <EtiquetaNewsletter />
 
           <h2
-            className="text-5xl mb-6 font-display"
+            className="text-5xl mb-6 font-display text-foreground dark:text-[var(--news-title,#fff)]"
             style={{
-              color: getColor('titleColor', '#fff'),
+              '--news-title': getColor('titleColor', '#fff'),
             }}
           >
             Obtén ofertas exclusivas y actualizaciones
           </h2>
 
-          <p className="text-xl mb-8" style={{ color: getColor('descripcionColor', '#fff') }}>
+          <p className="text-xl mb-8 text-muted-foreground dark:text-[var(--news-desc,#fff)]" style={{ '--news-desc': getColor('descripcionColor', '#fff') }}>
             Suscríbete para recibir ofertas especiales, recursos gratuitos y ofertas únicas en la
             vida.
           </p>
 
           <FormNewsletter />
 
-          <p className="text-sm mt-4" style={{ color: getColor('subtituloColor', '#fff') }}>
+          <p className="text-sm mt-4 text-muted-foreground dark:text-[var(--news-sub,#fff)]" style={{ '--news-sub': getColor('subtituloColor', '#fff') }}>
             Sin spam, puedes darte de baja en cualquier momento. Respetamos tu privacidad.
           </p>
         </div>

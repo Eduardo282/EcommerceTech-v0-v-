@@ -4,7 +4,8 @@ import { Header } from './components/Header';
 import { Outlet } from 'react-router-dom';
 import { Footer } from './components/Footer';
 
-import { Toaster } from './components/ui/sonner';
+import { Toaster } from './components/Toaster';
+
 import { toast } from 'sonner';
 import { useQuery } from '@apollo/client';
 import { PRODUCTS_QUERY, GET_ME } from './graphql/queries';
@@ -259,8 +260,7 @@ export default function App() {
               setOnboardingOpen(true);
             } else {
               toast.success(`Bienvenido ${userName || ''}!`, {
-                description:
-                  mode === 'login' ? "Has iniciado sesión" : 'Tu cuenta ha sido creada',
+                description: mode === 'login' ? 'Has iniciado sesión' : 'Tu cuenta ha sido creada',
               });
             }
           }}

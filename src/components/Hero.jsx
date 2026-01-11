@@ -13,18 +13,18 @@ export function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden py-24 min-h-[620px]"
+      className="relative overflow-hidden py-24 min-h-[620px] bg-background dark:bg-[var(--hero-bg-fallback,transparent)]"
       style={{
-        backgroundColor: getColor('fondoHeroColor', '#fff'),
+        '--hero-bg-fallback': getColor('fondoHeroColor', '#fff'),
       }}
     >
-      {/* Orbes de fondo animados */}
+      {/* Orbes de fondo animados - Solo visibles en dark mode o como efecto sutil */}
       <div
         aria-hidden="true"
-        className="absolute top-0 left-1/4 w-96 h-96 bg-[#2c2c3050] rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob"
+        className="absolute top-0 left-1/4 w-96 h-96 bg-[#2c2c3050] dark:bg-[#2c2c3050]  rounded-full mix-blend-screen filter blur-3xl opacity-60 animate-blob"
       />
 
-      {/* Líneas horizontales de neón */}
+      {/* Líneas horizontales de neón - Conditional color */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -32,17 +32,18 @@ export function Hero() {
             0deg,
             transparent,
             transparent 26px,
-            #F9B61D40 26px,
-            #F9B61D40 27px
+            var(--hero-lines, #F9B61D40) 26px,
+            var(--hero-lines, #F9B61D40) 27px
           )`,
+          '--hero-lines': '#F9B61D40', // Keep original for dark.
         }}
         aria-hidden="true"
       />
 
-      {/* Grid vertical */}
+      {/* Grid vertical - Dark mode mainly */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 dark:opacity-5"
         style={{
           backgroundImage:
             "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9InJnYmEoMjM0LDE3OSw4LDAuMTUpIiBzdHJva2Utb3BhY2l0eT0iLjE1Ij48cGF0aCBkPSJNMCAxMEg2MCIvPjxwYXRoIGQ9Ik0xMCAwVjYwIi8+PC9nPjwvc3ZnPg==')",
@@ -56,17 +57,20 @@ export function Hero() {
           <header className="space-y-12">
             {/* Caja de líneas de neón */}
             <div className="relative">
-              <div className="absolute -left-8 top-0 bottom-0 w-1 bg-linear-to-b from-[#2c2c30] via-[#2c2c30] to-transparent" />
-              <div className="absolute -left-8 top-0 w-8 h-px bg-linear-to-r from-[#2c2c30] to-transparent" />
+              <div className="absolute -left-8 top-0 bottom-0 w-1 bg-linear-to-b from-border via-border to-transparent" />
+              <div className="absolute -left-8 top-0 w-8 h-px bg-linear-to-r from-border to-transparent" />
 
               <div className="space-y-10">
                 <h1 className="text-[48px] leading-[1.1] font-display">
-                  <span className="block" style={{ color: getColor('titleHeroColor', '#fff') }}>
+                  <span
+                    className="block text-foreground dark:text-[var(--hero-title,#fff)]"
+                    style={{ '--hero-title': getColor('titleHeroColor', '#fff') }}
+                  >
                     {heroConfig?.titleHero || 'Cargando...'}
                   </span>
                   <span
-                    className="block mt-4 text-[48px]"
-                    style={{ color: getColor('titleHeroColor2', '#fff') }}
+                    className="block mt-4 text-[48px] text-foreground dark:text-[var(--hero-title-2,#fff)]"
+                    style={{ '--hero-title-2': getColor('titleHeroColor2', '#fff') }}
                   >
                     {heroConfig?.titleHero2 || 'Cargando...'}
                   </span>
@@ -79,8 +83,8 @@ export function Hero() {
             {/* Descripción */}
             <section className="relative max-w-md">
               <p
-                className="leading-relaxed max-w-md text-sm"
-                style={{ color: getColor('descripcionHeroColor', '#fff') }}
+                className="leading-relaxed max-w-md text-sm text-muted-foreground dark:text-[var(--hero-desc,#fff)]"
+                style={{ '--hero-desc': getColor('descripcionHeroColor', '#fff') }}
               >
                 {heroConfig?.descripcionHero || 'Cargando...'}
               </p>

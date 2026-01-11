@@ -5,7 +5,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
+} from '@/components/Carousel';
+
 import { getCategoriesConfig } from '@/services/strapi';
 import { categories } from '@/data/categories';
 import { EtiquetaCategoria } from '@/components/smallComponents/etiquetas/EtiquetaCategoria';
@@ -27,14 +28,14 @@ export function Categories() {
       {/* Fondo Onyx */}
       <div
         style={{
-          backgroundColor: getColor('fondoCategoriasColor', '#fff'),
+          '--cat-bg': getColor('fondoCategoriasColor', '#fff'),
         }}
-        className="absolute inset-0"
+        className="absolute inset-0 bg-background dark:bg-[var(--cat-bg,#fff)]"
       />
 
       {/* Patrón de cuadrícula */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 dark:opacity-5"
         style={{
           backgroundImage: `
             linear-gradient(to right, #F9B61D20 1px, transparent 1px),
@@ -46,7 +47,7 @@ export function Categories() {
 
       {/* Horizontales adicionales */}
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-20 dark:opacity-5"
         style={{
           backgroundImage: `
             repeating-linear-gradient(
@@ -64,9 +65,17 @@ export function Categories() {
         <div className="text-center mb-16">
           <EtiquetaCategoria />
           <h2 className="text-5xl mb-4 uppercase tracking-wide font-display">
-            <span style={{ color: getColor('titleCategoriasColor', '#fff') }}>Categorias</span>
+            <span
+              className="text-foreground dark:text-[var(--cat-title,#fff)]"
+              style={{ '--cat-title': getColor('titleCategoriasColor', '#fff') }}
+            >
+              Categorias
+            </span>
           </h2>
-          <p className="text-lg" style={{ color: getColor('descripcionCategoriasColor', '#fff') }}>
+          <p
+            className="text-lg text-muted-foreground dark:text-[var(--cat-desc,#fff)]"
+            style={{ '--cat-desc': getColor('descripcionCategoriasColor', '#fff') }}
+          >
             {categoriesConfig?.descripcionCategorias || 'Cargando...'}
           </p>
         </div>

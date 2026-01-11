@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
-import { Heart, ShoppingCart, Star, Download } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
 import { ImageWithFallback } from './fallImage/ImageWithFallback';
 import { ProductPreview } from './ProductPreview';
 
@@ -34,29 +31,20 @@ export function ProductCard({
   return (
     <>
       <article
-        className="group relative overflow-hidden transition-all duration-400 cursor-pointer"
+        className="group relative overflow-hidden transition-all duration-400 cursor-pointer bg-card dark:bg-[#111115] shadow-lg dark:shadow-none"
         style={{
-          backgroundColor: '#111115',
           borderRadius: '28px',
-          boxShadow: 'none',
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
           transformStyle: 'preserve-3d',
           perspective: '1000px',
         }}
         onClick={handleCardClick}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = '0 10px 28px -6px #2c2c30, 0 4px 10px #2c2c30';
-          e.currentTarget.style.transform = 'translateY(-4px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = 'none';
-          e.currentTarget.style.transform = 'translateY(0px)';
-        }}
       >
         {/* Nota lateral inspirada en la referencia */}
         <div
           aria-hidden="true"
+          className="bg-muted dark:bg-[#2c2c30]"
           style={{
             position: 'absolute',
             left: 0,
@@ -64,7 +52,6 @@ export function ProductCard({
             width: '33px',
             height: '86px',
             transform: 'translateY(-50%)',
-            background: '#2c2c30',
             borderTopRightRadius: '26px',
             borderBottomRightRadius: '26px',
             boxShadow: 'inset 0 0 0 1px transparent, 0 4px 14px -4px transparent',
@@ -74,11 +61,10 @@ export function ProductCard({
         />
         {/* Contenedor de imagen */}
         <figure
-          className="relative aspect-4/3 overflow-hidden"
+          className="relative aspect-4/3 overflow-hidden shadow-md dark:shadow-[0_4px_14px_-4px_#2c2c30]"
           style={{
             borderRadius: '22px',
             margin: '16px 16px 0 68px',
-            boxShadow: '0 4px 14px -4px #2c2c30',
           }}
         >
           <ImageWithFallback
@@ -86,6 +72,7 @@ export function ProductCard({
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
+
           {/* Botones de hover - Aparecen desde abajo */}
           <div
             className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[86%] flex gap-3 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-400 z-10"
@@ -96,21 +83,32 @@ export function ProductCard({
             }}
           >
             <button
-              className="p-3 rounded-xl transition-all hover:scale-130"
+              className="p-3 rounded-xl transition-all hover:scale-130 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 onToggleWishlist(product.id);
               }}
             >
-              <Heart
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className={`h-7 w-7 transition-all ${
                   isInWishlist ? 'fill-[#980707] text-transparent' : 'text-[#FF6467]'
                 }`}
-              />
+              >
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              </svg>
             </button>
 
-            <Button
-              className="outline-none flex-1 text-white hover:scale-[1.06] transition-all h-12 rounded-xl cursor-pointer"
+            <button
+              className="outline-none flex items-center justify-center flex-1 text-white hover:scale-[1.06] transition-all h-12 rounded-xl cursor-pointer"
               style={{
                 background: 'transparent',
               }}
@@ -119,34 +117,49 @@ export function ProductCard({
                 onAddToCart(product);
               }}
             >
-              <ShoppingCart className="h-4 w-4 mr-2" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4 mr-2"
+              >
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>
               Añadir al carrito
-            </Button>
+            </button>
           </div>
 
           {/* Etiquetas - Superior izquierda */}
           <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
             {product.badge && (
-              <Badge
-                className="text-white px-3 py-1 text-xs uppercase tracking-wide outline-none"
+              <span
+                className="inline-flex items-center rounded-full border border-transparent text-white px-3 py-1 text-xs uppercase tracking-wide outline-none font-semibold shadow"
                 style={{
                   background: '#410F3A',
                   boxShadow: '0 0 15px #410F3A',
                 }}
               >
                 {product.badge}
-              </Badge>
+              </span>
             )}
             {discount > 0 && (
-              <Badge
-                className="text-white px-3 py-1 animate-pulse outline-none"
+              <span
+                className="inline-flex items-center rounded-full border border-transparent text-white px-3 py-1 font-semibold shadow animate-pulse outline-none"
                 style={{
                   background: '#980707',
                   boxShadow: '0 0 15px #980707',
                 }}
               >
                 -{discount}%
-              </Badge>
+              </span>
             )}
           </div>
         </figure>
@@ -154,14 +167,14 @@ export function ProductCard({
         {/* Contenido */}
         <section style={{ padding: '20px 24px 24px 84px' }}>
           <div className="mb-2">
-            <Badge
-              className="text-xs mb-2 text-white"
+            <span
+              className="inline-flex items-center rounded-full border border-transparent font-semibold shadow text-xs mb-2 text-white px-2.5 py-0.5"
               style={{
                 background: '#2c2c30',
               }}
             >
               {product.category}
-            </Badge>
+            </span>
           </div>
 
           <h3 className="text-lg mb-2 line-clamp-2 text-white transition-colors">{product.name}</h3>
@@ -170,8 +183,17 @@ export function ProductCard({
           <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
-                <Star
+                <svg
                   key={i}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   className={`h-4 w-4 ${
                     i < Math.floor(product.rating) ? 'text-[#FACE2F]' : 'text-transparent'
                   }`}
@@ -182,7 +204,9 @@ export function ProductCard({
                         }
                       : {}
                   }
-                />
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
               ))}
             </div>
             <span className="text-sm text-[#898989]">
@@ -213,7 +237,22 @@ export function ProductCard({
           {/* Estadísticas */}
           <div className="flex items-center gap-3 mb-4 text-sm text-[#898989]">
             <div className="flex items-center gap-1">
-              <Download className="h-4 w-4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" x2="12" y1="15" y2="3" />
+              </svg>
               <span>
                 {typeof product.sales === 'number'
                   ? `${product.sales.toLocaleString()} descargas`

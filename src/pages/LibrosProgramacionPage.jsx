@@ -1,17 +1,175 @@
 import { useState } from 'react';
-import {
-  Book,
-  Search,
-  ShoppingCart,
-  Star,
-  Heart,
-  Zap,
-  Award,
-  BookOpen,
-  Coffee,
-  Terminal,
-} from 'lucide-react';
-import { Button } from '../components/ui/button';
+const Book = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+  </svg>
+);
+const Search = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
+const ShoppingCart = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="8" cy="21" r="1" />
+    <circle cx="19" cy="21" r="1" />
+    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+  </svg>
+);
+const Star = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+const Heart = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+  </svg>
+);
+const Zap = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+);
+const Award = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="12" cy="8" r="7" />
+    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+  </svg>
+);
+const BookOpen = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+  </svg>
+);
+const Coffee = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+    <line x1="6" x2="6" y1="2" y2="4" />
+    <line x1="10" x2="10" y1="2" y2="4" />
+    <line x1="14" x2="14" y1="2" y2="4" />
+  </svg>
+);
+const Terminal = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <polyline points="4 17 10 11 4 5" />
+    <line x1="12" x2="20" y1="19" y2="19" />
+  </svg>
+);
 
 // datos de los libros
 const BOOKS_DATA = [
@@ -159,19 +317,17 @@ export function LibrosProgramacionPage() {
             </h1>
 
             <p className="text-xl text-gray-400 max-w-lg leading-relaxed border-l-4 border-amber-500 pl-6">
-              La colección definitiva de libros para desarrolladores que buscan la excelencia. Desde algoritmos hasta arquitectura de software.
+              La colección definitiva de libros para desarrolladores que buscan la excelencia. Desde
+              algoritmos hasta arquitectura de software.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button className="h-14 px-8 rounded-full bg-amber-500 text-black hover:bg-amber-400 font-bold text-lg transition-transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+              <button className="h-14 px-8 rounded-full bg-amber-500 text-black hover:bg-amber-400 font-bold text-lg transition-transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
                 Explorar Colección
-              </Button>
-              <Button
-                variant="outline"
-                className="h-14 px-8 rounded-full border-white/20 hover:bg-white/10 text-white font-medium text-lg backdrop-blur-sm"
-              >
+              </button>
+              <button className="h-14 px-8 rounded-full border-white/20 hover:bg-white/10 text-white font-medium text-lg backdrop-blur-sm">
                 Novedades del Mes
-              </Button>
+              </button>
             </div>
           </div>
 
@@ -253,17 +409,14 @@ export function LibrosProgramacionPage() {
 
                 {/* Acciones Overlay */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-3 p-4">
-                  <Button className="w-full bg-amber-500 text-black hover:bg-amber-400 hover:text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                  <button className="w-full bg-amber-500 text-black hover:bg-amber-400 hover:text-black font-bold transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
                     <ShoppingCart className="mr-2 h-4 w-4" />
                     Agregar
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full border-white/20 text-white hover:bg-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100"
-                  >
+                  </button>
+                  <button className="w-full border-white/20 text-white hover:bg-white/20 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100">
                     <BookOpen className="mr-2 h-4 w-4" />
                     Vista Previa
-                  </Button>
+                  </button>
                 </div>
 
                 {/* Etiqueta */}
@@ -343,7 +496,8 @@ export function LibrosProgramacionPage() {
               </h2>
 
               <p className="text-amber-100/80 text-lg mb-8 max-w-md">
-                Recibe resúmenes semanales, descuentos exclusivos en nuevos lanzamientos y acceso a webinars con autores.
+                Recibe resúmenes semanales, descuentos exclusivos en nuevos lanzamientos y acceso a
+                webinars con autores.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -352,9 +506,9 @@ export function LibrosProgramacionPage() {
                   placeholder="tu@email.com"
                   className="px-6 py-4 rounded-xl bg-black/30 border border-white/10 text-white placeholder-amber-200/50 focus:outline-none focus:ring-2 focus:ring-amber-400 grow"
                 />
-                <Button className="px-8 py-4 h-auto rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-lg shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                <button className="px-8 py-4 h-auto rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-lg shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                   Suscribirse
-                </Button>
+                </button>
               </div>
               <p className="text-xs text-amber-300/60 mt-4">
                 * Sin spam. Solo contenido de alta calidad.

@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { HeaderCarrito } from './smallComponents/HeaderCarrito';
 import { HomeCarrito } from './smallComponents/HomeCarrito';
@@ -119,7 +118,21 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
                 className="flex items-center justify-center w-full text-white py-6 text-lg rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition-colors"
               >
                 Proceder al pago
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="ml-2 h-5 w-5"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
               </button>
 
               <p className="text-xs text-center text-[#898989] mt-4">🔒 Pago seguro</p>

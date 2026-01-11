@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useRubro } from '../context/useRubro';
 import { RUBROS } from '../context/rubroConstants';
-import { Cpu, Gamepad2 } from 'lucide-react';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../graphql/queries';
 import PropTypes from 'prop-types';
@@ -40,9 +39,50 @@ export function RubroSelector({ titleColor }) {
         }
       >
         {rubro === RUBROS.GAMING ? (
-          <Gamepad2 className="h-4 w-4" style={{ color: '#ff0000' }} />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4"
+            style={{ color: '#ff0000' }}
+          >
+            <line x1="6" x2="10" y1="12" y2="12" />
+            <line x1="8" x2="8" y1="10" y2="14" />
+            <line x1="15" x2="15.01" y1="13" y2="13" />
+            <line x1="18" x2="18.01" y1="11" y2="11" />
+            <rect width="20" height="12" x="2" y="6" rx="2" />
+          </svg>
         ) : (
-          <Cpu className="h-4 w-4" style={{ color: '#00ff0090' }} />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4"
+            style={{ color: '#00ff0090' }}
+          >
+            <rect width="16" height="16" x="4" y="4" rx="2" />
+            <rect width="6" height="6" x="9" y="9" rx="1" />
+            <path d="M15 2v2" />
+            <path d="M15 20v2" />
+            <path d="M2 15h2" />
+            <path d="M2 9h2" />
+            <path d="M20 15h2" />
+            <path d="M20 9h2" />
+            <path d="M9 2v2" />
+            <path d="M9 20v2" />
+          </svg>
         )}
         <span className="sm:block" style={{ color: titleColor || 'white' }}>
           {rubro === RUBROS.GAMING ? 'Gaming' : 'Technology'}
