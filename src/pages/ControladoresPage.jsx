@@ -1,275 +1,57 @@
-import { useState } from 'react';
-const Cpu = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect x="4" y="4" width="16" height="16" rx="2" />
-    <rect x="9" y="9" width="6" height="6" />
-    <path d="M15 2v2" />
-    <path d="M15 20v2" />
-    <path d="M2 15h2" />
-    <path d="M2 9h2" />
-    <path d="M20 15h2" />
-    <path d="M20 9h2" />
-    <path d="M9 2v2" />
-    <path d="M9 20v2" />
-  </svg>
-);
-const Download = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7 10 12 15 17 10" />
-    <line x1="12" x2="12" y1="15" y2="3" />
-  </svg>
-);
-const HardDrive = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <line x1="22" x2="2" y1="12" y2="12" />
-    <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
-    <line x1="6" x2="6.01" y1="16" y2="16" />
-    <line x1="10" x2="10.01" y1="16" y2="16" />
-  </svg>
-);
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
-const AlertCircle = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <line x1="12" x2="12" y1="8" y2="12" />
-    <line x1="12" x2="12.01" y1="16" y2="16" />
-  </svg>
-);
-const CheckCircle2 = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-    <path d="m9 12 2 2 4-4" />
-  </svg>
-);
-const Terminal = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polyline points="4 17 10 11 4 5" />
-    <line x1="12" x2="20" y1="19" y2="19" />
-  </svg>
-);
-const Server = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-    <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-    <line x1="6" x2="6.01" y1="6" y2="6" />
-    <line x1="6" x2="6.01" y1="18" y2="18" />
-  </svg>
-);
-const Monitor = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="20" height="14" x="2" y="3" rx="2" />
-    <line x1="8" x2="16" y1="21" y2="21" />
-    <line x1="12" x2="12" y1="17" y2="21" />
-  </svg>
-);
-const Wifi = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M5 12.55a11 11 0 0 1 14.08 0" />
-    <path d="M1.42 9a16 16 0 0 1 21.16 0" />
-    <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
-    <line x1="12" x2="12.01" y1="20" y2="20" />
-  </svg>
-);
-const Filter = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-  </svg>
-);
-
-const DRIVERS_DATA = [
-  {
-    id: 'gpu-rtx',
-    name: 'NVIDIA RTX Series Driver',
-    version: '546.33',
-    type: 'Graphics',
-    os: 'Windows 11',
-    size: '680 MB',
-    status: 'Stable',
-    date: '2023-12-15',
-    icon: <Monitor className="h-5 w-5 text-green-400" />,
-  },
-  {
-    id: 'chipset-amd',
-    name: 'AMD Ryzen Chipset Drivers',
-    version: '5.11.02.217',
-    type: 'Chipset',
-    os: 'Windows 10/11',
-    size: '54 MB',
-    status: 'Beta',
-    date: '2023-11-20',
-    icon: <Cpu className="h-5 w-5 text-red-400" />,
-  },
-  {
-    id: 'audio-realtek',
-    name: 'Realtek High Definition Audio',
-    version: '6.0.9605.1',
-    type: 'Audio',
-    os: 'Windows 11',
-    size: '245 MB',
-    status: 'Stable',
-    date: '2023-10-05',
-    icon: <Server className="h-5 w-5 text-blue-400" />,
-  },
-  {
-    id: 'lan-intel',
-    name: 'Intel Ethernet Adapter Complete Pack',
-    version: '28.2',
-    type: 'Network',
-    os: 'Multi-OS',
-    size: '820 MB',
-    status: 'LTS',
-    date: '2023-09-12',
-    icon: <Wifi className="h-5 w-5 text-cyan-400" />,
-  },
-  {
-    id: 'bios-sys',
-    name: 'System BIOS Update F14',
-    version: 'F14a',
-    type: 'Firmware',
-    os: 'BIOS',
-    size: '12 MB',
-    status: 'Critical',
-    date: '2024-01-05',
-    icon: <HardDrive className="h-5 w-5 text-amber-400" />,
-  },
-];
+import { useMemo, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { toast } from 'sonner';
+import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
+import { useFilteredCatalog } from './catalog/useFilteredCatalog';
+import {
+  Download,
+  Search,
+  AlertCircle,
+  CheckCircle2,
+  Terminal,
+  Filter,
+  DRIVERS_DATA,
+  mapDriverToProduct
+} from './ControladoresPage.data';
 
 export function ControladoresPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedOS, setSelectedOS] = useState('All');
+  const { onAddToCart, onToggleWishlist, wishlistItems = [] } = useOutletContext();
+  const {
+    activeCategory: selectedOS,
+    filteredItems: filteredDrivers,
+    searchQuery: searchTerm,
+    setActiveCategory: setSelectedOS,
+    setSearchQuery: setSearchTerm,
+  } = useFilteredCatalog({
+    items: DRIVERS_DATA,
+    initialFilter: 'All',
+    allFilter: 'All',
+    filterBy: (driver, os) =>
+      driver.os === os ||
+      (os === 'Windows 10' && driver.os.includes('Windows 10')) ||
+      (os === 'Windows 11' && driver.os.includes('Windows 11')),
+    searchBy: (driver) => [driver.id, driver.name, driver.type],
+  });
+  const [selectedDriver, setSelectedDriver] = useState(null);
+
+  const allDriverProducts = useMemo(() => DRIVERS_DATA.map(mapDriverToProduct), []);
+  const selectedProduct = selectedDriver ? mapDriverToProduct(selectedDriver) : null;
+
+  function handleSearchAction() {
+    if (!filteredDrivers.length) {
+      toast.error('No se encontraron controladores para esa búsqueda');
+      return;
+    }
+
+    setSelectedDriver(filteredDrivers[0]);
+    toast.success(`Abriendo ${filteredDrivers[0].name}`);
+  }
 
   return (
     <div className="min-h-screen bg-[#0D0D10] text-[#E0E0E0] font-mono">
       {/* Banner superior - Estilo advertencia/Información */}
       <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 py-2 text-xs text-amber-500 flex items-center justify-center gap-2">
-        <AlertCircle size={14} />
+        <AlertCircle className="h-3.5 w-3.5" />
         <span>ASEGURATE DE LA COMPATIBILIDAD DEL SISTEMA ANTES DE FLASHAR EL FIRMWARE.</span>
       </div>
 
@@ -312,6 +94,9 @@ export function ControladoresPage() {
               className="w-full bg-black/50 border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-emerald-500/50 focus:text-white transition-colors placeholder:text-gray-700"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSearchAction();
+              }}
             />
           </div>
 
@@ -333,6 +118,12 @@ export function ControladoresPage() {
                 {os}
               </button>
             ))}
+            <button
+              onClick={handleSearchAction}
+              className="px-3 py-1.5 rounded text-xs font-medium border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/15 whitespace-nowrap"
+            >
+              Buscar
+            </button>
           </div>
         </div>
 
@@ -352,8 +143,12 @@ export function ControladoresPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {DRIVERS_DATA.map((driver) => (
-                  <tr key={driver.id} className="hover:bg-white/5 transition-colors group">
+                {filteredDrivers.map((driver) => (
+                  <tr
+                    key={driver.id}
+                    className="hover:bg-white/5 transition-colors group cursor-pointer"
+                    onClick={() => setSelectedDriver(driver)}
+                  >
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="p-2 bg-black/40 rounded border border-white/5 group-hover:border-white/20 transition-colors">
@@ -383,17 +178,22 @@ export function ControladoresPage() {
                         }
                       `}
                       >
-                        {driver.status === 'Stable' && <CheckCircle2 size={10} className="mr-1" />}
+                        {driver.status === 'Stable' && (
+                          <CheckCircle2 className="mr-1 h-2.5 w-2.5" />
+                        )}
                         {driver.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-gray-500">{driver.date}</td>
                     <td className="px-6 py-4 text-right">
                       <button
-                        size="sm"
                         className="bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/30 h-8"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToCart(mapDriverToProduct(driver));
+                        }}
                       >
-                        <Download size={14} className="mr-2" />
+                        <Download className="mr-2 inline h-3.5 w-3.5" />
                         Descargar
                       </button>
                     </td>
@@ -403,12 +203,46 @@ export function ControladoresPage() {
             </table>
           </div>
 
+          {filteredDrivers.length === 0 && (
+            <div className="px-6 py-14 text-center">
+              <div className="mb-4 inline-flex rounded-full border border-white/10 bg-black/30 p-4">
+                <Search className="h-6 w-6 text-gray-500" />
+              </div>
+              <h3 className="mb-2 text-lg font-bold text-white">No se encontraron controladores</h3>
+              <p className="text-sm text-gray-500">
+                Ajusta el término de búsqueda o cambia el filtro de sistema operativo.
+              </p>
+              <button
+                className="mt-5 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs text-white hover:bg-white/10"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedOS('All');
+                }}
+              >
+                Limpiar filtros
+              </button>
+            </div>
+          )}
+
           {/* Pie de paginación */}
           <div className="bg-[#0A0A0D] p-4 text-center border-t border-white/5 text-xs text-gray-600">
-            Mostrando 5 de 128 controladores disponibles
+            Mostrando {filteredDrivers.length} de {DRIVERS_DATA.length} controladores disponibles
           </div>
         </div>
       </div>
+
+      <ProductPreviewDialog
+        product={selectedProduct}
+        onClose={() => setSelectedDriver(null)}
+        onAddToCart={onAddToCart}
+        onToggleWishlist={onToggleWishlist}
+        wishlistItems={wishlistItems}
+        allProducts={allDriverProducts}
+        onProductClick={(product) => {
+          const matchedDriver = DRIVERS_DATA.find((driver) => `driver-${driver.id}` === product.id);
+          if (matchedDriver) setSelectedDriver(matchedDriver);
+        }}
+      />
     </div>
   );
 }

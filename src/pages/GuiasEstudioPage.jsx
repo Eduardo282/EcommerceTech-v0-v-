@@ -1,339 +1,60 @@
-import { useState } from 'react';
-const BookOpen = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-  </svg>
-);
-const Code = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polyline points="16 18 22 12 16 6" />
-    <polyline points="8 6 2 12 8 18" />
-  </svg>
-);
-const Server = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-    <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-    <line x1="6" x2="6.01" y1="6" y2="6" />
-    <line x1="6" x2="6.01" y1="18" y2="18" />
-  </svg>
-);
-const Smartphone = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-    <path d="M12 18h.01" />
-  </svg>
-);
-const PenTool = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="m12 19 7-7 3 3-7 7-3-3z" />
-    <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-    <path d="m2 2 7.586 7.586" />
-    <circle cx="11" cy="11" r="2" />
-  </svg>
-);
-const Clock = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
-const BarChart = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <line x1="12" x2="12" y1="20" y2="10" />
-    <line x1="18" x2="18" y1="20" y2="4" />
-    <line x1="6" x2="6" y1="20" y2="16" />
-  </svg>
-);
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
-const ArrowRight = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-);
-const GraduationCap = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-    <path d="M6 12v5c3 3 9 3 12 0v-5" />
-  </svg>
-);
-const PlayCircle = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <polygon points="10 8 16 12 10 16 10 8" />
-  </svg>
-);
-const Star = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-  </svg>
-);
-
-// datos de las guias de estudio
-const GUIDES_DATA = [
-  {
-    id: 1,
-    title: 'Master en React Avanzado',
-    description:
-      'Domina patrones de diseño, hooks personalizados y optimización de rendimiento en React.',
-    category: 'frontend',
-    level: 'Avanzado',
-    duration: '12h 30m',
-    modules: 15,
-    rating: 4.9,
-    students: 1240,
-    image:
-      'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000&auto=format&fit=crop',
-    tags: ['React', 'Hooks', 'Performance'],
-  },
-  {
-    id: 2,
-    title: 'Arquitectura Backend con Node.js',
-    description:
-      'Construye APIs escalables, seguras y robustas utilizando Node.js, Express y MongoDB.',
-    category: 'backend',
-    level: 'Intermedio',
-    duration: '18h 15m',
-    modules: 22,
-    rating: 4.8,
-    students: 850,
-    image:
-      'https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1000&auto=format&fit=crop',
-    tags: ['Node.js', 'Express', 'MongoDB'],
-  },
-  {
-    id: 3,
-    title: 'UI/UX Design Systems',
-    description:
-      'Aprende a crear sistemas de diseño coherentes y escalables para productos digitales modernos.',
-    category: 'design',
-    level: 'Intermedio',
-    duration: '10h 45m',
-    modules: 12,
-    rating: 4.9,
-    students: 2100,
-    image:
-      'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop',
-    tags: ['Figma', 'Design Systems', 'UI/UX'],
-  },
-  {
-    id: 4,
-    title: 'DevOps: Docker & Kubernetes',
-    description: 'Guía completa para contenerización y orquestación de aplicaciones en la nube.',
-    category: 'devops',
-    level: 'Avanzado',
-    duration: '20h 00m',
-    modules: 25,
-    rating: 4.7,
-    students: 600,
-    image:
-      'https://images.unsplash.com/photo-1667372393119-c81c0cda0563?q=80&w=1000&auto=format&fit=crop',
-    tags: ['Docker', 'K8s', 'CI/CD'],
-  },
-  {
-    id: 5,
-    title: 'Desarrollo Móvil con Flutter',
-    description: 'Crea aplicaciones nativas para iOS y Android con una sola base de código.',
-    category: 'mobile',
-    level: 'Principiante',
-    duration: '15h 20m',
-    modules: 18,
-    rating: 4.8,
-    students: 1500,
-    image:
-      'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1000&auto=format&fit=crop',
-    tags: ['Flutter', 'Dart', 'Mobile'],
-  },
-  {
-    id: 6,
-    title: 'Fundamentos de JavaScript',
-    description: 'La guía definitiva para entender los conceptos clave del lenguaje de la web.',
-    category: 'frontend',
-    level: 'Principiante',
-    duration: '8h 50m',
-    modules: 10,
-    rating: 4.9,
-    students: 3500,
-    image:
-      'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?q=80&w=1000&auto=format&fit=crop',
-    tags: ['JavaScript', 'ES6+', 'Web'],
-  },
-];
-
-const CATEGORIES = [
-  { id: 'todos', label: 'Todas', icon: <BookOpen className="h-4 w-4" /> },
-  { id: 'frontend', label: 'Frontend', icon: <Code className="h-4 w-4" /> },
-  { id: 'backend', label: 'Backend', icon: <Server className="h-4 w-4" /> },
-  { id: 'mobile', label: 'Mobile', icon: <Smartphone className="h-4 w-4" /> },
-  { id: 'design', label: 'Diseño', icon: <PenTool className="h-4 w-4" /> },
-  { id: 'devops', label: 'DevOps', icon: <BarChart className="h-4 w-4" /> },
-];
+import { useMemo, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { toast } from 'sonner';
+import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
+import { useFilteredCatalog } from './catalog/useFilteredCatalog';
+import { CatalogGridBackground } from './catalog/CatalogGridBackground';
+import {
+  BookOpen,
+  Clock,
+  Search,
+  ArrowRight,
+  GraduationCap,
+  PlayCircle,
+  Star,
+  GUIDES_DATA,
+  CATEGORIES,
+  mapGuideToProduct
+} from './GuiasEstudioPage.data';
 
 export function GuiasEstudioPage() {
-  const [activeCategory, setActiveCategory] = useState('todos');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredGuides = GUIDES_DATA.filter((guide) => {
-    const matchesCategory = activeCategory === 'todos' || guide.category === activeCategory;
-    const matchesSearch =
-      guide.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      guide.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+  const { onAddToCart, onToggleWishlist, wishlistItems = [] } = useOutletContext();
+  const {
+    activeCategory,
+    filteredItems: filteredGuides,
+    searchQuery,
+    setActiveCategory,
+    setSearchQuery,
+  } = useFilteredCatalog({
+    items: GUIDES_DATA,
+    initialFilter: 'todos',
+    allFilter: 'todos',
+    filterBy: (guide, category) => guide.category === category,
+    searchBy: (guide) => [guide.title, guide.description, ...guide.tags],
   });
+  const [selectedGuide, setSelectedGuide] = useState(null);
+
+  const allGuideProducts = useMemo(() => GUIDES_DATA.map(mapGuideToProduct), []);
+  const selectedProduct = selectedGuide ? mapGuideToProduct(selectedGuide) : null;
+
+  function openGuide(guide) {
+    setSelectedGuide(guide);
+  }
+
+  function handleSearchAction() {
+    if (!filteredGuides.length) {
+      toast.error('No se encontraron guías para esa búsqueda');
+      return;
+    }
+
+    openGuide(filteredGuides[0]);
+    toast.success(`Abriendo ${filteredGuides[0].title}`);
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
       {/* Efectos de fondo */}
-      <div className="absolute inset-0 bg-[#0a0a0a]" />
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(234, 179, 8, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(234, 179, 8, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      <CatalogGridBackground />
 
       {/* Sección Hero */}
       <section className="relative pt-32 pb-16 px-4">
@@ -366,8 +87,14 @@ export function GuiasEstudioPage() {
                 className="w-full bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 px-4 py-3 text-lg"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSearchAction();
+                }}
               />
-              <button className="rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold px-8">
+              <button
+                className="rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold px-8"
+                onClick={handleSearchAction}
+              >
                 Buscar
               </button>
             </div>
@@ -405,6 +132,7 @@ export function GuiasEstudioPage() {
             <div
               key={guide.id}
               className="group relative bg-[#111115] rounded-3xl border border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2 flex flex-col"
+              onClick={() => openGuide(guide)}
             >
               {/* Efecto de brillo en la tarjeta */}
               <div className="absolute inset-0 bg-linear-to-b from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -469,8 +197,14 @@ export function GuiasEstudioPage() {
                     </div>
                   </div>
 
-                  <button className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold group/btn">
-                    <PlayCircle className="mr-2 h-4 w-4" />
+                  <button
+                    className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold group/btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onAddToCart(mapGuideToProduct(guide));
+                    }}
+                  >
+                    <PlayCircle className="mr-2 h-4 w-4 inline" />
                     Empezar Guía
                     <ArrowRight className="ml-auto h-4 w-4 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all" />
                   </button>
@@ -487,9 +221,31 @@ export function GuiasEstudioPage() {
             </div>
             <h3 className="text-xl font-bold text-white mb-2">No se encontraron guías</h3>
             <p className="text-gray-400">Intenta con otros términos de búsqueda.</p>
+            <button
+              className="mt-6 rounded-xl bg-white/5 px-5 py-3 text-sm text-white transition hover:bg-white/10"
+              onClick={() => {
+                setActiveCategory('todos');
+                setSearchQuery('');
+              }}
+            >
+              Limpiar filtros
+            </button>
           </div>
         )}
       </section>
+
+      <ProductPreviewDialog
+        product={selectedProduct}
+        onClose={() => setSelectedGuide(null)}
+        onAddToCart={onAddToCart}
+        onToggleWishlist={onToggleWishlist}
+        wishlistItems={wishlistItems}
+        allProducts={allGuideProducts}
+        onProductClick={(product) => {
+          const matchedGuide = GUIDES_DATA.find((guide) => `guide-${guide.id}` === product.id);
+          if (matchedGuide) setSelectedGuide(matchedGuide);
+        }}
+      />
     </div>
   );
 }

@@ -7,39 +7,34 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "seed": "node src/seed/seed.js",
-    "seed:extended": "node src/scripts/seedExtended.js",
     "seed:createProduct": "node src/scripts/seedCreateProduct.js",
     "make-admin": "node src/scripts/makeAdmin.js",
     "seed:gaming": "node src/seed/seedGaming.js",
+    "smoke:commerce": "node src/scripts/smokeCommerce.js",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@apollo/server": "^5.1.0",
+    "@apollo/server": "^5.5.1",
     "@as-integrations/express4": "^1.1.2",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "graphql": "^16.12.0",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^7.0.0",
     "mongoose": "^8.19.3",
     "slugify": "^1.6.6",
     "socket.io": "^4.8.1",
-    "stripe": "^20.1.0",
-    "validator": "^13.12.0"
+    "stripe": "^20.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@tailwindcss/vite": "^4.0.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^16.5.0",
     "nodemon": "^3.1.7",
-    "prettier": "^3.7.4",
-    "tailwindcss": "^4.0.0"
+    "prettier": "^3.7.4"
   }
 }

@@ -1,0 +1,386 @@
+/* Glassmorphism utility classes */
+.glass {
+  background: rgba(12, 12, 18, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-crystalline {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow:
+    0 4px 24px -1px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-crystalline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.glass-crystalline:hover::before {
+  left: 100%;
+  transition: 0.7s;
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(234, 179, 8, 0.12);
+}
+
+.glass-dark {
+  background: rgba(7, 7, 11, 0.8);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(234, 179, 8, 0.15);
+}
+
+/* Utilidad gradiente de oro */
+.gold-gradient {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 35%, #d97706 100%);
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #fef08a 0%, #fbbf24 40%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Utilidad vidrio de oro */
+.glass-gold {
+  background: linear-gradient(to bottom right, rgba(251, 191, 36, 0.06), rgba(234, 179, 8, 0.06));
+  border: 1px solid rgba(234, 179, 8, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+/* Utilidad gradiente azul */
+.blue-gradient {
+  /* Retenido para secciones heredadas si hay */
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+.blue-text {
+  /* Retenido para secciones heredadas */
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Utilidad gradiente premium */
+.premium-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #eab308 40%, #fbbf24 70%, #fde047 100%);
+}
+
+/* Animaciones personalizadas */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg);
+    opacity: 1;
+    width: 2px;
+    height: 2px;
+  }
+  10% {
+    opacity: 1;
+    width: 60px;
+    height: 2px;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-400px) translateY(400px) rotate(-45deg);
+    opacity: 0;
+    width: 2px;
+    height: 2px;
+  }
+}
+
+@keyframes float-stars {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+.animate-blink {
+  animation: blink 3s infinite;
+  transform-origin: center;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(14, 165, 233, 0.8);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ocultar scrollbar utilidad */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scrollbar personalizada */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  border-radius: 4px;
+}
+
+/* Efecto de brillo de texto */
+.text-glow {
+  text-shadow: 0 0 20px rgba(234, 179, 8, 0.45);
+}
+
+.text-gold-glow {
+  text-shadow: 0 0 28px rgba(245, 158, 11, 0.6);
+}
+
+/* Tipografia */
+h1,
+h2,
+h3,
+.font-display {
+  font-family: 'Cinzel', ui-serif, Georgia, serif;
+}
+
+/* Efectos de partículas espaciales */
+.space-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: float-stars 20s ease-in-out infinite;
+}
+
+.space-particle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* Capa de estrellas */
+.stars-small {
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 40%, white, transparent),
+    radial-gradient(1px 1px at 25% 25%, white, transparent),
+    radial-gradient(1px 1px at 65% 40%, white, transparent),
+    radial-gradient(1px 1px at 45% 5%, white, transparent),
+    radial-gradient(1px 1px at 80% 60%, white, transparent),
+    radial-gradient(1px 1px at 10% 75%, white, transparent),
+    radial-gradient(1px 1px at 95% 30%, white, transparent),
+    radial-gradient(1px 1px at 90% 10%, white, transparent),
+    radial-gradient(1px 1px at 20% 55%, white, transparent),
+    radial-gradient(1px 1px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 40% 90%, white, transparent),
+    radial-gradient(1px 1px at 75% 50%, white, transparent),
+    radial-gradient(1px 1px at 15% 40%, white, transparent),
+    radial-gradient(1px 1px at 85% 75%, white, transparent),
+    radial-gradient(1px 1px at 35% 15%, white, transparent),
+    radial-gradient(1px 1px at 55% 35%, white, transparent),
+    radial-gradient(1px 1px at 70% 85%, white, transparent),
+    radial-gradient(1px 1px at 5% 60%, white, transparent),
+    radial-gradient(1px 1px at 92% 45%, white, transparent);
+  background-size: 250px 250px;
+  background-repeat: repeat;
+  animation: twinkle 5s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.stars-medium {
+  background-image:
+    radial-gradient(2px 2px at 40% 50%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 80% 35%, rgba(14, 165, 233, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 20% 80%, rgba(245, 158, 11, 0.7), transparent),
+    radial-gradient(2px 2px at 70% 15%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.5px 1.5px at 15% 65%, rgba(139, 92, 246, 0.75), transparent),
+    radial-gradient(2px 2px at 85% 70%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 55% 85%, rgba(14, 165, 233, 0.7), transparent),
+    radial-gradient(2px 2px at 30% 25%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 90% 55%, rgba(245, 158, 11, 0.65), transparent),
+    radial-gradient(2px 2px at 60% 40%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.5px 1.5px at 25% 10%, rgba(139, 92, 246, 0.7), transparent),
+    radial-gradient(2px 2px at 75% 90%, rgba(255, 255, 255, 0.8), transparent);
+  background-size: 350px 350px;
+  background-repeat: repeat;
+  animation: twinkle 7s ease-in-out infinite reverse;
+  opacity: 0.7;
+}
+
+.stars-large {
+  background-image:
+    radial-gradient(3px 3px at 50% 70%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2.5px 2.5px at 75% 40%, rgba(14, 165, 233, 0.95), transparent),
+    radial-gradient(2.5px 2.5px at 25% 85%, rgba(245, 158, 11, 0.85), transparent),
+    radial-gradient(3px 3px at 90% 20%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2.5px 2.5px at 15% 55%, rgba(139, 92, 246, 0.9), transparent),
+    radial-gradient(3px 3px at 65% 10%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2.5px 2.5px at 35% 65%, rgba(14, 165, 233, 0.85), transparent);
+  background-size: 450px 450px;
+  background-repeat: repeat;
+  animation:
+    twinkle 9s ease-in-out infinite,
+    float-stars 12s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+.shooting-star {
+  animation: shooting-star 4s ease-out infinite;
+}
+
+
+/* Animación de rotación */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

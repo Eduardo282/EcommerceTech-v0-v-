@@ -31,12 +31,18 @@ export const typeDefs = /* GraphQL */ `
     originalPrice: Float!
     descuentoPrice: Float
     images: [String!]!
-    category: Category!
+    category: Category
     inventory: Int
-    attributes: JSON
-    rating: Float
-    active: Boolean!
-    rubro: Rubro
+      attributes: JSON
+      rating: Float
+    reviewsCount: Int!
+    likesCount: Int!
+    salesCount: Int!
+    downloadsCount: Int!
+    viewsCount: Int!
+      active: Boolean!
+      isTrending: Boolean!
+      rubro: Rubro
     badge: String
     features: [String]
     details: [String]
@@ -52,6 +58,26 @@ export const typeDefs = /* GraphQL */ `
   type ProductSpec {
     key: String
     value: String
+  }
+
+  type Review {
+    id: ID!
+    product: Product!
+    user: User!
+    rating: Int!
+    comment: String!
+    status: String!
+    createdAt: Date!
+    updatedAt: Date!
+  }
+
+  type ProductEngagement {
+    productId: ID!
+    liked: Boolean!
+    likesCount: Int!
+    reviewsCount: Int!
+    rating: Float!
+    viewsCount: Int!
   }
 
   type OrderItem {
@@ -89,8 +115,9 @@ export const typeDefs = /* GraphQL */ `
     categorySlug: String
     minPrice: Float
     maxPrice: Float
-    active: Boolean
-    rubro: Rubro
+      active: Boolean
+      isTrending: Boolean
+      rubro: Rubro
   }
   enum ProductSort {
     NEWEST
@@ -121,8 +148,9 @@ export const typeDefs = /* GraphQL */ `
     categoryId: ID
     inventory: Int
     attributes: JSON
-    active: Boolean
-    rubro: Rubro
+      active: Boolean
+      isTrending: Boolean
+      rubro: Rubro
   }
 
   input ProductUpdateInput {
@@ -140,8 +168,9 @@ export const typeDefs = /* GraphQL */ `
     categoryId: ID
     inventory: Int
     attributes: JSON
-    active: Boolean
-    rubro: Rubro
+      active: Boolean
+      isTrending: Boolean
+      rubro: Rubro
   }
 
   input OrderItemInput {
@@ -166,6 +195,8 @@ export const typeDefs = /* GraphQL */ `
     me: User
     product(id: ID, slug: String): Product
     products(filter: ProductFilter, sort: ProductSort, pagination: PaginationInput): [Product]
+    productReviews(productId: ID!, limit: Int = 20): [Review!]!
+    productEngagement(productId: ID!): ProductEngagement!
     categories: [Category!]!
     category(slug: String!): Category
     orders: [Order!]!
@@ -184,6 +215,10 @@ export const typeDefs = /* GraphQL */ `
     createProduct(input: ProductInput!): Product!
     updateProduct(id: ID!, input: ProductUpdateInput!): Product!
     deleteProduct(id: ID!): Boolean!
+    toggleProductLike(productId: ID!): ProductEngagement!
+    recordProductView(productId: ID!): ProductEngagement!
+    saveProductReview(productId: ID!, rating: Int!, comment: String!): Review!
+    deleteProductReview(productId: ID!): Boolean!
 
     createOrder(items: [OrderItemInput!]!, shippingAddress: AddressInput): Order!
   }

@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { RubroSelector } from './RubroSelector';
-import { useRubro } from '../context/useRubro';
-import { RUBROS } from '../context/rubroConstants';
 import { Logo } from './smallComponents/Logo';
 import { SearchInput } from './smallComponents/SearchInput';
-import { useQuery, useMutation, useApolloClient } from '@apollo/client';
-import { GET_ME } from '../graphql/queries';
-import { LOGOUT_USER } from '../graphql/mutations';
-import { categories } from '../data/categories';
 import { AnuncioHeader } from './smallComponents/AnuncioHeader';
 import { ThemeToggle } from './ThemeToggle';
+import { useHeader } from './useHeader';
 
 const PATH_MAPPING = {
   'Plantillas dashboard': '/plantillas-dashboard',
@@ -28,55 +22,24 @@ export function Header({
   onWishlistClick,
   wishlistItemsCount,
   onUserClick,
+  productCategories = [],
 }) {
-  const { isSeller, rubro, setRubro, setIsSeller, setStore } = useRubro();
-  const { data } = useQuery(GET_ME);
-  const [logout] = useMutation(LOGOUT_USER);
-  const client = useApolloClient();
-
-  const isAuthed = !!data?.me;
-  const user = data?.me;
-
-  // Sincronizar el contexto con los datos del usuario si es necesario
-  useEffect(() => {
-    if (user) {
-      if (user.isSeller !== isSeller) setIsSeller(user.isSeller);
-      if (user.rubro && user.rubro !== rubro) setRubro(user.rubro);
-      if (user.storeName) setStore({ name: user.storeName, description: user.storeDescription });
-    }
-  }, [user, isSeller, rubro, setIsSeller, setRubro, setStore]);
-
-  const [accountOpen, setAccountOpen] = useState(false);
-  const accountRef = useRef(null);
-
-  const [headerConfig, setHeaderConfig] = useState(null);
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const categoriesRef = useRef(null);
-
-  useEffect(() => {
-    import('../services/strapi').then(({ getHeaderConfig }) => {
-      getHeaderConfig().then((config) => {
-        if (config) setHeaderConfig(config);
-      });
-    });
-  }, []);
-
-  const getColor = (key, fallback) => headerConfig?.[key] || fallback;
-
-  useEffect(() => {
-    const onDown = (e) => {
-      if (accountRef.current && !accountRef.current.contains(e.target)) {
-        setAccountOpen(false);
-      }
-      if (categoriesRef.current && !categoriesRef.current.contains(e.target)) {
-        setCategoriesOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', onDown);
-    return () => document.removeEventListener('mousedown', onDown);
-  }, []);
-
-  const rubroShort = rubro === 'TECHNOLOGY' ? 'TEC' : rubro === 'GAMING' ? 'GAM' : '';
+  const {
+    accountOpen,
+    accountRef,
+    categoriesOpen,
+    categoriesRef,
+    getColor,
+    headerConfig,
+    isAuthed,
+    isSeller,
+    logoutUser,
+    rubro,
+    rubroShort,
+    setAccountOpen,
+    setCategoriesOpen,
+    user,
+  } = useHeader();
 
   return (
     <header
@@ -243,17 +206,18 @@ export function Header({
                   >
                     Perfil
                   </button>
+                  {user?.role === 'admin' && (
+                    <Link
+                      to="/admin/products"
+                      className="block w-full mt-1 px-3 py-2 rounded-lg text-[#F9B61D]"
+                      onClick={() => setAccountOpen(false)}
+                    >
+                      Administrar productos
+                    </Link>
+                  )}
                   <button
                     className="w-full mt-1 text-left px-3 py-2 rounded-lg text-[#E4D9AF] cursor-pointer"
-                    onClick={async () => {
-                      await logout();
-                      await client.resetStore();
-                      // Resetea el rubro a TECHNOLOGY y el comportamiento se desactiva automáticamente
-                      setRubro(RUBROS.TECHNOLOGY);
-                      setIsSeller(false);
-                      setStore({ name: null, description: null });
-                      setAccountOpen(false);
-                    }}
+                    onClick={logoutUser}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = 'inset 0 1.5px 1px 2px #2c2c30';
                     }}
@@ -366,74 +330,50 @@ export function Header({
               </button>
               {categoriesOpen && (
                 <div
-                  className="absolute top-full left-0 mt-2 w-[800px] rounded-xl p-6 z-50 animate-in fade-in slide-in-from-top-2"
+                  className="absolute top-full left-0 mt-2 w-[520px] max-w-[calc(100vw-2rem)] rounded-xl p-5 z-50 animate-in fade-in slide-in-from-top-2"
                   style={{
                     backgroundColor: '#111115',
                     backdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(228, 217, 175, 0.16)',
+                    boxShadow: '0 18px 48px rgba(0, 0, 0, 0.45)',
                   }}
                 >
-                  <div className="grid grid-cols-3 gap-6">
-                    {categories.slice(0, 9).map((category, idx) => (
-                      <div key={idx} className="group cursor-pointer">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-10 h-10 rounded-lg overflow-hidden transition-colors">
-                            <img
-                              src={category.image}
-                              alt={category.name}
-                              className="w-full h-full object-cover"
-                            />
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold text-[#E4D9AF]">
+                      Categorías de productos
+                    </p>
+                    <p className="mt-1 text-xs text-white/55">
+                      Esta lista se actualiza automáticamente con el catálogo.
+                    </p>
+                  </div>
+
+                  {productCategories.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-3">
+                      {productCategories.map((category) => (
+                        <div
+                          key={category.name}
+                          className="flex items-center gap-3 rounded-lg border border-white/10 px-3 py-3 transition-colors hover:border-[#F9B61D]/60 hover:bg-white/5"
+                        >
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F9B61D]/15 text-sm font-bold text-[#F9B61D]">
+                            {category.name.charAt(0).toUpperCase()}
                           </div>
-                          <h4 className="text-[#E4D9AF] font-medium group-hover:text-[#F9B61D] transition-colors">
-                            {category.name}
-                          </h4>
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-medium text-[#E4D9AF]">
+                              {category.name}
+                            </p>
+                            <p className="text-xs text-white/50">
+                              {category.productCount}{' '}
+                              {category.productCount === 1 ? 'producto' : 'productos'}
+                            </p>
+                          </div>
                         </div>
-                        {category.subcategories && (
-                          <ul className="pl-[52px] space-y-1">
-                            {category.subcategories.slice(0, 3).map((sub, sIdx) => (
-                              <li
-                                key={sIdx}
-                                className="text-xs text-[#FFFFFF] hover:text-[#F9B61D] transition-colors"
-                              >
-                                {sub.name}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 pt-4 border-t border-[#000000] text-center">
-                    <Link
-                      to="/#categories-section"
-                      className="text-sm text-[#F9B61D] transition-colors inline-flex items-center gap-1"
-                      onClick={() => {
-                        setCategoriesOpen(false);
-                        // timeout pequeño para permitir que el dropdown se cierre antes de desplazarse si es necesario,
-                        // aunque el comportamiento nativo del hash puede necesitar ayuda en algunas configuraciones de React.
-                        // Por ahora, enlace simple de hash.
-                        setTimeout(() => {
-                          const el = document.getElementById('categories-section');
-                          if (el) el.scrollIntoView({ behavior: 'smooth' });
-                        }, 100);
-                      }}
-                    >
-                      Ver todas las categorías
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-3 w-3"
-                      >
-                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                      </svg>
-                    </Link>
-                  </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="rounded-lg border border-white/10 px-4 py-5 text-center text-sm text-white/55">
+                      No hay categorías disponibles.
+                    </p>
+                  )}
                 </div>
               )}
             </li>
@@ -457,7 +397,8 @@ export function Header({
                 ))
               : 'Cargando...'}
             <div className="ml-auto">
-              <button
+              <Link
+                to="/nuevos-lanzamientos"
                 className="text-sm flex items-center gap-2 px-4 py-1.5 rounded-lg transition-all cursor-pointer"
                 style={{
                   color: getColor('titleNoticiasColor', '#fff'),
@@ -491,7 +432,7 @@ export function Header({
                   <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                 </svg>
                 <span>{headerConfig?.titleNoticias || 'Cargando...'}</span>
-              </button>
+              </Link>
             </div>
           </ul>
         </div>
@@ -506,4 +447,10 @@ Header.propTypes = {
   onWishlistClick: PropTypes.func,
   wishlistItemsCount: PropTypes.number,
   onUserClick: PropTypes.func,
+  productCategories: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      productCount: PropTypes.number.isRequired,
+    })
+  ),
 };

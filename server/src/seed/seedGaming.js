@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
+import slugify from 'slugify';
 import { connectDB } from '../config/db.js';
 import { Category } from '../models/Category.js';
 import { Product } from '../models/Product.js';
@@ -57,7 +58,7 @@ async function run() {
 
   const pick = (i) => categories[i % categories.length]._id;
   const images = [
-    'https://plus.unsplash.com/premium_photo-1681433359172-b36439557c4a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 
+    'https://plus.unsplash.com/premium_photo-1681433359172-b36439557c4a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1080&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=1080&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1080&auto=format&fit=crop',
@@ -74,8 +75,10 @@ async function run() {
   let created = 0;
 
   for (let i = 1; i <= 12; i++) {
+    const title = 'Producto gaming ' + i;
     const doc = {
-      title: 'Producto gaming ' + i,
+      title,
+      slug: slugify(title, { lower: true, strict: true }),
       description: 'Producto para el rubro GAMING',
       originalPrice: i % 3 === 0 ? Math.round((100 + i) * 5.4) : 300 + i,
       descuentoPrice: i % 3 === 0 ? 100 + i : undefined,

@@ -1,29 +1,9 @@
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
-/**
- * Ayuda a obtener la URL completa de una imagen
- * @param {string} path
- * @returns {string}
- */
-export const getStrapiMedia = (path) => {
-  if (!path) return null;
-  if (path.startsWith('http') || path.startsWith('//')) {
-    return path;
-  }
-  return `${STRAPI_URL}${path}`;
-};
-
-/**
- * Ayuda a obtener datos de Strapi
- * @param {string} endpoint
- * @param {object} params
- * @returns {Promise<any>}
- */
 export const fetchAPI = async (endpoint, params = {}) => {
   try {
     const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
 
-    // Agrega el parámetro populate por defecto si no se especifica
     if (!params.populate) {
       url.searchParams.append('populate', '*');
     }
@@ -38,8 +18,7 @@ export const fetchAPI = async (endpoint, params = {}) => {
       throw new Error(`Fallo al obtener datos de Strapi: ${res.statusText}`);
     }
 
-    const data = await res.json();
-    return data;
+    return res.json();
   } catch (error) {
     console.error('Error al obtener datos de Strapi:', error);
     return null;
@@ -48,11 +27,6 @@ export const fetchAPI = async (endpoint, params = {}) => {
 
 export const getHeaderConfig = async () => {
   const data = await fetchAPI('header');
-  return data?.data || null;
-};
-
-export const getFuenteConfig = async () => {
-  const data = await fetchAPI('fuente');
   return data?.data || null;
 };
 
@@ -84,9 +58,4 @@ export const getTrustBannerConfig = async () => {
 export const getFeaturedProductsConfig = async () => {
   const data = await fetchAPI('featured-product');
   return data?.data || null;
-};
-
-export const getProducts = async () => {
-  const data = await fetchAPI('products', { populate: '*' });
-  return data?.data || [];
 };

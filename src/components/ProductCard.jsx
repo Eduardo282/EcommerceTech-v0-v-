@@ -31,11 +31,9 @@ export function ProductCard({
   return (
     <>
       <article
-        className="group relative overflow-hidden transition-all duration-400 cursor-pointer bg-card dark:bg-[#111115] shadow-lg dark:shadow-none"
+        className="group relative transition-all duration-500 cursor-pointer glass-crystalline"
         style={{
           borderRadius: '28px',
-          backdropFilter: 'blur(14px)',
-          WebkitBackdropFilter: 'blur(14px)',
           transformStyle: 'preserve-3d',
           perspective: '1000px',
         }}
@@ -44,7 +42,7 @@ export function ProductCard({
         {/* Nota lateral inspirada en la referencia */}
         <div
           aria-hidden="true"
-          className="bg-muted dark:bg-[#2c2c30]"
+          className="bg-white/10 dark:bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
           style={{
             position: 'absolute',
             left: 0,
@@ -78,15 +76,18 @@ export function ProductCard({
             className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[86%] flex gap-3 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-400 z-10"
             style={{
               borderRadius: '22px',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(20px)',
+              background: 'rgba(0, 0, 0, 0.3)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
             }}
           >
             <button
               className="p-3 rounded-xl transition-all hover:scale-130 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
-                onToggleWishlist(product.id);
+                onToggleWishlist(product);
               }}
             >
               <svg
@@ -170,7 +171,9 @@ export function ProductCard({
             <span
               className="inline-flex items-center rounded-full border border-transparent font-semibold shadow text-xs mb-2 text-white px-2.5 py-0.5"
               style={{
-                background: '#2c2c30',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(4px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
               }}
             >
               {product.category}
@@ -224,7 +227,8 @@ export function ProductCard({
                   <span
                     className="text-xs text-white px-2 py-1 rounded"
                     style={{
-                      background: 'black',
+                      background: 'rgba(0, 0, 0, 0.5)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                     }}
                   >
                     {feature}
@@ -262,12 +266,7 @@ export function ProductCard({
           </div>
 
           {/* Precio */}
-          <div
-            className="flex items-center justify-between pt-4 border-t"
-            style={{
-              borderTop: '1px solid #898989',
-            }}
-          >
+          <div className="flex items-center justify-between pt-4">
             <div>
               {Number(product.originalPrice) > 0 && (
                 <p className="text-sm text-[#898989] line-through">
@@ -282,6 +281,7 @@ export function ProductCard({
 
       {/* Previsualización Modal */}
       <ProductPreview
+        key={previewProduct.id}
         product={previewProduct}
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}

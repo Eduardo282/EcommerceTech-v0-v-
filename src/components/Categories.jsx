@@ -87,7 +87,7 @@ export function Categories() {
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-4">
+          <CarouselContent className="-ml-4" clipContents={false}>
             {categories.map((category, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5">
                 <article className="group relative">

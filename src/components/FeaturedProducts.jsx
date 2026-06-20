@@ -1,5 +1,12 @@
 import { ProductCard } from './ProductCard';
 import PropTypes from 'prop-types';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from './Carousel';
 
 export function FeaturedProducts({
   products = [],
@@ -9,8 +16,59 @@ export function FeaturedProducts({
   title,
   subtitle,
   config,
+  embedded = false,
 }) {
   const getColor = (key, fallback) => config?.[key] || fallback;
+
+  if (embedded) {
+    return (
+      <div className="h-full w-full flex items-center justify-center p-2">
+        <Carousel
+          className="w-full h-full flex flex-col justify-center"
+          opts={{
+            loop: true,
+            align: 'start',
+          }}
+        >
+          <CarouselContent className="-ml-0 w-full">
+            {products.map((product) => (
+              <CarouselItem
+                key={product.id}
+                className="pl-0 overflow-visible"
+                style={{ flex: '0 0 50%', minWidth: 0 }}
+              >
+                <div className="h-full w-full flex justify-center items-center">
+                  {/* Container scaling: 355px fits into half of 600px (300px) -> scale 0.8 */}
+                  <div
+                    style={{
+                      width: '355px',
+                      height: '512px',
+                      transform: 'scale(1)',
+                      transformOrigin: 'center center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <ProductCard
+                      product={product}
+                      onAddToCart={onAddToCart}
+                      onToggleWishlist={onToggleWishlist}
+                      isInWishlist={wishlistItems.includes(product.id)}
+                      allProducts={products}
+                      wishlistItems={wishlistItems}
+                    />
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex gap-4 mt-[-60px] z-10 relative">
+            <CarouselPrevious className="static -translate-y-60 bg-black/50 hover:bg-black/70 border-white/10 -translate-x-6" />
+            <CarouselNext className="static -translate-y-60 bg-black/50 hover:bg-black/70 border-white/10 translate-x-[725px]" />
+          </div>
+        </Carousel>
+      </div>
+    );
+  }
 
   return (
     <section
@@ -64,4 +122,5 @@ FeaturedProducts.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   config: PropTypes.object,
+  embedded: PropTypes.bool,
 };

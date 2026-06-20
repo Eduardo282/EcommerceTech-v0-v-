@@ -1,6 +1,8 @@
-import { useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { ImageWithFallback } from './fallImage/ImageWithFallback';
+import { ProductEngagement } from '../features/products/ProductEngagement';
+import { useProductPreview } from '../features/products/useProductPreview';
 
 export function ProductPreview({
   product,
@@ -12,95 +14,41 @@ export function ProductPreview({
   allProducts = [],
   onProductClick,
 }) {
-  console.log('ProductPreview received:', product);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showMagnifier, setShowMagnifier] = useState(false);
-  const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
-  const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
-  const [quantity, setQuantity] = useState(1);
-  const imageContainerRef = useRef(null);
-  const similarScrollRef = useRef(null);
-  const [viewersCount] = useState(() => Math.floor(Math.random() * 20) + 5);
+  const {
+    containerDimensions,
+    currentImage,
+    decrementQuantity,
+    discount,
+    engagementData,
+    expandImage,
+    handleBuyNow,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleMouseMove,
+    imageContainerRef,
+    images,
+    incrementQuantity,
+    isImageExpanded,
+    magnifierPosition,
+    magnifierSize,
+    nextImage,
+    prevImage,
+    quantity,
+    safeCurrentImageIndex,
+    scrollSimilarLeft,
+    scrollSimilarRight,
+    setCurrentImageIndex,
+    setIsImageExpanded,
+    setQuantity,
+    showMagnifier,
+    similarProducts,
+    similarScrollRef,
+    zoomLevel,
+  } = useProductPreview({ product, isOpen, onAddToCart, onClose, allProducts });
 
   if (!isOpen) return null;
 
-  // Simula multiples imágenes (en la app real, el producto tendría un array de imágenes)
-  const images = [product.image, product.image, product.image, product.image, product.image];
-
-  const discount = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
-
-  const magnifierSize = 160;
-  const zoomLevel = 2.5;
-
-  const handleMouseMove = (e) => {
-    if (!imageContainerRef.current) return;
-
-    const rect = imageContainerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    setMagnifierPosition({ x, y });
-  };
-
-  const handleMouseEnter = () => {
-    if (imageContainerRef.current) {
-      setContainerDimensions({
-        width: imageContainerRef.current.offsetWidth,
-        height: imageContainerRef.current.offsetHeight,
-      });
-    }
-    setShowMagnifier(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowMagnifier(false);
-  };
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const incrementQuantity = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const decrementQuantity = () => {
-    setQuantity((prev) => Math.max(1, prev - 1));
-  };
-
-  const handleBuyNow = () => {
-    // Agrega multiple items al carrito basado en la cantidad
-    for (let i = 0; i < quantity; i++) {
-      onAddToCart(product);
-    }
-    onClose();
-    // En una app real, esto redirigiría a checkout
-  };
-
-  // Obtiene productos similares (misma categoría, excluyendo el producto actual)
-  const similarProducts = allProducts
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 10);
-
-  const scrollSimilarLeft = () => {
-    if (similarScrollRef.current) {
-      similarScrollRef.current.scrollBy({ left: -280, behavior: 'smooth' });
-    }
-  };
-
-  const scrollSimilarRight = () => {
-    if (similarScrollRef.current) {
-      similarScrollRef.current.scrollBy({ left: 280, behavior: 'smooth' });
-    }
-  };
-
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
       role="presentation"
@@ -161,13 +109,13 @@ export function ProductPreview({
           >
             {images.map((img, index) => (
               <button
-                key={index}
+                key={img}
                 onClick={() => setCurrentImageIndex(index)}
                 className={`relative aspect-square rounded-lg overflow-hidden transition-all cursor-pointer ${
-                  currentImageIndex === index ? 'shadow-lg' : ''
+                  safeCurrentImageIndex === index ? 'shadow-lg' : ''
                 }`}
                 style={{
-                  boxShadow: currentImageIndex === index ? '0 0 20px #fff' : 'none',
+                  boxShadow: safeCurrentImageIndex === index ? '0 0 20px #fff' : 'none',
                 }}
               >
                 <ImageWithFallback
@@ -195,13 +143,17 @@ export function ProductPreview({
                     background: 'linear-gradient(135deg, #111115 0%, #980707 100%)',
                   }}
                 >
-                  {viewersCount} VECES VISTO LAS ULTIMAS 24 HRS
+                  {engagementData?.productEngagement?.viewsCount ?? product.views ?? 0} VISTAS DE ESTE
+                  PRODUCTO
                 </span>
               </div>
 
               {/* Botones de pantalla completa y lista de deseos */}
               <div className="absolute top-6 right-6 z-10 flex gap-2">
                 <button
+                  type="button"
+                  onClick={expandImage}
+                  aria-label="Expand product image"
                   className="p-2.5 rounded-lg transition-all shadow-md cursor-pointer"
                   style={{
                     background: '#111115',
@@ -234,7 +186,7 @@ export function ProductPreview({
                 </button>
                 <button
                   className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 cursor-pointer"
-                  onClick={() => onToggleWishlist(product.id)}
+                  onClick={() => onToggleWishlist(product)}
                   style={{
                     background: '#111115',
                     boxShadow: 'none',
@@ -275,7 +227,7 @@ export function ProductPreview({
                 onMouseLeave={handleMouseLeave}
               >
                 <img
-                  src={images[currentImageIndex]}
+                  src={currentImage}
                   alt={product.name}
                   className="w-full h-full object-contain"
                 />
@@ -301,7 +253,7 @@ export function ProductPreview({
                         left: 0,
                         width: `${containerDimensions.width * zoomLevel}px`,
                         height: `${containerDimensions.height * zoomLevel}px`,
-                        backgroundImage: `url(${images[currentImageIndex]})`,
+                        backgroundImage: `url(${currentImage})`,
                         backgroundSize: `${containerDimensions.width * zoomLevel}px ${
                           containerDimensions.height * zoomLevel
                         }px`,
@@ -700,7 +652,7 @@ export function ProductPreview({
                 </div>
               )}
 
-              {/* Precio */}
+              {/* Precio unitario */}
               <div
                 className="mb-6 p-4 rounded-xl"
                 style={{
@@ -708,6 +660,9 @@ export function ProductPreview({
                   boxShadow: '0 0 20px #2c2c30',
                 }}
               >
+                <p className="mb-1 text-xs uppercase tracking-wide text-[#898989]">
+                  Precio unitario
+                </p>
                 <div className="flex items-center justify-between">
                   <div>
                     {product.originalPrice && (
@@ -815,11 +770,7 @@ export function ProductPreview({
                   style={{
                     background: 'transparent',
                   }}
-                  onClick={() => {
-                    for (let i = 0; i < quantity; i++) {
-                      onAddToCart(product);
-                    }
-                  }}
+                  onClick={() => onAddToCart(product, quantity)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -963,11 +914,113 @@ export function ProductPreview({
                   </div>
                 </div>
               )}
+
+              <ProductEngagement productId={product.id} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {isImageExpanded &&
+        createPortal(
+          <div
+            className="fixed inset-0 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md"
+            style={{ zIndex: 2147483647 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Expanded image of ${product.name}`}
+            onClick={() => setIsImageExpanded(false)}
+          >
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                setIsImageExpanded(false);
+              }}
+              aria-label="Close expanded image"
+              className="absolute right-5 top-5 z-20 rounded-full bg-[#2c2c30] p-3 text-[#E4D9AF] shadow-lg transition-transform hover:scale-110 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-6 w-6"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+
+            <img
+              src={currentImage}
+              alt={product.name}
+              className="max-h-[94vh] max-w-[94vw] object-contain"
+              onClick={(event) => event.stopPropagation()}
+            />
+
+            {images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    prevImage();
+                  }}
+                  aria-label="Previous image"
+                  className="absolute left-5 top-1/2 -translate-y-1/2 rounded-full bg-[#2c2c30]/90 p-3 text-[#E4D9AF] shadow-lg transition-transform hover:scale-110 cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-7 w-7"
+                  >
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    nextImage();
+                  }}
+                  aria-label="Next image"
+                  className="absolute right-5 top-1/2 -translate-y-1/2 rounded-full bg-[#2c2c30]/90 p-3 text-[#E4D9AF] shadow-lg transition-transform hover:scale-110 cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-7 w-7"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </button>
+              </>
+            )}
+          </div>,
+          document.body
+        )}
+    </div>,
+    document.body
   );
 }
 ProductPreview.propTypes = {
@@ -977,9 +1030,12 @@ ProductPreview.propTypes = {
     price: PropTypes.number.isRequired,
     originalPrice: PropTypes.number,
     image: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string),
     rating: PropTypes.number,
     reviews: PropTypes.number,
     sales: PropTypes.number,
+    views: PropTypes.number,
+    quantity: PropTypes.number,
     category: PropTypes.string,
     description: PropTypes.string,
     longDescription: PropTypes.string,

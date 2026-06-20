@@ -50,10 +50,7 @@ export function AuthModal({ open, onClose, onSuccess }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
       <div
-        className="relative w-full max-w-md rounded-2xl p-6 z-10"
-        style={{
-          background: '#111115',
-        }}
+        className="relative w-full max-w-md rounded-2xl p-6 z-10 glass-crystalline"
         role="dialog"
         aria-modal="true"
         aria-label={mode === 'login' ? 'Login' : 'Create Account'}

@@ -5,7 +5,18 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 
 export default [
-  { ignores: ['dist', 'build', 'node_modules', 'coverage', '.env', '.strapi', 'public'] },
+  {
+    ignores: [
+      '**/dist/**',
+      'build/**',
+      'node_modules/**',
+      'coverage/**',
+      'server/storage/**',
+      '.env',
+      '.strapi',
+      'public/**',
+    ],
+  },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -39,9 +50,10 @@ export default [
     },
   },
   {
-    files: ['postcss.config.js', 'tailwind.config.js', 'vite.config.js'],
+    files: ['postcss.config.js', 'postcss.config.cjs', 'tailwind.config.js', 'tailwind.config.cjs', 'vite.config.js'],
     languageOptions: {
       globals: globals.node,
     },
   },
 ];
+

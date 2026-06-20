@@ -1,0 +1,23 @@
+{
+  "name": "authlib-react-source",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router-dom": "^7.10.1",
+    "sonner": "^2.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.4.1"
+  },
+  "packageManager": "pnpm@11.4.0"
+}

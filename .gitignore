@@ -54,3 +54,4 @@ cms/.tmp
 server/dist
 server/build
 server/.cache
+server/.env

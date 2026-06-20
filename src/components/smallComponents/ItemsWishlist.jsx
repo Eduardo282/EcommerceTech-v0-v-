@@ -1,13 +1,25 @@
 import PropTypes from 'prop-types';
 import { ImageWithFallback } from '../fallImage/ImageWithFallback';
 
-export function ItemsWishlist({ items, onRemoveItem, onAddToCart }) {
+export function ItemsWishlist({ items, onRemoveItem, onAddToCart, onViewProduct }) {
+  const handleCardKeyDown = (event, item) => {
+    if (event.target !== event.currentTarget) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onViewProduct(item);
+    }
+  };
+
   return (
     <div className="space-y-4">
       {items.map((item) => (
         <div
           key={item.id}
-          className="flex gap-4 p-4 rounded-xl transition-all group"
+          role="button"
+          tabIndex={0}
+          onClick={() => onViewProduct(item)}
+          onKeyDown={(event) => handleCardKeyDown(event, item)}
+          className="flex gap-4 p-4 rounded-xl transition-all group cursor-pointer hover:ring-1 hover:ring-[#F9B61D]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F9B61D]"
           style={{
             background: '#2c2c30',
           }}
@@ -52,7 +64,8 @@ export function ItemsWishlist({ items, onRemoveItem, onAddToCart }) {
             <div className="flex gap-2">
               <button
                 className="flex items-center gap-2 text-white text-xs scale-100 transition-all hover:scale-120 cursor-pointer"
-                onClick={() => {
+                onClick={(event) => {
+                  event.stopPropagation();
                   onAddToCart(item);
                 }}
               >
@@ -76,7 +89,10 @@ export function ItemsWishlist({ items, onRemoveItem, onAddToCart }) {
               </button>
               <button
                 className="text-[#000000] h-8 px-3 cursor-pointer bg-transparent"
-                onClick={() => onRemoveItem(item.id)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onRemoveItem(item.id);
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,4 +123,5 @@ ItemsWishlist.propTypes = {
   items: PropTypes.array.isRequired,
   onRemoveItem: PropTypes.func.isRequired,
   onAddToCart: PropTypes.func.isRequired,
+  onViewProduct: PropTypes.func.isRequired,
 };

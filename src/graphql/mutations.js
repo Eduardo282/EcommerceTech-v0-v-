@@ -56,3 +56,125 @@ export const LOGOUT_USER = gql`
     logoutUser
   }
 `;
+
+export const CREATE_CATEGORY = gql`
+  mutation CreateCategory($name: String!, $parentId: ID) {
+    createCategory(name: $name, parentId: $parentId) {
+      id
+      name
+      slug
+    }
+  }
+`;
+
+export const CREATE_PRODUCT = gql`
+  mutation CreateProduct($input: ProductInput!) {
+    createProduct(input: $input) {
+      id
+      title
+      description
+      originalPrice
+      descuentoPrice
+      images
+        inventory
+        active
+        isTrending
+        rubro
+      badge
+      features
+      rating
+      reviewsCount
+      likesCount
+      salesCount
+      downloadsCount
+      viewsCount
+      category {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_PRODUCT = gql`
+  mutation UpdateProduct($id: ID!, $input: ProductUpdateInput!) {
+    updateProduct(id: $id, input: $input) {
+      id
+      title
+      description
+      originalPrice
+      descuentoPrice
+      images
+        inventory
+        active
+        isTrending
+        rubro
+      badge
+      features
+      rating
+      reviewsCount
+      likesCount
+      salesCount
+      downloadsCount
+      viewsCount
+      category {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_PRODUCT = gql`
+  mutation DeleteProduct($id: ID!) {
+    deleteProduct(id: $id)
+  }
+`;
+
+export const TOGGLE_PRODUCT_LIKE = gql`
+  mutation ToggleProductLike($productId: ID!) {
+    toggleProductLike(productId: $productId) {
+      productId
+      liked
+      likesCount
+      reviewsCount
+      rating
+      viewsCount
+    }
+  }
+`;
+
+export const RECORD_PRODUCT_VIEW = gql`
+  mutation RecordProductView($productId: ID!) {
+    recordProductView(productId: $productId) {
+      productId
+      liked
+      likesCount
+      reviewsCount
+      rating
+      viewsCount
+    }
+  }
+`;
+
+export const SAVE_PRODUCT_REVIEW = gql`
+  mutation SaveProductReview($productId: ID!, $rating: Int!, $comment: String!) {
+    saveProductReview(productId: $productId, rating: $rating, comment: $comment) {
+      id
+      rating
+      comment
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_PRODUCT_REVIEW = gql`
+  mutation DeleteProductReview($productId: ID!) {
+    deleteProductReview(productId: $productId)
+  }
+`;

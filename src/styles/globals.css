@@ -3,7 +3,36 @@
   background: rgba(12, 12, 18, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(234, 179, 8, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-crystalline {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow:
+    0 4px 24px -1px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-crystalline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.glass-crystalline:hover::before {
+  left: 100%;
+  transition: 0.7s;
 }
 
 .glass-light {
@@ -143,6 +172,22 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+.animate-blink {
+  animation: blink 3s infinite;
+  transform-origin: center;
 }
 
 @keyframes pulse-glow {
@@ -327,4 +372,15 @@ h3,
 
 .shooting-star {
   animation: shooting-star 4s ease-out infinite;
+}
+
+
+/* Animación de rotación */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -125,11 +125,11 @@ Carousel.propTypes = {
   children: PropTypes.node,
 };
 
-function CarouselContent({ className, ...props }) {
+function CarouselContent({ className, clipContents = true, ...props }) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} className={clipContents ? 'overflow-hidden' : ''}>
       <div
         className={cn('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', className)}
         {...props}
@@ -140,6 +140,7 @@ function CarouselContent({ className, ...props }) {
 
 CarouselContent.propTypes = {
   className: PropTypes.string,
+  clipContents: PropTypes.bool,
 };
 
 function CarouselItem({ className, ...props }) {
@@ -169,7 +170,7 @@ function CarouselPrevious({ className, ...props }) {
   return (
     <button
       className={cn(
-        'absolute size-8 rounded-full flex items-center justify-center border border-white/20 bg-black/50 text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed',
+        'absolute size-8 rounded-full flex items-center justify-center bg-black/50 text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -209,7 +210,7 @@ function CarouselNext({ className, ...props }) {
   return (
     <button
       className={cn(
-        'absolute size-8 rounded-full flex items-center justify-center border border-white/20 bg-black/50 text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed',
+        'absolute size-8 rounded-full flex items-center justify-center bg-black/50 text-white hover:bg-black/70 disabled:opacity-50 disabled:cursor-not-allowed',
         orientation === 'horizontal'
           ? 'top-1/2 -right-12 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',

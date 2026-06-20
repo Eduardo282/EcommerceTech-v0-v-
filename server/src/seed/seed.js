@@ -33,12 +33,16 @@ async function run() {
   ];
   for (let i = 1; i <= 12; i++) {
     const c = categories[i % categories.length];
+    const imageStartIndex = (i - 1) % images.length;
     products.push({
       title: `Producto ${i}`,
       description: 'Este es un producto para poblar la base de datos.',
       originalPrice: i % 3 === 0 ? Math.round((100 + i) * 1.4) : 100 + i,
       descuentoPrice: i % 3 === 0 ? 100 + i : undefined,
-      images: [images[Math.floor(Math.random() * images.length)]],
+      images: Array.from(
+        { length: 5 },
+        (_, offset) => images[(imageStartIndex + offset) % images.length]
+      ),
       category: c._id,
       attributes: { color: ['rojo', 'azul', 'negro'][i % 3] },
       rating: Number((1.5 + Math.random() * 3.5).toFixed(1)), // Random rating 1.5 - 5.0

@@ -8,8 +8,14 @@ import { Newsletter } from '../components/Newsletter';
 import { getFeaturedProductsConfig } from '../services/strapi';
 
 export function HomePage() {
-  const { featuredProducts, trendingProducts, onAddToCart, onToggleWishlist, wishlistItems } =
-    useOutletContext();
+  const {
+    featuredProducts,
+    trendingProducts,
+    onAddToCart,
+    onToggleWishlist,
+    wishlistItems,
+    onVentasClick,
+  } = useOutletContext();
 
   const [featuredProductsConfig, setFeaturedProductsConfig] = useState(null);
 
@@ -19,8 +25,16 @@ export function HomePage() {
 
   return (
     <>
-      <Hero />
+      <Hero
+        trendingProducts={trendingProducts}
+        featuredProductsConfig={featuredProductsConfig}
+        onAddToCart={onAddToCart}
+        onToggleWishlist={onToggleWishlist}
+        wishlistItems={wishlistItems}
+        onVentasClick={onVentasClick}
+      />
       <Categories />
+
       <TrustBanner />
       <FeaturedProducts
         products={featuredProducts}
@@ -29,15 +43,6 @@ export function HomePage() {
         wishlistItems={wishlistItems}
         title="Productos Destacados"
         subtitle={featuredProductsConfig?.descripcionDestacados || 'Cargando...'}
-        config={featuredProductsConfig}
-      />
-      <FeaturedProducts
-        products={trendingProducts}
-        onAddToCart={onAddToCart}
-        onToggleWishlist={onToggleWishlist}
-        wishlistItems={wishlistItems}
-        title="Tendencias de la Semana"
-        subtitle={featuredProductsConfig?.descripcionTendencias || 'Cargando...'}
         config={featuredProductsConfig}
       />
       <Newsletter />

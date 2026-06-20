@@ -1,12 +1,27 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { getHeroConfig } from '../services/strapi';
 import { VentasButton } from './smallComponents/VentasButton';
+import { FeaturedProducts } from './FeaturedProducts';
 
-export function Hero() {
+export function Hero({
+  trendingProducts,
+  featuredProductsConfig,
+  onAddToCart,
+  onToggleWishlist,
+  wishlistItems,
+  onVentasClick,
+}) {
   const [heroConfig, setHeroConfig] = useState(null);
+  const [showTrending, setShowTrending] = useState(false);
+  const [showMascot, setShowMascot] = useState(false);
 
   useEffect(() => {
     getHeroConfig().then(setHeroConfig);
+    const timer = setTimeout(() => {
+      setShowMascot(true);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const getColor = (key, fallback) => heroConfig?.[key] || fallback;
@@ -76,7 +91,7 @@ export function Hero() {
                   </span>
                 </h1>
 
-                <VentasButton />
+                <VentasButton onClick={onVentasClick} />
               </div>
             </div>
 
@@ -89,21 +104,130 @@ export function Hero() {
                 {heroConfig?.descripcionHero || 'Cargando...'}
               </p>
             </section>
+
+            {/* Mascot Character & Button Wrapper */}
+            <div
+              className={`mt-12 relative z-30 transition-all duration-1000 ease-out flex flex-col items-center w-fit ${
+                showMascot ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-[200px]'
+              }`}
+            >
+              {/* Mascot */}
+              <div className="relative z-10 animate-float translate-x-[45px]">
+                <svg
+                  width="100"
+                  height="100"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Body */}
+                  <rect
+                    x="30"
+                    y="40"
+                    width="40"
+                    height="35"
+                    rx="10"
+                    fill="#F59E0B"
+                    className="shadow-lg"
+                  />
+                  <rect x="35" y="45" width="30" height="25" rx="5" fill="#1e1e1e" />
+                  {/* Eyes */}
+                  <circle cx="42" cy="55" r="3" fill="#00ffcc" className="animate-blink" />
+                  <circle cx="58" cy="55" r="3" fill="#00ffcc" className="animate-blink" />
+                  {/* Mouth */}
+                  <rect x="42" y="62" width="16" height="2" rx="1" fill="#00ffcc" />
+                  {/* Head Antenna */}
+                  <line x1="50" y1="40" x2="50" y2="25" stroke="#F59E0B" strokeWidth="3" />
+                  <circle cx="50" cy="22" r="4" fill="#ef4444" className="animate-ping" />
+                  <circle cx="50" cy="22" r="4" fill="#ef4444" />
+                  {/* Arms holding the button - Adjusted to look like holding from top */}
+                  <path
+                    d="M30 60 Q 15 65, 20 90"
+                    stroke="#F59E0B"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M70 60 Q 85 65, 80 90"
+                    stroke="#F59E0B"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  {/* Hand Paws */}
+                  <circle cx="20" cy="92" r="6" fill="#F59E0B" />
+                  <circle cx="80" cy="92" r="6" fill="#F59E0B" />
+                  {/* Jetpack Flames */}
+                  <path d="M41 85 L38 95 L44 95 Z" fill="#ef4444" className="animate-pulse" />
+                  <path d="M59 85 L56 95 L62 95 Z" fill="#ef4444" className="animate-pulse" />
+                </svg>
+              </div>
+
+              {/* Connected Button */}
+              <div
+                className={`transition-transform duration-500 ${showMascot ? 'translate-y-[-10px]' : ''}`}
+              >
+                <button
+                  onClick={() => setShowTrending(!showTrending)}
+                  className="flex items-center gap-3 px-8 py-3 backdrop-blur-xl bg-black/40 text-base font-bold text-white hover:bg-black/60 hover:scale-105 transition-all group/toggle relative z-20"
+                >
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 duration-1000"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,1)]"></span>
+                  </span>
+                  <span className="uppercase tracking-wide drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+                    {showTrending ? 'Volver' : 'Productos en Tendencias'}
+                  </span>
+                </button>
+              </div>
+            </div>
           </header>
 
           {/* Contenido derecho - Imagen de tecnología profesional */}
           <aside className="relative h-[500px] flex items-center justify-center perspective-1000">
-            <div className="relative w-[450px] h-[450px] animate-float">
-              {/* Contenedor de imagen principal */}
-              <div className="relative w-full h-full group perspective-1000">
-                <div className="absolute inset-0 bg-[#2c2c30] blur-[100px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
+            {/* Mascot Character Removed */}
 
+            <div className="relative w-[1500px] h-[550px] -translate-x-20 -ml-30">
+              {/* Contenedor de imagen principal */}
+              <div
+                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-in-out transform ${
+                  showTrending
+                    ? 'opacity-0 scale-90 blur-lg pointer-events-none'
+                    : 'opacity-100 scale-100 blur-0 animate-float'
+                }`}
+              >
+                <div className="absolute inset-0 bg-[#2c2c30] blur-[100px] rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
                 {/* Imagen de tecnología */}
                 <img
                   src="/assets/hero-box.png"
                   alt="EvoHance Digital Assets"
-                  className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-700"
+                  className="w-[50%] h-[100%] object-contain translate-x-56"
                 />
+              </div>
+
+              {/* Contenedor de Productos en Tendencia */}
+              <div
+                className={`w-full absolute inset-0 h-full flex flex-col justify-center transition-all duration-700 ease-in-out transform ${
+                  showTrending
+                    ? 'opacity-100 scale-100 blur-0 translate-y-0'
+                    : 'opacity-0 scale-110 blur-md translate-y-10 pointer-events-none'
+                }`}
+              >
+                <div className="bg-background/50 dark:bg-black/20 backdrop-blur-xl rounded-3xl p-4 h-full shadow-2xl overflow-hidden">
+                  <div className="h-full">
+                    <FeaturedProducts
+                      products={trendingProducts}
+                      onAddToCart={onAddToCart}
+                      onToggleWishlist={onToggleWishlist}
+                      wishlistItems={wishlistItems}
+                      title="Tendencias"
+                      subtitle={featuredProductsConfig?.descripcionTendencias || 'Lo más popular'}
+                      config={featuredProductsConfig}
+                      embedded={true}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </aside>
@@ -112,3 +236,13 @@ export function Hero() {
     </section>
   );
 }
+
+Hero.propTypes = {
+  trendingProducts: PropTypes.array,
+  featuredProductsConfig: PropTypes.object,
+  onAddToCart: PropTypes.func,
+  onToggleWishlist: PropTypes.func,
+  onVentasClick: PropTypes.func,
+  wishlistItems: PropTypes.array,
+};
+

@@ -23,13 +23,7 @@ export function SellerOnboarding({ open, onClose }) {
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
 
       <div
-        className="relative w-full max-w-2xl rounded-2xl p-6 z-10"
-        style={{
-          background: '#111115',
-          borderColor: 'rgba(234, 179, 8, 0.28)',
-          boxShadow: '0 24px 60px rgba(0,0,0,.6)',
-          backdropFilter: 'blur(14px)',
-        }}
+        className="relative w-full max-w-2xl rounded-2xl p-6 z-10 glass-crystalline"
         role="dialog"
         aria-modal="true"
         aria-label="Become a Seller"

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export function AnuncioHeader({ headerConfig, getColor }) {
   const isActive = headerConfig?.mostrarAnuncio ?? true;
@@ -50,18 +51,20 @@ export function AnuncioHeader({ headerConfig, getColor }) {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <button
+          <Link
+            to="/ayuda-soporte"
             className="transition-colors cursor-pointer"
             style={{ color: getColor('enlacesAnuncioColor', '#fff') }}
           >
             Ayuda & Soporte
-          </button>
-          <button
+          </Link>
+          <Link
+            to="/rastrear-pedido"
             className="transition-colors cursor-pointer"
             style={{ color: getColor('enlacesAnuncioColor', '#fff') }}
           >
             Rastrear Pedido
-          </button>
+          </Link>
         </div>
       </div>
     </section>

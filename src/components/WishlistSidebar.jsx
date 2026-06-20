@@ -4,7 +4,14 @@ import { HeaderWishlist } from './smallComponents/HeaderWishlist';
 import { HomeWishlist } from './smallComponents/HomeWishlist';
 import { ItemsWishlist } from './smallComponents/ItemsWishlist';
 
-export function WishlistSidebar({ isOpen, onClose, items, onRemoveItem, onAddToCart }) {
+export function WishlistSidebar({
+  isOpen,
+  onClose,
+  items,
+  onRemoveItem,
+  onAddToCart,
+  onViewProduct,
+}) {
   return (
     <>
       {/* Cubierta */}
@@ -47,7 +54,12 @@ export function WishlistSidebar({ isOpen, onClose, items, onRemoveItem, onAddToC
             {items.length === 0 ? (
               <HomeWishlist onClose={onClose} />
             ) : (
-              <ItemsWishlist items={items} onRemoveItem={onRemoveItem} onAddToCart={onAddToCart} />
+              <ItemsWishlist
+                items={items}
+                onRemoveItem={onRemoveItem}
+                onAddToCart={onAddToCart}
+                onViewProduct={onViewProduct}
+              />
             )}
           </section>
 
@@ -110,4 +122,5 @@ WishlistSidebar.propTypes = {
   items: PropTypes.array.isRequired,
   onRemoveItem: PropTypes.func.isRequired,
   onAddToCart: PropTypes.func.isRequired,
+  onViewProduct: PropTypes.func.isRequired,
 };

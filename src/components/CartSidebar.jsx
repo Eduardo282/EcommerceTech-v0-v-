@@ -4,12 +4,26 @@ import { HomeCarrito } from './smallComponents/HomeCarrito';
 import { ItemsCarrito } from './smallComponents/ItemsCarrito';
 import { toast } from 'sonner';
 
-export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
+export function CartSidebar({
+  isOpen,
+  onClose,
+  items,
+  onRemoveItem,
+  onUpdateQuantity,
+  onViewProduct,
+}) {
   // Asegurar que todas las operaciones numéricas usen números (manejar precios como cadenas de la API)
-  const total = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const total = items.reduce(
+    (sum, item) => sum + Number(item.price || 0) * (Number(item.quantity) || 1),
+    0
+  );
   const savings = items.reduce(
     (sum, item) =>
-      sum + (item.originalPrice ? Number(item.originalPrice || 0) - Number(item.price || 0) : 0),
+      sum +
+      (item.originalPrice
+        ? (Number(item.originalPrice || 0) - Number(item.price || 0)) *
+          (Number(item.quantity) || 1)
+        : 0),
     0
   );
 
@@ -80,7 +94,12 @@ export function CartSidebar({ isOpen, onClose, items, onRemoveItem }) {
             {items.length === 0 ? (
               <HomeCarrito onClose={onClose} />
             ) : (
-              <ItemsCarrito items={items} onRemoveItem={onRemoveItem} />
+              <ItemsCarrito
+                items={items}
+                onRemoveItem={onRemoveItem}
+                onUpdateQuantity={onUpdateQuantity}
+                onViewProduct={onViewProduct}
+              />
             )}
           </section>
 
@@ -155,7 +174,10 @@ CartSidebar.propTypes = {
       originalPrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       image: PropTypes.string,
       category: PropTypes.string,
+      quantity: PropTypes.number,
     })
   ).isRequired,
   onRemoveItem: PropTypes.func.isRequired,
+  onUpdateQuantity: PropTypes.func.isRequired,
+  onViewProduct: PropTypes.func.isRequired,
 };

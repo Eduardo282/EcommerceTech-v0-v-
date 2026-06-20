@@ -1,302 +1,89 @@
 import { useState } from 'react';
-const Layout = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-    <line x1="3" x2="21" y1="9" y2="9" />
-    <line x1="9" x2="9" y1="21" y2="9" />
-  </svg>
-);
-const MousePointer = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
-    <path d="m13 13 6 6" />
-  </svg>
-);
-const Type = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polyline points="4 7 4 4 20 4 20 7" />
-    <line x1="9" x2="15" y1="20" y2="20" />
-    <line x1="12" x2="12" y1="4" y2="20" />
-  </svg>
-);
-const Box = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-    <line x1="12" x2="12" y1="22.08" y2="12" />
-  </svg>
-);
-const Layers = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polygon points="12 2 2 7 12 12 22 7 12 2" />
-    <polyline points="2 17 12 22 22 17" />
-    <polyline points="2 12 12 17 22 12" />
-  </svg>
-);
-const Search = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
-const ArrowRight = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-);
-const Sparkles = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-    <path d="M5 3v4" />
-    <path d="M9 3v4" />
-    <path d="M7 5h4" />
-    <path d="M3 7h4" />
-  </svg>
-);
-const Code = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <polyline points="16 18 22 12 16 6" />
-    <polyline points="8 6 2 12 8 18" />
-  </svg>
-);
-const Smartphone = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-    <path d="M12 18h.01" />
-  </svg>
-);
-const Monitor = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <rect width="20" height="14" x="2" y="3" rx="2" />
-    <line x1="8" x2="16" y1="21" y2="21" />
-    <line x1="12" x2="12" y1="17" y2="21" />
-  </svg>
-);
-
-// Datos estáticos para los componentes
-const COMPONENTS_DATA = [
-  {
-    id: 1,
-    title: 'Botón Neón Glow',
-    description: 'Botón con efecto de resplandor neón y animación al pasar el cursor.',
-    category: 'botones',
-    icon: <MousePointer className="h-8 w-8 text-amber-400" />,
-    tags: ['CSS', 'Animation'],
-  },
-  {
-    id: 2,
-    title: 'Tarjeta de Producto 3D',
-    description: 'Tarjeta con efecto de profundidad y rotación 3D suave.',
-    category: 'cards',
-    icon: <Box className="h-8 w-8 text-blue-400" />,
-    tags: ['3D', 'Hover'],
-  },
-  {
-    id: 3,
-    title: 'Input Flotante',
-    description: 'Campo de entrada con etiqueta flotante y validación visual.',
-    category: 'inputs',
-    icon: <Type className="h-8 w-8 text-green-400" />,
-    tags: ['Form', 'UX'],
-  },
-  {
-    id: 4,
-    title: 'Navbar Transparente',
-    description: 'Barra de navegación que cambia de estilo al hacer scroll.',
-    category: 'navegacion',
-    icon: <Layout className="h-8 w-8 text-purple-400" />,
-    tags: ['Layout', 'Responsive'],
-  },
-  {
-    id: 5,
-    title: 'Modal Glassmorphism',
-    description: 'Ventana modal con efecto de vidrio esmerilado y desenfoque.',
-    category: 'overlay',
-    icon: <Layers className="h-8 w-8 text-pink-400" />,
-    tags: ['Glass', 'Modal'],
-  },
-  {
-    id: 6,
-    title: 'Sidebar Colapsable',
-    description: 'Menú lateral con animaciones suaves de colapso y expansión.',
-    category: 'navegacion',
-    icon: <Layout className="h-8 w-8 text-orange-400" />,
-    tags: ['Menu', 'Dashboard'],
-  },
-  {
-    id: 7,
-    title: 'Loader Infinito',
-    description: 'Indicador de carga animado con SVG y CSS puro.',
-    category: 'feedback',
-    icon: <Sparkles className="h-8 w-8 text-cyan-400" />,
-    tags: ['Loading', 'SVG'],
-  },
-  {
-    id: 8,
-    title: 'Switch Toggle',
-    description: 'Interruptor moderno con estados de encendido/apagado animados.',
-    category: 'inputs',
-    icon: <MousePointer className="h-8 w-8 text-red-400" />,
-    tags: ['Form', 'Toggle'],
-  },
-];
-
-const CATEGORIES = [
-  { id: 'todos', label: 'Todos', icon: <Box className="h-4 w-4" /> },
-  { id: 'botones', label: 'Botones', icon: <MousePointer className="h-4 w-4" /> },
-  { id: 'cards', label: 'Cards', icon: <Layout className="h-4 w-4" /> },
-  { id: 'inputs', label: 'Inputs', icon: <Type className="h-4 w-4" /> },
-  { id: 'navegacion', label: 'Navegación', icon: <Layers className="h-4 w-4" /> },
-];
+import { useOutletContext } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useFilteredCatalog } from './catalog/useFilteredCatalog';
+import { CatalogGridBackground } from './catalog/CatalogGridBackground';
+import {
+  Search,
+  ArrowRight,
+  Sparkles,
+  Code,
+  Smartphone,
+  Monitor,
+  COMPONENTS_DATA,
+  CATEGORIES,
+  getComponentPrice,
+  getComponentCodeSnippet,
+  renderComponentMock
+} from './ComponentesUiUxPage.data';
 
 export function ComponentesUiUxPage() {
-  const [activeCategory, setActiveCategory] = useState('todos');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredComponents = COMPONENTS_DATA.filter((comp) => {
-    const matchesCategory = activeCategory === 'todos' || comp.category === activeCategory;
-    const matchesSearch =
-      comp.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      comp.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+  const { onAddToCart, onToggleWishlist, wishlistItems = [], onVentasClick } = useOutletContext();
+  const {
+    activeCategory,
+    filteredItems: filteredComponents,
+    searchQuery,
+    setActiveCategory,
+    setSearchQuery,
+  } = useFilteredCatalog({
+    items: COMPONENTS_DATA,
+    initialFilter: 'todos',
+    allFilter: 'todos',
+    filterBy: (component, category) => component.category === category,
+    searchBy: (component) => [component.title, component.description, ...component.tags],
   });
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [previewMode, setPreviewMode] = useState('desktop');
+
+  const selectedProduct = selectedComponent
+    ? {
+        id: `uiux-${selectedComponent.id}`,
+        name: selectedComponent.title,
+        category: selectedComponent.category,
+        price: getComponentPrice(selectedComponent).toFixed(2),
+        originalPrice: null,
+        rating: 4.8,
+        reviews: 120 + selectedComponent.id * 13,
+        image:
+          'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop',
+        sales: 40 + selectedComponent.id * 7,
+        badge: 'UI Kit',
+        features: selectedComponent.tags,
+        description: selectedComponent.description,
+        longDescription: `${selectedComponent.description} Incluye variantes responsive, estados interactivos y un snippet base para integración rápida.`,
+      }
+    : null;
+
+  function openComponent(component, mode = 'desktop') {
+    setSelectedComponent(component);
+    setPreviewMode(mode);
+  }
+
+  function handleSearchAction() {
+    if (!filteredComponents.length) {
+      toast.error('No se encontraron componentes para esa búsqueda');
+      return;
+    }
+
+    openComponent(filteredComponents[0], 'desktop');
+    toast.success(`Abriendo ${filteredComponents[0].title}`);
+  }
+
+  async function handleCopySnippet() {
+    if (!selectedComponent) return;
+
+    try {
+      await navigator.clipboard.writeText(getComponentCodeSnippet(selectedComponent));
+      toast.success('Snippet copiado al portapapeles');
+    } catch {
+      toast.error('No se pudo copiar el snippet');
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
       {/* Efectos de fondo (Reutilizado del estilo de Categories.jsx) */}
-      <div className="absolute inset-0 bg-[#0a0a0a]" />
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(234, 179, 8, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(234, 179, 8, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      <CatalogGridBackground />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 px-4">
@@ -329,8 +116,14 @@ export function ComponentesUiUxPage() {
                 className="w-full bg-transparent border-none text-white placeholder-gray-500 focus:ring-0 px-4 py-3 text-lg"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSearchAction();
+                }}
               />
-              <button className="rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold px-8">
+              <button
+                className="rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold px-8"
+                onClick={handleSearchAction}
+              >
                 Buscar
               </button>
             </div>
@@ -399,7 +192,10 @@ export function ComponentesUiUxPage() {
                 <p className="text-gray-400 mb-6 line-clamp-2">{comp.description}</p>
 
                 <div className="flex items-center justify-between mt-auto">
-                  <button className="text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 p-0 h-auto font-medium group/btn">
+                  <button
+                    className="text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 p-0 h-auto font-medium group/btn"
+                    onClick={() => openComponent(comp, 'desktop')}
+                  >
                     Ver Detalles
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                   </button>
@@ -407,18 +203,21 @@ export function ComponentesUiUxPage() {
                     <button
                       className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
                       title="Ver en Móvil"
+                      onClick={() => openComponent(comp, 'mobile')}
                     >
                       <Smartphone className="h-4 w-4" />
                     </button>
                     <button
                       className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
                       title="Ver en Desktop"
+                      onClick={() => openComponent(comp, 'desktop')}
                     >
                       <Monitor className="h-4 w-4" />
                     </button>
                     <button
                       className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
                       title="Ver Código"
+                      onClick={() => openComponent(comp, 'code')}
                     >
                       <Code className="h-4 w-4" />
                     </button>
@@ -436,9 +235,164 @@ export function ComponentesUiUxPage() {
             </div>
             <h3 className="text-xl font-bold text-white mb-2">No se encontraron resultados</h3>
             <p className="text-gray-400">Intenta con otros términos de búsqueda.</p>
+            <button
+              className="mt-6 rounded-xl bg-white/5 px-5 py-3 text-sm text-white transition hover:bg-white/10"
+              onClick={() => {
+                setSearchQuery('');
+                setActiveCategory('todos');
+              }}
+            >
+              Limpiar filtros
+            </button>
           </div>
         )}
       </section>
+
+      {selectedComponent && selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
+          <div className="relative max-h-[92vh] w-full max-w-6xl overflow-y-auto rounded-[2rem] border border-white/10 bg-[#0b0b10] shadow-[0_30px_120px_rgba(0,0,0,0.65)]">
+            <button
+              className="absolute right-5 top-5 z-10 rounded-full border border-white/10 bg-black/40 px-3 py-2 text-sm text-white transition hover:bg-white/10"
+              onClick={() => setSelectedComponent(null)}
+            >
+              Cerrar
+            </button>
+
+            <div className="grid gap-0 lg:grid-cols-[1.2fr_0.8fr]">
+              <div className="border-b border-white/10 p-6 lg:border-b-0 lg:border-r">
+                <div className="mb-6 flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-300">
+                    {selectedComponent.category}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      className={`rounded-xl px-3 py-2 text-xs transition ${previewMode === 'desktop' ? 'bg-white text-black' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                      onClick={() => setPreviewMode('desktop')}
+                    >
+                      Desktop
+                    </button>
+                    <button
+                      className={`rounded-xl px-3 py-2 text-xs transition ${previewMode === 'mobile' ? 'bg-white text-black' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                      onClick={() => setPreviewMode('mobile')}
+                    >
+                      Mobile
+                    </button>
+                    <button
+                      className={`rounded-xl px-3 py-2 text-xs transition ${previewMode === 'code' ? 'bg-white text-black' : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+                      onClick={() => setPreviewMode('code')}
+                    >
+                      Código
+                    </button>
+                  </div>
+                </div>
+
+                <div className="rounded-[2rem] border border-white/10 bg-linear-to-br from-white/[0.03] to-transparent p-5">
+                  <div className="mb-4 flex items-center justify-between text-sm text-gray-400">
+                    <span>Preview interactivo</span>
+                    <span className="font-mono text-xs uppercase tracking-wide text-amber-300">
+                      {previewMode}
+                    </span>
+                  </div>
+                  <div className="flex min-h-[420px] items-center justify-center rounded-[1.5rem] border border-white/5 bg-[#07070a] p-6">
+                    {renderComponentMock(selectedComponent, previewMode)}
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="mb-6 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="mb-2 text-3xl font-bold text-white">
+                      {selectedComponent.title}
+                    </h2>
+                    <p className="text-sm leading-7 text-gray-400">
+                      {selectedComponent.description}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 p-4 text-right">
+                    <div className="text-xs uppercase tracking-wide text-gray-500">Licencia</div>
+                    <div className="text-2xl font-bold text-amber-300">
+                      ${getComponentPrice(selectedComponent)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-6 flex flex-wrap gap-2">
+                  {selectedComponent.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mb-6 grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-xs uppercase tracking-wide text-gray-500">
+                      Compatibilidad
+                    </div>
+                    <div className="mt-2 text-sm font-semibold text-white">React + Tailwind</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-xs uppercase tracking-wide text-gray-500">Uso</div>
+                    <div className="mt-2 text-sm font-semibold text-white">Producción</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-xs uppercase tracking-wide text-gray-500">Formato</div>
+                    <div className="mt-2 text-sm font-semibold text-white">Snippet + demo</div>
+                  </div>
+                </div>
+
+                <div className="mb-6 space-y-3">
+                  <button
+                    className="w-full rounded-2xl bg-amber-500 px-5 py-4 text-sm font-bold text-black transition hover:bg-amber-400"
+                    onClick={() => onAddToCart(selectedProduct)}
+                  >
+                    Agregar al carrito
+                  </button>
+                  <button
+                    className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+                    onClick={() => onToggleWishlist(selectedProduct)}
+                  >
+                    {wishlistItems.includes(selectedProduct.id)
+                      ? 'Quitar de favoritos'
+                      : 'Guardar en favoritos'}
+                  </button>
+                  <button
+                    className="w-full rounded-2xl border border-amber-500/20 bg-amber-500/10 px-5 py-4 text-sm font-semibold text-amber-300 transition hover:bg-amber-500/15"
+                    onClick={
+                      previewMode === 'code' ? handleCopySnippet : () => setPreviewMode('code')
+                    }
+                  >
+                    {previewMode === 'code' ? 'Copiar snippet' : 'Ver código del componente'}
+                  </button>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
+                    <Sparkles className="h-4 w-4 text-amber-400" />
+                    Qué incluye
+                  </div>
+                  <ul className="space-y-2 text-sm text-gray-400">
+                    <li>Preview visual en variantes responsive.</li>
+                    <li>Snippet base listo para integración en React.</li>
+                    <li>Estados hover/focus y estructura UI consistente.</li>
+                  </ul>
+                </div>
+
+                <button
+                  className="mt-6 w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-gray-300 transition hover:bg-white/10"
+                  onClick={onVentasClick}
+                >
+                  Vender un componente similar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

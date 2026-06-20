@@ -4,10 +4,7 @@ export function CategoriaSubCategorias({ category }) {
   return (
     <nav
       aria-label={`${category.name} subcategories`}
-      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-72 z-50 backdrop-blur-xl animate-in slide-in-from-top-2 shadow-2xl rounded-3xl"
-      style={{
-        background: '#111115',
-      }}
+      className="top-full left-1/2 -translate-x-1/2 mt-6 w-72 z-50 backdrop-blur-xl animate-in slide-in-from-top-2 shadow-2xl rounded-3xl glass-crystalline !absolute"
     >
       <ul className="p-4 space-y-1 overflow-visible">
         {category.subcategories?.map((sub, subIndex) => (

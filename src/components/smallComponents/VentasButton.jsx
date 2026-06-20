@@ -1,15 +1,18 @@
-export function VentasButton() {
+import PropTypes from 'prop-types';
+
+export function VentasButton({ onClick }) {
   return (
     <button
-      className="bg-[#2c2c30] text-white cursor-pointer px-10 py-5 text-base rounded-xl backdrop-blur-xl group transition-all inline-flex items-center justify-center gap-2 font-medium tracking-wide"
+      onClick={onClick}
+      className="bg-[#2c2c30] text-white cursor-pointer px-10 py-5 text-base rounded-xl backdrop-blur-xl group transition-all inline-flex items-center justify-center gap-2 font-medium tracking-wide glass-crystalline"
       style={{
-        boxShadow: '0 0 20px #2c2c30',
+        boxShadow: 'inset 0 0 5px #2c2c30',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 0 30px #2c2c30';
+        e.currentTarget.style.boxShadow = 'inset 0 0 10px #2c2c30';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = '0 0 20px #2c2c30';
+        e.currentTarget.style.boxShadow = 'inset 0 0 5px #2c2c30';
       }}
     >
       Vende tus productos (Próximamente)
@@ -34,3 +37,7 @@ export function VentasButton() {
     </button>
   );
 }
+
+VentasButton.propTypes = {
+  onClick: PropTypes.func,
+};

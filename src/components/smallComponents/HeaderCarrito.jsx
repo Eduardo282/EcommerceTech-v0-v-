@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 
 export function HeaderCarrito({ items, onClose }) {
+  const totalItems = items.reduce(
+    (total, item) => total + (Number(item.quantity) || 1),
+    0
+  );
+
   return (
     <header
       className="flex items-center justify-between p-6"
@@ -38,7 +43,7 @@ export function HeaderCarrito({ items, onClose }) {
             Carrito
           </h2>
           <p className="text-sm text-white">
-            {items.length} {items.length === 1 ? 'artículo' : 'artículos'}
+            {totalItems} {totalItems === 1 ? 'artículo' : 'artículos'}
           </p>
         </div>
       </div>

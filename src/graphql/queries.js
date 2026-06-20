@@ -10,12 +10,19 @@ export const PRODUCTS_QUERY = gql`
       descuentoPrice
       images
       category {
+        id
         name
       }
       inventory
       attributes
       rating
+      reviewsCount
+      likesCount
+      salesCount
+      downloadsCount
+      viewsCount
       active
+      isTrending
       rubro
       badge
       features
@@ -25,6 +32,45 @@ export const PRODUCTS_QUERY = gql`
       specs {
         key
         value
+      }
+    }
+  }
+`;
+
+export const CATEGORIES_QUERY = gql`
+  query Categories {
+    categories {
+      id
+      name
+      slug
+    }
+  }
+`;
+
+export const PRODUCT_ENGAGEMENT_QUERY = gql`
+  query ProductEngagement($productId: ID!) {
+    productEngagement(productId: $productId) {
+      productId
+      liked
+      likesCount
+      reviewsCount
+      rating
+      viewsCount
+    }
+  }
+`;
+
+export const PRODUCT_REVIEWS_QUERY = gql`
+  query ProductReviews($productId: ID!, $limit: Int) {
+    productReviews(productId: $productId, limit: $limit) {
+      id
+      rating
+      comment
+      createdAt
+      updatedAt
+      user {
+        id
+        name
       }
     }
   }
