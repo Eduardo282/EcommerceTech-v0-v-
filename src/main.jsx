@@ -11,7 +11,13 @@ const rootEl = document.getElementById('root');
 if (rootEl) {
   createRoot(rootEl).render(
     <ApolloProvider client={client}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="dark"
+        disableTransitionOnChange
+        enableSystem={false}
+        storageKey="evohance-theme"
+      >
         <RubroProvider>
           <BrowserRouter>
             <AppRouter />

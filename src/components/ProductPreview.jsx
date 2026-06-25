@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { ImageWithFallback } from './fallImage/ImageWithFallback';
 import { ProductEngagement } from '../features/products/ProductEngagement';
 import { useProductPreview } from '../features/products/useProductPreview';
+import { ProductPreviewExpandedImage } from './ProductPreviewExpandedImage';
+import { ProductSimilarProducts } from './ProductSimilarProducts';
 
 export function ProductPreview({
   product,
@@ -78,21 +80,7 @@ export function ProductPreview({
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-5 w-5 text-[#E4D9AF]"
-          >
-            <path d="M18 6 6 18" />
-            <path d="m6 6 12 12" />
-          </svg>
+          <span className="text-xl leading-none text-[#E4D9AF]">&times;</span>
         </button>
 
         <div
@@ -166,23 +154,7 @@ export function ProductPreview({
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 text-[#E4D9AF]"
-                  >
-                    <path d="M15 3h6v6" />
-                    <path d="M9 21H3v-6" />
-                    <path d="M21 3l-7 7" />
-                    <path d="M3 21l7-7" />
-                  </svg>
+                  <span className="text-lg text-[#E4D9AF]">&#8599;</span>
                 </button>
                 <button
                   className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 cursor-pointer"
@@ -198,23 +170,13 @@ export function ProductPreview({
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <span className="text-sm text-[#E4D9AF]">{isInWishlist ? '19' : '18'}</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={`h-5 w-5 transition-all ${
-                      isInWishlist ? 'fill-[#980707] text-transparent' : 'text-[#FF6467]'
+                  <span
+                    className={`text-2xl leading-none transition-all ${
+                      isInWishlist ? 'text-[#980707]' : 'text-[#FF6467]'
                     }`}
                   >
-                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                  </svg>
+                    {isInWishlist ? '\u2665' : '\u2661'}
+                  </span>
                 </button>
               </div>
 
@@ -282,20 +244,7 @@ export function ProductPreview({
                   e.currentTarget.style.boxShadow = '0 0 15px #898989';
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6 text-[#E4D9AF]"
-                >
-                  <path d="m15 18-6-6 6-6" />
-                </svg>
+                <span className="text-2xl text-[#E4D9AF]">&lsaquo;</span>
               </button>
               <button
                 onClick={nextImage}
@@ -311,20 +260,7 @@ export function ProductPreview({
                   e.currentTarget.style.boxShadow = '0 0 15px #898989';
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6 text-[#E4D9AF]"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
+                <span className="text-2xl text-[#E4D9AF]">&rsaquo;</span>
               </button>
             </div>
 
@@ -348,20 +284,7 @@ export function ProductPreview({
                   <summary className="flex items-center justify-between py-4 font-medium cursor-pointer list-none text-[#E4D9AF]">
                     <span className="text-sm">Detalles del Producto</span>
                     <span className="transition-transform group-open:rotate-180">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4"
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
+                      <span className="text-lg leading-none">&#9662;</span>
                     </span>
                   </summary>
                   <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
@@ -389,20 +312,7 @@ export function ProductPreview({
                   <summary className="flex items-center justify-between py-4 font-medium cursor-pointer list-none text-[#E4D9AF]">
                     <span className="text-sm">Especificaciones Técnicas</span>
                     <span className="transition-transform group-open:rotate-180">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4"
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
+                      <span className="text-lg leading-none">&#9662;</span>
                     </span>
                   </summary>
                   <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
@@ -431,20 +341,7 @@ export function ProductPreview({
                   <summary className="flex items-center justify-between py-4 font-medium cursor-pointer list-none text-[#E4D9AF]">
                     <span className="text-sm">Qué incluye</span>
                     <span className="transition-transform group-open:rotate-180">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4"
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
+                      <span className="text-lg leading-none">&#9662;</span>
                     </span>
                   </summary>
                   <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
@@ -488,31 +385,16 @@ export function ProductPreview({
               {/* Calificación */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span
                       key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill={i < Math.floor(product.rating) ? '#FACE2F' : 'none'}
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`h-5 w-5 ${
+                      className={`text-xl ${
                         i < Math.floor(product.rating) ? 'text-[#FACE2F]' : 'text-transparent'
                       }`}
-                      style={
-                        i < Math.floor(product.rating)
-                          ? {
-                              filter: 'drop-shadow(0 0 4px #FACE2F)',
-                            }
-                          : {}
-                      }
+                      style={i < Math.floor(product.rating) ? { filter: 'drop-shadow(0 0 4px #FACE2F)' } : {}}
                     >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
+                      &#9733;
+                    </span>
                   ))}
                 </div>
                 <span className="text-sm text-[#898989]">
@@ -522,135 +404,18 @@ export function ProductPreview({
 
               {/* Descargas */}
               <div className="flex items-center gap-2 mb-6 text-sm text-[#898989]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" x2="12" y1="15" y2="3" />
-                </svg>
+                <span className="text-base leading-none">&#8595;</span>
                 <span>{product.sales.toLocaleString()} descargas</span>
               </div>
 
               {/* Productos Similares */}
-              {similarProducts.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="text-sm mb-3 text-[#F9B61D]">Productos Similares</h3>
-                  <div className="relative">
-                    {/* Botón de flecha izquierda */}
-                    <button
-                      onClick={scrollSimilarLeft}
-                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all cursor-pointer"
-                      style={{
-                        background: '#111115',
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-6 w-6 text-[#E4D9AF]"
-                      >
-                        <path d="m15 18-6-6 6-6" />
-                      </svg>
-                    </button>
-
-                    {/* Contenedor de desplazamiento de productos */}
-                    <div
-                      ref={similarScrollRef}
-                      className="flex gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-8"
-                      style={{
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none',
-                      }}
-                    >
-                      {similarProducts.map((similarProduct) => (
-                        <button
-                          key={similarProduct.id}
-                          onClick={() => {
-                            if (onProductClick) {
-                              onProductClick(similarProduct);
-                            }
-                          }}
-                          className="shrink-0 w-24 group cursor-pointer mt-3"
-                        >
-                          <div
-                            className="relative aspect-3/4 rounded-lg overflow-hidden mb-1.5 transition-all"
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.boxShadow = '0 0 15px #fff';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.boxShadow = 'none';
-                            }}
-                          >
-                            <img
-                              src={similarProduct.image}
-                              alt={similarProduct.name}
-                              className="w-full h-full object-cover"
-                            />
-                            {similarProduct.badge && (
-                              <span
-                                className="absolute top-1 left-1 text-white text-[10px] px-1.5 py-0 inline-flex items-center rounded-full font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent"
-                                style={{
-                                  background: '#410F3A',
-                                  boxShadow: '0 0 15px #410F3A',
-                                }}
-                              >
-                                {similarProduct.badge}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-[10px] text-white line-clamp-2 mb-0.5 text-left leading-tight">
-                            {similarProduct.name}
-                          </p>
-                          <p className="text-xs text-white">
-                            ${Number(similarProduct.price).toFixed(2)}
-                          </p>
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Botón de flecha derecha */}
-                    <button
-                      onClick={scrollSimilarRight}
-                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full shadow-lg transition-all cursor-pointer"
-                      style={{
-                        background: '#111115',
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-6 w-6 text-[#E4D9AF]"
-                      >
-                        <path d="m9 18 6-6-6-6" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              )}
+              <ProductSimilarProducts
+                onProductClick={onProductClick}
+                onScrollLeft={scrollSimilarLeft}
+                onScrollRight={scrollSimilarRight}
+                products={similarProducts}
+                scrollRef={similarScrollRef}
+              />
 
               {/* Precio unitario */}
               <div
@@ -700,20 +465,7 @@ export function ProductPreview({
                         background: '#2c2c30',
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4 text-[#E4D9AF]"
-                      >
-                        <path d="M5 12h14" />
-                      </svg>
+                      <span className="text-lg text-[#E4D9AF]">-</span>
                     </button>
                     <input
                       type="number"
@@ -732,21 +484,7 @@ export function ProductPreview({
                         background: '#2c2c30',
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4 text-[#E4D9AF]"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="M12 5v14" />
-                      </svg>
+                      <span className="text-lg text-[#E4D9AF]">+</span>
                     </button>
                   </div>
                   <div className="flex-1 text-right">
@@ -772,22 +510,6 @@ export function ProductPreview({
                   }}
                   onClick={() => onAddToCart(product, quantity)}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 mr-2"
-                  >
-                    <circle cx="8" cy="21" r="1" />
-                    <circle cx="19" cy="21" r="1" />
-                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-                  </svg>
                   Añadir al Carrito
                 </button>
                 <button
@@ -803,82 +525,11 @@ export function ProductPreview({
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 mr-2 text-white"
-                  >
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                  </svg>
                   Comprar Ahora
                 </button>
               </div>
 
-              {/* Características Clave */}
-              <div className="grid grid-cols-3 gap-3 mb-6">
-                <div className="flex flex-col items-center p-3 rounded-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 text-white mb-1"
-                  >
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                  </svg>
-                  <span className="text-xs text-[#E4D9AF] text-center">Licenciado</span>
-                </div>
-                <div className="flex flex-col items-center p-3 rounded-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 text-white mb-1"
-                  >
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                  </svg>
-                  <span className="text-xs text-[#E4D9AF] text-center">Configuración Rápida</span>
-                </div>
-                <div className="flex flex-col items-center p-3 rounded-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 text-[#07BC61] mb-1"
-                  >
-                    <path d="m16.5 9.4-9-5.19" />
-                    <path d="m21 16-9 5.19-9-5.19" />
-                    <path d="M3 5.61 12 10.8l9-5.19" />
-                    <rect x="3" y="14" width="18" height="7" rx="2" />
-                    <rect x="3" y="3" width="18" height="7" rx="2" />
-                  </svg>
-                  <span className="text-xs text-[#E4D9AF] text-center">Soporte</span>
-                </div>
-              </div>
+              <ProductKeyFeatures />
 
               {/* Descripción */}
               <div className="mb-6">
@@ -921,106 +572,57 @@ export function ProductPreview({
         </div>
       </div>
 
-      {isImageExpanded &&
-        createPortal(
-          <div
-            className="fixed inset-0 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md"
-            style={{ zIndex: 2147483647 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Expanded image of ${product.name}`}
-            onClick={() => setIsImageExpanded(false)}
-          >
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                setIsImageExpanded(false);
-              }}
-              aria-label="Close expanded image"
-              className="absolute right-5 top-5 z-20 rounded-full bg-[#2c2c30] p-3 text-[#E4D9AF] shadow-lg transition-transform hover:scale-110 cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-            </button>
-
-            <img
-              src={currentImage}
-              alt={product.name}
-              className="max-h-[94vh] max-w-[94vw] object-contain"
-              onClick={(event) => event.stopPropagation()}
-            />
-
-            {images.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    prevImage();
-                  }}
-                  aria-label="Previous image"
-                  className="absolute left-5 top-1/2 -translate-y-1/2 rounded-full bg-[#2c2c30]/90 p-3 text-[#E4D9AF] shadow-lg transition-transform hover:scale-110 cursor-pointer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-7 w-7"
-                  >
-                    <path d="m15 18-6-6 6-6" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    nextImage();
-                  }}
-                  aria-label="Next image"
-                  className="absolute right-5 top-1/2 -translate-y-1/2 rounded-full bg-[#2c2c30]/90 p-3 text-[#E4D9AF] shadow-lg transition-transform hover:scale-110 cursor-pointer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-7 w-7"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </button>
-              </>
-            )}
-          </div>,
-          document.body
-        )}
+      {isImageExpanded && (
+        <ProductPreviewExpandedImage
+          currentImage={currentImage}
+          images={images}
+          onClose={() => setIsImageExpanded(false)}
+          onNext={nextImage}
+          onPrevious={prevImage}
+          productName={product.name}
+        />
+      )}
     </div>,
     document.body
+  );
+}
+
+function ProductKeyFeatures() {
+  return (
+    <div className="grid grid-cols-3 gap-3 mb-6">
+      {[
+        ['Licenciado', <path key="licensed" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />],
+        ['Configuraci\u00f3n R\u00e1pida', <polygon key="setup" points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />],
+        [
+          'Soporte',
+          <g key="support">
+            <path d="m16.5 9.4-9-5.19" />
+            <path d="m21 16-9 5.19-9-5.19" />
+            <path d="M3 5.61 12 10.8l9-5.19" />
+            <rect x="3" y="14" width="18" height="7" rx="2" />
+            <rect x="3" y="3" width="18" height="7" rx="2" />
+          </g>,
+        ],
+      ].map(([label, icon]) => (
+        <div key={label} className="flex flex-col items-center p-3 rounded-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`h-5 w-5 mb-1 ${label === 'Soporte' ? 'text-[#07BC61]' : 'text-white'}`}
+          >
+            {icon}
+          </svg>
+          <span className="text-xs text-[#E4D9AF] text-center">{label}</span>
+        </div>
+      ))}
+    </div>
   );
 }
 ProductPreview.propTypes = {

@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import { getNewsletterConfig } from '../services/strapi';
+import { getThemeColor } from '../lib/themeColors';
 import { EtiquetaNewsletter } from './smallComponents/etiquetas/EtiquetaNewsletter';
 import { FormNewsletter } from './smallComponents/forms/FormNewsletter';
 
 export function Newsletter() {
+  const { resolvedTheme } = useTheme();
   const [newsletterConfig, setNewsletterConfig] = useState(null);
 
   useEffect(() => {
     getNewsletterConfig().then(setNewsletterConfig);
   }, []);
 
-  const getColor = (key, fallback) => newsletterConfig?.[key] || fallback;
+  const getColor = (key, fallback) =>
+    getThemeColor(newsletterConfig, key, fallback, resolvedTheme);
 
   return (
     <section

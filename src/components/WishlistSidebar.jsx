@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { HeaderWishlist } from './smallComponents/HeaderWishlist';
 import { HomeWishlist } from './smallComponents/HomeWishlist';
 import { ItemsWishlist } from './smallComponents/ItemsWishlist';
+import { AuthRequiredState } from './AuthRequiredState';
 
 export function WishlistSidebar({
   isOpen,
@@ -11,6 +12,8 @@ export function WishlistSidebar({
   onRemoveItem,
   onAddToCart,
   onViewProduct,
+  isAuthed,
+  onLoginClick,
 }) {
   return (
     <>
@@ -51,7 +54,9 @@ export function WishlistSidebar({
 
           {/* Items */}
           <section className="flex-1 overflow-y-auto p-6 scrollbar-hide">
-            {items.length === 0 ? (
+            {!isAuthed ? (
+              <AuthRequiredState type="wishlist" onLoginClick={onLoginClick} />
+            ) : items.length === 0 ? (
               <HomeWishlist onClose={onClose} />
             ) : (
               <ItemsWishlist
@@ -64,7 +69,7 @@ export function WishlistSidebar({
           </section>
 
           {/* Footer - Solo se muestra si hay artículos */}
-          {items.length > 0 && (
+          {isAuthed && items.length > 0 && (
             <footer
               className="p-6 space-y-4"
               style={{
@@ -123,4 +128,6 @@ WishlistSidebar.propTypes = {
   onRemoveItem: PropTypes.func.isRequired,
   onAddToCart: PropTypes.func.isRequired,
   onViewProduct: PropTypes.func.isRequired,
+  isAuthed: PropTypes.bool.isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };

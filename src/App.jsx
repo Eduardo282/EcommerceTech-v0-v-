@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from './graphql/queries';
-import { useRubro } from './context/useRubro';
+
 import { RUBROS } from './context/rubroConstants';
 
 import { Outlet } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Toaster } from './components/Toaster';
 
+import { useRubro } from './context/useRubro';
 import { useCart } from './features/cart/useCart';
 import { useWishlist } from './features/wishlist/useWishlist';
 import { useProducts } from './features/products/useProducts';
@@ -28,6 +29,7 @@ export default function App() {
   const [onboardingOpen, setOnboardingOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [previewProduct, setPreviewProduct] = useState(null);
+  const [guestDrawer, setGuestDrawer] = useState(null);
 
   // Hook global del Rubro y contexto
   const { rubro, setRubro, setIsSeller, setStore } = useRubro();
@@ -50,7 +52,32 @@ export default function App() {
   const { featuredProducts, trendingProducts } = useProducts(rubro);
 
   // Helpers de inyección para custom hooks
-  const requireAuth = useCallback(() => setAuthOpen(true), []);
+  const requireAuth = useCallback((reason = 'default') => {
+    if (reason === 'cart' || reason === 'cartView') {
+      setGuestDrawer('cart');
+      return;
+    }
+
+    if (reason === 'wishlist' || reason === 'wishlistView') {
+      setGuestDrawer('wishlist');
+      return;
+    }
+
+    const messageByReason = {
+      seller: {
+        title: 'Inicia sesión para vender productos',
+        description: 'Necesitás una cuenta para administrar tus publicaciones.',
+      },
+      default: {
+        title: 'Inicia sesión para continuar',
+        description: 'Tu cuenta nos permite guardar tu actividad y preferencias.',
+      },
+    };
+    const message = messageByReason[reason] || messageByReason.default;
+
+    toast.info(message.title, { description: message.description });
+    setAuthOpen(true);
+  }, []);
   const contextProductsForWishlist = useMemo(() => [...featuredProducts, ...trendingProducts], [featuredProducts, trendingProducts]);
 
   // Inicializar Custom Hooks de negocio puro
@@ -105,8 +132,27 @@ export default function App() {
     setPreviewProduct(product);
   }, [cart, wishlist]);
 
+  const handleCartClick = useCallback(() => {
+    if (!isAuthed) {
+      setGuestDrawer('cart');
+      return;
+    }
+
+    cart.setIsCartOpen(true);
+  }, [cart, isAuthed]);
+
+  const handleWishlistClick = useCallback(() => {
+    if (!isAuthed) {
+      setGuestDrawer('wishlist');
+      return;
+    }
+
+    wishlist.setIsWishlistOpen(true);
+  }, [isAuthed, wishlist]);
+
   const handleAuthSuccess = useCallback(({ mode, wantsSeller, userName, user } = {}) => {
     setAuthOpen(false);
+    setGuestDrawer(null);
     // Si el usuario es vendedor, lo redirigimos a la tienda
     if (user?.isSeller) {
       if (user?.rubro) setRubro(user.rubro);
@@ -135,9 +181,9 @@ export default function App() {
   return (
     <div className="min-h-screen relative">
       <Header
-        onCartClick={() => cart.setIsCartOpen(true)}
+        onCartClick={handleCartClick}
         cartItemsCount={cartItemsCount}
-        onWishlistClick={() => wishlist.setIsWishlistOpen(true)}
+        onWishlistClick={handleWishlistClick}
         wishlistItemsCount={wishlist.resolvedWishlistItems.length}
         onUserClick={() => setAuthOpen(true)}
         productCategories={productCategories}
@@ -153,7 +199,7 @@ export default function App() {
             wishlistItems: wishlist.wishlistItems,
             onVentasClick: () => {
               if (!isAuthed) {
-                setAuthOpen(true);
+                requireAuth('seller');
               } else {
                 setOnboardingOpen(true);
               }
@@ -166,20 +212,30 @@ export default function App() {
 
       <Suspense fallback={null}>
         <CartSidebar
-          isOpen={cart.isCartOpen}
-          onClose={() => cart.setIsCartOpen(false)}
+          isOpen={(isAuthed && cart.isCartOpen) || guestDrawer === 'cart'}
+          onClose={() => {
+            cart.setIsCartOpen(false);
+            setGuestDrawer(null);
+          }}
           items={cart.cartItems}
           onRemoveItem={cart.handleRemoveFromCart}
           onUpdateQuantity={cart.handleUpdateCartQuantity}
           onViewProduct={handleViewProduct}
+          isAuthed={isAuthed}
+          onLoginClick={() => setAuthOpen(true)}
         />
         <WishlistSidebar
-          isOpen={wishlist.isWishlistOpen}
-          onClose={() => wishlist.setIsWishlistOpen(false)}
+          isOpen={(isAuthed && wishlist.isWishlistOpen) || guestDrawer === 'wishlist'}
+          onClose={() => {
+            wishlist.setIsWishlistOpen(false);
+            setGuestDrawer(null);
+          }}
           items={wishlist.resolvedWishlistItems}
           onRemoveItem={wishlist.handleToggleWishlist}
           onAddToCart={cart.handleAddToCart}
           onViewProduct={handleViewProduct}
+          isAuthed={isAuthed}
+          onLoginClick={() => setAuthOpen(true)}
         />
         {previewProduct && (
           <ProductPreviewLazy

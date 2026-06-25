@@ -1,25 +1,67 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import PropTypes from 'prop-types';
 import { getFooterConfig } from '../services/strapi';
+import { getThemeColor } from '../lib/themeColors';
 import { Logo } from './smallComponents/Logo';
 import { Link } from 'react-router-dom';
 import { FormFooter } from './smallComponents/forms/FormFooter';
 
+
+const SOCIAL_LINKS = [
+  {
+    href: 'https://www.facebook.com',
+    hoverClass: 'group-hover:text-[#0866ff]',
+    icon: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />,
+    label: 'Facebook',
+  },
+  {
+    href: 'https://x.com',
+    hoverClass: 'group-hover:text-[#39cdff]',
+    icon: <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />,
+    label: 'X',
+  },
+  {
+    href: 'https://www.instagram.com',
+    hoverClass: 'group-hover:text-[#c508ca]',
+    icon: <><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></>,
+    label: 'Instagram',
+  },
+  {
+    href: 'https://github.com',
+    hoverClass: 'group-hover:text-[#f0f6fc]',
+    icon: <><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></>,
+    label: 'GitHub',
+  },
+  {
+    href: 'https://www.linkedin.com',
+    hoverClass: 'group-hover:text-[#0a66c2]',
+    icon: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></>,
+    label: 'LinkedIn',
+  },
+];
 export function Footer() {
+  const { resolvedTheme } = useTheme();
   const [footerConfig, setFooterConfig] = useState(null);
 
   useEffect(() => {
     getFooterConfig().then(setFooterConfig);
   }, []);
 
-  const getColor = (key, fallback) => footerConfig?.[key] || fallback;
+  const isDark = resolvedTheme !== 'light';
+  const getColor = (key, fallback) => getThemeColor(footerConfig, key, fallback, resolvedTheme);
+  const footerIconColor = isDark ? '#ffffff' : '#111827';
+  const footerSocialBackground = isDark ? '#111115' : '#f8fafc';
+  const footerSocialBorder = isDark ? '#2c2c30' : '#e2e8f0';
+  const footerSocialIconColor = isDark ? '#E4D9AF' : '#111827';
 
   return (
     <footer
       className="relative overflow-hidden bg-background"
       style={{
-        // Legacy background color removed to support theme switching
-        // backgroundColor: 'black',
-        boxShadow: '0 0 26px #2c2c30, inset -10px 0 18px #2c2c30',
+        boxShadow: isDark
+          ? '0 0 26px #2c2c30, inset -10px 0 18px #2c2c30'
+          : '0 -8px 26px rgba(15, 23, 42, 0.08)',
       }}
     >
       {/* Patrón de cuadrícula */}
@@ -109,7 +151,7 @@ export function Footer() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="h-4 w-4"
-                  style={{ color: 'white' }}
+                  style={{ color: footerIconColor }}
                 >
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -133,7 +175,7 @@ export function Footer() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="h-4 w-4"
-                  style={{ color: 'white' }}
+                  style={{ color: footerIconColor }}
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
@@ -158,7 +200,7 @@ export function Footer() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="h-4 w-4"
-                  style={{ color: 'white' }}
+                  style={{ color: footerIconColor }}
                 >
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
@@ -170,270 +212,64 @@ export function Footer() {
             </address>
 
             <nav aria-label="social links" className="flex gap-3">
-              <a
-                href="https://www.facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
-                style={{
-                  background: '#111115',
-                  boxShadow: '0 0 10px #2c2c30',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 20px #2c2c30';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 10px #2c2c30';
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#0866ff]"
+              {SOCIAL_LINKS.map(({ href, hoverClass, icon, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 backdrop-blur-sm group"
+                  style={{
+                    background: footerSocialBackground,
+                    borderColor: footerSocialBorder,
+                    boxShadow: `0 0 10px ${footerSocialBorder}`,
+                  }}
                 >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                </svg>
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
-                style={{
-                  background: '#111115',
-                  boxShadow: '0 0 10px #2c2c30',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 20px #2c2c30';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 10px #2c2c30';
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#39cdff]"
-                >
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
-                style={{
-                  background: '#111115',
-                  boxShadow: '0 0 10px #2c2c30',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 20px #2c2c30';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 10px #2c2c30';
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#c508ca]"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
-                style={{
-                  background: '#111115',
-                  boxShadow: '0 0 10px #2c2c30',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 20px #2c2c30';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 10px #2c2c30';
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#f0f6fc]"
-                >
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                  <path d="M9 18c-4.51 2-5-2-7-2" />
-                </svg>
-              </a>
-              <a
-                href="https://www.linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-lg transition-all hover:scale-110 border-2 border-[#2c2c30] backdrop-blur-sm group"
-                style={{
-                  background: '#111115',
-                  boxShadow: '0 0 10px #2c2c30',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 20px #2c2c30';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#2c2c30';
-                  e.currentTarget.style.boxShadow = '0 0 10px #2c2c30';
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5 text-[#E4D9AF] group-hover:text-[#0a66c2]"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect width="4" height="12" x="2" y="9" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`h-5 w-5 ${hoverClass}`}
+                    style={{ color: footerSocialIconColor }}
+                  >
+                    {icon}
+                  </svg>
+                </a>
+              ))}
             </nav>
           </section>
 
           {/* Categorías */}
-          <nav aria-label="footer categories">
-            <h4
-              className="mb-4 flex items-center gap-2 font-display"
-              style={{
-                color: getColor('titleColor', '#fff'),
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4 text-[#E4D9AF]"
-                style={{
-                  filter: 'drop-shadow(0 0 5px #E4D9AF)',
-                }}
-              >
-                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-              </svg>
-              Categorías
-            </h4>
-            <ul className="space-y-2">
-              {(footerConfig?.menuLinks?.categorias || []).map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="transition-colors hover:translate-x-1 inline-block"
-                    style={{ color: getColor('enlaceColor', '#fff') }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <FooterLinks
+            ariaLabel="footer categories"
+            getColor={getColor}
+            links={footerConfig?.menuLinks?.categorias || []}
+            showSparkle
+            title="Categorías"
+          />
 
           {/* Soporte */}
-          <nav aria-label="footer support">
-            <h4
-              className="mb-4 font-display"
-              style={{
-                color: getColor('titleColor', '#fff'),
-              }}
-            >
-              Soporte
-            </h4>
-            <ul className="space-y-2">
-              {(footerConfig?.menuLinks?.soporte || []).map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="transition-colors hover:translate-x-1 inline-block"
-                    style={{ color: getColor('enlaceColor', '#fff') }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <FooterLinks
+            ariaLabel="footer support"
+            getColor={getColor}
+            links={footerConfig?.menuLinks?.soporte || []}
+            title="Soporte"
+          />
 
           {/* Compañía */}
-          <nav aria-label="footer company">
-            <h4
-              className="mb-4 font-display"
-              style={{
-                color: getColor('titleColor', '#fff'),
-              }}
-            >
-              Compañía
-            </h4>
-            <ul className="space-y-2">
-              {(footerConfig?.menuLinks?.compania || []).map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="transition-colors hover:translate-x-1 inline-block"
-                    style={{ color: getColor('enlaceColor', '#fff') }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <FooterLinks
+            ariaLabel="footer company"
+            getColor={getColor}
+            links={footerConfig?.menuLinks?.compania || []}
+            title="Compañía"
+          />
         </section>
 
         {/* Noticias */}
@@ -511,3 +347,57 @@ export function Footer() {
     </footer>
   );
 }
+
+
+function FooterLinks({ ariaLabel, getColor, links, showSparkle = false, title }) {
+  return (
+    <nav aria-label={ariaLabel}>
+      <h4 className="mb-4 flex items-center gap-2 font-display" style={{ color: getColor('titleColor', '#fff') }}>
+        {showSparkle && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4 text-[#E4D9AF]"
+            style={{ filter: 'drop-shadow(0 0 5px #E4D9AF)' }}
+          >
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+          </svg>
+        )}
+        {title}
+      </h4>
+      <ul className="space-y-2">
+        {links.map((link, index) => (
+          <li key={index}>
+            <a
+              href={link.href}
+              className="transition-colors hover:translate-x-1 inline-block"
+              style={{ color: getColor('enlaceColor', '#fff') }}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+FooterLinks.propTypes = {
+  ariaLabel: PropTypes.string.isRequired,
+  getColor: PropTypes.func.isRequired,
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  showSparkle: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+};

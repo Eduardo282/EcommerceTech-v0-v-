@@ -1,37 +1,21 @@
 import { useTheme } from 'next-themes';
-import { useSyncExternalStore } from 'react';
 
 export function ThemeToggle() {
-  const { setTheme, resolvedTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
+  const { setTheme, resolvedTheme, theme } = useTheme();
 
-  if (!mounted) {
-    return (
-      <button
-        className="relative flex items-center justify-center w-10 h-10 text-amber-500 border-2 rounded-xl cursor-pointer hover:bg-slate-800/20"
-        style={{
-          background: 'transparent',
-          borderColor: '#2c2c30',
-        }}
-      >
-        <span className="sr-only">Toggle theme</span>
-      </button>
-    );
-  }
-
-  const isDark = resolvedTheme === 'dark';
+  const activeTheme = resolvedTheme || theme || 'dark';
+  const isDark = activeTheme === 'dark';
+  const borderColor = isDark ? '#2c2c30' : '#d1d5db';
 
   return (
     <button
+      aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
+      aria-pressed={isDark}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="relative flex items-center justify-center w-10 h-10 text-amber-500 border-2 rounded-xl cursor-pointer hover:bg-slate-800/20"
+      className="relative flex items-center justify-center w-10 h-10 text-amber-500 border-2 rounded-xl cursor-pointer hover:bg-amber-500/10"
       style={{
         background: 'transparent',
-        borderColor: '#2c2c30',
+        borderColor,
       }}
     >
       {/* Sun Icon: Visible in Light Mode */}

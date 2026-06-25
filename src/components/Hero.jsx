@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import PropTypes from 'prop-types';
 import { getHeroConfig } from '../services/strapi';
+import { getThemeColor } from '../lib/themeColors';
 import { VentasButton } from './smallComponents/VentasButton';
 import { FeaturedProducts } from './FeaturedProducts';
 
@@ -12,6 +14,7 @@ export function Hero({
   wishlistItems,
   onVentasClick,
 }) {
+  const { resolvedTheme } = useTheme();
   const [heroConfig, setHeroConfig] = useState(null);
   const [showTrending, setShowTrending] = useState(false);
   const [showMascot, setShowMascot] = useState(false);
@@ -24,7 +27,7 @@ export function Hero({
     return () => clearTimeout(timer);
   }, []);
 
-  const getColor = (key, fallback) => heroConfig?.[key] || fallback;
+  const getColor = (key, fallback) => getThemeColor(heroConfig, key, fallback, resolvedTheme);
 
   return (
     <section
@@ -114,12 +117,29 @@ export function Hero({
               {/* Mascot */}
               <div className="relative z-10 animate-float translate-x-[45px]">
                 <svg
-                  width="100"
-                  height="100"
+                  width="108"
+                  height="108"
                   viewBox="0 0 100 100"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="drop-shadow-[0_0_24px_rgba(249,182,29,0.28)]"
                 >
+                  <title>EvoHance mascot</title>
+                  <defs>
+                    <linearGradient id="mascotShell" x1="30" y1="36" x2="72" y2="78">
+                      <stop stopColor="#F9B61D" />
+                      <stop offset="1" stopColor="#8A5A05" />
+                    </linearGradient>
+                    <linearGradient id="mascotScreen" x1="35" y1="44" x2="65" y2="71">
+                      <stop stopColor="#17171b" />
+                      <stop offset="1" stopColor="#050505" />
+                    </linearGradient>
+                    <filter id="mascotGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#F9B61D" floodOpacity="0.45" />
+                    </filter>
+                  </defs>
+                  {/* Back glow */}
+                  <circle cx="50" cy="58" r="31" fill="#F9B61D" opacity="0.08" />
                   {/* Body */}
                   <rect
                     x="30"
@@ -127,40 +147,52 @@ export function Hero({
                     width="40"
                     height="35"
                     rx="10"
-                    fill="#F59E0B"
-                    className="shadow-lg"
+                    fill="url(#mascotShell)"
+                    stroke="#E4D9AF"
+                    strokeOpacity="0.65"
+                    strokeWidth="1.5"
                   />
-                  <rect x="35" y="45" width="30" height="25" rx="5" fill="#1e1e1e" />
+                  <rect
+                    x="35"
+                    y="45"
+                    width="30"
+                    height="25"
+                    rx="7"
+                    fill="url(#mascotScreen)"
+                    stroke="#F9B61D"
+                    strokeOpacity="0.35"
+                  />
                   {/* Eyes */}
-                  <circle cx="42" cy="55" r="3" fill="#00ffcc" className="animate-blink" />
-                  <circle cx="58" cy="55" r="3" fill="#00ffcc" className="animate-blink" />
+                  <circle cx="42" cy="55" r="3" fill="#F9B61D" filter="url(#mascotGlow)" className="animate-blink" />
+                  <circle cx="58" cy="55" r="3" fill="#F9B61D" filter="url(#mascotGlow)" className="animate-blink" />
                   {/* Mouth */}
-                  <rect x="42" y="62" width="16" height="2" rx="1" fill="#00ffcc" />
+                  <rect x="43" y="62" width="14" height="2" rx="1" fill="#E4D9AF" opacity="0.9" />
                   {/* Head Antenna */}
-                  <line x1="50" y1="40" x2="50" y2="25" stroke="#F59E0B" strokeWidth="3" />
-                  <circle cx="50" cy="22" r="4" fill="#ef4444" className="animate-ping" />
-                  <circle cx="50" cy="22" r="4" fill="#ef4444" />
+                  <line x1="50" y1="40" x2="50" y2="25" stroke="#E4D9AF" strokeWidth="3" strokeLinecap="round" />
+                  <circle cx="50" cy="22" r="4" fill="#F9B61D" opacity="0.45" className="animate-ping" />
+                  <circle cx="50" cy="22" r="4" fill="#F9B61D" />
+                  <circle cx="72" cy="33" r="6" fill="#8A2F2F" opacity="0.65" />
                   {/* Arms holding the button - Adjusted to look like holding from top */}
                   <path
                     d="M30 60 Q 15 65, 20 90"
-                    stroke="#F59E0B"
+                    stroke="#F9B61D"
                     strokeWidth="6"
                     strokeLinecap="round"
                     fill="none"
                   />
                   <path
                     d="M70 60 Q 85 65, 80 90"
-                    stroke="#F59E0B"
+                    stroke="#F9B61D"
                     strokeWidth="6"
                     strokeLinecap="round"
                     fill="none"
                   />
                   {/* Hand Paws */}
-                  <circle cx="20" cy="92" r="6" fill="#F59E0B" />
-                  <circle cx="80" cy="92" r="6" fill="#F59E0B" />
-                  {/* Jetpack Flames */}
-                  <path d="M41 85 L38 95 L44 95 Z" fill="#ef4444" className="animate-pulse" />
-                  <path d="M59 85 L56 95 L62 95 Z" fill="#ef4444" className="animate-pulse" />
+                  <circle cx="20" cy="92" r="6" fill="#F9B61D" />
+                  <circle cx="80" cy="92" r="6" fill="#F9B61D" />
+                  {/* Subtle boosters */}
+                  <path d="M41 84 L38 94 L44 94 Z" fill="#E4D9AF" opacity="0.8" className="animate-pulse" />
+                  <path d="M59 84 L56 94 L62 94 Z" fill="#E4D9AF" opacity="0.8" className="animate-pulse" />
                 </svg>
               </div>
 

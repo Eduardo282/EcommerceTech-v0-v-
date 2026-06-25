@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { HeaderCarrito } from './smallComponents/HeaderCarrito';
 import { HomeCarrito } from './smallComponents/HomeCarrito';
 import { ItemsCarrito } from './smallComponents/ItemsCarrito';
+import { AuthRequiredState } from './AuthRequiredState';
 import { toast } from 'sonner';
 
 export function CartSidebar({
@@ -11,6 +12,8 @@ export function CartSidebar({
   onRemoveItem,
   onUpdateQuantity,
   onViewProduct,
+  isAuthed,
+  onLoginClick,
 }) {
   // Asegurar que todas las operaciones numéricas usen números (manejar precios como cadenas de la API)
   const total = items.reduce(
@@ -56,6 +59,8 @@ export function CartSidebar({
     }
   };
 
+
+  
   return (
     <>
       {isOpen && (
@@ -91,7 +96,9 @@ export function CartSidebar({
           <HeaderCarrito items={items} onClose={onClose} />
 
           <section className="flex-1 overflow-auto scrollbar-hide p-6">
-            {items.length === 0 ? (
+            {!isAuthed ? (
+              <AuthRequiredState type="cart" onLoginClick={onLoginClick} />
+            ) : items.length === 0 ? (
               <HomeCarrito onClose={onClose} />
             ) : (
               <ItemsCarrito
@@ -103,7 +110,7 @@ export function CartSidebar({
             )}
           </section>
 
-          {items.length > 0 && (
+          {isAuthed && items.length > 0 && (
             <footer
               className="p-6 space-y-4"
               style={{
@@ -180,4 +187,6 @@ CartSidebar.propTypes = {
   onRemoveItem: PropTypes.func.isRequired,
   onUpdateQuantity: PropTypes.func.isRequired,
   onViewProduct: PropTypes.func.isRequired,
+  isAuthed: PropTypes.bool.isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };

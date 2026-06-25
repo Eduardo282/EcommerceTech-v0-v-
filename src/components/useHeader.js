@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useTheme } from 'next-themes';
 import { useRubro } from '../context/useRubro';
 import { RUBROS } from '../context/rubroConstants';
 import { LOGOUT_USER } from '../graphql/mutations';
 import { GET_ME } from '../graphql/queries';
 import { getHeaderConfig } from '../services/strapi';
+import { getThemeColor } from '../lib/themeColors';
 
 export function useHeader() {
+  const { resolvedTheme } = useTheme();
   const { isSeller, rubro, setRubro, setIsSeller, setStore } = useRubro();
   const { data } = useQuery(GET_ME);
   const [logout] = useMutation(LOGOUT_USER);
@@ -64,9 +67,10 @@ export function useHeader() {
     accountRef,
     categoriesOpen,
     categoriesRef,
-    getColor: (key, fallback) => headerConfig?.[key] || fallback,
+    getColor: (key, fallback) => getThemeColor(headerConfig, key, fallback, resolvedTheme),
     headerConfig,
     isAuthed,
+    isDark: resolvedTheme !== 'light',
     isSeller,
     logoutUser,
     rubro,

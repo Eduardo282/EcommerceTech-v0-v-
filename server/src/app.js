@@ -7,6 +7,7 @@ import { expressMiddleware } from '@as-integrations/express4';
 import { asyncRoute } from './http/asyncRoute.js';
 import { errorMiddleware } from './http/errorMiddleware.js';
 import { createCheckoutSession } from './services/StripeService.js';
+import { subscribeToNewsletter } from './services/newsletterService.js';
 import { buildContext } from './graphql/context.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -46,6 +47,11 @@ export function createApp(apolloServer) {
   app.post('/create-checkout-session', express.json(), asyncRoute(async (req, res) => {
     const session = await createCheckoutSession(req.body.items, req.get('origin'));
     res.json({ id: session.id, url: session.url });
+  }));
+
+  app.post('/newsletter/subscribe', express.json(), asyncRoute(async (req, res) => {
+    const result = await subscribeToNewsletter(req.body?.email);
+    res.status(result.alreadySubscribed ? 200 : 201).json(result);
   }));
 
   // Endpoints GraphQl inyectando el Core de GraphQL inicializado en Root

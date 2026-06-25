@@ -32,6 +32,7 @@ export function Header({
     getColor,
     headerConfig,
     isAuthed,
+    isDark,
     isSeller,
     logoutUser,
     rubro,
@@ -40,13 +41,19 @@ export function Header({
     setCategoriesOpen,
     user,
   } = useHeader();
+  const headerIconColor = isDark ? '#E4D9AF' : '#111827';
+  const headerButtonBorder = isDark ? '#2c2c30' : '#d1d5db';
+  const headerButtonHover = isDark ? '#111115' : '#f3f4f6';
+  const headerPanelBackground = isDark ? '#111115' : '#ffffff';
+  const headerPanelBorder = isDark ? 'rgba(228, 217, 175, 0.16)' : 'rgba(15, 23, 42, 0.12)';
+  const headerPanelMuted = isDark ? 'rgba(255, 255, 255, 0.55)' : '#64748b';
 
   return (
     <header
       className="sticky top-0 z-50 w-full shadow-2xl font-sans"
       style={{
         backgroundColor: getColor('fondoHeaderColor', '#fff'),
-        boxShadow: '0 4px 32px #2C2C30',
+        boxShadow: isDark ? '0 4px 32px #2C2C30' : '0 4px 24px rgba(15, 23, 42, 0.08)',
       }}
     >
       <AnuncioHeader headerConfig={headerConfig} getColor={getColor} />
@@ -83,62 +90,39 @@ export function Header({
             <ThemeToggle />
             {/* Rubro primero, luego wishlist, login, carrito (orden por referencia) */}
             <RubroSelector titleColor={getColor('titleRubroColor', '#fff')} />
-            <button
-              className="relative flex items-center justify-center w-10 h-10 text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
+            <HeaderIconButton
+              badgeColor="#FF6467"
+              borderColor={headerButtonBorder}
+              count={wishlistItemsCount}
+              hoverColor="#FF6467"
+              hoverBorderColor={headerButtonHover}
               onClick={onWishlistClick}
-              style={{
-                background: 'transparent',
-                borderColor: '#2c2c30',
-                boxShadow: '0 0 0 1px #2c2c30 inset, 0 0 16px #2c2c30',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 1px #111115 inset, 0 0 24px #111115';
-                e.currentTarget.style.borderColor = '#111115';
-                e.currentTarget.style.color = '#FF6467';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 1px #2c2c30 inset, 0 0 16px #2c2c30';
-                e.currentTarget.style.borderColor = '#2c2c30';
-                e.currentTarget.style.color = '#E4D9AF';
-              }}
+              textColor={headerIconColor}
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="h-5 w-5"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
               >
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
               </svg>
-              {wishlistItemsCount > 0 && (
-                <span
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse text-xs font-bold rounded-full"
-                  style={{
-                    background: '#FF6467',
-                    boxShadow: '0 0 15px #FF6467',
-                    color: 'black',
-                  }}
-                >
-                  {wishlistItemsCount}
-                </span>
-              )}
-            </button>
+            </HeaderIconButton>
             <div className="relative" ref={accountRef}>
               <button
                 aria-label={
-                  isSeller ? `Perfil vendedor rubro ${rubro}` : isAuthed ? 'Cuenta' : 'Login'
+                  isSeller ? `Perfil vendedor rubro ${rubro}` : isAuthed ? 'Cuenta' : 'Inicia Sesion'
                 }
-                className="relative h-10 flex items-center justify-center text-white border-2 rounded-xl cursor-pointer"
+                className="relative h-10 flex items-center justify-center border-2 rounded-xl cursor-pointer"
                 style={{
                   background: 'transparent',
-                  borderColor: '#2c2c30',
-                  boxShadow: '0 0 0 1px #2c2c30 inset, 0 0 16px #2c2c30',
+                  borderColor: headerButtonBorder,
+                  boxShadow: `0 0 0 1px ${headerButtonBorder} inset, 0 0 16px ${headerButtonBorder}`,
+                  color: headerIconColor,
                   padding: '0 45px',
                 }}
                 onClick={() => {
@@ -146,32 +130,30 @@ export function Header({
                   else onUserClick?.();
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px #111115 inset, 0 0 24px #111115';
-                  e.currentTarget.style.borderColor = '#111115';
+                  e.currentTarget.style.boxShadow = `0 0 0 1px ${headerButtonHover} inset, 0 0 24px ${headerButtonHover}`;
+                  e.currentTarget.style.borderColor = headerButtonHover;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px #2c2c30 inset, 0 0 16px #2c2c30';
-                  e.currentTarget.style.borderColor = '#2c2c30';
+                  e.currentTarget.style.boxShadow = `0 0 0 1px ${headerButtonBorder} inset, 0 0 16px ${headerButtonBorder}`;
+                  e.currentTarget.style.borderColor = headerButtonBorder;
                 }}
               >
                 <div className="flex items-center gap-1 px-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-4 w-4"
-                  >
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                  <span className="text-[#E4D9AF] text-xs md:inline-block">
-                    {isAuthed ? 'Cuenta' : 'Login'}
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20 21a8 8 0 0 0-16 0" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  <span className="text-xs md:inline-block" style={{ color: headerIconColor }}>
+                    {isAuthed ? 'Cuenta' : 'Inicia Sesion'}
                   </span>
                 </div>
                 {isSeller && (
@@ -230,54 +212,30 @@ export function Header({
                 </div>
               )}
             </div>
-            <button
-              className="relative flex items-center justify-center w-10 h-10 text-[#E4D9AF] border-2 rounded-xl cursor-pointer"
+            <HeaderIconButton
+              badgeColor="#F38E00"
+              borderColor={headerButtonBorder}
+              count={cartItemsCount}
+              hoverColor="#F38E00"
+              hoverBorderColor={headerButtonHover}
               onClick={onCartClick}
-              style={{
-                background: 'transparent',
-                borderColor: '#2c2c30',
-                boxShadow: '0 0 0 1px #2c2c30 inset, 0 0 16px #2c2c30',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 1px #111115 inset, 0 0 24px #111115';
-                e.currentTarget.style.borderColor = '#111115';
-                e.currentTarget.style.color = '#F38E00';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 1px #2c2c30 inset, 0 0 16px #2c2c30';
-                e.currentTarget.style.borderColor = '#2c2c30';
-                e.currentTarget.style.color = '#E4D9AF';
-              }}
+              textColor={headerIconColor}
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="h-5 w-5"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-4 w-4"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
               >
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
-                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                <path d="M2.05 2.05h2l2.6 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6l1.6-8.4H5.1" />
               </svg>
-              {cartItemsCount > 0 && (
-                <span
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse text-xs font-bold rounded-full"
-                  style={{
-                    background: '#F38E00',
-                    boxShadow: '0 0 15px #F38E00',
-                    color: 'black',
-                  }}
-                >
-                  {cartItemsCount}
-                </span>
-              )}
-            </button>
+            </HeaderIconButton>
           </div>
         </div>
       </div>
@@ -296,53 +254,56 @@ export function Header({
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 style={{
                   background: 'none',
-                  color: '#E4D9AF',
-                  boxShadow: categoriesOpen ? '0 0 15px #E4D9AF' : '0 0 5px #E4D9AF',
+                  color: headerIconColor,
+                  boxShadow: categoriesOpen
+                    ? `0 0 15px ${headerIconColor}`
+                    : `0 0 5px ${headerIconColor}`,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 15px ' + '#E4D9AF';
+                  e.currentTarget.style.boxShadow = `0 0 15px ${headerIconColor}`;
                   e.currentTarget.style.background = 'none';
                 }}
                 onMouseLeave={(e) => {
                   if (!categoriesOpen) {
-                    e.currentTarget.style.boxShadow = '0 0 5px ' + '#E4D9AF';
+                    e.currentTarget.style.boxShadow = `0 0 5px ${headerIconColor}`;
                   }
                   e.currentTarget.style.background = 'none';
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
+              <svg
+                aria-hidden="true"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <rect height="7" rx="1" width="7" x="3" y="3" />
+                <rect height="7" rx="1" width="7" x="14" y="3" />
+                <rect height="7" rx="1" width="7" x="14" y="14" />
+                <rect height="7" rx="1" width="7" x="3" y="14" />
+              </svg>
                 Categorias
               </button>
               {categoriesOpen && (
                 <div
                   className="absolute top-full left-0 mt-2 w-[520px] max-w-[calc(100vw-2rem)] rounded-xl p-5 z-50 animate-in fade-in slide-in-from-top-2"
                   style={{
-                    backgroundColor: '#111115',
+                    backgroundColor: headerPanelBackground,
                     backdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(228, 217, 175, 0.16)',
-                    boxShadow: '0 18px 48px rgba(0, 0, 0, 0.45)',
+                    border: `1px solid ${headerPanelBorder}`,
+                    boxShadow: isDark
+                      ? '0 18px 48px rgba(0, 0, 0, 0.45)'
+                      : '0 18px 48px rgba(15, 23, 42, 0.12)',
                   }}
                 >
                   <div className="mb-4">
-                    <p className="text-sm font-semibold text-[#E4D9AF]">
+                    <p className="text-sm font-semibold" style={{ color: headerIconColor }}>
                       Categorías de productos
                     </p>
-                    <p className="mt-1 text-xs text-white/55">
+                    <p className="mt-1 text-xs" style={{ color: headerPanelMuted }}>
                       Esta lista se actualiza automáticamente con el catálogo.
                     </p>
                   </div>
@@ -358,10 +319,10 @@ export function Header({
                             {category.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="min-w-0">
-                            <p className="truncate text-sm font-medium text-[#E4D9AF]">
+                            <p className="truncate text-sm font-medium" style={{ color: headerIconColor }}>
                               {category.name}
                             </p>
-                            <p className="text-xs text-white/50">
+                            <p className="text-xs" style={{ color: headerPanelMuted }}>
                               {category.productCount}{' '}
                               {category.productCount === 1 ? 'producto' : 'productos'}
                             </p>
@@ -370,7 +331,10 @@ export function Header({
                       ))}
                     </div>
                   ) : (
-                    <p className="rounded-lg border border-white/10 px-4 py-5 text-center text-sm text-white/55">
+                    <p
+                      className="rounded-lg px-4 py-5 text-center text-sm"
+                      style={{ border: `1px solid ${headerPanelBorder}`, color: headerPanelMuted }}
+                    >
                       No hay categorías disponibles.
                     </p>
                   )}
@@ -411,26 +375,26 @@ export function Header({
                   e.currentTarget.style.scale = 1;
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4"
-                  style={{
-                    color: '#E4D9AF',
-                    filter: 'drop-shadow(0 0 5px ' + '#E4D9AF' + ')',
-                    rotate: '0deg',
-                    animation: 'rotate 3s ease infinite',
-                  }}
-                >
-                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4 animate-pulse"
+                      style={{
+                        color: headerIconColor,
+                        filter: `drop-shadow(0 0 5px ${headerIconColor})`,
+                      }}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z" />
+                      <path d="M5 3v4" />
+                      <path d="M3 5h4" />
+                      <path d="M19 17v4" />
+                      <path d="M17 19h4" />
+                    </svg>
                 <span>{headerConfig?.titleNoticias || 'Cargando...'}</span>
               </Link>
             </div>
@@ -453,4 +417,59 @@ Header.propTypes = {
       productCount: PropTypes.number.isRequired,
     })
   ),
+};
+
+function HeaderIconButton({
+  badgeColor,
+  borderColor = '#2c2c30',
+  children,
+  count,
+  hoverBorderColor = '#111115',
+  hoverColor,
+  onClick,
+  textColor = '#E4D9AF',
+}) {
+  return (
+    <button
+      className="relative flex items-center justify-center w-10 h-10 border-2 rounded-xl cursor-pointer"
+      onClick={onClick}
+      style={{
+        background: 'transparent',
+        borderColor,
+        boxShadow: `0 0 0 1px ${borderColor} inset, 0 0 16px ${borderColor}`,
+        color: textColor,
+      }}
+      onMouseEnter={(event) => {
+        event.currentTarget.style.boxShadow = `0 0 0 1px ${hoverBorderColor} inset, 0 0 24px ${hoverBorderColor}`;
+        event.currentTarget.style.borderColor = hoverBorderColor;
+        event.currentTarget.style.color = hoverColor;
+      }}
+      onMouseLeave={(event) => {
+        event.currentTarget.style.boxShadow = `0 0 0 1px ${borderColor} inset, 0 0 16px ${borderColor}`;
+        event.currentTarget.style.borderColor = borderColor;
+        event.currentTarget.style.color = textColor;
+      }}
+    >
+      {children}
+      {count > 0 && (
+        <span
+          className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 animate-pulse text-xs font-bold rounded-full"
+          style={{ background: badgeColor, boxShadow: `0 0 15px ${badgeColor}`, color: 'black' }}
+        >
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+
+HeaderIconButton.propTypes = {
+  badgeColor: PropTypes.string.isRequired,
+  borderColor: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  count: PropTypes.number.isRequired,
+  hoverBorderColor: PropTypes.string,
+  hoverColor: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  textColor: PropTypes.string,
 };

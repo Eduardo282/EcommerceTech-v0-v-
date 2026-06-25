@@ -84,8 +84,11 @@ export function useWishlist(userId, authLoading, isAuthed, onRequireAuth, produc
 
   const handleToggleWishlist = useCallback((productOrId) => {
     if (!isAuthed) {
-      toast.error('Inicia sesión para guardar productos en favoritos');
-      if (onRequireAuth) onRequireAuth();
+      if (onRequireAuth) {
+        onRequireAuth('wishlist');
+      } else {
+        toast.info('Inicia sesión para guardar tu lista de deseos');
+      }
       return;
     }
     const product = typeof productOrId === 'object' && productOrId !== null ? productOrId : null;

@@ -4,35 +4,60 @@ import { subscribeToNewsletter } from '../../../lib/newsletterSubscription';
 
 export function FormNewsletter() {
   const [email, setEmail] = useState('');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    const result = subscribeToNewsletter(email);
+    setIsSubmitting(true);
+    const result = await subscribeToNewsletter(email);
+    setIsSubmitting(false);
 
     if (!result.ok) {
       if (result.reason === 'invalid-email') {
-        setStatusMessage('Ingresa un correo válido para continuar.');
         toast.error('Ingresa un correo válido para suscribirte');
         return;
       }
 
-      setStatusMessage('Ese correo ya estaba suscrito.');
+      toast.error('No pudimos completar la suscripción');
+      return;
+    }
+
+    if (result.alreadySubscribed) {
       toast.info('Ese correo ya estaba suscrito');
       return;
     }
 
-    setStatusMessage(`Suscripción confirmada para ${result.email}.`);
     setEmail('');
-    toast.success('Suscripción realizada', {
-      description: `Te enviaremos novedades a ${result.email}`,
+    toast.success(
+      result.delivery?.delivered ? 'Suscripción realizada' : 'Suscripción guardada',
+      {
+        description: result.delivery?.delivered
+          ? `Revisa tu correo: ${result.email}`
+          : 'El mensaje quedó en cola hasta configurar el proveedor de email.',
+      }
+    );
+  }
+
+  function handleSubmitError(error) {
+    setIsSubmitting(false);
+    toast.error('Servidor no disponible', {
+      description: error?.message || 'Revisa que el backend esté encendido.',
     });
+  }
+
+  async function submitSafely(event) {
+    try {
+      await handleSubmit(event);
+    } catch (error) {
+      handleSubmitError(error);
+    }
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={submitSafely}
       aria-label="newsletter subscription"
       className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto"
     >
@@ -46,31 +71,19 @@ export function FormNewsletter() {
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="flex-1 px-6 py-4 rounded-xl focus:outline-none focus:ring-2 backdrop-blur-xl text-[#Ffffff] placeholder:text-[#898989]"
+        className="flex-1 rounded-xl border border-[#F9B61D]/20 px-6 py-4 text-white outline-none backdrop-blur-xl transition focus:border-[#F9B61D]/70 focus:ring-2 focus:ring-[#F9B61D]/30 placeholder:text-[#898989]"
         style={{
           background: 'black',
-          boxShadow: 'inset 0 0 transparent',
+          boxShadow: 'inset 0 0 20px rgba(249,182,29,0.05)',
         }}
       />
       <button
         type="submit"
-        className="text-white px-8 py-8 rounded-xl cursor-pointer"
-        style={{
-          background: 'transparent',
-          textShadow: '0 0 10px white',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.2)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)';
-        }}
+        disabled={isSubmitting}
+        className="rounded-xl bg-[#F9B61D] px-8 py-4 font-bold text-black transition hover:bg-[#ffd15a] disabled:cursor-wait disabled:opacity-60"
       >
-        Suscríbete Ahora
+        {isSubmitting ? 'Enviando...' : 'Suscríbete Ahora'}
       </button>
-      <p className="basis-full text-sm text-[#B69A4A]" aria-live="polite">
-        {statusMessage}
-      </p>
     </form>
   );
 }

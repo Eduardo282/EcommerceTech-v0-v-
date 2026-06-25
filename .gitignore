@@ -55,3 +55,4 @@ server/dist
 server/build
 server/.cache
 server/.env
+server/storage/newsletter-*.json

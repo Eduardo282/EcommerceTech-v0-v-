@@ -12,6 +12,7 @@ export default defineConfig({
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
+      sonner: path.resolve(__dirname, './src/lib/sweetAlertToast.js'),
       '@': path.resolve(__dirname, './src'),
     },
   },
@@ -24,7 +25,7 @@ export default defineConfig({
           react: ['react', 'react-dom', 'react-router-dom'],
           apollo: ['@apollo/client', 'graphql'],
           realtime: ['socket.io-client'],
-          ui: ['embla-carousel-react', 'next-themes', 'sonner'],
+          ui: ['embla-carousel-react', 'next-themes', 'sweetalert2'],
         },
       },
     },
@@ -50,6 +51,11 @@ export default defineConfig({
         secure: false,
       },
       '/downloads': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/newsletter': {
         target: 'http://localhost:4000',
         changeOrigin: true,
         secure: false,

@@ -90,22 +90,13 @@ export function ProductCard({
                 onToggleWishlist(product);
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`h-7 w-7 transition-all ${
-                  isInWishlist ? 'fill-[#980707] text-transparent' : 'text-[#FF6467]'
+              <span
+                className={`text-3xl leading-none transition-all ${
+                  isInWishlist ? 'text-[#980707]' : 'text-[#FF6467]'
                 }`}
               >
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-              </svg>
+                {isInWishlist ? '\u2665' : '\u2661'}
+              </span>
             </button>
 
             <button
@@ -118,22 +109,6 @@ export function ProductCard({
                 onAddToCart(product);
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4 mr-2"
-              >
-                <circle cx="8" cy="21" r="1" />
-                <circle cx="19" cy="21" r="1" />
-                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-              </svg>
               Añadir al carrito
             </button>
           </div>
@@ -185,31 +160,16 @@ export function ProductCard({
           {/* Calificación */}
           <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center">
-              {[...Array(5)].map((_, i) => (
-                <svg
+              {Array.from({ length: 5 }).map((_, i) => (
+                <span
                   key={i}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className={`h-4 w-4 ${
+                  className={`text-base ${
                     i < Math.floor(product.rating) ? 'text-[#FACE2F]' : 'text-transparent'
                   }`}
-                  style={
-                    i < Math.floor(product.rating)
-                      ? {
-                          filter: 'drop-shadow(0 0 3px #FACE2F)',
-                        }
-                      : {}
-                  }
+                  style={i < Math.floor(product.rating) ? { filter: 'drop-shadow(0 0 3px #FACE2F)' } : {}}
                 >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                </svg>
+                  &#9733;
+                </span>
               ))}
             </div>
             <span className="text-sm text-[#898989]">
@@ -241,22 +201,7 @@ export function ProductCard({
           {/* Estadísticas */}
           <div className="flex items-center gap-3 mb-4 text-sm text-[#898989]">
             <div className="flex items-center gap-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
+              <span className="text-base leading-none">&#8595;</span>
               <span>
                 {typeof product.sales === 'number'
                   ? `${product.sales.toLocaleString()} descargas`

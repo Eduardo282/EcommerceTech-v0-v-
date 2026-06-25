@@ -1,6 +1,27 @@
 /* Minimal Tailwind entrada para v4 */
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 @import './styles/globals.css';
+
+.evo-toast {
+  border: 1px solid rgba(249, 182, 29, 0.22);
+  box-shadow:
+    0 0 28px rgba(249, 182, 29, 0.18),
+    0 18px 50px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+}
+
+.evo-toast-title {
+  font-weight: 700;
+}
+
+.evo-toast-description {
+  color: #b69a4a;
+}
+
+.evo-toast-progress {
+  background: #f9b61d;
+}
 
 .admin-input {
   width: 100%;
@@ -96,10 +117,20 @@
 }
 
 @layer base {
+  html {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
   body {
+    background: var(--background);
+    color: var(--foreground);
     line-height: inherit;
     position: relative;
     overflow-x: hidden;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
   }
 
   *,

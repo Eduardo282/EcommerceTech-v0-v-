@@ -38,8 +38,11 @@ export function useCart(userId, authLoading, isAuthed, onRequireAuth) {
 
   const handleAddToCart = useCallback((product, amount = 1) => {
     if (!isAuthed) {
-      toast.error('Inicia sesión para agregar productos al carrito');
-      if (onRequireAuth) onRequireAuth();
+      if (onRequireAuth) {
+        onRequireAuth('cart');
+      } else {
+        toast.info('Inicia sesión para guardar tu carrito');
+      }
       return;
     }
 

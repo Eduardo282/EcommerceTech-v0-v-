@@ -1,5 +1,3 @@
-const NEWSLETTER_STORAGE_KEY = 'newsletter_subscribers';
-
 function normalizeEmail(email) {
   return email.trim().toLowerCase();
 }
@@ -9,23 +7,23 @@ export function isValidNewsletterEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized);
 }
 
-export function subscribeToNewsletter(email) {
+export async function subscribeToNewsletter(email) {
   const normalized = normalizeEmail(email);
 
   if (!isValidNewsletterEmail(normalized)) {
     return { ok: false, reason: 'invalid-email' };
   }
 
-  const existingSubscribers = JSON.parse(localStorage.getItem(NEWSLETTER_STORAGE_KEY) || '[]');
+  const apiUrl = import.meta.env.VITE_API_URL || '';
+  const response = await fetch(`${apiUrl}/newsletter/subscribe`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: normalized }),
+  });
 
-  if (existingSubscribers.includes(normalized)) {
-    return { ok: false, reason: 'duplicate-email', email: normalized };
+  if (!response.ok) {
+    return { ok: false, reason: 'server-error' };
   }
 
-  localStorage.setItem(
-    NEWSLETTER_STORAGE_KEY,
-    JSON.stringify([...existingSubscribers, normalized])
-  );
-
-  return { ok: true, email: normalized };
+  return response.json();
 }

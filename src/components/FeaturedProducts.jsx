@@ -1,5 +1,7 @@
 import { ProductCard } from './ProductCard';
 import PropTypes from 'prop-types';
+import { useTheme } from 'next-themes';
+import { getThemeColor } from '../lib/themeColors';
 import {
   Carousel,
   CarouselContent,
@@ -18,7 +20,8 @@ export function FeaturedProducts({
   config,
   embedded = false,
 }) {
-  const getColor = (key, fallback) => config?.[key] || fallback;
+  const { resolvedTheme } = useTheme();
+  const getColor = (key, fallback) => getThemeColor(config, key, fallback, resolvedTheme);
 
   if (embedded) {
     return (

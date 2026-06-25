@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import {
   Carousel,
   CarouselContent,
@@ -8,12 +9,14 @@ import {
 } from '@/components/Carousel';
 
 import { getCategoriesConfig } from '@/services/strapi';
+import { getThemeColor } from '@/lib/themeColors';
 import { categories } from '@/data/categories';
 import { EtiquetaCategoria } from '@/components/smallComponents/etiquetas/EtiquetaCategoria';
 import { CategoriaCard } from '@/components/smallComponents/CategoriaCard';
 import { CategoriaSubCategorias } from '@/components/smallComponents/CategoriaSubCategorias';
 
 export function Categories() {
+  const { resolvedTheme } = useTheme();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [categoriesConfig, setCategoriesConfig] = useState(null);
 
@@ -21,7 +24,8 @@ export function Categories() {
     getCategoriesConfig().then(setCategoriesConfig);
   }, []);
 
-  const getColor = (key, fallback) => categoriesConfig?.[key] || fallback;
+  const getColor = (key, fallback) =>
+    getThemeColor(categoriesConfig, key, fallback, resolvedTheme);
 
   return (
     <section id="categories-section" className="py-20 relative overflow-visible">
