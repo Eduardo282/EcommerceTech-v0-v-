@@ -35,19 +35,31 @@ const docs = [
     title: 'Getting started',
     tag: 'Inicio',
     description: 'Configura tu cuenta, explora categorías y guarda productos favoritos.',
-    steps: ['Crea o inicia sesión en tu cuenta.', 'Explora el catálogo por categoría.', 'Agrega productos al carrito o a favoritos.'],
+    steps: [
+      'Crea o inicia sesión en tu cuenta.',
+      'Explora el catálogo por categoría.',
+      'Agrega productos al carrito o a favoritos.',
+    ],
   },
   {
     title: 'Download flow',
     tag: 'Compras',
     description: 'Proceso recomendado para validar compra y acceder al producto digital.',
-    steps: ['Completa el pago.', 'Revisa tu correo de confirmación.', 'Usa el rastreador si tu acceso tarda en aparecer.'],
+    steps: [
+      'Completa el pago.',
+      'Revisa tu correo de confirmación.',
+      'Usa el rastreador si tu acceso tarda en aparecer.',
+    ],
   },
   {
     title: 'Seller workflow',
     tag: 'Vendedores',
     description: 'Flujo básico para preparar un producto digital antes de publicarlo.',
-    steps: ['Prepara imágenes y descripción.', 'Define precio, oferta e inventario.', 'Publica y monitorea métricas desde backoffice.'],
+    steps: [
+      'Prepara imágenes y descripción.',
+      'Define precio, oferta e inventario.',
+      'Publica y monitorea métricas desde backoffice.',
+    ],
   },
 ];
 
@@ -100,7 +112,8 @@ const faqs = [
   },
   {
     question: '¿Puedo pedir reembolso?',
-    answer: 'Podés solicitar revisión si el producto no coincide con lo ofrecido o no podés acceder al archivo.',
+    answer:
+      'Podés solicitar revisión si el producto no coincide con lo ofrecido o no podés acceder al archivo.',
   },
   {
     question: '¿Puedo usar los productos comercialmente?',
@@ -112,7 +125,8 @@ const faqs = [
   },
   {
     question: '¿Cómo vendo mis productos?',
-    answer: 'Necesitás iniciar sesión, completar tu perfil de vendedor y publicar desde el backoffice.',
+    answer:
+      'Necesitás iniciar sesión, completar tu perfil de vendedor y publicar desde el backoffice.',
   },
 ];
 
@@ -127,7 +141,8 @@ const blogPosts = [
     title: 'Buenas prácticas para dashboards premium',
     category: 'UI/UX',
     readTime: '8 min',
-    excerpt: 'Jerarquía visual, estados vacíos y componentes reutilizables para productos más sólidos.',
+    excerpt:
+      'Jerarquía visual, estados vacíos y componentes reutilizables para productos más sólidos.',
   },
   {
     title: 'Automatiza tu entrega digital sin complicarte',
@@ -148,7 +163,11 @@ function getFilteredItems(items, query, keys) {
   if (!normalizedQuery) return items;
 
   return items.filter((item) =>
-    keys.some((key) => String(item[key] ?? '').toLowerCase().includes(normalizedQuery))
+    keys.some((key) =>
+      String(item[key] ?? '')
+        .toLowerCase()
+        .includes(normalizedQuery)
+    )
   );
 }
 
@@ -198,7 +217,9 @@ function PageShell({ eyebrow, title, description, children, backTo = '/' }) {
 
 function SectionCard({ children, className = '' }) {
   return (
-    <section className={`rounded-3xl border border-white/10 bg-[#111115]/95 p-6 shadow-2xl ${className}`}>
+    <section
+      className={`rounded-3xl border border-white/10 bg-[#111115]/95 p-6 shadow-2xl ${className}`}
+    >
       {children}
     </section>
   );
@@ -260,8 +281,15 @@ export function HelpCenterPage() {
       description="Encuentra rutas rápidas para resolver dudas sobre compras, descargas, licencias y cuentas."
     >
       <div className="mb-8 grid gap-4 md:grid-cols-[1fr_auto]">
-        <SearchBox value={query} onChange={setQuery} placeholder="Buscar ayuda por tema, cuenta, licencia..." />
-        <Link to="/contactanos" className="rounded-2xl border border-amber-500/30 px-6 py-4 text-center font-bold text-amber-300 hover:bg-amber-500/10">
+        <SearchBox
+          value={query}
+          onChange={setQuery}
+          placeholder="Buscar ayuda por tema, cuenta, licencia..."
+        />
+        <Link
+          to="/contactanos"
+          className="rounded-2xl border border-amber-500/30 px-6 py-4 text-center font-bold text-amber-300 hover:bg-amber-500/10"
+        >
           Contactar soporte
         </Link>
       </div>
@@ -269,10 +297,15 @@ export function HelpCenterPage() {
       <div className="grid gap-5 md:grid-cols-2">
         {filteredTopics.map((topic) => (
           <SectionCard key={topic.title}>
-            <span className="rounded-full bg-amber-500/15 px-3 py-1 text-xs font-bold text-amber-300">{topic.category}</span>
+            <span className="rounded-full bg-amber-500/15 px-3 py-1 text-xs font-bold text-amber-300">
+              {topic.category}
+            </span>
             <h2 className="mt-4 text-2xl font-display text-[#E4D9AF]">{topic.title}</h2>
             <p className="mt-3 text-sm leading-6 text-gray-400">{topic.description}</p>
-            <Link to={topic.path} className="mt-5 inline-flex text-sm font-bold text-amber-400 hover:text-amber-300">
+            <Link
+              to={topic.path}
+              className="mt-5 inline-flex text-sm font-bold text-amber-400 hover:text-amber-300"
+            >
               Abrir guía →
             </Link>
           </SectionCard>
@@ -284,7 +317,10 @@ export function HelpCenterPage() {
 
 export function DocumentationPage() {
   const [query, setQuery] = useState('');
-  const filteredDocs = useMemo(() => getFilteredItems(docs, query, ['title', 'tag', 'description']), [query]);
+  const filteredDocs = useMemo(
+    () => getFilteredItems(docs, query, ['title', 'tag', 'description']),
+    [query]
+  );
 
   return (
     <PageShell
@@ -318,7 +354,8 @@ export function DocumentationPage() {
 
 export function ApiReferencePage() {
   const [selectedPath, setSelectedPath] = useState(apiEndpoints[0].path);
-  const selectedEndpoint = apiEndpoints.find((endpoint) => endpoint.path === selectedPath) ?? apiEndpoints[0];
+  const selectedEndpoint =
+    apiEndpoints.find((endpoint) => endpoint.path === selectedPath) ?? apiEndpoints[0];
   const curlCommand = `curl -X ${selectedEndpoint.method} https://api.evohance.com${selectedEndpoint.path}`;
 
   return (
@@ -356,7 +393,10 @@ export function ApiReferencePage() {
           <div className="mt-6 rounded-2xl border border-white/10 bg-black/50 p-4">
             <div className="mb-3 flex items-center justify-between gap-4">
               <span className="text-sm text-gray-400">cURL</span>
-              <button onClick={() => copyText(curlCommand, 'Comando copiado')} className="text-sm font-bold text-amber-400">
+              <button
+                onClick={() => copyText(curlCommand, 'Comando copiado')}
+                className="text-sm font-bold text-amber-400"
+              >
                 Copiar
               </button>
             </div>
@@ -365,7 +405,9 @@ export function ApiReferencePage() {
 
           <div className="mt-6 rounded-2xl border border-white/10 bg-black/50 p-4">
             <p className="mb-3 text-sm text-gray-400">Respuesta ejemplo</p>
-            <pre className="overflow-x-auto text-sm text-amber-100">{selectedEndpoint.response}</pre>
+            <pre className="overflow-x-auto text-sm text-amber-100">
+              {selectedEndpoint.response}
+            </pre>
           </div>
         </SectionCard>
       </div>
@@ -412,7 +454,9 @@ export function CommunityPage() {
           <SectionCard key={`${post.author}-${post.title}`}>
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
-                <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-amber-300">{post.tag}</span>
+                <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-amber-300">
+                  {post.tag}
+                </span>
                 <h2 className="mt-3 text-2xl font-display text-[#E4D9AF]">{post.title}</h2>
                 <p className="text-sm text-gray-400">Publicado por {post.author}</p>
               </div>
@@ -439,7 +483,9 @@ export function ContactanosPage() {
       return;
     }
 
-    toast.success('Mensaje enviado', { description: 'Te responderemos por correo lo antes posible.' });
+    toast.success('Mensaje enviado', {
+      description: 'Te responderemos por correo lo antes posible.',
+    });
     setForm({ name: '', email: '', topic: 'Soporte', message: '' });
   }
 
@@ -453,16 +499,37 @@ export function ContactanosPage() {
         <SectionCard>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid gap-5 md:grid-cols-2">
-              <input value={form.name} onChange={(event) => updateField('name', event.target.value)} placeholder="Nombre" className="rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
-              <input type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} placeholder="Correo" className="rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
+              <input
+                value={form.name}
+                onChange={(event) => updateField('name', event.target.value)}
+                placeholder="Nombre"
+                className="rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
+              <input
+                type="email"
+                value={form.email}
+                onChange={(event) => updateField('email', event.target.value)}
+                placeholder="Correo"
+                className="rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
             </div>
-            <select value={form.topic} onChange={(event) => updateField('topic', event.target.value)} className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400">
+            <select
+              value={form.topic}
+              onChange={(event) => updateField('topic', event.target.value)}
+              className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+            >
               <option>Soporte</option>
               <option>Compras</option>
               <option>Alianzas</option>
               <option>Vendedores</option>
             </select>
-            <textarea value={form.message} onChange={(event) => updateField('message', event.target.value)} placeholder="Cuéntanos qué necesitas..." rows="6" className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
+            <textarea
+              value={form.message}
+              onChange={(event) => updateField('message', event.target.value)}
+              placeholder="Cuéntanos qué necesitas..."
+              rows="6"
+              className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+            />
             <SubmitButton>Enviar mensaje</SubmitButton>
           </form>
         </SectionCard>
@@ -470,7 +537,12 @@ export function ContactanosPage() {
         <SectionCard>
           <h2 className="text-2xl font-display text-[#E4D9AF]">Canales directos</h2>
           <div className="mt-5 space-y-4 text-sm text-gray-300">
-            <p>Correo: <a className="text-amber-400" href="mailto:support@evohance.com">support@evohance.com</a></p>
+            <p>
+              Correo:{' '}
+              <a className="text-amber-400" href="mailto:support@evohance.com">
+                support@evohance.com
+              </a>
+            </p>
             <p>Horario: Lunes a viernes, 09:00 - 18:00 CDMX</p>
             <p>Tiempo estimado de respuesta: 24 a 48 horas hábiles.</p>
           </div>
@@ -482,7 +554,10 @@ export function ContactanosPage() {
 
 export function PreguntasFrecuentesPage() {
   const [query, setQuery] = useState('');
-  const filteredFaqs = useMemo(() => getFilteredItems(faqs, query, ['question', 'answer']), [query]);
+  const filteredFaqs = useMemo(
+    () => getFilteredItems(faqs, query, ['question', 'answer']),
+    [query]
+  );
 
   return (
     <PageShell
@@ -499,7 +574,9 @@ export function PreguntasFrecuentesPage() {
             <details key={faq.question} className="group py-3">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl px-3 py-4 text-[#E4D9AF] transition-colors hover:bg-white/5">
                 <span>{faq.question}</span>
-                <span className="text-xl text-amber-400 transition-transform group-open:rotate-45">+</span>
+                <span className="text-xl text-amber-400 transition-transform group-open:rotate-45">
+                  +
+                </span>
               </summary>
               <p className="px-3 pb-4 text-sm leading-7 text-gray-400">{faq.answer}</p>
             </details>
@@ -532,7 +609,8 @@ export function SobreNosotrosPage() {
       <SectionCard className="mt-6">
         <h2 className="text-3xl font-display text-[#E4D9AF]">Nuestra misión</h2>
         <p className="mt-4 max-w-3xl text-gray-400">
-          Ayudar a creadores y equipos técnicos a vender, descubrir y reutilizar activos digitales de calidad sin fricción.
+          Ayudar a creadores y equipos técnicos a vender, descubrir y reutilizar activos digitales
+          de calidad sin fricción.
         </p>
       </SectionCard>
     </PageShell>
@@ -542,7 +620,8 @@ export function SobreNosotrosPage() {
 export function BlogPage() {
   const [category, setCategory] = useState('Todos');
   const categories = ['Todos', ...new Set(blogPosts.map((post) => post.category))];
-  const filteredPosts = category === 'Todos' ? blogPosts : blogPosts.filter((post) => post.category === category);
+  const filteredPosts =
+    category === 'Todos' ? blogPosts : blogPosts.filter((post) => post.category === category);
 
   return (
     <PageShell
@@ -552,7 +631,11 @@ export function BlogPage() {
     >
       <div className="mb-8 flex flex-wrap gap-3">
         {categories.map((item) => (
-          <button key={item} onClick={() => setCategory(item)} className={`rounded-full border px-4 py-2 text-sm ${category === item ? 'border-amber-400 bg-amber-500/10 text-amber-200' : 'border-white/10 text-gray-300 hover:border-amber-500/40'}`}>
+          <button
+            key={item}
+            onClick={() => setCategory(item)}
+            className={`rounded-full border px-4 py-2 text-sm ${category === item ? 'border-amber-400 bg-amber-500/10 text-amber-200' : 'border-white/10 text-gray-300 hover:border-amber-500/40'}`}
+          >
             {item}
           </button>
         ))}
@@ -560,10 +643,15 @@ export function BlogPage() {
       <div className="grid gap-6 md:grid-cols-3">
         {filteredPosts.map((post) => (
           <SectionCard key={post.title}>
-            <p className="text-xs uppercase tracking-[0.2em] text-amber-400">{post.category} · {post.readTime}</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-amber-400">
+              {post.category} · {post.readTime}
+            </p>
             <h2 className="mt-4 text-2xl font-display text-[#E4D9AF]">{post.title}</h2>
             <p className="mt-4 text-sm leading-6 text-gray-400">{post.excerpt}</p>
-            <button onClick={() => toast.info('Artículo en preparación')} className="mt-5 text-sm font-bold text-amber-400">
+            <button
+              onClick={() => toast.info('Artículo en preparación')}
+              className="mt-5 text-sm font-bold text-amber-400"
+            >
               Leer artículo →
             </button>
           </SectionCard>
@@ -593,18 +681,37 @@ export function SociosPage() {
           <h2 className="text-3xl font-display text-[#E4D9AF]">Beneficios</h2>
           <ul className="mt-5 space-y-4 text-gray-300">
             {partnerBenefits.map((benefit) => (
-              <li key={benefit} className="flex gap-3"><span className="text-amber-400">✦</span>{benefit}</li>
+              <li key={benefit} className="flex gap-3">
+                <span className="text-amber-400">✦</span>
+                {benefit}
+              </li>
             ))}
           </ul>
         </SectionCard>
         <SectionCard>
           {submitted ? (
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 text-amber-100">Recibimos tu solicitud. Revisaremos si encaja con el catálogo.</div>
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 text-amber-100">
+              Recibimos tu solicitud. Revisaremos si encaja con el catálogo.
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input required placeholder="Nombre de la empresa" className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
-              <input required type="email" placeholder="Correo de contacto" className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
-              <textarea required rows="5" placeholder="Cuéntanos tu propuesta..." className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
+              <input
+                required
+                placeholder="Nombre de la empresa"
+                className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
+              <input
+                required
+                type="email"
+                placeholder="Correo de contacto"
+                className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
+              <textarea
+                required
+                rows="5"
+                placeholder="Cuéntanos tu propuesta..."
+                className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
               <SubmitButton>Enviar propuesta</SubmitButton>
             </form>
           )}
@@ -621,7 +728,9 @@ export function ProgramaAfiliadosPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    toast.success('Solicitud de afiliado enviada', { description: 'Te contactaremos para validar tu perfil.' });
+    toast.success('Solicitud de afiliado enviada', {
+      description: 'Te contactaremos para validar tu perfil.',
+    });
   }
 
   return (
@@ -634,25 +743,54 @@ export function ProgramaAfiliadosPage() {
         <SectionCard>
           <h2 className="text-3xl font-display text-[#E4D9AF]">Calculadora de comisión</h2>
           <div className="mt-6 space-y-5">
-            <label className="block text-sm text-gray-300">Ventas mensuales
-              <input type="number" min="0" value={sales} onChange={(event) => setSales(Number(event.target.value))} className="mt-2 w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
+            <label className="block text-sm text-gray-300">
+              Ventas mensuales
+              <input
+                type="number"
+                min="0"
+                value={sales}
+                onChange={(event) => setSales(Number(event.target.value))}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
             </label>
-            <label className="block text-sm text-gray-300">Ticket promedio
-              <input type="number" min="0" value={averageOrder} onChange={(event) => setAverageOrder(Number(event.target.value))} className="mt-2 w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
+            <label className="block text-sm text-gray-300">
+              Ticket promedio
+              <input
+                type="number"
+                min="0"
+                value={averageOrder}
+                onChange={(event) => setAverageOrder(Number(event.target.value))}
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+              />
             </label>
           </div>
           <div className="mt-6 rounded-2xl border border-amber-500/20 bg-amber-500/10 p-5">
             <p className="text-sm text-gray-300">Comisión estimada 18%</p>
-            <p className="mt-2 text-4xl font-display text-amber-300">${commission.toLocaleString('en-US')}</p>
+            <p className="mt-2 text-4xl font-display text-amber-300">
+              ${commission.toLocaleString('en-US')}
+            </p>
           </div>
         </SectionCard>
 
         <SectionCard>
           <h2 className="mb-5 text-3xl font-display text-[#E4D9AF]">Aplicar</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input required placeholder="Nombre" className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
-            <input required type="email" placeholder="Correo" className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
-            <input required placeholder="Canal principal: YouTube, blog, comunidad..." className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400" />
+            <input
+              required
+              placeholder="Nombre"
+              className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+            />
+            <input
+              required
+              type="email"
+              placeholder="Correo"
+              className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+            />
+            <input
+              required
+              placeholder="Canal principal: YouTube, blog, comunidad..."
+              className="w-full rounded-2xl border border-white/10 bg-black/50 px-5 py-4 text-white outline-none focus:border-amber-400"
+            />
             <SubmitButton>Enviar solicitud</SubmitButton>
           </form>
         </SectionCard>

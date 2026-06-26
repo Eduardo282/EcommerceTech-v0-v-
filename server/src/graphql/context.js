@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { config } from '../config/env.js';
 import { User } from '../models/User.js';
 
 export async function buildContext({ req, res }) {
@@ -8,7 +9,7 @@ export async function buildContext({ req, res }) {
   if (!token) return { user: null, res };
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, config.jwtSecret);
     const user = await User.findById(payload.sub);
     return { user, res };
   } catch (error) {

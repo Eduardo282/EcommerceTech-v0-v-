@@ -28,10 +28,9 @@ export function useProductPreview({ product, isOpen, onAddToCart, onClose, allPr
   }, [isImageExpanded]);
 
   const images = [
-    ...new Set([
-      ...(Array.isArray(product.images) ? product.images : []),
-      product.image,
-    ].filter(Boolean)),
+    ...new Set(
+      [...(Array.isArray(product.images) ? product.images : []), product.image].filter(Boolean)
+    ),
   ];
   const safeCurrentImageIndex = Math.min(currentImageIndex, images.length - 1);
   const currentImage = images[safeCurrentImageIndex];
@@ -86,7 +85,8 @@ export function useProductPreview({ product, isOpen, onAddToCart, onClose, allPr
 
   const handleMouseLeave = () => setShowMagnifier(false);
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  const prevImage = () =>
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
 

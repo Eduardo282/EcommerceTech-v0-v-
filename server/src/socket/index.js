@@ -1,19 +1,14 @@
 ﻿import { Server } from 'socket.io';
 import jwt from 'jsonwebtoken';
+import { corsOptions } from '../config/cors.js';
+import { config } from '../config/env.js';
 
 let ioInstance = null;
+const chatMessageOwners = new Map();
 
 export function initializeSocket(httpServer) {
   const io = new Server(httpServer, {
-    cors: {
-      origin: [
-        'https://embeddable-sandbox.cdn.apollographql.com',
-        'http://localhost:5173',
-        'http://localhost:3000',
-        ...(process.env.FRONTEND_ORIGIN?.split(',') || []),
-      ],
-      credentials: true,
-    },
+    cors: corsOptions,
   });
 
   // Middleware de autenticación y autorización
@@ -24,7 +19,7 @@ export function initializeSocket(httpServer) {
         // Extraemos el JWT de la cookie 'token'
         const tokenMatch = cookieHeader.match(/token=([^;]+)/);
         if (tokenMatch && tokenMatch[1]) {
-          const decoded = jwt.verify(tokenMatch[1], process.env.JWT_SECRET);
+          const decoded = jwt.verify(tokenMatch[1], config.jwtSecret);
           socket.user = decoded; // Guardamos la info del usuario (incluyendo el rol) en el socket
         }
       }
@@ -54,14 +49,21 @@ export function initializeSocket(httpServer) {
     socket.on('chat:message', (msg) => {
       // 1. Sanitización estricta del mensaje para prevenir XSS
       if (!msg || typeof msg !== 'object') return;
-      
+
       const safeMsg = {
         id: msg.id,
-        text: String(msg.text || '').substring(0, 500).replace(/</g, "&lt;").replace(/>/g, "&gt;"), // Max 500 chars + sanitizar HTML
+        text: String(msg.text || '')
+          .substring(0, 500)
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;'), // Max 500 chars + sanitizar HTML
         senderId: socket.id, // 2. Forzamos la identidad real del emisor desde el socket, no confiamos en lo que manda
         timestamp: msg.timestamp || new Date().toISOString(),
-        role: socket.user?.role || 'user'
+        role: socket.user?.role || 'user',
       };
+
+      if (safeMsg.id) {
+        chatMessageOwners.set(String(safeMsg.id), socket.id);
+      }
 
       io.emit('chat:message', safeMsg);
     });
@@ -69,6 +71,7 @@ export function initializeSocket(httpServer) {
     socket.on('chat:clear', () => {
       // Solo el Administrador puede vaciar el chat global
       if (socket.user?.role === 'admin') {
+        chatMessageOwners.clear();
         io.emit('chat:clear');
       } else {
         console.warn(`Intento no autorizado de vaciar el chat por: ${socket.id}`);
@@ -76,10 +79,13 @@ export function initializeSocket(httpServer) {
     });
 
     socket.on('chat:delete', (id) => {
-      // Solo el Administrador puede borrar mensajes ajenos.
-      // Como es un chat efímero global y no guardamos mensajes en DB, no podemos validar la autoría de usuarios anónimos de forma segura.
-      if (socket.user?.role === 'admin') {
-        io.emit('chat:delete', id);
+      const messageId = String(id || '');
+      const isOwner = chatMessageOwners.get(messageId) === socket.id;
+      const isAdmin = socket.user?.role === 'admin';
+
+      if (messageId && (isOwner || isAdmin)) {
+        chatMessageOwners.delete(messageId);
+        io.emit('chat:delete', messageId);
       }
     });
 
@@ -96,4 +102,3 @@ export function emitProductEvent(productId, eventName, payload) {
   if (!ioInstance || !productId) return;
   ioInstance.to(`product:${productId}`).emit(eventName, payload);
 }
-

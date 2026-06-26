@@ -24,8 +24,7 @@ export function Categories() {
     getCategoriesConfig().then(setCategoriesConfig);
   }, []);
 
-  const getColor = (key, fallback) =>
-    getThemeColor(categoriesConfig, key, fallback, resolvedTheme);
+  const getColor = (key, fallback) => getThemeColor(categoriesConfig, key, fallback, resolvedTheme);
 
   return (
     <section id="categories-section" className="py-20 relative overflow-visible">

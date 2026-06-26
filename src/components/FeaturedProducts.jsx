@@ -23,6 +23,7 @@ export function FeaturedProducts({
   embedded = false,
   searchQuery = '',
   highlightedProductId,
+  onViewProduct,
 }) {
   const { resolvedTheme } = useTheme();
   const getColor = (key, fallback) => getThemeColor(config, key, fallback, resolvedTheme);
@@ -63,8 +64,7 @@ export function FeaturedProducts({
                       onAddToCart={onAddToCart}
                       onToggleWishlist={onToggleWishlist}
                       isInWishlist={wishlistItems.includes(product.id)}
-                      allProducts={visibleProducts}
-                      wishlistItems={wishlistItems}
+                      onViewProduct={onViewProduct}
                     />
                   </div>
                 </div>
@@ -114,8 +114,7 @@ export function FeaturedProducts({
                 onAddToCart={onAddToCart}
                 onToggleWishlist={onToggleWishlist}
                 isInWishlist={wishlistItems.includes(product.id)}
-                allProducts={visibleProducts}
-                wishlistItems={wishlistItems}
+                onViewProduct={onViewProduct}
               />
             </li>
           ))}
@@ -136,4 +135,5 @@ FeaturedProducts.propTypes = {
   embedded: PropTypes.bool,
   searchQuery: PropTypes.string,
   highlightedProductId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onViewProduct: PropTypes.func,
 };

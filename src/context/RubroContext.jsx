@@ -1,49 +1,60 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { RUBROS } from './rubroConstants';
 import { RubroContext } from './RubroContextBase';
 
 const LS_KEY = 'app.rubro.state';
+const DEFAULT_RUBRO_STATE = {
+  isSeller: false,
+  rubro: RUBROS.TECHNOLOGY,
+  store: { name: null, description: null },
+};
+
+function readStoredRubroState() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return DEFAULT_RUBRO_STATE;
+
+    const parsed = JSON.parse(raw);
+
+    return {
+      isSeller: parsed.isSeller != null ? Boolean(parsed.isSeller) : DEFAULT_RUBRO_STATE.isSeller,
+      rubro: parsed.rubro ?? DEFAULT_RUBRO_STATE.rubro,
+      store: parsed.store ?? DEFAULT_RUBRO_STATE.store,
+    };
+  } catch {
+    return DEFAULT_RUBRO_STATE;
+  }
+}
+
+function applyStateValue(value, previousValue) {
+  return typeof value === 'function' ? value(previousValue) : value;
+}
 
 export function RubroProvider({ children }) {
-  const [rubro, setRubro] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        return parsed.rubro ?? RUBROS.TECHNOLOGY;
-      }
-    } catch {
-      // ignorar
-    }
-    return RUBROS.TECHNOLOGY;
-  });
+  const [state, setState] = useState(readStoredRubroState);
+  const { isSeller, rubro, store } = state;
 
-  const [store, setStore] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        return parsed.store ?? { name: null, description: null };
-      }
-    } catch {
-      // ignorar
-    }
-    return { name: null, description: null };
-  });
+  const setRubro = useCallback((value) => {
+    setState((previous) => ({
+      ...previous,
+      rubro: applyStateValue(value, previous.rubro),
+    }));
+  }, []);
 
-  const [isSeller, setIsSeller] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        return parsed.isSeller != null ? !!parsed.isSeller : false;
-      }
-    } catch {
-      // ignorar
-    }
-    return false;
-  });
+  const setStore = useCallback((value) => {
+    setState((previous) => ({
+      ...previous,
+      store: applyStateValue(value, previous.store),
+    }));
+  }, []);
+
+  const setIsSeller = useCallback((value) => {
+    setState((previous) => ({
+      ...previous,
+      isSeller: applyStateValue(value, previous.isSeller),
+    }));
+  }, []);
 
   // persist
   useEffect(() => {
@@ -61,7 +72,7 @@ export function RubroProvider({ children }) {
 
   const value = useMemo(
     () => ({ rubro, setRubro, store, setStore, isSeller, setIsSeller }),
-    [rubro, store, isSeller]
+    [rubro, setRubro, store, setStore, isSeller, setIsSeller]
   );
 
   return <RubroContext.Provider value={value}>{children}</RubroContext.Provider>;

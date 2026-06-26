@@ -30,14 +30,11 @@ export function FormNewsletter() {
     }
 
     setEmail('');
-    toast.success(
-      result.delivery?.delivered ? 'Suscripción realizada' : 'Suscripción guardada',
-      {
-        description: result.delivery?.delivered
-          ? `Revisa tu correo: ${result.email}`
-          : 'El mensaje quedó en cola hasta configurar el proveedor de email.',
-      }
-    );
+    toast.success(result.delivery?.delivered ? 'Suscripción realizada' : 'Suscripción guardada', {
+      description: result.delivery?.delivered
+        ? `Revisa tu correo: ${result.email}`
+        : 'El mensaje quedó en cola hasta configurar el proveedor de email.',
+    });
   }
 
   function handleSubmitError(error) {

@@ -20,9 +20,7 @@ export function AuthRequiredState({ type, onLoginClick }) {
 
   return (
     <div className="flex h-full flex-col items-center justify-center px-6 text-center">
-      <div className="mb-6 text-5xl drop-shadow-[0_0_22px_rgba(249,182,29,0.35)]">
-        {copy.icon}
-      </div>
+      <div className="mb-6 text-5xl drop-shadow-[0_0_22px_rgba(249,182,29,0.35)]">{copy.icon}</div>
       <h3 className="mb-3 font-display text-2xl text-[#E4D9AF]">{copy.title}</h3>
       <p className="mb-8 max-w-xs text-sm leading-6 text-[#898989]">{copy.description}</p>
       <button

@@ -33,16 +33,16 @@ export const typeDefs = /* GraphQL */ `
     images: [String!]!
     category: Category
     inventory: Int
-      attributes: JSON
-      rating: Float
+    attributes: JSON
+    rating: Float
     reviewsCount: Int!
     likesCount: Int!
     salesCount: Int!
     downloadsCount: Int!
     viewsCount: Int!
-      active: Boolean!
-      isTrending: Boolean!
-      rubro: Rubro
+    active: Boolean!
+    isTrending: Boolean!
+    rubro: Rubro
     badge: String
     features: [String]
     details: [String]
@@ -100,7 +100,6 @@ export const typeDefs = /* GraphQL */ `
   }
 
   type AuthPayload {
-    token: String!
     user: User!
   }
 
@@ -115,9 +114,9 @@ export const typeDefs = /* GraphQL */ `
     categorySlug: String
     minPrice: Float
     maxPrice: Float
-      active: Boolean
-      isTrending: Boolean
-      rubro: Rubro
+    active: Boolean
+    isTrending: Boolean
+    rubro: Rubro
   }
   enum ProductSort {
     NEWEST
@@ -148,9 +147,9 @@ export const typeDefs = /* GraphQL */ `
     categoryId: ID
     inventory: Int
     attributes: JSON
-      active: Boolean
-      isTrending: Boolean
-      rubro: Rubro
+    active: Boolean
+    isTrending: Boolean
+    rubro: Rubro
   }
 
   input ProductUpdateInput {
@@ -168,9 +167,9 @@ export const typeDefs = /* GraphQL */ `
     categoryId: ID
     inventory: Int
     attributes: JSON
-      active: Boolean
-      isTrending: Boolean
-      rubro: Rubro
+    active: Boolean
+    isTrending: Boolean
+    rubro: Rubro
   }
 
   input OrderItemInput {

@@ -17,7 +17,7 @@ import {
   Terminal,
   BOOKS_DATA,
   CATEGORIES,
-  mapBookToProduct
+  mapBookToProduct,
 } from './LibrosProgramacionPage.data';
 import { getSearchQueryFromParams } from '../lib/catalogSearch';
 import { useSearchHighlight } from '../hooks/useSearchHighlight';

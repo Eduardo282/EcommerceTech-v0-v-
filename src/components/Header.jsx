@@ -5,7 +5,8 @@ import { Logo } from './smallComponents/Logo';
 import { SearchInput } from './smallComponents/SearchInput';
 import { AnuncioHeader } from './smallComponents/AnuncioHeader';
 import { ThemeToggle } from './ThemeToggle';
-import { useHeader } from './useHeader';
+import { useHeader } from '../hooks/useHeader';
+import { CartIcon, GridIcon, HeartIcon, SparkleIcon, UserIcon } from './icons/Icons';
 
 const PATH_MAPPING = {
   'Plantillas dashboard': '/plantillas-dashboard',
@@ -100,59 +101,32 @@ export function Header({
               onClick={onWishlistClick}
               textColor={headerIconColor}
             >
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
-              </svg>
+              <HeartIcon />
             </HeaderIconButton>
             <div className="relative" ref={accountRef}>
               <button
                 aria-label={
-                  isSeller ? `Perfil vendedor rubro ${rubro}` : isAuthed ? 'Cuenta' : 'Inicia Sesion'
+                  isSeller
+                    ? `Perfil vendedor rubro ${rubro}`
+                    : isAuthed
+                      ? 'Cuenta'
+                      : 'Inicia Sesion'
                 }
-                className="relative h-10 flex items-center justify-center border-2 rounded-xl cursor-pointer"
+                className="relative h-10 flex items-center justify-center border-2 rounded-xl cursor-pointer border-[var(--header-button-border)] text-[var(--header-icon-color)] shadow-[0_0_0_1px_var(--header-button-border)_inset,0_0_16px_var(--header-button-border)] transition-all hover:border-[var(--header-button-hover)] hover:shadow-[0_0_0_1px_var(--header-button-hover)_inset,0_0_24px_var(--header-button-hover)]"
                 style={{
+                  '--header-button-border': headerButtonBorder,
+                  '--header-button-hover': headerButtonHover,
+                  '--header-icon-color': headerIconColor,
                   background: 'transparent',
-                  borderColor: headerButtonBorder,
-                  boxShadow: `0 0 0 1px ${headerButtonBorder} inset, 0 0 16px ${headerButtonBorder}`,
-                  color: headerIconColor,
                   padding: '0 45px',
                 }}
                 onClick={() => {
                   if (isAuthed) setAccountOpen((o) => !o);
                   else onUserClick?.();
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${headerButtonHover} inset, 0 0 24px ${headerButtonHover}`;
-                  e.currentTarget.style.borderColor = headerButtonHover;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${headerButtonBorder} inset, 0 0 16px ${headerButtonBorder}`;
-                  e.currentTarget.style.borderColor = headerButtonBorder;
-                }}
               >
                 <div className="flex items-center gap-1 px-1">
-                    <svg
-                      aria-hidden="true"
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M20 21a8 8 0 0 0-16 0" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
+                  <UserIcon className="h-4 w-4" />
                   <span className="text-xs md:inline-block" style={{ color: headerIconColor }}>
                     {isAuthed ? 'Cuenta' : 'Inicia Sesion'}
                   </span>
@@ -161,7 +135,7 @@ export function Header({
                   <span
                     className="absolute -top-1 -right-1 px-1.5 py-0.5 rounded-md text-[10px] font-semibold tracking-wide"
                     style={{
-                      color: rubro === 'GAMING' ? '#fff' : '#fff',
+                      color: '#fff',
                     }}
                   >
                     {rubroShort}
@@ -178,14 +152,8 @@ export function Header({
                   }}
                 >
                   <button
-                    className="w-full text-left px-3 py-2 rounded-lg text-[#E4D9AF] cursor-pointer"
+                    className="w-full text-left px-3 py-2 rounded-lg text-[#E4D9AF] cursor-pointer shadow-[0_1.5px_1px_2px_#2c2c30] hover:shadow-[inset_0_1.5px_1px_2px_#2c2c30]"
                     onClick={() => setAccountOpen(false)}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = 'inset 0 1.5px 1px 2px #2c2c30';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '0 1.5px 1px 2px #2c2c30';
-                    }}
                   >
                     Perfil
                   </button>
@@ -199,14 +167,8 @@ export function Header({
                     </Link>
                   )}
                   <button
-                    className="w-full mt-1 text-left px-3 py-2 rounded-lg text-[#E4D9AF] cursor-pointer"
+                    className="w-full mt-1 text-left px-3 py-2 rounded-lg text-[#E4D9AF] cursor-pointer shadow-[0_1.5px_1px_2px_#2c2c30] hover:shadow-[inset_0_1.5px_1px_2px_#2c2c30]"
                     onClick={logoutUser}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = 'inset 0 1.5px 1px 2px #2c2c30';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '0 1.5px 1px 2px #2c2c30';
-                    }}
                   >
                     Cerrar sesión
                   </button>
@@ -222,20 +184,7 @@ export function Header({
               onClick={onCartClick}
               textColor={headerIconColor}
             >
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <circle cx="8" cy="21" r="1" />
-                <circle cx="19" cy="21" r="1" />
-                <path d="M2.05 2.05h2l2.6 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6l1.6-8.4H5.1" />
-              </svg>
+              <CartIcon />
             </HeaderIconButton>
           </div>
         </div>
@@ -251,41 +200,18 @@ export function Header({
           <ul className="flex items-center gap-6 py-3 list-none">
             <li ref={categoriesRef} className="relative">
               <button
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors cursor-pointer gap-2 backdrop-blur-sm h-9 px-4"
+                className={`inline-flex items-center justify-center rounded-md text-sm font-medium text-[var(--category-shadow)] transition-shadow cursor-pointer gap-2 backdrop-blur-sm h-9 px-4 hover:shadow-[0_0_15px_var(--category-shadow)] ${
+                  categoriesOpen
+                    ? 'shadow-[0_0_15px_var(--category-shadow)]'
+                    : 'shadow-[0_0_5px_var(--category-shadow)]'
+                }`}
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 style={{
+                  '--category-shadow': headerIconColor,
                   background: 'none',
-                  color: headerIconColor,
-                  boxShadow: categoriesOpen
-                    ? `0 0 15px ${headerIconColor}`
-                    : `0 0 5px ${headerIconColor}`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 15px ${headerIconColor}`;
-                  e.currentTarget.style.background = 'none';
-                }}
-                onMouseLeave={(e) => {
-                  if (!categoriesOpen) {
-                    e.currentTarget.style.boxShadow = `0 0 5px ${headerIconColor}`;
-                  }
-                  e.currentTarget.style.background = 'none';
                 }}
               >
-              <svg
-                aria-hidden="true"
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <rect height="7" rx="1" width="7" x="3" y="3" />
-                <rect height="7" rx="1" width="7" x="14" y="3" />
-                <rect height="7" rx="1" width="7" x="14" y="14" />
-                <rect height="7" rx="1" width="7" x="3" y="14" />
-              </svg>
+                <GridIcon className="h-4 w-4" />
                 Categorias
               </button>
               {categoriesOpen && (
@@ -320,7 +246,10 @@ export function Header({
                             {category.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="min-w-0">
-                            <p className="truncate text-sm font-medium" style={{ color: headerIconColor }}>
+                            <p
+                              className="truncate text-sm font-medium"
+                              style={{ color: headerIconColor }}
+                            >
                               {category.name}
                             </p>
                             <p className="text-xs" style={{ color: headerPanelMuted }}>
@@ -343,18 +272,15 @@ export function Header({
               )}
             </li>
             {headerConfig?.menuItems
-              ? headerConfig.menuItems.map((item, index) => (
-                  <li key={index}>
+              ? headerConfig.menuItems.map((item) => (
+                  <li key={item.id || item.label || item.url}>
                     <Link
                       to={PATH_MAPPING[item.label] || item.url || '#'}
-                      className="text-sm transition-colors"
-                      style={{ color: getColor('enlacesNavColor', '#fff') }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = getColor('hoverEnlaceNav', '#fff'))
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = getColor('enlacesNavColor', '#fff'))
-                      }
+                      className="text-sm text-[var(--nav-link-color)] transition-colors hover:text-[var(--nav-link-hover)]"
+                      style={{
+                        '--nav-link-color': getColor('enlacesNavColor', '#fff'),
+                        '--nav-link-hover': getColor('hoverEnlaceNav', '#fff'),
+                      }}
                     >
                       {item.label}
                     </Link>
@@ -364,38 +290,18 @@ export function Header({
             <div className="ml-auto">
               <Link
                 to="/nuevos-lanzamientos"
-                className="text-sm flex items-center gap-2 px-4 py-1.5 rounded-lg transition-all cursor-pointer"
+                className="text-sm flex items-center gap-2 px-4 py-1.5 rounded-lg transition-all cursor-pointer hover:scale-[1.3]"
                 style={{
                   color: getColor('titleNoticiasColor', '#fff'),
-                  scale: 1,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.scale = 1.3;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.scale = 1;
                 }}
               >
-                    <svg
-                      aria-hidden="true"
-                      className="h-4 w-4 animate-pulse"
-                      style={{
-                        color: headerIconColor,
-                        filter: `drop-shadow(0 0 5px ${headerIconColor})`,
-                      }}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z" />
-                      <path d="M5 3v4" />
-                      <path d="M3 5h4" />
-                      <path d="M19 17v4" />
-                      <path d="M17 19h4" />
-                    </svg>
+                <SparkleIcon
+                  className="h-4 w-4 animate-pulse"
+                  style={{
+                    color: headerIconColor,
+                    filter: `drop-shadow(0 0 5px ${headerIconColor})`,
+                  }}
+                />
                 <span>{headerConfig?.titleNoticias || 'Cargando...'}</span>
               </Link>
             </div>
@@ -433,23 +339,14 @@ function HeaderIconButton({
 }) {
   return (
     <button
-      className="relative flex items-center justify-center w-10 h-10 border-2 rounded-xl cursor-pointer"
+      className="relative flex items-center justify-center w-10 h-10 border-2 rounded-xl cursor-pointer border-[var(--button-border)] text-[var(--button-text)] shadow-[0_0_0_1px_var(--button-border)_inset,0_0_16px_var(--button-border)] transition-all hover:border-[var(--button-hover-border)] hover:text-[var(--button-hover-color)] hover:shadow-[0_0_0_1px_var(--button-hover-border)_inset,0_0_24px_var(--button-hover-border)]"
       onClick={onClick}
       style={{
+        '--button-border': borderColor,
+        '--button-hover-border': hoverBorderColor,
+        '--button-hover-color': hoverColor,
+        '--button-text': textColor,
         background: 'transparent',
-        borderColor,
-        boxShadow: `0 0 0 1px ${borderColor} inset, 0 0 16px ${borderColor}`,
-        color: textColor,
-      }}
-      onMouseEnter={(event) => {
-        event.currentTarget.style.boxShadow = `0 0 0 1px ${hoverBorderColor} inset, 0 0 24px ${hoverBorderColor}`;
-        event.currentTarget.style.borderColor = hoverBorderColor;
-        event.currentTarget.style.color = hoverColor;
-      }}
-      onMouseLeave={(event) => {
-        event.currentTarget.style.boxShadow = `0 0 0 1px ${borderColor} inset, 0 0 16px ${borderColor}`;
-        event.currentTarget.style.borderColor = borderColor;
-        event.currentTarget.style.color = textColor;
       }}
     >
       {children}

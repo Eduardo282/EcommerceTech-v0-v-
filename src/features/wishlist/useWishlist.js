@@ -25,16 +25,21 @@ export function useWishlist(userId, authLoading, isAuthed, onRequireAuth, produc
   useEffect(() => {
     if (authLoading) return;
     const prevUserId = prevUserIdRef.current;
-    
+
     if (prevUserId !== userId) {
       if (prevUserId) {
         localStorage.setItem(`wishlist_${prevUserId}`, JSON.stringify(wishlistItemsRef.current));
-        localStorage.setItem(getWishlistStorageKey(prevUserId), JSON.stringify(wishlistCatalogRef.current));
+        localStorage.setItem(
+          getWishlistStorageKey(prevUserId),
+          JSON.stringify(wishlistCatalogRef.current)
+        );
       }
       if (userId) {
         startTransition(() => {
           setWishlistItems(JSON.parse(localStorage.getItem(`wishlist_${userId}`) || '[]'));
-          setWishlistCatalog(JSON.parse(localStorage.getItem(getWishlistStorageKey(userId)) || '{}'));
+          setWishlistCatalog(
+            JSON.parse(localStorage.getItem(getWishlistStorageKey(userId)) || '{}')
+          );
         });
       } else {
         startTransition(() => {
@@ -52,7 +57,8 @@ export function useWishlist(userId, authLoading, isAuthed, onRequireAuth, produc
   }, [wishlistItems, userId]);
 
   useEffect(() => {
-    if (userId) localStorage.setItem(getWishlistStorageKey(userId), JSON.stringify(wishlistCatalog));
+    if (userId)
+      localStorage.setItem(getWishlistStorageKey(userId), JSON.stringify(wishlistCatalog));
   }, [wishlistCatalog, userId]);
 
   // Resolver productos combinando catálogo persistente con nuevos del contexto
@@ -82,35 +88,44 @@ export function useWishlist(userId, authLoading, isAuthed, onRequireAuth, produc
     }, []);
   }, [productsContext, wishlistCatalog, wishlistItems]);
 
-  const handleToggleWishlist = useCallback((productOrId) => {
-    if (!isAuthed) {
-      if (onRequireAuth) {
-        onRequireAuth('wishlist');
-      } else {
-        toast.info('Inicia sesión para guardar tu lista de deseos');
+  const handleToggleWishlist = useCallback(
+    (productOrId) => {
+      if (!isAuthed) {
+        if (onRequireAuth) {
+          onRequireAuth('wishlist');
+        } else {
+          toast.info('Inicia sesión para guardar tu lista de deseos');
+        }
+        return;
       }
-      return;
-    }
-    const product = typeof productOrId === 'object' && productOrId !== null ? productOrId : null;
-    const productId = product?.id ?? productOrId;
-    const productKey = String(productId);
+      const product = typeof productOrId === 'object' && productOrId !== null ? productOrId : null;
+      const productId = product?.id ?? productOrId;
+      const productKey = String(productId);
 
-    if (wishlistItems.includes(productId)) {
-      setWishlistItems((prev) => prev.filter((id) => id !== productId));
-      setWishlistCatalog((prev) => {
-        const next = { ...prev };
-        delete next[productKey];
-        return next;
-      });
-      toast.success('Removido de favoritos', { description: 'Producto removido de sus favoritos' });
-    } else {
-      setWishlistItems((prev) => [...prev, productId]);
-      if (product) {
-        setWishlistCatalog((prev) => ({ ...prev, [productKey]: product }));
+      const isInWishlist = wishlistItemsRef.current.some((id) => String(id) === productKey);
+
+      if (isInWishlist) {
+        setWishlistItems((prev) => prev.filter((id) => String(id) !== productKey));
+        setWishlistCatalog((prev) => {
+          const next = { ...prev };
+          delete next[productKey];
+          return next;
+        });
+        toast.success('Removido de favoritos', {
+          description: 'Producto removido de sus favoritos',
+        });
+      } else {
+        setWishlistItems((prev) =>
+          prev.some((id) => String(id) === productKey) ? prev : [...prev, productId]
+        );
+        if (product) {
+          setWishlistCatalog((prev) => ({ ...prev, [productKey]: product }));
+        }
+        toast.success('Añadido a favoritos', { description: 'Producto añadido a sus favoritos' });
       }
-      toast.success('Añadido a favoritos', { description: 'Producto añadido a sus favoritos' });
-    }
-  }, [wishlistItems, isAuthed, onRequireAuth]);
+    },
+    [isAuthed, onRequireAuth]
+  );
 
   return {
     wishlistItems,

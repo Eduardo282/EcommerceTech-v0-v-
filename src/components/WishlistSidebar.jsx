@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { HeaderWishlist } from './smallComponents/HeaderWishlist';
 import { HomeWishlist } from './smallComponents/HomeWishlist';
 import { ItemsWishlist } from './smallComponents/ItemsWishlist';
+import { SidebarShell } from './smallComponents/SidebarShell';
 import { AuthRequiredState } from './AuthRequiredState';
+import { CartIcon } from './icons/Icons';
 
 export function WishlistSidebar({
   isOpen,
@@ -15,109 +17,57 @@ export function WishlistSidebar({
   isAuthed,
   onLoginClick,
 }) {
-  return (
-    <>
-      {/* Cubierta */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-998 transition-opacity"
-          onClick={onClose}
-        />
-      )}
-
-      {/* Barra lateral */}
-      <aside
-        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] shadow-2xl z-999 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        aria-label="Wishlist"
+  const footer =
+    isAuthed && items.length > 0 ? (
+      <footer
+        className="p-6 space-y-4"
         style={{
-          background: '#111115',
-          boxShadow: '-5px 0 38px #2c2c30',
+          boxShadow: '0 -5px 20px #2c2c30',
         }}
       >
-        {/* Patrón de cuadrícula */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #F9B61D40 1px, transparent 1px),
-              linear-gradient(to bottom, #F9B61D40 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        />
-
-        <div className="flex flex-col h-full relative z-10">
-          {/* Header */}
-          <HeaderWishlist items={items} onClose={onClose} />
-
-          {/* Items */}
-          <section className="flex-1 overflow-y-auto p-6 scrollbar-hide">
-            {!isAuthed ? (
-              <AuthRequiredState type="wishlist" onLoginClick={onLoginClick} />
-            ) : items.length === 0 ? (
-              <HomeWishlist onClose={onClose} />
-            ) : (
-              <ItemsWishlist
-                items={items}
-                onRemoveItem={onRemoveItem}
-                onAddToCart={onAddToCart}
-                onViewProduct={onViewProduct}
-              />
-            )}
-          </section>
-
-          {/* Footer - Solo se muestra si hay artículos */}
-          {isAuthed && items.length > 0 && (
-            <footer
-              className="p-6 space-y-4"
-              style={{
-                boxShadow: '0 -5px 20px #2c2c30',
-              }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[#E4D9AF]">Total Artículos:</span>
-                <span className="text-xl text-white font-display">{items.length}</span>
-              </div>
-
-              <div className="flex gap-3">
-                <button
-                  className="flex-1 text-[#898989] bg-transparent cursor-pointer"
-                  onClick={onClose}
-                >
-                  Continuar Comprando
-                </button>
-                <button
-                  className="flex items-center gap-2 text-white cursor-pointer scale-100 transition-all hover:scale-115"
-                  onClick={() => {
-                    items.forEach((item) => onAddToCart(item));
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-4 w-4 mr-2 text-white"
-                  >
-                    <circle cx="8" cy="21" r="1" />
-                    <circle cx="19" cy="21" r="1" />
-                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-                  </svg>
-                  Añadir Todo al Carrito
-                </button>
-              </div>
-            </footer>
-          )}
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-[#E4D9AF]">Total Artículos:</span>
+          <span className="text-xl text-white font-display">{items.length}</span>
         </div>
-      </aside>
-    </>
+
+        <div className="flex gap-3">
+          <button className="flex-1 text-[#898989] bg-transparent cursor-pointer" onClick={onClose}>
+            Continuar Comprando
+          </button>
+          <button
+            className="flex items-center gap-2 text-white cursor-pointer scale-100 transition-all hover:scale-115"
+            onClick={() => {
+              items.forEach((item) => onAddToCart(item));
+            }}
+          >
+            <CartIcon className="h-4 w-4 mr-2 text-white" />
+            Añadir Todo al Carrito
+          </button>
+        </div>
+      </footer>
+    ) : null;
+
+  return (
+    <SidebarShell
+      ariaLabel="Wishlist"
+      footer={footer}
+      header={<HeaderWishlist items={items} onClose={onClose} />}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      {!isAuthed ? (
+        <AuthRequiredState type="wishlist" onLoginClick={onLoginClick} />
+      ) : items.length === 0 ? (
+        <HomeWishlist onClose={onClose} />
+      ) : (
+        <ItemsWishlist
+          items={items}
+          onRemoveItem={onRemoveItem}
+          onAddToCart={onAddToCart}
+          onViewProduct={onViewProduct}
+        />
+      )}
+    </SidebarShell>
   );
 }
 

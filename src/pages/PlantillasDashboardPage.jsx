@@ -4,12 +4,7 @@ import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
 import { filterCatalogItems, getSearchQueryFromParams } from '../lib/catalogSearch';
 import { useSearchHighlight } from '../hooks/useSearchHighlight';
 import { parseCompactCount } from './catalog/catalogUtils';
-import {
-  ArrowUpRight,
-  Download,
-  Box,
-  DASHBOARD_TEMPLATES
-} from './PlantillasDashboardPage.data';
+import { ArrowUpRight, Download, Box, DASHBOARD_TEMPLATES } from './PlantillasDashboardPage.data';
 
 export function PlantillasDashboardPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems = [], onVentasClick } = useOutletContext();
@@ -90,7 +85,10 @@ export function PlantillasDashboardPage() {
         </header>
 
         {/* Bento Grid */}
-        <div id="catalog-results" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-6">
+        <div
+          id="catalog-results"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-6"
+        >
           {visibleTemplates.map((item) => (
             <div
               key={item.id}

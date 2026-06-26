@@ -11,8 +11,14 @@ const PlantillasDashboardPage = lazyPage(
   () => import('./pages/PlantillasDashboardPage'),
   'PlantillasDashboardPage'
 );
-const PlantillasAuthPage = lazyPage(() => import('./pages/PlantillasAuthPage'), 'PlantillasAuthPage');
-const ComponentesUiUxPage = lazyPage(() => import('./pages/ComponentesUiUxPage'), 'ComponentesUiUxPage');
+const PlantillasAuthPage = lazyPage(
+  () => import('./pages/PlantillasAuthPage'),
+  'PlantillasAuthPage'
+);
+const ComponentesUiUxPage = lazyPage(
+  () => import('./pages/ComponentesUiUxPage'),
+  'ComponentesUiUxPage'
+);
 const LibrosProgramacionPage = lazyPage(
   () => import('./pages/LibrosProgramacionPage'),
   'LibrosProgramacionPage'
@@ -29,20 +35,30 @@ const DocumentationPage = lazyPage(() => import('./pages/InfoPages'), 'Documenta
 const ApiReferencePage = lazyPage(() => import('./pages/InfoPages'), 'ApiReferencePage');
 const CommunityPage = lazyPage(() => import('./pages/InfoPages'), 'CommunityPage');
 const ContactanosPage = lazyPage(() => import('./pages/InfoPages'), 'ContactanosPage');
-const PreguntasFrecuentesPage = lazyPage(() => import('./pages/InfoPages'), 'PreguntasFrecuentesPage');
+const PreguntasFrecuentesPage = lazyPage(
+  () => import('./pages/InfoPages'),
+  'PreguntasFrecuentesPage'
+);
 const SobreNosotrosPage = lazyPage(() => import('./pages/InfoPages'), 'SobreNosotrosPage');
 const BlogPage = lazyPage(() => import('./pages/InfoPages'), 'BlogPage');
 const SociosPage = lazyPage(() => import('./pages/InfoPages'), 'SociosPage');
 const ProgramaAfiliadosPage = lazyPage(() => import('./pages/InfoPages'), 'ProgramaAfiliadosPage');
-const RastrearPedidoPage = lazyPage(() => import('./pages/RastrearPedidoPage'), 'RastrearPedidoPage');
+const RastrearPedidoPage = lazyPage(
+  () => import('./pages/RastrearPedidoPage'),
+  'RastrearPedidoPage'
+);
 const PoliticaPrivacidadPage = lazyPage(
   () => import('./pages/PoliticaPrivacidadPage'),
   'PoliticaPrivacidadPage'
 );
-const TerminosServicioPage = lazyPage(() => import('./pages/TerminosServicioPage'), 'TerminosServicioPage');
+const TerminosServicioPage = lazyPage(
+  () => import('./pages/TerminosServicioPage'),
+  'TerminosServicioPage'
+);
 const AdminProductsPage = lazyPage(() => import('./pages/AdminProductsPage'), 'AdminProductsPage');
 const SuccessPage = lazyPage(() => import('./pages/SuccessPage'), 'SuccessPage');
 const CancelPage = lazyPage(() => import('./pages/CancelPage'), 'CancelPage');
+const NotFoundPage = lazyPage(() => import('./pages/NotFoundPage'), 'NotFoundPage');
 
 function PageFallback() {
   return <main className="min-h-screen bg-[#08080b] p-8 text-[#E4D9AF]">Cargando...</main>;
@@ -77,6 +93,7 @@ export function AppRouter() {
           <Route path="politica-privacidad" element={<PoliticaPrivacidadPage />} />
           <Route path="terminos-servicio" element={<TerminosServicioPage />} />
           <Route path="admin/products" element={<AdminProductsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         <Route path="/success" element={<SuccessPage />} />

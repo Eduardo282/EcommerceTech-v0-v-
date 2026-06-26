@@ -8,7 +8,7 @@ import { mapProduct } from '../features/products/productMapper';
 import { getSearchQueryFromParams } from '../lib/catalogSearch';
 
 export function NuevosLanzamientosPage() {
-  const { onAddToCart, onToggleWishlist, wishlistItems } = useOutletContext();
+  const { onAddToCart, onToggleWishlist, onViewProduct, wishlistItems } = useOutletContext();
   const [searchParams] = useSearchParams();
   const { rubro } = useRubro();
   const searchQuery = getSearchQueryFromParams(searchParams);
@@ -25,7 +25,11 @@ export function NuevosLanzamientosPage() {
   });
 
   const products = useMemo(
-    () => (data?.products || []).map((product) => ({ ...mapProduct(product), badge: product.badge || 'Nuevo' })),
+    () =>
+      (data?.products || []).map((product) => ({
+        ...mapProduct(product),
+        badge: product.badge || 'Nuevo',
+      })),
     [data]
   );
 
@@ -102,6 +106,7 @@ export function NuevosLanzamientosPage() {
               products={products}
               onAddToCart={onAddToCart}
               onToggleWishlist={onToggleWishlist}
+              onViewProduct={onViewProduct}
               wishlistItems={wishlistItems}
               title="" // Ya pusimos titulo arriba custom
               subtitle=""

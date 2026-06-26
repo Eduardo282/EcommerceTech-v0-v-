@@ -1,7 +1,18 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation, useApolloClient } from '@apollo/client';
+import { toast } from 'sonner';
 import { LOGIN_USER, REGISTER_USER } from '../graphql/mutations';
+import { StoreIcon } from './icons/Icons';
+
+function getAuthErrorMessage(error) {
+  return (
+    error?.graphQLErrors?.[0]?.message ||
+    error?.networkError?.message ||
+    error?.message ||
+    'No pudimos completar la autenticación. Intentá nuevamente.'
+  );
+}
 
 export function AuthModal({ open, onClose, onSuccess }) {
   const [mode, setMode] = useState('login');
@@ -9,14 +20,18 @@ export function AuthModal({ open, onClose, onSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [wantsSeller, setWantsSeller] = useState(false);
+  const [formError, setFormError] = useState('');
   const [login, { loading: loggingIn }] = useMutation(LOGIN_USER);
   const [register, { loading: registering }] = useMutation(REGISTER_USER);
   const client = useApolloClient();
+  const isSubmitting = loggingIn || registering;
 
   if (!open) return null;
 
   async function submit(e) {
     e.preventDefault();
+    setFormError('');
+
     try {
       if (mode === 'login') {
         const { data } = await login({ variables: { email, password } });
@@ -43,7 +58,15 @@ export function AuthModal({ open, onClose, onSuccess }) {
       onClose?.();
     } catch (err) {
       console.error(err);
+      const message = getAuthErrorMessage(err);
+      setFormError(message);
+      toast.error(message);
     }
+  }
+
+  function switchMode(nextMode) {
+    setMode(nextMode);
+    setFormError('');
   }
 
   return (
@@ -81,7 +104,10 @@ export function AuthModal({ open, onClose, onSuccess }) {
                   background: '#2c2c30',
                 }}
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setFormError('');
+                }}
                 required
               />
             </div>
@@ -95,7 +121,10 @@ export function AuthModal({ open, onClose, onSuccess }) {
                 background: '#2c2c30',
               }}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setFormError('');
+              }}
               required
             />
           </div>
@@ -108,7 +137,10 @@ export function AuthModal({ open, onClose, onSuccess }) {
                 background: '#2c2c30',
               }}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setFormError('');
+              }}
               required
             />
           </div>
@@ -128,39 +160,28 @@ export function AuthModal({ open, onClose, onSuccess }) {
               />
               <label htmlFor="wants-seller" className="flex-1 cursor-pointer">
                 <div className="flex items-center gap-2 text-amber-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-5 w-5 text-white"
-                  >
-                    <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-                    <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" />
-                    <path d="M2 7h20" />
-                    <path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7" />
-                  </svg>
+                  <StoreIcon className="h-5 w-5 text-white" />
                   <span className="font-medium">Quiero vender productos</span>
                 </div>
                 <p className="text-amber-200/30 text-sm ml-7">Configuralo después de la registro</p>
               </label>
             </div>
           )}
+          {formError && (
+            <p className="rounded-lg bg-red-950/70 px-3 py-2 text-sm text-red-100" role="alert">
+              {formError}
+            </p>
+          )}
+
           <button
             type="submit"
-            disabled={loggingIn || registering}
+            disabled={isSubmitting}
             className="w-full mt-1 py-3 rounded-xl text-white cursor-pointer"
             style={{
               background: '#3E2F16',
             }}
           >
-            {mode === 'login' ? 'Inicia sesión' : 'Crear cuenta'}
+            {isSubmitting ? 'Procesando...' : mode === 'login' ? 'Inicia sesión' : 'Crear cuenta'}
           </button>
         </form>
 
@@ -168,14 +189,22 @@ export function AuthModal({ open, onClose, onSuccess }) {
           {mode === 'login' ? (
             <>
               No tienes una cuenta?{' '}
-              <button className="underline cursor-pointer" onClick={() => setMode('register')}>
+              <button
+                type="button"
+                className="underline cursor-pointer"
+                onClick={() => switchMode('register')}
+              >
                 Registrate
               </button>
             </>
           ) : (
             <>
               Ya tienes una cuenta?{' '}
-              <button className="underline cursor-pointer" onClick={() => setMode('login')}>
+              <button
+                type="button"
+                className="underline cursor-pointer"
+                onClick={() => switchMode('login')}
+              >
                 Inicia sesión
               </button>
             </>

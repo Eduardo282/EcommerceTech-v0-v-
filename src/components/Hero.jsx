@@ -11,6 +11,7 @@ export function Hero({
   featuredProductsConfig,
   onAddToCart,
   onToggleWishlist,
+  onViewProduct,
   wishlistItems,
   onVentasClick,
 }) {
@@ -135,7 +136,13 @@ export function Hero({
                       <stop offset="1" stopColor="#050505" />
                     </linearGradient>
                     <filter id="mascotGlow" x="-30%" y="-30%" width="160%" height="160%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#F9B61D" floodOpacity="0.45" />
+                      <feDropShadow
+                        dx="0"
+                        dy="0"
+                        stdDeviation="3"
+                        floodColor="#F9B61D"
+                        floodOpacity="0.45"
+                      />
                     </filter>
                   </defs>
                   {/* Back glow */}
@@ -163,13 +170,42 @@ export function Hero({
                     strokeOpacity="0.35"
                   />
                   {/* Eyes */}
-                  <circle cx="42" cy="55" r="3" fill="#F9B61D" filter="url(#mascotGlow)" className="animate-blink" />
-                  <circle cx="58" cy="55" r="3" fill="#F9B61D" filter="url(#mascotGlow)" className="animate-blink" />
+                  <circle
+                    cx="42"
+                    cy="55"
+                    r="3"
+                    fill="#F9B61D"
+                    filter="url(#mascotGlow)"
+                    className="animate-blink"
+                  />
+                  <circle
+                    cx="58"
+                    cy="55"
+                    r="3"
+                    fill="#F9B61D"
+                    filter="url(#mascotGlow)"
+                    className="animate-blink"
+                  />
                   {/* Mouth */}
                   <rect x="43" y="62" width="14" height="2" rx="1" fill="#E4D9AF" opacity="0.9" />
                   {/* Head Antenna */}
-                  <line x1="50" y1="40" x2="50" y2="25" stroke="#E4D9AF" strokeWidth="3" strokeLinecap="round" />
-                  <circle cx="50" cy="22" r="4" fill="#F9B61D" opacity="0.45" className="animate-ping" />
+                  <line
+                    x1="50"
+                    y1="40"
+                    x2="50"
+                    y2="25"
+                    stroke="#E4D9AF"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                  <circle
+                    cx="50"
+                    cy="22"
+                    r="4"
+                    fill="#F9B61D"
+                    opacity="0.45"
+                    className="animate-ping"
+                  />
                   <circle cx="50" cy="22" r="4" fill="#F9B61D" />
                   <circle cx="72" cy="33" r="6" fill="#8A2F2F" opacity="0.65" />
                   {/* Arms holding the button - Adjusted to look like holding from top */}
@@ -191,8 +227,18 @@ export function Hero({
                   <circle cx="20" cy="92" r="6" fill="#F9B61D" />
                   <circle cx="80" cy="92" r="6" fill="#F9B61D" />
                   {/* Subtle boosters */}
-                  <path d="M41 84 L38 94 L44 94 Z" fill="#E4D9AF" opacity="0.8" className="animate-pulse" />
-                  <path d="M59 84 L56 94 L62 94 Z" fill="#E4D9AF" opacity="0.8" className="animate-pulse" />
+                  <path
+                    d="M41 84 L38 94 L44 94 Z"
+                    fill="#E4D9AF"
+                    opacity="0.8"
+                    className="animate-pulse"
+                  />
+                  <path
+                    d="M59 84 L56 94 L62 94 Z"
+                    fill="#E4D9AF"
+                    opacity="0.8"
+                    className="animate-pulse"
+                  />
                 </svg>
               </div>
 
@@ -252,6 +298,7 @@ export function Hero({
                       products={trendingProducts}
                       onAddToCart={onAddToCart}
                       onToggleWishlist={onToggleWishlist}
+                      onViewProduct={onViewProduct}
                       wishlistItems={wishlistItems}
                       title="Tendencias"
                       subtitle={featuredProductsConfig?.descripcionTendencias || 'Lo más popular'}
@@ -274,7 +321,7 @@ Hero.propTypes = {
   featuredProductsConfig: PropTypes.object,
   onAddToCart: PropTypes.func,
   onToggleWishlist: PropTypes.func,
+  onViewProduct: PropTypes.func,
   onVentasClick: PropTypes.func,
   wishlistItems: PropTypes.array,
 };
-

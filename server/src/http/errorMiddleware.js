@@ -7,4 +7,3 @@ export function errorMiddleware(error, _req, res, _next) {
     error: statusCode === 500 ? 'Internal server error' : error.message,
   });
 }
-

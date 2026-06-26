@@ -1,28 +1,59 @@
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
+const CACHE_TTL_MS = 5 * 60 * 1000;
+const responseCache = new Map();
+const pendingRequests = new Map();
+
+function isFreshCacheEntry(cached) {
+  return cached && Date.now() - cached.timestamp <= CACHE_TTL_MS;
+}
 
 export const fetchAPI = async (endpoint, params = {}) => {
-  try {
-    const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
+  const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
 
-    if (!params.populate) {
-      url.searchParams.append('populate', '*');
-    }
+  if (!params.populate) {
+    url.searchParams.append('populate', '*');
+  }
 
-    Object.entries(params).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
-    });
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.append(key, value);
+  });
 
+  const cacheKey = url.toString();
+  const cached = responseCache.get(cacheKey);
+  if (isFreshCacheEntry(cached)) return cached.data;
+
+  if (pendingRequests.has(cacheKey)) {
+    return pendingRequests.get(cacheKey);
+  }
+
+  const request = (async () => {
     const res = await fetch(url.toString());
 
     if (!res.ok) {
       throw new Error(`Fallo al obtener datos de Strapi: ${res.statusText}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    responseCache.set(cacheKey, { data, timestamp: Date.now() });
+    return data;
+  })();
+
+  pendingRequests.set(cacheKey, request);
+
+  try {
+    return await request;
   } catch (error) {
     console.error('Error al obtener datos de Strapi:', error);
+    if (cached) return cached.data;
     return null;
+  } finally {
+    pendingRequests.delete(cacheKey);
   }
+};
+
+export const clearStrapiCache = () => {
+  responseCache.clear();
+  pendingRequests.clear();
 };
 
 export const getHeaderConfig = async () => {

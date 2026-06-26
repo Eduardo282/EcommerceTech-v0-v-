@@ -37,6 +37,6 @@ export function useProducts(rubro) {
 
   return {
     featuredProducts,
-    trendingProducts
+    trendingProducts,
   };
 }

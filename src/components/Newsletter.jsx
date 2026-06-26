@@ -13,15 +13,16 @@ export function Newsletter() {
     getNewsletterConfig().then(setNewsletterConfig);
   }, []);
 
-  const getColor = (key, fallback) =>
-    getThemeColor(newsletterConfig, key, fallback, resolvedTheme);
+  const getColor = (key, fallback) => getThemeColor(newsletterConfig, key, fallback, resolvedTheme);
 
   return (
     <section
       className="py-20 relative overflow-hidden bg-background dark:bg-black"
-      style={{
-        // backgroundColor: 'black', // Removed to support light mode
-      }}
+      style={
+        {
+          // backgroundColor: 'black', // Removed to support light mode
+        }
+      }
     >
       {/* Patrón de cuadrícula de fondo */}
       <div
@@ -68,14 +69,20 @@ export function Newsletter() {
             Obtén ofertas exclusivas y actualizaciones
           </h2>
 
-          <p className="text-xl mb-8 text-muted-foreground dark:text-[var(--news-desc,#fff)]" style={{ '--news-desc': getColor('descripcionColor', '#fff') }}>
+          <p
+            className="text-xl mb-8 text-muted-foreground dark:text-[var(--news-desc,#fff)]"
+            style={{ '--news-desc': getColor('descripcionColor', '#fff') }}
+          >
             Suscríbete para recibir ofertas especiales, recursos gratuitos y ofertas únicas en la
             vida.
           </p>
 
           <FormNewsletter />
 
-          <p className="text-sm mt-4 text-muted-foreground dark:text-[var(--news-sub,#fff)]" style={{ '--news-sub': getColor('subtituloColor', '#fff') }}>
+          <p
+            className="text-sm mt-4 text-muted-foreground dark:text-[var(--news-sub,#fff)]"
+            style={{ '--news-sub': getColor('subtituloColor', '#fff') }}
+          >
             Sin spam, puedes darte de baja en cualquier momento. Respetamos tu privacidad.
           </p>
         </div>

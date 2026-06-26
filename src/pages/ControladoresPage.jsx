@@ -11,7 +11,7 @@ import {
   Terminal,
   Filter,
   DRIVERS_DATA,
-  mapDriverToProduct
+  mapDriverToProduct,
 } from './ControladoresPage.data';
 import { getSearchQueryFromParams } from '../lib/catalogSearch';
 import { useSearchHighlight } from '../hooks/useSearchHighlight';
@@ -141,7 +141,10 @@ export function ControladoresPage() {
         </div>
 
         {/* Tabla de datos */}
-        <div id="catalog-results" className="bg-[#15151A] border border-white/5 border-t-0 rounded-b-xl overflow-hidden">
+        <div
+          id="catalog-results"
+          className="bg-[#15151A] border border-white/5 border-t-0 rounded-b-xl overflow-hidden"
+        >
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-[#0A0A0D] text-gray-500 uppercase text-xs tracking-wider">

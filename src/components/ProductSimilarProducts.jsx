@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { formatCurrency } from '../lib/formatCurrency';
 
 export function ProductSimilarProducts({
   onProductClick,
@@ -32,7 +33,11 @@ export function ProductSimilarProducts({
               className="shrink-0 w-24 group cursor-pointer mt-3"
             >
               <div className="relative aspect-3/4 rounded-lg overflow-hidden mb-1.5 transition-all hover:shadow-[0_0_15px_#fff]">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
                 {product.badge && (
                   <span
                     className="absolute top-1 left-1 text-white text-[10px] px-1.5 py-0 inline-flex items-center rounded-full font-semibold border-transparent"
@@ -45,7 +50,7 @@ export function ProductSimilarProducts({
               <p className="text-[10px] text-white line-clamp-2 mb-0.5 text-left leading-tight">
                 {product.name}
               </p>
-              <p className="text-xs text-white">{`$${Number(product.price).toFixed(2)}`}</p>
+              <p className="text-xs text-white">{formatCurrency(product.price)}</p>
             </button>
           ))}
         </div>

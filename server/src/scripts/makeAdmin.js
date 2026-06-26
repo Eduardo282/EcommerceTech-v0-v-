@@ -9,7 +9,7 @@ async function run() {
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
-    
+
     if (arg.startsWith('--email=')) {
       email = arg.split('=')[1];
       break;
@@ -41,7 +41,7 @@ async function run() {
     console.log(`El usuario ${email} ya es admin`);
     process.exit(0);
   }
-  
+
   user.role = 'admin';
 
   await user.save();

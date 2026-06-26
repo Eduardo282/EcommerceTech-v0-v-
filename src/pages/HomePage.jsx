@@ -13,6 +13,7 @@ export function HomePage() {
     trendingProducts,
     onAddToCart,
     onToggleWishlist,
+    onViewProduct,
     wishlistItems,
     onVentasClick,
   } = useOutletContext();
@@ -30,6 +31,7 @@ export function HomePage() {
         featuredProductsConfig={featuredProductsConfig}
         onAddToCart={onAddToCart}
         onToggleWishlist={onToggleWishlist}
+        onViewProduct={onViewProduct}
         wishlistItems={wishlistItems}
         onVentasClick={onVentasClick}
       />
@@ -40,6 +42,7 @@ export function HomePage() {
         products={featuredProducts}
         onAddToCart={onAddToCart}
         onToggleWishlist={onToggleWishlist}
+        onViewProduct={onViewProduct}
         wishlistItems={wishlistItems}
         title="Productos Destacados"
         subtitle={featuredProductsConfig?.descripcionDestacados || 'Cargando...'}

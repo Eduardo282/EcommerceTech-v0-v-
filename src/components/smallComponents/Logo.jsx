@@ -69,17 +69,8 @@ export function Logo() {
           strokeOpacity="0.68"
           strokeWidth="0.7"
         />
-        <path
-          d="M25 31h6M25 34.5h4"
-          stroke="#F9B61D"
-          strokeLinecap="round"
-          strokeWidth="0.8"
-        />
-        <path
-          d="M39 13l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z"
-          fill="#E4D9AF"
-          opacity="0.95"
-        />
+        <path d="M25 31h6M25 34.5h4" stroke="#F9B61D" strokeLinecap="round" strokeWidth="0.8" />
+        <path d="M39 13l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z" fill="#E4D9AF" opacity="0.95" />
       </svg>
     </div>
   );

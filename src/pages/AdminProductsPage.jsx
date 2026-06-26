@@ -56,7 +56,11 @@ export function AdminProductsPage() {
               </h1>
             </div>
             {form.id && (
-              <button type="button" onClick={resetForm} className="text-sm text-[#898989] cursor-pointer">
+              <button
+                type="button"
+                onClick={resetForm}
+                className="text-sm text-[#898989] cursor-pointer"
+              >
                 Cancelar
               </button>
             )}
@@ -319,9 +323,7 @@ function ProductAdminSection({
                       </span>
                     )}
                     <span
-                      className={
-                        product.active ? 'text-xs text-green-400' : 'text-xs text-red-300'
-                      }
+                      className={product.active ? 'text-xs text-green-400' : 'text-xs text-red-300'}
                     >
                       {product.active ? 'Visible' : 'Oculto'}
                     </span>

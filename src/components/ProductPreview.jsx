@@ -5,6 +5,8 @@ import { ProductEngagement } from '../features/products/ProductEngagement';
 import { useProductPreview } from '../features/products/useProductPreview';
 import { ProductPreviewExpandedImage } from './ProductPreviewExpandedImage';
 import { ProductSimilarProducts } from './ProductSimilarProducts';
+import { formatCurrency } from '../lib/formatCurrency';
+import { sanitizeHtml } from '../lib/sanitizeHtml';
 
 export function ProductPreview({
   product,
@@ -50,6 +52,10 @@ export function ProductPreview({
 
   if (!isOpen) return null;
 
+  const sanitizedLongDescription = product.longDescription
+    ? sanitizeHtml(product.longDescription)
+    : '';
+
   return createPortal(
     <div
       className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
@@ -68,16 +74,9 @@ export function ProductPreview({
         {/* Botón de cierre */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 backdrop-blur-sm p-2 rounded-full transition-all shadow-lg cursor-pointer"
+          className="absolute top-4 right-4 z-20 backdrop-blur-sm p-2 rounded-full transition-all shadow-lg cursor-pointer hover:shadow-[0_0_15px_#2c2c30]"
           style={{
             background: '#2c2c30',
-            boxShadow: 'none',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 0 15px #2c2c30';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = 'none';
           }}
         >
           <span className="text-xl leading-none text-[#E4D9AF]">&times;</span>
@@ -131,8 +130,8 @@ export function ProductPreview({
                     background: 'linear-gradient(135deg, #111115 0%, #980707 100%)',
                   }}
                 >
-                  {engagementData?.productEngagement?.viewsCount ?? product.views ?? 0} VISTAS DE ESTE
-                  PRODUCTO
+                  {engagementData?.productEngagement?.viewsCount ?? product.views ?? 0} VISTAS DE
+                  ESTE PRODUCTO
                 </span>
               </div>
 
@@ -142,32 +141,18 @@ export function ProductPreview({
                   type="button"
                   onClick={expandImage}
                   aria-label="Expand product image"
-                  className="p-2.5 rounded-lg transition-all shadow-md cursor-pointer"
+                  className="p-2.5 rounded-lg transition-all shadow-md cursor-pointer hover:shadow-[0_0_20px_#898989]"
                   style={{
                     background: '#111115',
-                    boxShadow: 'none',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 0 20px #898989';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   <span className="text-lg text-[#E4D9AF]">&#8599;</span>
                 </button>
                 <button
-                  className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                  className="px-3 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 cursor-pointer hover:shadow-[0_0_20px_#898989]"
                   onClick={() => onToggleWishlist(product)}
                   style={{
                     background: '#111115',
-                    boxShadow: 'none',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 0 20px #898989';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
                   <span
@@ -232,32 +217,18 @@ export function ProductPreview({
               {/* Botones de navegación */}
               <button
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg cursor-pointer"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-[0_0_15px_#898989] cursor-pointer hover:shadow-none"
                 style={{
                   background: 'transparent',
-                  boxShadow: '0 0 15px #898989',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 15px #898989';
                 }}
               >
                 <span className="text-2xl text-[#E4D9AF]">&lsaquo;</span>
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-lg cursor-pointer"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all shadow-[0_0_15px_#898989] cursor-pointer hover:shadow-none"
                 style={{
                   background: 'transparent',
-                  boxShadow: '0 0 15px #898989',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 15px #898989';
                 }}
               >
                 <span className="text-2xl text-[#E4D9AF]">&rsaquo;</span>
@@ -290,8 +261,8 @@ export function ProductPreview({
                   <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
                     {product.details && product.details.length > 0 ? (
                       <ul className="space-y-2 text-sm text-white">
-                        {product.details.map((detail, index) => (
-                          <li key={index} className="flex items-start gap-2">
+                        {product.details.map((detail) => (
+                          <li key={detail} className="flex items-start gap-2">
                             <span className="text-[#F9B61D]">•</span>
                             <span>{detail}</span>
                           </li>
@@ -318,8 +289,11 @@ export function ProductPreview({
                   <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
                     {product.specs && product.specs.length > 0 ? (
                       <div className="space-y-3 text-sm">
-                        {product.specs.map((spec, index) => (
-                          <div key={index} className="grid grid-cols-[140px_1fr] gap-2">
+                        {product.specs.map((spec) => (
+                          <div
+                            key={`${spec.key}-${spec.value}`}
+                            className="grid grid-cols-[140px_1fr] gap-2"
+                          >
                             <span className="text-[#F9B61D]">{spec.key}:</span>
                             <span className="text-[#E4D9AF]">{spec.value}</span>
                           </div>
@@ -347,8 +321,8 @@ export function ProductPreview({
                   <div className="pb-4 text-white group-open:animate-in group-open:fade-in group-open:slide-in-from-top-1">
                     {product.includes && product.includes.length > 0 ? (
                       <ul className="space-y-2 text-sm text-white">
-                        {product.includes.map((item, index) => (
-                          <li key={index} className="flex items-start gap-2">
+                        {product.includes.map((item) => (
+                          <li key={item} className="flex items-start gap-2">
                             <span className="text-[#3D8B95] mt-0.5">✓</span>
                             <span>{item}</span>
                           </li>
@@ -391,7 +365,11 @@ export function ProductPreview({
                       className={`text-xl ${
                         i < Math.floor(product.rating) ? 'text-[#FACE2F]' : 'text-transparent'
                       }`}
-                      style={i < Math.floor(product.rating) ? { filter: 'drop-shadow(0 0 4px #FACE2F)' } : {}}
+                      style={
+                        i < Math.floor(product.rating)
+                          ? { filter: 'drop-shadow(0 0 4px #FACE2F)' }
+                          : {}
+                      }
                     >
                       &#9733;
                     </span>
@@ -432,10 +410,10 @@ export function ProductPreview({
                   <div>
                     {product.originalPrice && (
                       <p className="text-sm text-[#898989] line-through">
-                        ${Number(product.originalPrice).toFixed(2)}
+                        {formatCurrency(product.originalPrice)}
                       </p>
                     )}
-                    <p className="text-4xl text-white">${Number(product.price).toFixed(2)}</p>
+                    <p className="text-4xl text-white">{formatCurrency(product.price)}</p>
                   </div>
                   {discount > 0 && (
                     <div className="text-right">
@@ -495,7 +473,7 @@ export function ProductPreview({
                         textShadow: '0 0 20px white',
                       }}
                     >
-                      ${(product.price * quantity).toFixed(2)}
+                      {formatCurrency(product.price * quantity)}
                     </p>
                   </div>
                 </div>
@@ -513,17 +491,11 @@ export function ProductPreview({
                   Añadir al Carrito
                 </button>
                 <button
-                  className="inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors text-[#F9B61D] py-6 cursor-pointer outline-none"
+                  className="inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors text-[#F9B61D] py-6 cursor-pointer outline-none hover:shadow-[0_0_40px_#F9B61D10]"
                   style={{
                     background: '#F9B61D10',
                   }}
                   onClick={handleBuyNow}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 0 40px #F9B61D10';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
                 >
                   Comprar Ahora
                 </button>
@@ -537,7 +509,7 @@ export function ProductPreview({
                 {product.longDescription ? (
                   <div
                     className="text-sm text-[#898989] leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: product.longDescription }}
+                    dangerouslySetInnerHTML={{ __html: sanitizedLongDescription }}
                   />
                 ) : (
                   <p className="text-sm text-[#898989] leading-relaxed">
@@ -551,9 +523,9 @@ export function ProductPreview({
                 <div className="mb-6">
                   <h3 className="text-sm mb-3 text-[#E4D9AF]">Tecnologías y Características</h3>
                   <div className="flex flex-wrap gap-2">
-                    {product.features.map((feature, index) => (
+                    {product.features.map((feature) => (
                       <span
-                        key={index}
+                        key={feature}
                         className="text-sm text-[#F9B61D] px-3 py-1.5 rounded-lg"
                         style={{
                           background: '#F9B61D10',
@@ -592,7 +564,10 @@ function ProductKeyFeatures() {
     <div className="grid grid-cols-3 gap-3 mb-6">
       {[
         ['Licenciado', <path key="licensed" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />],
-        ['Configuraci\u00f3n R\u00e1pida', <polygon key="setup" points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />],
+        [
+          'Configuraci\u00f3n R\u00e1pida',
+          <polygon key="setup" points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />,
+        ],
         [
           'Soporte',
           <g key="support">

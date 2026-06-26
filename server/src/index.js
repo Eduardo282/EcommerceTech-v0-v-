@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { createServer } from 'http';
 import { ApolloServer } from '@apollo/server';
 
+import { config } from './config/env.js';
 import { connectDB } from './config/db.js';
 import { typeDefs } from './graphql/typeDefs.js';
 import { resolvers } from './graphql/resolvers.js';
@@ -9,11 +10,9 @@ import { resolvers } from './graphql/resolvers.js';
 import { createApp } from './app.js';
 import { initializeSocket } from './socket/index.js';
 
-const PORT = process.env.PORT || 4000;
-
 async function start() {
   // 1. Conexión a Base de Datos
-  await connectDB(process.env.MONGODB_URI);
+  await connectDB(config.mongoUri, config.mongoDbName);
 
   // 2. Inicializar Apollo (Solo la instancia)
   const apolloServer = new ApolloServer({
@@ -30,9 +29,9 @@ async function start() {
   initializeSocket(httpServer);
 
   // 5. Encender y Escuchar!
-  httpServer.listen(PORT, () => {
-    console.log(`🚀 API lista en http://localhost:${PORT}`);
-    console.log(`🌟 GraphQL Sandbox en http://localhost:${PORT}/graphql`);
+  httpServer.listen(config.port, () => {
+    console.log(`🚀 API lista en http://localhost:${config.port}`);
+    console.log(`🌟 GraphQL Sandbox en http://localhost:${config.port}/graphql`);
     console.log(`🔌 Socket.IO servidor activo`);
   });
 }

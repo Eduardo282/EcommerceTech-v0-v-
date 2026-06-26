@@ -54,5 +54,7 @@ export function toSearchItem(product, path, type) {
 export function buildDynamicProductSearchItems(products) {
   return products
     .filter(Boolean)
-    .map((product) => toSearchItem(product, '/nuevos-lanzamientos', product.category || 'Producto'));
+    .map((product) =>
+      toSearchItem(product, '/nuevos-lanzamientos', product.category || 'Producto')
+    );
 }

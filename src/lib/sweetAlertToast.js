@@ -34,6 +34,8 @@ toast.error = (title, options) => notify('error', title, options);
 toast.info = (title, options) => notify('info', title, options);
 toast.warning = (title, options) => notify('warning', title, options);
 
+// WHY: Vite aliases `sonner` to this module, so consumers still import a Toaster.
+// SweetAlert renders imperatively; this stub keeps the existing API contract intact.
 function Toaster() {
   return null;
 }

@@ -1,34 +1,32 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { expressMiddleware } from '@as-integrations/express4';
+import { config } from './config/env.js';
+import { corsOptions } from './config/cors.js';
 import { asyncRoute } from './http/asyncRoute.js';
+import { authGraphqlRateLimit } from './http/authRateLimit.js';
 import { errorMiddleware } from './http/errorMiddleware.js';
 import { createCheckoutSession } from './services/StripeService.js';
 import { subscribeToNewsletter } from './services/newsletterService.js';
 import { buildContext } from './graphql/context.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const authlibArchivePath = path.resolve(
-  __dirname,
-  '../storage/downloads/authlib-react-source.zip'
-);
+const authlibArchivePath = path.resolve(__dirname, '../storage/downloads/authlib-react-source.zip');
 
 export function createApp(apolloServer) {
   const app = express();
 
-  // Configuración de CORS
-  app.use(cors({
-    origin: [
-      'https://embeddable-sandbox.cdn.apollographql.com',
-      'http://localhost:5173',
-      'http://localhost:3000',
-      ...(process.env.FRONTEND_ORIGIN?.split(',') || []),
-    ],
-    credentials: true,
-  }));
+  app.use(
+    helmet({
+      contentSecurityPolicy: config.isProduction ? undefined : false,
+    })
+  );
+
+  app.use(cors(corsOptions));
 
   app.use(cookieParser());
 
@@ -44,20 +42,29 @@ export function createApp(apolloServer) {
     });
   });
 
-  app.post('/create-checkout-session', express.json(), asyncRoute(async (req, res) => {
-    const session = await createCheckoutSession(req.body.items, req.get('origin'));
-    res.json({ id: session.id, url: session.url });
-  }));
+  app.post(
+    '/create-checkout-session',
+    express.json(),
+    asyncRoute(async (req, res) => {
+      const session = await createCheckoutSession(req.body.items, req.get('origin'));
+      res.json({ id: session.id, url: session.url });
+    })
+  );
 
-  app.post('/newsletter/subscribe', express.json(), asyncRoute(async (req, res) => {
-    const result = await subscribeToNewsletter(req.body?.email);
-    res.status(result.alreadySubscribed ? 200 : 201).json(result);
-  }));
+  app.post(
+    '/newsletter/subscribe',
+    express.json(),
+    asyncRoute(async (req, res) => {
+      const result = await subscribeToNewsletter(req.body?.email);
+      res.status(result.alreadySubscribed ? 200 : 201).json(result);
+    })
+  );
 
   // Endpoints GraphQl inyectando el Core de GraphQL inicializado en Root
   app.use(
     '/graphql',
     express.json(),
+    authGraphqlRateLimit,
     expressMiddleware(apolloServer, {
       context: async ({ req, res }) => buildContext({ req, res }),
     })

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { categories } from '../../data/categories';
 import { buildSearchTarget, filterCatalogItems } from '../../lib/catalogSearch';
+import { SearchIcon } from '../icons/Icons';
 
 export function SearchInput({ catalogItems = [] }) {
   const [query, setQuery] = useState('');
@@ -10,14 +11,19 @@ export function SearchInput({ catalogItems = [] }) {
   const [staticCatalogItems, setStaticCatalogItems] = useState([]);
   const navigate = useNavigate();
   const containerRef = useRef(null);
+  const staticCatalogLoadedRef = useRef(false);
+  const staticCatalogItemsRef = useRef([]);
 
   const loadStaticCatalogItems = useCallback(async () => {
-    if (staticCatalogItems.length > 0) return staticCatalogItems;
+    if (staticCatalogLoadedRef.current) return staticCatalogItemsRef.current;
 
     const module = await import('../../lib/staticCatalogSearch');
-    setStaticCatalogItems(module.STATIC_CATALOG_SEARCH_ITEMS);
-    return module.STATIC_CATALOG_SEARCH_ITEMS;
-  }, [staticCatalogItems]);
+    const items = module.getStaticCatalogItems();
+    staticCatalogLoadedRef.current = true;
+    staticCatalogItemsRef.current = items;
+    setStaticCatalogItems(items);
+    return items;
+  }, []);
 
   useEffect(() => {
     if (!isOpen && !query.trim()) return;
@@ -92,7 +98,7 @@ export function SearchInput({ catalogItems = [] }) {
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [containerRef]);
+  }, []);
 
   return (
     <div className="flex-1 max-w-2xl" ref={containerRef}>
@@ -100,21 +106,7 @@ export function SearchInput({ catalogItems = [] }) {
         <label htmlFor="header-search" className="sr-only">
           Search products
         </label>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#E4D9AF] group-focus-within:text-[#E4D9AF] transition-colors z-20"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.3-4.3" />
-        </svg>
+        <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#E4D9AF] group-focus-within:text-[#E4D9AF] transition-colors z-20" />
         <input
           id="header-search"
           type="text"
@@ -153,8 +145,8 @@ export function SearchInput({ catalogItems = [] }) {
         {isOpen && filteredResults.length > 0 && (
           <div className="absolute top-full left-0 right-0 mt-2 bg-[#111115] border border-[#2c2c30] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
             <ul>
-              {filteredResults.map((item, index) => (
-                <li key={index}>
+              {filteredResults.map((item) => (
+                <li key={item.id || item.link || `${item.type}-${item.name}`}>
                   <button
                     onClick={() => {
                       navigate(item.path ? buildSearchTarget(item, query.trim()) : item.link);
@@ -163,21 +155,7 @@ export function SearchInput({ catalogItems = [] }) {
                     }}
                     className="w-full text-left px-4 py-3 hover:bg-[#2c2c30] flex items-center gap-3 transition-colors group/item"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-muted-foreground group-hover/item:text-[#F9B61D]"
-                    >
-                      <circle cx="11" cy="11" r="8" />
-                      <path d="m21 21-4.3-4.3" />
-                    </svg>
+                    <SearchIcon className="h-4 w-4 text-muted-foreground group-hover/item:text-[#F9B61D]" />
                     <div>
                       <p className="text-[#E4D9AF] text-sm font-medium">{item.name}</p>
                       <p className="text-xs text-muted-foreground capitalize">{item.type}</p>

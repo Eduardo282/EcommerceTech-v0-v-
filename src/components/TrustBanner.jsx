@@ -48,38 +48,32 @@ export function TrustBanner() {
       `}</style>
       <div className="container mx-auto px-4 overflow-hidden relative">
         <div className="animate-scroll">
-          {[...featuresTrust, ...featuresTrust].map((feature, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-64 px-4 text-center group hover:cursor-pointer"
-            >
+          {['primary', 'duplicate']
+            .flatMap((group) => featuresTrust.map((feature) => ({ feature, group })))
+            .map(({ feature, group }) => (
               <div
-                className="inline-flex items-center justify-center w-16 h-16 mb-3 transition-all duration-300"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
+                key={`${group}-${feature.title}`}
+                className="flex-shrink-0 w-64 px-4 text-center group hover:cursor-pointer"
               >
-                <feature.icon className="h-7 w-7" />
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-3 transition-transform duration-300 hover:scale-[1.4]">
+                  <feature.icon className="h-7 w-7" />
+                </div>
+                <h3
+                  className="text-sm mb-1 font-display"
+                  style={{
+                    color: getColor('titleConfianzaColor', '#fff'),
+                  }}
+                >
+                  {feature.title}
+                </h3>
+                <p
+                  className="text-xs"
+                  style={{ color: getColor('descripcionConfianzaColor', '#fff') }}
+                >
+                  {feature.description}
+                </p>
               </div>
-              <h3
-                className="text-sm mb-1 font-display"
-                style={{
-                  color: getColor('titleConfianzaColor', '#fff'),
-                }}
-              >
-                {feature.title}
-              </h3>
-              <p
-                className="text-xs"
-                style={{ color: getColor('descripcionConfianzaColor', '#fff') }}
-              >
-                {feature.description}
-              </p>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </section>

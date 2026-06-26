@@ -14,7 +14,7 @@ import {
   Star,
   GUIDES_DATA,
   CATEGORIES,
-  mapGuideToProduct
+  mapGuideToProduct,
 } from './GuiasEstudioPage.data';
 import { getSearchQueryFromParams } from '../lib/catalogSearch';
 import { useSearchHighlight } from '../hooks/useSearchHighlight';

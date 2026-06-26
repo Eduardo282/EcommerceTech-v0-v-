@@ -14,7 +14,7 @@ import {
   CATEGORIES,
   getComponentPrice,
   getComponentCodeSnippet,
-  renderComponentMock
+  renderComponentMock,
 } from './ComponentesUiUxPage.data';
 import { getSearchQueryFromParams } from '../lib/catalogSearch';
 import { useSearchHighlight } from '../hooks/useSearchHighlight';

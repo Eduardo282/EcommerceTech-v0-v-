@@ -31,10 +31,12 @@ const ProductSchema = new mongoose.Schema(
     details: [{ type: String }],
     includes: [{ type: String }],
     longDescription: { type: String, default: '' },
-    specs: [{
-      key: { type: String },
-      value: { type: String },
-    }],
+    specs: [
+      {
+        key: { type: String },
+        value: { type: String },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -47,7 +49,7 @@ ProductSchema.pre('validate', function (next) {
   if (!this.originalPrice) {
     if (this.descuentoPrice) this.originalPrice = this.descuentoPrice;
     else if (this.price) this.originalPrice = this.price; // fallback si price existe en el documento
-  } 
+  }
   next();
 });
 ProductSchema.index({ title: 'text', description: 'text' });

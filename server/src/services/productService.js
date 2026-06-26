@@ -16,7 +16,7 @@ export async function ensureTrendingCapacity(Product, excludedProductId = null) 
 }
 
 export async function assertValidCategory(Category, categoryId) {
-  if (categoryId && await Category.exists({ _id: categoryId })) return;
+  if (categoryId && (await Category.exists({ _id: categoryId }))) return;
 
   throw new GraphQLError('Seleccioná una categoría válida', {
     extensions: { code: 'BAD_USER_INPUT' },

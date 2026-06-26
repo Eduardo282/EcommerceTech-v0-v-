@@ -2,8 +2,11 @@ import PropTypes from 'prop-types';
 import { HeaderCarrito } from './smallComponents/HeaderCarrito';
 import { HomeCarrito } from './smallComponents/HomeCarrito';
 import { ItemsCarrito } from './smallComponents/ItemsCarrito';
+import { SidebarShell } from './smallComponents/SidebarShell';
 import { AuthRequiredState } from './AuthRequiredState';
 import { toast } from 'sonner';
+import { formatCurrency } from '../lib/formatCurrency';
+import { getCartTotal } from '../features/cart/cartModel.mjs';
 
 export function CartSidebar({
   isOpen,
@@ -15,18 +18,11 @@ export function CartSidebar({
   isAuthed,
   onLoginClick,
 }) {
-  // Asegurar que todas las operaciones numéricas usen números (manejar precios como cadenas de la API)
-  const total = items.reduce(
-    (sum, item) => sum + Number(item.price || 0) * (Number(item.quantity) || 1),
-    0
-  );
+  const total = getCartTotal(items);
   const savings = items.reduce(
     (sum, item) =>
       sum +
-      (item.originalPrice
-        ? (Number(item.originalPrice || 0) - Number(item.price || 0)) *
-          (Number(item.quantity) || 1)
-        : 0),
+      (item.originalPrice ? (item.originalPrice - item.price) * (Number(item.quantity) || 1) : 0),
     0
   );
 
@@ -59,114 +55,83 @@ export function CartSidebar({
     }
   };
 
+  const footer =
+    isAuthed && items.length > 0 ? (
+      <footer
+        className="p-6 space-y-4"
+        style={{
+          boxShadow: '0 -5px 20px #2c2c30',
+        }}
+      >
+        <div className="space-y-3 mb-6">
+          <div className="flex justify-between text-sm">
+            <span className="text-[#E4D9AF]">Subtotal</span>
+            <span className="text-white">{formatCurrency(total)}</span>
+          </div>
+          {savings > 0 && (
+            <div className="flex justify-between text-sm">
+              <span className="text-[#F9B61D]">Ahorros</span>
+              <span className="text-[#F9B61D]" style={{ textShadow: '0 0 10px #F9B61D' }}>
+                -{formatCurrency(savings)}
+              </span>
+            </div>
+          )}
+          <div
+            className="flex justify-between text-lg pt-3 border-t-2"
+            style={{ borderTopColor: '#2c2c30' }}
+          >
+            <span className="text-[#E4D9AF]">Total</span>
+            <span className="text-white">{formatCurrency(total)}</span>
+          </div>
+        </div>
 
-  
+        <button
+          onClick={handleCheckout}
+          className="flex items-center justify-center w-full text-white py-6 text-lg rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition-colors"
+        >
+          Proceder al pago
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="ml-2 h-5 w-5"
+          >
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </button>
+
+        <p className="text-xs text-center text-[#898989] mt-4">🔒 Pago seguro</p>
+      </footer>
+    ) : null;
+
   return (
-    <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 transition-opacity"
-          onClick={onClose}
+    <SidebarShell
+      ariaLabel="shopping cart sidebar"
+      footer={footer}
+      header={<HeaderCarrito items={items} onClose={onClose} />}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      {!isAuthed ? (
+        <AuthRequiredState type="cart" onLoginClick={onLoginClick} />
+      ) : items.length === 0 ? (
+        <HomeCarrito onClose={onClose} />
+      ) : (
+        <ItemsCarrito
+          items={items}
+          onRemoveItem={onRemoveItem}
+          onUpdateQuantity={onUpdateQuantity}
+          onViewProduct={onViewProduct}
         />
       )}
-
-      <aside
-        className={`fixed top-0 right-0 h-full w-full max-w-md z-50 transform transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        style={{
-          background: '#111115',
-          boxShadow: '0 0 30px #2c2c30',
-        }}
-        aria-label="shopping cart sidebar"
-      >
-        <div
-          className="absolute inset-0 opacity-15"
-          aria-hidden="true"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #F9B61D40 1px, transparent 1px),
-              linear-gradient(to bottom, #F9B61D40 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        />
-
-        <div className="flex flex-col h-full relative z-10">
-          <HeaderCarrito items={items} onClose={onClose} />
-
-          <section className="flex-1 overflow-auto scrollbar-hide p-6">
-            {!isAuthed ? (
-              <AuthRequiredState type="cart" onLoginClick={onLoginClick} />
-            ) : items.length === 0 ? (
-              <HomeCarrito onClose={onClose} />
-            ) : (
-              <ItemsCarrito
-                items={items}
-                onRemoveItem={onRemoveItem}
-                onUpdateQuantity={onUpdateQuantity}
-                onViewProduct={onViewProduct}
-              />
-            )}
-          </section>
-
-          {isAuthed && items.length > 0 && (
-            <footer
-              className="p-6 space-y-4"
-              style={{
-                boxShadow: '0 -5px 20px #2c2c30',
-              }}
-            >
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-sm">
-                  <span className="text-[#E4D9AF]">Subtotal</span>
-                  <span className="text-white">${total.toFixed(2)}</span>
-                </div>
-                {savings > 0 && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[#F9B61D]">Ahorros</span>
-                    <span className="text-[#F9B61D]" style={{ textShadow: '0 0 10px #F9B61D' }}>
-                      -${savings.toFixed(2)}
-                    </span>
-                  </div>
-                )}
-                <div
-                  className="flex justify-between text-lg pt-3 border-t-2"
-                  style={{ borderTopColor: '#2c2c30' }}
-                >
-                  <span className="text-[#E4D9AF]">Total</span>
-                  <span className="text-white">${total.toFixed(2)}</span>
-                </div>
-              </div>
-
-              <button
-                onClick={handleCheckout}
-                className="flex items-center justify-center w-full text-white py-6 text-lg rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition-colors"
-              >
-                Proceder al pago
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="ml-2 h-5 w-5"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </button>
-
-              <p className="text-xs text-center text-[#898989] mt-4">🔒 Pago seguro</p>
-            </footer>
-          )}
-        </div>
-      </aside>
-    </>
+    </SidebarShell>
   );
 }
 

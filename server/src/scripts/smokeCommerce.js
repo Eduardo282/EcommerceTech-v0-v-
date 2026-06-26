@@ -93,17 +93,10 @@ async function run() {
     assert.equal(reviews[0].comment, 'Persistent review created by the smoke test.');
 
     assert.equal(
-      await resolvers.Mutation.deleteProductReview(
-        null,
-        { productId: product.id },
-        context
-      ),
+      await resolvers.Mutation.deleteProductReview(null, { productId: product.id }, context),
       true
     );
-    assert.equal(
-      await resolvers.Mutation.deleteProduct(null, { id: product.id }, context),
-      true
-    );
+    assert.equal(await resolvers.Mutation.deleteProduct(null, { id: product.id }, context), true);
     product = null;
 
     console.log('✅ Commerce smoke test passed');

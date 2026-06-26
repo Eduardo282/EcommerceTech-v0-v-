@@ -8,8 +8,7 @@ export function useFilteredCatalog({ items, initialFilter, allFilter, filterBy, 
   const filteredItems = useMemo(
     () =>
       items.filter((item) => {
-        const matchesCategory =
-          activeCategory === allFilter || filterBy(item, activeCategory);
+        const matchesCategory = activeCategory === allFilter || filterBy(item, activeCategory);
         return matchesCategory && includesQuery(searchBy(item), searchQuery);
       }),
     [activeCategory, allFilter, filterBy, items, searchBy, searchQuery]

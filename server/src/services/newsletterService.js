@@ -16,11 +16,16 @@ function getOutboxPath() {
 }
 
 function normalizeEmail(email) {
-  return String(email || '').trim().toLowerCase();
+  return String(email || '')
+    .trim()
+    .toLowerCase();
 }
 
 function toDisplayName(email) {
-  const rawName = email.split('@')[0].replace(/[._-]+/g, ' ').trim();
+  const rawName = email
+    .split('@')[0]
+    .replace(/[._-]+/g, ' ')
+    .trim();
   if (!rawName) return 'creador';
 
   return rawName

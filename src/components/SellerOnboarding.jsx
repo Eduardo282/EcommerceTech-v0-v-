@@ -62,7 +62,9 @@ export function SellerOnboarding({ open, onClose }) {
                 onClick={() => setLocalRubro(RUBROS.GAMING)}
               >
                 <h3 className="text-amber-100 font-medium">Juegos</h3>
-                <p className="text-amber-200/70 text-sm">Juegos, assets, soundtracks, herramientas</p>
+                <p className="text-amber-200/70 text-sm">
+                  Juegos, assets, soundtracks, herramientas
+                </p>
               </button>
             </div>
             <div className="mt-6 flex justify-end">
@@ -92,7 +94,9 @@ export function SellerOnboarding({ open, onClose }) {
                 />
               </div>
               <div>
-                <label className="block text-sm text-amber-200/80 mb-1">Descripción de la tienda</label>
+                <label className="block text-sm text-amber-200/80 mb-1">
+                  Descripción de la tienda
+                </label>
                 <textarea
                   value={desc}
                   onChange={(e) => setDesc(e.target.value)}

@@ -14,7 +14,7 @@ import {
   PreviewMagicLink,
   PreviewNeon,
   PreviewCorporate,
-  PreviewFullBg
+  PreviewFullBg,
 } from './PlantillasAuthPage.data';
 
 export function PlantillasAuthPage() {

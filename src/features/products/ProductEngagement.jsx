@@ -2,11 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { toast } from 'sonner';
-import {
-  GET_ME,
-  PRODUCT_ENGAGEMENT_QUERY,
-  PRODUCT_REVIEWS_QUERY,
-} from '../../graphql/queries';
+import { GET_ME, PRODUCT_ENGAGEMENT_QUERY, PRODUCT_REVIEWS_QUERY } from '../../graphql/queries';
 import {
   DELETE_PRODUCT_REVIEW,
   RECORD_PRODUCT_VIEW,
@@ -50,23 +46,26 @@ export function ProductEngagement({ productId }) {
   const displayedRating = draftChanged ? rating : ownReview?.rating || rating;
   const displayedComment = draftChanged ? comment : ownReview?.comment || comment;
 
-  const syncProductCache = useCallback((nextEngagement) => {
-    if (!nextEngagement) return;
-    const cacheId = client.cache.identify({
-      __typename: 'Product',
-      id: String(productId),
-    });
-    if (!cacheId) return;
-    client.cache.modify({
-      id: cacheId,
-      fields: {
-        likesCount: () => nextEngagement.likesCount,
-        reviewsCount: () => nextEngagement.reviewsCount,
-        rating: () => nextEngagement.rating,
-        viewsCount: () => nextEngagement.viewsCount,
-      },
-    });
-  }, [client, productId]);
+  const syncProductCache = useCallback(
+    (nextEngagement) => {
+      if (!nextEngagement) return;
+      const cacheId = client.cache.identify({
+        __typename: 'Product',
+        id: String(productId),
+      });
+      if (!cacheId) return;
+      client.cache.modify({
+        id: cacheId,
+        fields: {
+          likesCount: () => nextEngagement.likesCount,
+          reviewsCount: () => nextEngagement.reviewsCount,
+          rating: () => nextEngagement.rating,
+          viewsCount: () => nextEngagement.viewsCount,
+        },
+      });
+    },
+    [client, productId]
+  );
 
   useEffect(() => {
     if (!productId) return undefined;

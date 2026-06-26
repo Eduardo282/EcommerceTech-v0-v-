@@ -1,17 +1,19 @@
 import Stripe from 'stripe';
 import { Product } from '../models/Product.js';
 
-const stripe = process.env.STRIPE_SECRET_KEY
-  ? new Stripe(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
 if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('⚠️ WARNING: STRIPE_SECRET_KEY no está presente en el archivo .env. Características de Stripe no funcionarán.');
+  console.warn(
+    '⚠️ WARNING: STRIPE_SECRET_KEY no está presente en el archivo .env. Características de Stripe no funcionarán.'
+  );
 }
 
 export async function createCheckoutSession(items = [], origin) {
   if (!stripe) {
-    throw new Error('Error de configuración: Clave STRIPE_SECRET_KEY no encontrada en el servidor.');
+    throw new Error(
+      'Error de configuración: Clave STRIPE_SECRET_KEY no encontrada en el servidor.'
+    );
   }
 
   if (!Array.isArray(items) || items.length === 0) {
