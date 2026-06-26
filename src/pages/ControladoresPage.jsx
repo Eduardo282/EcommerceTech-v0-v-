@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
 import { useFilteredCatalog } from './catalog/useFilteredCatalog';
@@ -13,9 +13,14 @@ import {
   DRIVERS_DATA,
   mapDriverToProduct
 } from './ControladoresPage.data';
+import { getSearchQueryFromParams } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 
 export function ControladoresPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems = [] } = useOutletContext();
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
   const {
     activeCategory: selectedOS,
     filteredItems: filteredDrivers,
@@ -33,6 +38,14 @@ export function ControladoresPage() {
     searchBy: (driver) => [driver.id, driver.name, driver.type],
   });
   const [selectedDriver, setSelectedDriver] = useState(null);
+
+  useEffect(() => {
+    if (!urlSearchQuery) return;
+    setSelectedOS('All');
+    setSearchTerm(urlSearchQuery);
+  }, [setSearchTerm, setSelectedOS, urlSearchQuery]);
+
+  useSearchHighlight(highlightedProductId, filteredDrivers.length);
 
   const allDriverProducts = useMemo(() => DRIVERS_DATA.map(mapDriverToProduct), []);
   const selectedProduct = selectedDriver ? mapDriverToProduct(selectedDriver) : null;
@@ -128,7 +141,7 @@ export function ControladoresPage() {
         </div>
 
         {/* Tabla de datos */}
-        <div className="bg-[#15151A] border border-white/5 border-t-0 rounded-b-xl overflow-hidden">
+        <div id="catalog-results" className="bg-[#15151A] border border-white/5 border-t-0 rounded-b-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-[#0A0A0D] text-gray-500 uppercase text-xs tracking-wider">
@@ -146,6 +159,7 @@ export function ControladoresPage() {
                 {filteredDrivers.map((driver) => (
                   <tr
                     key={driver.id}
+                    data-search-id={`driver-${driver.id}`}
                     className="hover:bg-white/5 transition-colors group cursor-pointer"
                     onClick={() => setSelectedDriver(driver)}
                   >

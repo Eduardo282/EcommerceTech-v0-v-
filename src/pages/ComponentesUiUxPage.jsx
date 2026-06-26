@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useFilteredCatalog } from './catalog/useFilteredCatalog';
 import { CatalogGridBackground } from './catalog/CatalogGridBackground';
@@ -16,9 +16,14 @@ import {
   getComponentCodeSnippet,
   renderComponentMock
 } from './ComponentesUiUxPage.data';
+import { getSearchQueryFromParams } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 
 export function ComponentesUiUxPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems = [], onVentasClick } = useOutletContext();
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
   const {
     activeCategory,
     filteredItems: filteredComponents,
@@ -34,6 +39,14 @@ export function ComponentesUiUxPage() {
   });
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [previewMode, setPreviewMode] = useState('desktop');
+
+  useEffect(() => {
+    if (!urlSearchQuery) return;
+    setActiveCategory('todos');
+    setSearchQuery(urlSearchQuery);
+  }, [setActiveCategory, setSearchQuery, urlSearchQuery]);
+
+  useSearchHighlight(highlightedProductId, filteredComponents.length);
 
   const selectedProduct = selectedComponent
     ? {
@@ -155,11 +168,12 @@ export function ComponentesUiUxPage() {
       </section>
 
       {/* Grid de componentes */}
-      <section className="container mx-auto px-4 pb-32">
+      <section id="catalog-results" className="container mx-auto px-4 pb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredComponents.map((comp) => (
             <div
               key={comp.id}
+              data-search-id={`uiux-${comp.id}`}
               className="group relative bg-[#111115] rounded-3xl border border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2"
             >
               {/* Efecto de brillo en la tarjeta */}

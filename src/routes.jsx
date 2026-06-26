@@ -24,6 +24,16 @@ const NuevosLanzamientosPage = lazyPage(
   'NuevosLanzamientosPage'
 );
 const AyudaSoportePage = lazyPage(() => import('./pages/AyudaSoportePage'), 'AyudaSoportePage');
+const HelpCenterPage = lazyPage(() => import('./pages/InfoPages'), 'HelpCenterPage');
+const DocumentationPage = lazyPage(() => import('./pages/InfoPages'), 'DocumentationPage');
+const ApiReferencePage = lazyPage(() => import('./pages/InfoPages'), 'ApiReferencePage');
+const CommunityPage = lazyPage(() => import('./pages/InfoPages'), 'CommunityPage');
+const ContactanosPage = lazyPage(() => import('./pages/InfoPages'), 'ContactanosPage');
+const PreguntasFrecuentesPage = lazyPage(() => import('./pages/InfoPages'), 'PreguntasFrecuentesPage');
+const SobreNosotrosPage = lazyPage(() => import('./pages/InfoPages'), 'SobreNosotrosPage');
+const BlogPage = lazyPage(() => import('./pages/InfoPages'), 'BlogPage');
+const SociosPage = lazyPage(() => import('./pages/InfoPages'), 'SociosPage');
+const ProgramaAfiliadosPage = lazyPage(() => import('./pages/InfoPages'), 'ProgramaAfiliadosPage');
 const RastrearPedidoPage = lazyPage(() => import('./pages/RastrearPedidoPage'), 'RastrearPedidoPage');
 const PoliticaPrivacidadPage = lazyPage(
   () => import('./pages/PoliticaPrivacidadPage'),
@@ -53,6 +63,16 @@ export function AppRouter() {
           <Route path="controladores" element={<ControladoresPage />} />
           <Route path="nuevos-lanzamientos" element={<NuevosLanzamientosPage />} />
           <Route path="ayuda-soporte" element={<AyudaSoportePage />} />
+          <Route path="centro-de-ayuda" element={<HelpCenterPage />} />
+          <Route path="documentacion" element={<DocumentationPage />} />
+          <Route path="referencia-api" element={<ApiReferencePage />} />
+          <Route path="comunidad" element={<CommunityPage />} />
+          <Route path="contactanos" element={<ContactanosPage />} />
+          <Route path="preguntas-frecuentes" element={<PreguntasFrecuentesPage />} />
+          <Route path="sobre-nosotros" element={<SobreNosotrosPage />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="socios" element={<SociosPage />} />
+          <Route path="programa-afiliados" element={<ProgramaAfiliadosPage />} />
           <Route path="rastrear-pedido" element={<RastrearPedidoPage />} />
           <Route path="politica-privacidad" element={<PoliticaPrivacidadPage />} />
           <Route path="terminos-servicio" element={<TerminosServicioPage />} />

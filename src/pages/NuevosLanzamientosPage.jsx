@@ -1,14 +1,18 @@
 import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { PRODUCTS_QUERY } from '../graphql/queries';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { FeaturedProducts } from '../components/FeaturedProducts';
 import { useRubro } from '../context/useRubro';
 import { mapProduct } from '../features/products/productMapper';
+import { getSearchQueryFromParams } from '../lib/catalogSearch';
 
 export function NuevosLanzamientosPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems } = useOutletContext();
+  const [searchParams] = useSearchParams();
   const { rubro } = useRubro();
+  const searchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
 
   // Query para nuevos lanzamientos (Sort: NEWEST)
   const { data, loading, error } = useQuery(PRODUCTS_QUERY, {
@@ -107,6 +111,8 @@ export function NuevosLanzamientosPage() {
                 titleDestacadosColor: '#fff',
                 descripcionDestacadosColor: '#9ca3af',
               }}
+              searchQuery={searchQuery}
+              highlightedProductId={highlightedProductId}
             />
           </div>
         )}

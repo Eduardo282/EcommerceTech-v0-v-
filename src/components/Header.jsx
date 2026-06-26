@@ -23,6 +23,7 @@ export function Header({
   wishlistItemsCount,
   onUserClick,
   productCategories = [],
+  searchCatalogItems = [],
 }) {
   const {
     accountOpen,
@@ -83,7 +84,7 @@ export function Header({
             </div>
           </Link>
 
-          <SearchInput />
+          <SearchInput catalogItems={searchCatalogItems} />
 
           {/* Acciones */}
           <div className="flex items-center gap-2">
@@ -417,6 +418,7 @@ Header.propTypes = {
       productCount: PropTypes.number.isRequired,
     })
   ),
+  searchCatalogItems: PropTypes.array,
 };
 
 function HeaderIconButton({

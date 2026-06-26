@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useMemo, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
+import { filterCatalogItems, getSearchQueryFromParams } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 import { parseCompactCount } from './catalog/catalogUtils';
 import {
   ArrowUpRight,
@@ -11,6 +13,9 @@ import {
 
 export function PlantillasDashboardPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems = [], onVentasClick } = useOutletContext();
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
   const [previewProduct, setPreviewProduct] = useState(null);
 
   function mapToProduct(item) {
@@ -35,6 +40,11 @@ export function PlantillasDashboardPage() {
   }
 
   const allMapped = DASHBOARD_TEMPLATES.map(mapToProduct);
+  const visibleTemplates = useMemo(
+    () => filterCatalogItems(DASHBOARD_TEMPLATES, urlSearchQuery),
+    [urlSearchQuery]
+  );
+  useSearchHighlight(highlightedProductId, visibleTemplates.length);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-indigo-500/30">
@@ -80,10 +90,11 @@ export function PlantillasDashboardPage() {
         </header>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-6">
-          {DASHBOARD_TEMPLATES.map((item) => (
+        <div id="catalog-results" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-6">
+          {visibleTemplates.map((item) => (
             <div
               key={item.id}
+              data-search-id={`dashboard-${item.id}`}
               className={`
                 group relative rounded-3xl overflow-hidden border border-white/5 bg-[#0A0A0A] hover:border-indigo-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10
                 ${item.size === 'large' ? 'md:col-span-2 md:row-span-2' : ''}

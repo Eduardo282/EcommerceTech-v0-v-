@@ -1,22 +1,38 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useCallback, useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { categories } from '../../data/categories';
+import { buildSearchTarget, filterCatalogItems } from '../../lib/catalogSearch';
 
-export function SearchInput() {
+export function SearchInput({ catalogItems = [] }) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [staticCatalogItems, setStaticCatalogItems] = useState([]);
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
-  // Combinar categorías existentes con los items específicos solicitados por el usuario
-  const searchItems = useMemo(() => {
+  const loadStaticCatalogItems = useCallback(async () => {
+    if (staticCatalogItems.length > 0) return staticCatalogItems;
+
+    const module = await import('../../lib/staticCatalogSearch');
+    setStaticCatalogItems(module.STATIC_CATALOG_SEARCH_ITEMS);
+    return module.STATIC_CATALOG_SEARCH_ITEMS;
+  }, [staticCatalogItems]);
+
+  useEffect(() => {
+    if (!isOpen && !query.trim()) return;
+    loadStaticCatalogItems();
+  }, [isOpen, loadStaticCatalogItems, query]);
+
+  // Combine catalog products with navigation shortcuts.
+  const navigationItems = useMemo(() => {
     const items = [
-      { name: 'Plantillas Dashboard', type: 'Page', link: '/categories/dashboard-templates' },
-      { name: 'Plantillas Augth', type: 'Page', link: '/categories/auth-templates' }, // Assuming typofix or as requested
-      { name: 'Componentes de UI/UX', type: 'Page', link: '/categories/ui-kits' },
-      { name: 'Libros de programación', type: 'Page', link: '/books' },
-      { name: 'Guías de estudio', type: 'Page', link: '/guides' },
-      { name: 'Controladores', type: 'Page', link: '/controllers' },
+      { name: 'Plantillas Dashboard', type: 'Página', link: '/plantillas-dashboard' },
+      { name: 'Plantillas Auth', type: 'Página', link: '/plantillas-auth' },
+      { name: 'Componentes de UI/UX', type: 'Página', link: '/componentes-ui-ux' },
+      { name: 'Libros de programación', type: 'Página', link: '/libros-programacion' },
+      { name: 'Guías de estudio', type: 'Página', link: '/guias-estudio' },
+      { name: 'Controladores', type: 'Página', link: '/controladores' },
       { name: 'Nuevos Lanzamientos', type: 'Page', link: '/nuevos-lanzamientos' },
     ];
 
@@ -24,14 +40,14 @@ export function SearchInput() {
     categories.forEach((cat) => {
       items.push({
         name: cat.name,
-        type: 'General Category',
-        link: `/category/${cat.name.toLowerCase().replace(/\s+/g, '-')}`,
+        type: 'Categoría',
+        link: `/nuevos-lanzamientos?q=${encodeURIComponent(cat.name)}#catalog-results`,
       });
       cat.subcategories?.forEach((sub) => {
         items.push({
           name: sub.name,
-          type: 'Subcategory', // cat.name
-          link: `/search?q=${encodeURIComponent(sub.name)}`,
+          type: 'Subcategoría',
+          link: `/nuevos-lanzamientos?q=${encodeURIComponent(sub.name)}#catalog-results`,
         });
       });
     });
@@ -39,19 +55,32 @@ export function SearchInput() {
     return items;
   }, []);
 
+  const searchItems = useMemo(
+    () => [...catalogItems, ...staticCatalogItems, ...navigationItems],
+    [catalogItems, navigationItems, staticCatalogItems]
+  );
+
   const filteredResults = useMemo(() => {
     if (!query) return [];
-    return searchItems
-      .filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
-      .slice(0, 8); // Limit results
+    return filterCatalogItems(searchItems, query).slice(0, 8);
   }, [query, searchItems]);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query)}`);
-      setIsOpen(false);
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) return;
+
+    const loadedStaticItems = await loadStaticCatalogItems();
+    const availableItems = [...catalogItems, ...loadedStaticItems, ...navigationItems];
+    const [firstMatch] = filterCatalogItems(availableItems, trimmedQuery);
+    if (firstMatch?.path) {
+      navigate(buildSearchTarget(firstMatch, trimmedQuery));
+    } else if (firstMatch?.link) {
+      navigate(firstMatch.link);
+    } else {
+      navigate(`/nuevos-lanzamientos?q=${encodeURIComponent(trimmedQuery)}#catalog-results`);
     }
+    setIsOpen(false);
   };
 
   // Close when clicking outside
@@ -128,7 +157,7 @@ export function SearchInput() {
                 <li key={index}>
                   <button
                     onClick={() => {
-                      navigate(item.link);
+                      navigate(item.path ? buildSearchTarget(item, query.trim()) : item.link);
                       setQuery('');
                       setIsOpen(false);
                     }}
@@ -163,3 +192,14 @@ export function SearchInput() {
     </div>
   );
 }
+
+SearchInput.propTypes = {
+  catalogItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      name: PropTypes.string,
+      path: PropTypes.string,
+      type: PropTypes.string,
+    })
+  ),
+};

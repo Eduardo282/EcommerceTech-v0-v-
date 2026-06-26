@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { downloadBrowserFile } from './catalog/catalogUtils';
+import { filterCatalogItems, getSearchQueryFromParams } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 import {
   Lock,
   AUTH_TEMPLATES,
@@ -18,9 +20,32 @@ import {
 export function PlantillasAuthPage() {
   const outletContext = useOutletContext() || {};
   const { onVentasClick } = outletContext;
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
   const [selectedTemplate, setSelectedTemplate] = useState(AUTH_TEMPLATES[0]);
   const [showPassword, setShowPassword] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+
+  const visibleTemplates = useMemo(
+    () => filterCatalogItems(AUTH_TEMPLATES, urlSearchQuery),
+    [urlSearchQuery]
+  );
+
+  useEffect(() => {
+    if (!urlSearchQuery) return;
+
+    const matchedTemplate =
+      visibleTemplates.find((template) => `auth-${template.id}` === highlightedProductId) ||
+      visibleTemplates[0];
+
+    if (matchedTemplate) {
+      setSelectedTemplate(matchedTemplate);
+      setShowPassword(false);
+    }
+  }, [highlightedProductId, urlSearchQuery, visibleTemplates]);
+
+  useSearchHighlight(highlightedProductId, visibleTemplates.length);
 
   async function handleDownload() {
     if (isDownloading) return;
@@ -91,19 +116,21 @@ export function PlantillasAuthPage() {
         </div>
 
         {/* lista */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {AUTH_TEMPLATES.map((template) => {
+        <div id="catalog-results" className="flex-1 overflow-y-auto p-4 space-y-2">
+          {visibleTemplates.map((template) => {
             const accent = accentColors[template.accent] || accentColors.amber;
             const isSelected = selectedTemplate.id === template.id;
             return (
               <button
                 key={template.id}
+                data-search-id={`auth-${template.id}`}
                 onClick={() => {
                   setSelectedTemplate(template);
                   setShowPassword(false);
                 }}
                 className={`w-full text-left p-4 rounded-xl border transition-all duration-300
-                  ${isSelected ? 'bg-white/10 border-white/10 shadow-lg' : 'bg-transparent border-transparent hover:bg-white/5 text-gray-400 hover:text-white'}`}
+                  ${isSelected ? 'bg-white/10 border-white/10 shadow-lg' : 'bg-transparent border-transparent hover:bg-white/5 text-gray-400 hover:text-white'}
+                `}
               >
                 <div className="flex justify-between items-start mb-1">
                   <span className="font-bold text-sm">{template.name}</span>

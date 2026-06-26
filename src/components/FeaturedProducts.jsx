@@ -2,6 +2,8 @@ import { ProductCard } from './ProductCard';
 import PropTypes from 'prop-types';
 import { useTheme } from 'next-themes';
 import { getThemeColor } from '../lib/themeColors';
+import { filterCatalogItems } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 import {
   Carousel,
   CarouselContent,
@@ -19,9 +21,14 @@ export function FeaturedProducts({
   subtitle,
   config,
   embedded = false,
+  searchQuery = '',
+  highlightedProductId,
 }) {
   const { resolvedTheme } = useTheme();
   const getColor = (key, fallback) => getThemeColor(config, key, fallback, resolvedTheme);
+  const visibleProducts = searchQuery ? filterCatalogItems(products, searchQuery) : products;
+  const searchHighlightId = highlightedProductId || (searchQuery ? visibleProducts[0]?.id : null);
+  useSearchHighlight(searchHighlightId, visibleProducts.length);
 
   if (embedded) {
     return (
@@ -34,7 +41,7 @@ export function FeaturedProducts({
           }}
         >
           <CarouselContent className="-ml-0 w-full">
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <CarouselItem
                 key={product.id}
                 className="pl-0 overflow-visible"
@@ -56,7 +63,7 @@ export function FeaturedProducts({
                       onAddToCart={onAddToCart}
                       onToggleWishlist={onToggleWishlist}
                       isInWishlist={wishlistItems.includes(product.id)}
-                      allProducts={products}
+                      allProducts={visibleProducts}
                       wishlistItems={wishlistItems}
                     />
                   </div>
@@ -75,6 +82,7 @@ export function FeaturedProducts({
 
   return (
     <section
+      id="catalog-results"
       className="py-20 bg-background dark:bg-[var(--feat-bg,#fff)]"
       style={{
         '--feat-bg': getColor('fondoDestacadosColor', '#fff'),
@@ -99,14 +107,14 @@ export function FeaturedProducts({
         </div>
 
         <ul role="list" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 list-none">
-          {products.map((product) => (
+          {visibleProducts.map((product) => (
             <li key={product.id} className="contents">
               <ProductCard
                 product={product}
                 onAddToCart={onAddToCart}
                 onToggleWishlist={onToggleWishlist}
                 isInWishlist={wishlistItems.includes(product.id)}
-                allProducts={products}
+                allProducts={visibleProducts}
                 wishlistItems={wishlistItems}
               />
             </li>
@@ -126,4 +134,6 @@ FeaturedProducts.propTypes = {
   subtitle: PropTypes.string,
   config: PropTypes.object,
   embedded: PropTypes.bool,
+  searchQuery: PropTypes.string,
+  highlightedProductId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

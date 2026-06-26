@@ -31,6 +31,7 @@ export function ProductCard({
   return (
     <>
       <article
+        data-search-id={String(product.id)}
         className="group relative transition-all duration-500 cursor-pointer glass-crystalline"
         style={{
           borderRadius: '28px',

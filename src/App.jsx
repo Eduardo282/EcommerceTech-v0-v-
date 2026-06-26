@@ -16,6 +16,7 @@ import { useRubro } from './context/useRubro';
 import { useCart } from './features/cart/useCart';
 import { useWishlist } from './features/wishlist/useWishlist';
 import { useProducts } from './features/products/useProducts';
+import { buildDynamicProductSearchItems } from './lib/catalogSearch';
 
 // Lazy loading modals and sidebars
 const CartSidebar = lazy(() => import('./components/CartSidebar').then((module) => ({ default: module.CartSidebar })));
@@ -76,6 +77,8 @@ export default function App() {
     const message = messageByReason[reason] || messageByReason.default;
 
     toast.info(message.title, { description: message.description });
+    if (reason === 'seller') return;
+
     setAuthOpen(true);
   }, []);
   const contextProductsForWishlist = useMemo(() => [...featuredProducts, ...trendingProducts], [featuredProducts, trendingProducts]);
@@ -102,6 +105,14 @@ export default function App() {
       new Map(products.filter(Boolean).map((product) => [String(product.id), product])).values()
     );
   }, [cart.cartItems, featuredProducts, wishlist.resolvedWishlistItems, trendingProducts]);
+
+  const searchCatalogItems = useMemo(() => {
+    const dynamicItems = buildDynamicProductSearchItems(allProducts);
+
+    return Array.from(
+      new Map(dynamicItems.map((item) => [`${item.path}:${item.id}`, item])).values()
+    );
+  }, [allProducts]);
 
   const productCategories = useMemo(() => {
     const uniqueProducts = new Map(
@@ -187,6 +198,7 @@ export default function App() {
         wishlistItemsCount={wishlist.resolvedWishlistItems.length}
         onUserClick={() => setAuthOpen(true)}
         productCategories={productCategories}
+        searchCatalogItems={searchCatalogItems}
       />
 
       <main className="relative" aria-label="Main content">

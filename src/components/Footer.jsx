@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'next-themes';
 import PropTypes from 'prop-types';
 import { getFooterConfig } from '../services/strapi';
@@ -40,6 +40,72 @@ const SOCIAL_LINKS = [
     label: 'LinkedIn',
   },
 ];
+
+const DEFAULT_FOOTER_LINKS = {
+  categorias: [
+    { label: 'Plantillas dashboard', href: '/plantillas-dashboard' },
+    { label: 'Plantillas Auth', href: '/plantillas-auth' },
+    { label: 'Componentes de UI/UX', href: '/componentes-ui-ux' },
+    { label: 'Libros de programación', href: '/libros-programacion' },
+    { label: 'Guías de estudio', href: '/guias-estudio' },
+    { label: 'Controladores', href: '/controladores' },
+  ],
+  soporte: [
+    { label: 'Centro de ayuda', href: '/centro-de-ayuda' },
+    { label: 'Documentación', href: '/documentacion' },
+    { label: 'Referencia API', href: '/referencia-api' },
+    { label: 'Comunidad', href: '/comunidad' },
+    { label: 'Contáctanos', href: '/contactanos' },
+    { label: 'Preguntas Frecuentes', href: '/preguntas-frecuentes' },
+  ],
+  compania: [
+    { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Socios', href: '/socios' },
+    { label: 'Programa de Afiliados', href: '/programa-afiliados' },
+  ],
+};
+
+const FOOTER_ROUTE_BY_LABEL = {
+  'centro de ayuda': '/centro-de-ayuda',
+  documentacion: '/documentacion',
+  'referencia api': '/referencia-api',
+  comunidad: '/comunidad',
+  contactanos: '/contactanos',
+  'preguntas frecuentes': '/preguntas-frecuentes',
+  'sobre nosotros': '/sobre-nosotros',
+  blog: '/blog',
+  socios: '/socios',
+  'programa de afiliados': '/programa-afiliados',
+};
+
+function normalizeLabel(label) {
+  return String(label ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function normalizeFooterLinks(links, fallbackLinks) {
+  const sourceLinks = Array.isArray(links) && links.length > 0 ? links : fallbackLinks;
+
+  return sourceLinks.map((link) => {
+    const label = link.label ?? '';
+    const mappedHref = FOOTER_ROUTE_BY_LABEL[normalizeLabel(label)];
+
+    return {
+      ...link,
+      href: mappedHref || link.href || '#',
+      label,
+    };
+  });
+}
+
+function isInternalLink(href) {
+  return href.startsWith('/') || href.startsWith('#');
+}
+
 export function Footer() {
   const { resolvedTheme } = useTheme();
   const [footerConfig, setFooterConfig] = useState(null);
@@ -54,6 +120,15 @@ export function Footer() {
   const footerSocialBackground = isDark ? '#111115' : '#f8fafc';
   const footerSocialBorder = isDark ? '#2c2c30' : '#e2e8f0';
   const footerSocialIconColor = isDark ? '#E4D9AF' : '#111827';
+  const footerLinks = useMemo(() => {
+    const menuLinks = footerConfig?.menuLinks || {};
+
+    return {
+      categorias: normalizeFooterLinks(menuLinks.categorias, DEFAULT_FOOTER_LINKS.categorias),
+      soporte: normalizeFooterLinks(menuLinks.soporte, DEFAULT_FOOTER_LINKS.soporte),
+      compania: normalizeFooterLinks(menuLinks.compania, DEFAULT_FOOTER_LINKS.compania),
+    };
+  }, [footerConfig]);
 
   return (
     <footer
@@ -250,7 +325,7 @@ export function Footer() {
           <FooterLinks
             ariaLabel="footer categories"
             getColor={getColor}
-            links={footerConfig?.menuLinks?.categorias || []}
+            links={footerLinks.categorias}
             showSparkle
             title="Categorías"
           />
@@ -259,7 +334,7 @@ export function Footer() {
           <FooterLinks
             ariaLabel="footer support"
             getColor={getColor}
-            links={footerConfig?.menuLinks?.soporte || []}
+            links={footerLinks.soporte}
             title="Soporte"
           />
 
@@ -267,7 +342,7 @@ export function Footer() {
           <FooterLinks
             ariaLabel="footer company"
             getColor={getColor}
-            links={footerConfig?.menuLinks?.compania || []}
+            links={footerLinks.compania}
             title="Compañía"
           />
         </section>
@@ -375,13 +450,25 @@ function FooterLinks({ ariaLabel, getColor, links, showSparkle = false, title })
       <ul className="space-y-2">
         {links.map((link, index) => (
           <li key={index}>
-            <a
-              href={link.href}
-              className="transition-colors hover:translate-x-1 inline-block"
-              style={{ color: getColor('enlaceColor', '#fff') }}
-            >
-              {link.label}
-            </a>
+            {isInternalLink(link.href) ? (
+              <Link
+                to={link.href}
+                className="transition-colors hover:translate-x-1 inline-block"
+                style={{ color: getColor('enlaceColor', '#fff') }}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:translate-x-1 inline-block"
+                style={{ color: getColor('enlaceColor', '#fff') }}
+              >
+                {link.label}
+              </a>
+            )}
           </li>
         ))}
       </ul>

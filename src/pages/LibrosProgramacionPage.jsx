@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
 import { useFilteredCatalog } from './catalog/useFilteredCatalog';
@@ -19,9 +19,14 @@ import {
   CATEGORIES,
   mapBookToProduct
 } from './LibrosProgramacionPage.data';
+import { getSearchQueryFromParams } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 
 export function LibrosProgramacionPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems = [], onVentasClick } = useOutletContext();
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
   const {
     activeCategory,
     filteredItems: filteredBooks,
@@ -37,6 +42,14 @@ export function LibrosProgramacionPage() {
   });
   const [selectedBook, setSelectedBook] = useState(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
+
+  useEffect(() => {
+    if (!urlSearchQuery) return;
+    setActiveCategory('Todos');
+    setSearchQuery(urlSearchQuery);
+  }, [setActiveCategory, setSearchQuery, urlSearchQuery]);
+
+  useSearchHighlight(highlightedProductId, filteredBooks.length);
 
   const mappedBooks = useMemo(() => BOOKS_DATA.map(mapBookToProduct), []);
   const selectedProduct = selectedBook ? mapBookToProduct(selectedBook) : null;
@@ -191,11 +204,12 @@ export function LibrosProgramacionPage() {
       </section>
 
       {/* Grid de libros - Sentido de masonry */}
-      <section className="container mx-auto px-4 pb-24">
+      <section id="catalog-results" className="container mx-auto px-4 pb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredBooks.map((book) => (
             <div
               key={book.id}
+              data-search-id={`book-${book.id}`}
               className="group relative bg-[#111115] rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2"
             >
               {/* Contenedor de la imagen */}

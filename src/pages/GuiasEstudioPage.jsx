@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ProductPreviewDialog } from '../components/ProductPreviewDialog';
 import { useFilteredCatalog } from './catalog/useFilteredCatalog';
@@ -16,9 +16,14 @@ import {
   CATEGORIES,
   mapGuideToProduct
 } from './GuiasEstudioPage.data';
+import { getSearchQueryFromParams } from '../lib/catalogSearch';
+import { useSearchHighlight } from '../hooks/useSearchHighlight';
 
 export function GuiasEstudioPage() {
   const { onAddToCart, onToggleWishlist, wishlistItems = [] } = useOutletContext();
+  const [searchParams] = useSearchParams();
+  const urlSearchQuery = getSearchQueryFromParams(searchParams);
+  const highlightedProductId = searchParams.get('highlight');
   const {
     activeCategory,
     filteredItems: filteredGuides,
@@ -33,6 +38,14 @@ export function GuiasEstudioPage() {
     searchBy: (guide) => [guide.title, guide.description, ...guide.tags],
   });
   const [selectedGuide, setSelectedGuide] = useState(null);
+
+  useEffect(() => {
+    if (!urlSearchQuery) return;
+    setActiveCategory('todos');
+    setSearchQuery(urlSearchQuery);
+  }, [setActiveCategory, setSearchQuery, urlSearchQuery]);
+
+  useSearchHighlight(highlightedProductId, filteredGuides.length);
 
   const allGuideProducts = useMemo(() => GUIDES_DATA.map(mapGuideToProduct), []);
   const selectedProduct = selectedGuide ? mapGuideToProduct(selectedGuide) : null;
@@ -126,11 +139,12 @@ export function GuiasEstudioPage() {
       </section>
 
       {/* Grid de guias */}
-      <section className="container mx-auto px-4 pb-32">
+      <section id="catalog-results" className="container mx-auto px-4 pb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredGuides.map((guide) => (
             <div
               key={guide.id}
+              data-search-id={`guide-${guide.id}`}
               className="group relative bg-[#111115] rounded-3xl border border-white/5 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2 flex flex-col"
               onClick={() => openGuide(guide)}
             >
